@@ -1,0 +1,10 @@
+.vscode/**
+.vscode-test/**
+test/**
+.gitignore
+src/
+node_modules
+.eslintrc.json
+.prettierrc.json
+.cache
+**/*.map

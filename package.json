@@ -1,0 +1,161 @@
+{
+  "name": "vbscript",
+  "displayName": "VBScript",
+  "description": "VBScript Language Support",
+  "icon": "img/ai_icon.png",
+  "version": "0.0.1",
+  "publisher": "Serpen",
+  "galleryBanner": {
+    "color": "#254768",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.14.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "VBS",
+    "VBScript"
+  ],
+  "devDependencies": {
+    "@types/node": "^14.6.4",
+    "@types/vscode": "^1.48.0",
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^2.1.1",
+    "typescript": "^4.0.2"
+  },
+  "license": "MIT",
+  "main": "./dist/extension",
+  "activationEvents": [
+    "onLanguage:vbs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loganch/AutoIt-VSCode.git"
+  },
+  "homepage": "https://github.com/loganch/AutoIt-VSCode/blob/master/README.md",
+  "contributes": {
+    "languages": [
+      {
+        "id": "vbs",
+        "aliases": [
+          "VBScript",
+          "vbs"
+        ],
+        "extensions": [
+          ".vbs",
+          ".vba",
+          ".bas",
+          ".vbe",
+          ".wsf",
+          ".wsc",
+          ".acm",
+          ".acr",
+          ".acf"
+        ],
+        "configuration": "./syntaxes/language-configuration.json"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "when": "editorLangId == vbs",
+          "command": "extension.runScript"
+        },
+        {
+          "command": "extension.launchInfo",
+          "when": "editorLangId == vbs"
+        },
+        {
+          "command": "extension.debugConsole",
+          "when": "editorLangId == vbs"
+        },
+        {
+          "command": "extension.killScript",
+          "when": "editorLangId == vbs"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "extension.runScript",
+        "title": "AutoIt: Run Script"
+      },
+      {
+        "command": "extension.launchInfo",
+        "title": "AutoIt: Au3Info"
+      },
+      {
+        "command": "extension.debugConsole",
+        "title": "AutoIt: Debug to Console"
+      },
+      {
+        "command": "extension.changeParams",
+        "title": "AutoIt: Change Console Parameters"
+      },
+      {
+        "command": "extension.killScript",
+        "title": "AutoIt: Kill Running Script"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "vbs",
+        "scopeName": "source.vbs",
+        "path": "./syntaxes/vbs.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "vbs",
+        "path": "./snippets/vbs.json"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.runScript",
+        "key": "f5",
+        "when": "editorTextFocus && editorLangId == vbs"
+      },
+      {
+        "command": "extension.debugConsole",
+        "key": "alt+d",
+        "when": "editorTextFocus && editorLangId == vbs"
+      },
+      {
+        "command": "extension.changeParams",
+        "key": "shift+f8",
+        "when": "editorTextFocus && editorLangId == vbs"
+      },
+      {
+        "command": "extension.killScript",
+        "key": "ctrl+pausebreak"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "AutoIt Configuration",
+      "properties": {
+        "autoit.aiPath": {
+          "type": "string",
+          "default": "C:\\Program Files (x86)\\AutoIt3\\AutoIt3.exe",
+          "description": "Path AutoIt3.exe"
+        }
+      }
+    }
+  },
+  "dependencies": {},
+  "scripts": {
+    "build": "parcel build src/extension.ts --target node",
+    "dev": "parcel build src/extension.ts --target node --no-minify",
+    "vscode:prepublish": "parcel build src/extension.ts --target node"
+  }
+}

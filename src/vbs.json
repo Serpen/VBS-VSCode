@@ -1,0 +1,155 @@
+{
+  "Abs": {
+    "documentation": "Calculates the absolute value of a number.",
+    "label": "Function Abs(expr as Integer) as Integer",
+    "params": [
+      {
+        "label": "expr",
+        "documentation": "Any valid numeric expression."
+      }
+    ]
+  },
+  "Asc": {
+    "documentation": "Returns the unicode code of a character.",
+    "label": "Function Asc (char as String) as Integer",
+    "params": [
+      {
+        "label": "char",
+        "documentation": "The character to get the code for. If a string is used, the code for the first character is given."
+      }
+    ]
+  },
+  "Atn": {
+    "label": "Function Atn(expression)",
+    "documentation": "Calculates the arctangent of a number.",
+    "params": [
+      {
+        "label": "expression",
+        "documentation": "Any valid numeric expression."
+      }
+    ]
+  },
+  "Call": {
+    "label": "Call ( \"function\" [, paramN] )",
+    "documentation": "Calls a user-defined or built-in function contained in first parameter.",
+    "params": [
+      {
+        "label": "function",
+        "documentation": "The name of function or function to call."
+      },
+      {
+        "label": "paramN",
+        "documentation": "Argument(s) that will be passed to the function being invoked."
+      }
+    ]
+  },
+  "Chr": {
+    "label": "Function Chr ( ASCIIcode )",
+    "documentation": "Returns a character corresponding to an ASCII code.",
+    "params": [
+      {
+        "label": "ASCIIcode",
+        "documentation": "An ASCII code in the range 0-255 (e.g., 65 returns the capital letter A)."
+      }
+    ]
+  },
+  "Cos": {
+    "label": "Function Cos ( expression )",
+    "documentation": "Calculates the cosine of a number.",
+    "params": [
+      {
+        "label": "expression",
+        "documentation": "Value in radians."
+      }
+    ]
+  },
+  "Exp": {
+    "documentation": "Calculates e to the power of a number.",
+    "label": "Function Exp ( expression )",
+    "params": [
+      {
+        "label": "expression",
+        "documentation": "Any valid numeric expression. "
+      }
+    ]
+  },
+  "Hex": {
+    "documentation": "Returns a string representation of an integer or of a binary type converted to hexadecimal.",
+    "label": "Function Hex ( expression [, length] )",
+    "params": [
+      {
+        "label": "expression",
+        "documentation": "The expression to convert."
+      },
+      {
+        "label": "length",
+        "documentation": "**[optional]** Number of characters to be returned for integer.  \nCharacters are truncated from the left-hand side if length is too small.  \nThis parameter is ignored if the data is binary data."
+      }
+    ]
+  },
+  "InputBox": {
+    "documentation": "Displays an input box to ask the user to enter a string.",
+    "label": "Function InputBox ( \"title\", \"prompt\" [, \"default\" [, \"password char\" [, width = -1 [, height = -1 [, left = Default [, top = Default [, timeout = 0 [, hwnd]]]]]]]] )",
+    "params": [
+      {
+        "label": "title",
+        "documentation": "The title of the input box."
+      },
+      {
+        "label": "prompt",
+        "documentation": "A message to the user indicating what kind of input is expected."
+      },
+      {
+        "label": "default",
+        "documentation": "**[optional]** The value that the input box starts with."
+      },
+      {
+        "label": "password char",
+        "documentation": "**[optional]** The character to replace all typed characters with in the display. If you want the actual typed character to appear, define with an empty string (\"\") (default) or a space for the first character. If you provide a multi-character string, only the first character is used for character masking. There are special meanings for the second and subsequent characters."
+      },
+      {
+        "label": "width",
+        "documentation": "**[optional]** The width of the window."
+      },
+      {
+        "label": "height",
+        "documentation": "**[optional]** The height of the window."
+      },
+      {
+        "label": "left",
+        "documentation": "**[optional]** The left side of the input box. By default, the box is centered."
+      },
+      {
+        "label": "top",
+        "documentation": "**[optional]** The top of the input box. By default, the box is centered."
+      },
+      {
+        "label": "timeout",
+        "documentation": "**[optional]** How many seconds to wait before automatically canceling the InputBox()."
+      },
+      {
+        "label": "hwnd",
+        "documentation": "**[optional]** The window handle to use as the parent for this dialog."
+      }
+    ]
+  },
+  "Int": {
+    "documentation": "Returns the integer (whole number) representation of an expression.",
+    "label": "Function Int ( expression [, flag = 0] ) as Integer",
+    "params": [
+      {
+        "label": "expression",
+        "documentation": "An expression to convert into an integer."
+      },
+      {
+        "label": "flag",
+        "documentation": "**[optional]** Defines behavior.  \nCan be one of the following:  \n&emsp;`$NUMBER_AUTO` (`0`) = (default) the result is auto-sized integer.  \n&emsp;`$NUMBER_32BIT` (`1`) = string is interpreted as a 32bit integer  \n&emsp;`$NUMBER_64BIT` (`2`) = string is interpreted as a 64bit integer.  \n\nConstants are defined in \"AutoItConstants.au3\"."
+      }
+    ]
+  },
+  "Strings": {
+    "type": "class",
+    "documentation": "String Functions",
+    "label": "String"
+  }
+}
