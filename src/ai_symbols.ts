@@ -4,7 +4,7 @@ import PATTERNS from './patterns';
 
 const config = workspace.getConfiguration('vbs');
 
-const isSkippableLine = (line : TextLine) => {
+const isSkippableLine = (line: TextLine) => {
   const skipChars = [';', '#'];
 
   if (line.isEmptyOrWhitespace) {
@@ -24,7 +24,8 @@ module.exports = languages.registerDocumentSymbolProvider(UTILS.VBS_MODE, {
   provideDocumentSymbols(doc) {
     const result = [];
     const found = [];
-    let funcName : RegExpExecArray;
+    let matches: RegExpExecArray;
+    let name: string;
 
     // Get the number of lines in the document to loop through
     const lineCount = Math.min(doc.lineCount, 10000);
@@ -36,29 +37,49 @@ module.exports = languages.registerDocumentSymbolProvider(UTILS.VBS_MODE, {
         continue;
       }
 
-      funcName = PATTERNS.FUNCTION.exec(line.text);
-      if (funcName && !found.includes(funcName[2])) {
+      let matches = PATTERNS.FUNCTION.exec(line.text);
+      if (matches) {
+        name = matches[2];
         let symKind = SymbolKind.Function;
-        if (funcName[1].toLowerCase() === "sub")
-          symKind = SymbolKind.Method;
-          
-        const functionSymbol = new SymbolInformation(funcName[2], symKind, line.range);
+        if (matches[1].toLowerCase() === "sub")
+          if (name.toLowerCase() == "class_initialize" || name.toLowerCase() == "class_terminate")
+            symKind = SymbolKind.Constructor;
+          else
+            symKind = SymbolKind.Method;
+
+        const functionSymbol = new SymbolInformation(name, symKind, line.range);
         result.push(functionSymbol);
-        found.push(funcName[2]);
+        found.push(name);
+      }
+
+      matches = PATTERNS.CLASS.exec(line.text);
+      if (matches) {
+        name = matches[1];
+        const classSymbol = new SymbolInformation(name, SymbolKind.Class, line.range);
+        result.push(classSymbol);
+        found.push(name);
+      }
+
+      matches = PATTERNS.PROP.exec(line.text);
+      if (matches) {
+        name = matches[1];
+        const classSymbol = new SymbolInformation(name, SymbolKind.Property, line.range);
+        result.push(classSymbol);
+        found.push(name);
       }
 
       // if (!config.showVariablesInGoToSymbol) {
-        let varName = PATTERNS.VAR.exec(line.text);
-        if (varName && !found.includes(varName[2])) {
-          let symKind = SymbolKind.Variable;
-          if (varName[1].toLowerCase() === "const")
-            symKind = SymbolKind.Constant;
-          
-          const variableSymbol = new SymbolInformation(varName[2], symKind, line.range);
-          result.push(variableSymbol);
-          found.push(varName[2]);
+      matches = PATTERNS.VAR.exec(line.text);
+      if (matches) {
+        let name = matches[2];
+        let symKind = SymbolKind.Variable;
+        if (matches[1].toLowerCase() === "const")
+          symKind = SymbolKind.Constant;
 
-        }       
+        const variableSymbol = new SymbolInformation(name, symKind, line.range);
+        result.push(variableSymbol);
+        found.push(name);
+      }
       // }
     }
 
