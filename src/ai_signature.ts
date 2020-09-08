@@ -121,7 +121,7 @@ function getLocalSigs(doc : TextDocument) {
 
   let pattern = null;
   do {
-    pattern = PATTERNS.FUNCTION_SIG_LOCAL.exec(text);
+    pattern = PATTERNS.FUNCTION_SIG.exec(text);
     if (pattern) {
       functions = {
         ...functions,
