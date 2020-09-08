@@ -2,6 +2,7 @@
 import { languages, Hover, CompletionItem, TextDocument, Position } from 'vscode';
 import vbs from './vbs.json';
 import UTILS from './util';
+import PATTERNS from './patterns';
 
 module.exports = languages.registerHoverProvider(UTILS.VBS_MODE, {
   provideHover(document : TextDocument, position : Position) {
@@ -14,8 +15,7 @@ module.exports = languages.registerHoverProvider(UTILS.VBS_MODE, {
 
     const text = document.getText();
 
-    const functionPattern = new RegExp(`\\s*(Function|Sub|Dim|Const)\\s+${word}`, "i");
-    let matches = functionPattern.exec(text);
+    let matches = PATTERNS.Function(word).exec(text);
     if (matches) {
       return new Hover(matches[1] + " " + word);
     }

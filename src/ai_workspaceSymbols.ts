@@ -1,8 +1,6 @@
 import { languages, SymbolInformation, SymbolKind, Location, Position, workspace, Uri } from 'vscode';
 import fs from 'fs';
 
-import functionPattern from './util';
-import { Path } from 'typescript';
 import PATTERNS from './patterns';
 
 const variablePattern = /(\$\w+)/g;
@@ -36,8 +34,6 @@ async function provideWorkspaceSymbols(search : string) {
           const variableFound = variablePattern.exec(line);
           const functionFound = PATTERNS.FUNCTION.exec(line);
 
-          if (line.charAt(0) === ';') return false; // Skip commented lines
-
           if (variableFound && config.showVariablesInGoToSymbol) {
             const { 1: newName } = variableFound;
 
@@ -60,7 +56,7 @@ async function provideWorkspaceSymbols(search : string) {
               return false;
             }
             symbolKind = SymbolKind.Function;
-            return symbols.push(makeSymbol("newName", symbolKind, file, index));
+            return symbols.push(makeSymbol(newName, symbolKind, file, index));
           }
           return false;
         });

@@ -8,15 +8,13 @@ import {
   workspace,
   TextDocument,
   Position,
-  CompletionItem,
 } from 'vscode';
 import fs from 'fs';
 import path from 'path';
 import defaultSigs from './vbs.json';
 import UTILS from './util';
+import PATTERNS from './patterns';
 
-let currentIncludeFiles = [];
-let includes = {};
 
 /**
  * Reduces a partial line of code to the current Function for parsing
@@ -26,9 +24,7 @@ function getParsableCode(code : string) : string {
   const reducedCode = code
     .replace(/\w+\([^()]*\)/g, '')
     .replace(/"[^"]*"/g, '')
-    .replace(/'[^']*'/g, '') // Remove double/single quote sets
     .replace(/"[^"]*(?=$)/g, '') // Remove double quote and text at end of line
-    .replace(/'[^']*(?=$)/g, '') // Remove single quote and text at end of line
     .replace(/\([^()]*\)/g, '') // Remove paren sets
     .replace(/\({2,}/g, '('); // Reduce multiple open parens
 
@@ -39,7 +35,7 @@ function getCurrentFunction(code : string) {
   const parenSplit = code.split('(');
   // Get the 2nd to last item (right in front of last open paren)
   // and clean up the results
-    return parenSplit[parenSplit.length - 2].match(/(.*)\b(\w+)/)[2];
+  return parenSplit[parenSplit.length - 2].match(/(.*)\b(\w+)/)[2];
 }
 
 function countCommas(code : string) {
@@ -65,13 +61,6 @@ function getCallInfo(doc : TextDocument, pos : Position) {
   };
 }
 
-function arraysMatch(arr1, arr2) {
-  if (arr1.length === arr2.length && arr1.some(v => arr2.indexOf(v) <= 0)) {
-    return true;
-  }
-  return false;
-}
-
 function getParams(paramText : string) {
   let params = {};
 
@@ -92,14 +81,14 @@ function getParams(paramText : string) {
 
 function getIncludeData(fileName : string, doc : TextDocument) {
   // console.log(fileName)
-  const functionPattern = /(?=\S)(?!;~\s)(?:Function|Sub)\s+((\w+)\((.+)?\))/g;
+  
   const functions = {};
   const filePath = UTILS.getIncludePath(fileName, doc);
 
   let pattern = null;
   const fileData = UTILS.getIncludeText(filePath);
   do {
-    pattern = functionPattern.exec(fileData);
+    pattern = PATTERNS.FUNCTION_SIG.exec(fileData);
     if (pattern) {
       functions[pattern[2]] = {
         label: pattern[1],
@@ -127,13 +116,12 @@ function findFilepath(file : string) : string {
 }
 
 function getLocalSigs(doc : TextDocument) {
-  const functionPattern = /^[\t ]{0,}(?:Function|Sub)\s+((\w+)\((.+)?\))/gm;
   const text = doc.getText();
   let functions = {};
 
   let pattern = null;
   do {
-    pattern = functionPattern.exec(text);
+    pattern = PATTERNS.FUNCTION_SIG_LOCAL.exec(text);
     if (pattern) {
       functions = {
         ...functions,
