@@ -1,5 +1,5 @@
 import { languages, Location, TextDocument, Position } from 'vscode';
-import { VBS_MODE } from './util';
+import UTILS from './util';
 
 const AutoItDefinitionProvider = {
   provideDefinition(document : TextDocument, position : Position) {
@@ -23,6 +23,6 @@ const AutoItDefinitionProvider = {
   },
 };
 
-const defProvider = languages.registerDefinitionProvider(VBS_MODE, AutoItDefinitionProvider);
+const defProvider = languages.registerDefinitionProvider(UTILS.VBS_MODE, AutoItDefinitionProvider);
 
 module.exports = defProvider;

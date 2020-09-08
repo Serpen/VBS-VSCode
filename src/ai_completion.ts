@@ -2,8 +2,9 @@ import { languages, CompletionItem, CompletionItemKind, workspace, Range } from 
 import fs from 'fs';
 import path from 'path';
 import completions from './completions';
-import { getIncludeText, getIncludePath, includePattern } from './util';
 import DEFAULT_UDFS from './constants';
+import UTIL from './util';
+import PATTERNS from './patterns';
 
 let currentIncludeFiles = [];
 let includes = [];
@@ -57,10 +58,10 @@ const findFilepath = file => {
 function getIncludeData(fileName, document) {
   const includeFuncPattern = /^(?=\S)(?!;~\s)Func\s+(\w+)\s*\(/gm;
   const functions = [];
-  const filePath = getIncludePath(fileName, document);
+  const filePath = UTIL.getIncludePath(fileName, document);
 
   let pattern = null;
-  const fileData = getIncludeText(filePath);
+  const fileData = UTIL.getIncludeText(filePath);
 
   pattern = includeFuncPattern.exec(fileData);
   do {
@@ -188,10 +189,10 @@ const provideCompletionItems = (document, position) => {
   const localCompletions = [...variableCompletions, ...functionCompletions];
 
   // collect the includes of the document
-  let pattern = includePattern.exec(text);
+  let pattern = PATTERNS.INCLUDE.exec(text);
   while (pattern) {
     includesCheck.push(pattern[1]);
-    pattern = includePattern.exec(text);
+    pattern = PATTERNS.INCLUDE.exec(text);
   }
 
   // Redo the include collecting if the includes are different

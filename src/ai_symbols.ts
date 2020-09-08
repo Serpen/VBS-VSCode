@@ -1,10 +1,27 @@
-import { languages, SymbolInformation, SymbolKind, workspace } from 'vscode';
-import { AI_CONSTANTS, VBS_MODE, isSkippableLine, functionPattern } from './util';
+import { languages, SymbolInformation, SymbolKind, workspace, TextLine } from 'vscode';
+import UTILS from './util';
+import PATTERNS from './patterns';
 
 const variablePattern = /(?:Dim|Const)\s(\w+)/g;
 const config = workspace.getConfiguration('vbs');
 
-module.exports = languages.registerDocumentSymbolProvider(VBS_MODE, {
+const isSkippableLine = (line : TextLine) => {
+  const skipChars = [';', '#'];
+
+  if (line.isEmptyOrWhitespace) {
+    return true;
+  }
+
+  const firstChar = line.text.charAt(line.firstNonWhitespaceCharacterIndex);
+  if (skipChars.includes(firstChar)) {
+    return true;
+  }
+
+  return false;
+};
+
+
+module.exports = languages.registerDocumentSymbolProvider(UTILS.VBS_MODE, {
   provideDocumentSymbols(doc) {
     const result = [];
     const found = [];
@@ -21,7 +38,7 @@ module.exports = languages.registerDocumentSymbolProvider(VBS_MODE, {
         continue;
       }
 
-      funcName = functionPattern.exec(text);
+      funcName = PATTERNS.FUNCTION.exec(text);
       if (funcName && !found.includes(funcName[1])) {
         const functionSymbol = new SymbolInformation(funcName[1], SymbolKind.Function, line.range);
         result.push(functionSymbol);
@@ -38,7 +55,7 @@ module.exports = languages.registerDocumentSymbolProvider(VBS_MODE, {
         console.log("2");
         
         variables.forEach(variable => {
-          if (found.includes(variable) || AI_CONSTANTS.includes(variable)) {
+          if (found.includes(variable)) {
             return;
           }
           console.log("3");

@@ -12,9 +12,8 @@ import {
 } from 'vscode';
 import fs from 'fs';
 import path from 'path';
-import { getIncludeText, getIncludePath, includePattern, VBS_MODE } from './util';
 import defaultSigs from './vbs.json';
-import DEFAULT_UDFS from './constants';
+import UTILS from './util';
 
 let currentIncludeFiles = [];
 let includes = {};
@@ -95,10 +94,10 @@ function getIncludeData(fileName : string, doc : TextDocument) {
   // console.log(fileName)
   const functionPattern = /(?=\S)(?!;~\s)(?:Function|Sub)\s+((\w+)\((.+)?\))/g;
   const functions = {};
-  const filePath = getIncludePath(fileName, doc);
+  const filePath = UTILS.getIncludePath(fileName, doc);
 
   let pattern = null;
-  const fileData = getIncludeText(filePath);
+  const fileData = UTILS.getIncludeText(filePath);
   do {
     pattern = functionPattern.exec(fileData);
     if (pattern) {
@@ -151,7 +150,7 @@ function getLocalSigs(doc : TextDocument) {
 }
 
 module.exports = languages.registerSignatureHelpProvider(
-  VBS_MODE,
+  UTILS.VBS_MODE,
   {
     provideSignatureHelp(document, position) {
       // Find out what called for sig

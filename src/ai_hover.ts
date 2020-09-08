@@ -1,9 +1,9 @@
 "use strict";
 import { languages, Hover, CompletionItem, TextDocument, Position } from 'vscode';
 import vbs from './vbs.json';
-import { VBS_MODE } from './util';
+import UTILS from './util';
 
-module.exports = languages.registerHoverProvider(VBS_MODE, {
+module.exports = languages.registerHoverProvider(UTILS.VBS_MODE, {
   provideHover(document : TextDocument, position : Position) {
     const wordRange = document.getWordRangeAtPosition(position);
     const word : string = wordRange ? document.getText(wordRange) : '';

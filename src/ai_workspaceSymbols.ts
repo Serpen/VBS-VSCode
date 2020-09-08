@@ -1,8 +1,9 @@
 import { languages, SymbolInformation, SymbolKind, Location, Position, workspace, Uri } from 'vscode';
 import fs from 'fs';
 
-import { functionPattern } from './util';
+import functionPattern from './util';
 import { Path } from 'typescript';
+import PATTERNS from './patterns';
 
 const variablePattern = /(\$\w+)/g;
 const config = workspace.getConfiguration('vbs');
@@ -33,7 +34,7 @@ async function provideWorkspaceSymbols(search : string) {
         .forEach((line, index) => {
           let symbolKind : SymbolKind;
           const variableFound = variablePattern.exec(line);
-          const functionFound = functionPattern.exec(line);
+          const functionFound = PATTERNS.FUNCTION.exec(line);
 
           if (line.charAt(0) === ';') return false; // Skip commented lines
 
