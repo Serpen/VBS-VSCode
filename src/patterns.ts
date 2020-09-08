@@ -6,10 +6,7 @@ const FUNCTION_SIG = /^[\t ]{0,}(?:(?:Public|Private)\s+)?(?:Function|Sub)\s+((\
 const Function = (word : string) => new RegExp(`\\b(Function|Sub|Dim|Const|Class)\\s+${word}\\b`, "i");
   
 const VAR_DEF = (word : string) => new RegExp(`(?:Dim|Const)\\s${word}\\s?=?`, 'i');
-const VAR = /^\s*(Dim|Const)\s+(\w+)/i;
-const VAR_m = /\b(Dim|Const)\s+(\w*)\s*/gi;
-
-
+const VAR = /\b(Dim|Const)\s+(\w+)/gi;
 
 const LIBRARY_INCLUDE = /^#include\s+<([\w.]+\.vbs)>/gm;
 const INCLUDE = /^#include\s"(.+)"/gm;
@@ -17,7 +14,6 @@ const INCLUDE = /^#include\s"(.+)"/gm;
 const PATTERNS = {
   FUNCTION,
   VAR,
-  VAR_m,
   FUNCTION_SIG,
   INCLUDE,
   LIBRARY_INCLUDE,
