@@ -1,20 +1,37 @@
-import { languages, CompletionItem, CompletionItemKind, workspace, Range } from 'vscode';
+import { languages, CompletionItem, CompletionItemKind, workspace, Range, TextDocument, Position } from 'vscode';
 import fs from 'fs';
 import path from 'path';
 import completions from './completions';
 import DEFAULT_UDFS from './constants';
 import UTILS from './util';
 import PATTERNS from './patterns';
+import UTIL from './util';
 
 let currentIncludeFiles = [];
 let includes = [];
 
 
-const createNewCompletionItem = (kind, name, strDetail = 'Document Function') => {
+const createNewCompletionItem = (kind : CompletionItemKind, name : string, strDetail = '') => {
   const compItem = new CompletionItem(name, kind);
 
-  compItem.detail = kind === CompletionItemKind.Variable ? 'Variable' : strDetail;
-
+  if (strDetail != '')
+    compItem.detail = strDetail;
+  else { 
+    switch (kind) {
+      case CompletionItemKind.Constant:
+        compItem.detail = "Document Constant";
+        break;
+      case CompletionItemKind.Function:
+        compItem.detail = "Document Function";
+        break;
+      case CompletionItemKind.Method:
+        compItem.detail = "Document Sub";
+        break;
+      case CompletionItemKind.Variable:
+        compItem.detail = "Document Variable";
+        break;
+    }
+  }
   return compItem;
 };
 
@@ -111,19 +128,22 @@ const getLibraryIncludes = docText => {
  * @param {String} firstChar The first character of the text considered for a completion
  * @returns {Array<Object>} Array of CompletionItem objects
  */
-const getVariableCompletions = (text : string, firstChar : string) => {
+const getVariableCompletions = (text : string) => {
   const variables = [];
   const foundVariables = {};
   let variableName : string;
 
-  let matches = PATTERNS.VAR_COMPL.exec(text);
+  let matches = PATTERNS.VAR_m.exec(text);
   while (matches) {
     variableName = matches[2];
     if (!(variableName in foundVariables)) {
+      let itmKind = CompletionItemKind.Variable;
+      if (matches[1].toLowerCase() == "const")
+        itmKind = CompletionItemKind.Constant;
       foundVariables[variableName] = true;
-      variables.push(createNewCompletionItem(CompletionItemKind.Variable, variableName[2]));
+      variables.push(createNewCompletionItem(itmKind, variableName));
     }
-    matches = PATTERNS.VAR_COMPL.exec(text);
+    matches = PATTERNS.VAR_m.exec(text);
   }
 
   return variables;
@@ -138,25 +158,27 @@ const getLocalFunctionCompletions = (text : string) => {
   const functions = [];
   const foundFunctions = {};
 
-  let pattern = PATTERNS.FUNC_COMPL.exec(text);
-  while (pattern) {
-    const { 1: functionName } = pattern;
+  let matches = PATTERNS.FUNC_COMPL.exec(text);
+  while (matches) {
+    const functionName = matches[2];
     if (!(functionName in foundFunctions)) {
+      let itmKind = CompletionItemKind.Function;
+      if (matches[1].toLowerCase() == "sub")
+        itmKind = CompletionItemKind.Method;
       foundFunctions[functionName] = true;
       functions.push(createNewCompletionItem(CompletionItemKind.Function, functionName));
     }
-    pattern = PATTERNS.FUNC_COMPL.exec(text);
+    matches = PATTERNS.FUNC_COMPL.exec(text);
   }
 
   return functions;
 };
 
-const provideCompletionItems = (document, position) => {
+const provideCompletionItems = (document : TextDocument, position : Position) => {
   // Gather the functions created by the user
 
   const text = document.getText();
   let range = document.getWordRangeAtPosition(position);
-  const prefix = range ? document.getText(range)[0] : '';
   const includesCheck = [];
 
   if (!range) {
@@ -170,7 +192,7 @@ const provideCompletionItems = (document, position) => {
     return null;
   }
 
-  const variableCompletions = getVariableCompletions(text, prefix);
+  const variableCompletions = getVariableCompletions(text);
   const functionCompletions = getLocalFunctionCompletions(text);
 
   const localCompletions = [...variableCompletions, ...functionCompletions];
@@ -211,7 +233,7 @@ const provideCompletionItems = (document, position) => {
 };
 
 module.exports = languages.registerCompletionItemProvider(
-  { language: 'vbs', scheme: 'file' },
+  UTIL.VBS_MODE,
   { provideCompletionItems },
   '.',
 );
