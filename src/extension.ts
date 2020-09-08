@@ -31,12 +31,6 @@ export function activate(context: ExtensionContext) {
     AutoItCommands.debugConsole();
   });
 
-
-  // Update console parameters
-  commands.registerCommand('extension.changeParams', () => {
-    AutoItCommands.changeConsoleParams();
-  });
-
   // Kill running script command
   commands.registerCommand('extension.killScript', () => {
     AutoItCommands.killScript();

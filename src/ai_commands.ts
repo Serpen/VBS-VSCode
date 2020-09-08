@@ -4,17 +4,15 @@ import path from 'path';
 
 const configuration = workspace.getConfiguration('vbs');
 
-const aiOut = window.createOutputChannel('VBScript');
+const vbsOut = window.createOutputChannel('VBScript');
 
 let runner;
 const cscript = "C:\\WINDOWS\\system32\\cscript.exe";
 
 function procRunner(cmdPath : string, args) {
-  aiOut.clear();
-  aiOut.show(true);
+  vbsOut.clear();
+  vbsOut.show(true);
 
-  // Set working directory to AutoIt script dir so that compile and build
-  // commands work right
   const workDir = path.dirname(window.activeTextEditor.document.fileName);
 
   runner = spawn(cmdPath, args, {
@@ -23,16 +21,16 @@ function procRunner(cmdPath : string, args) {
 
   runner.stdout.on('data', data => {
     const output = data.toString();
-    aiOut.append(output);
+    vbsOut.append(output);
   });
 
   runner.stderr.on('data', data => {
     const output = data.toString();
-    aiOut.append(output);
+    vbsOut.append(output);
   });
 
   runner.on('exit', code => {
-    aiOut.appendLine(`Process exited with code ${code}`);
+    vbsOut.appendLine(`Process exited with code ${code}`);
   });
 }
 
@@ -43,24 +41,9 @@ const runScript = () => {
   // Save the file
   thisDoc.save();
 
-  const params = workspace.getConfiguration('vbs').get('consoleParams').toString();
-
   window.setStatusBarMessage('Running the script...', 1500);
 
-  if (params) {
-    const quoteSplit = /[\w-/]+|"[^"]+"/g;
-    const paramArray = params.match(quoteSplit); // split the string by space or quotes
-
-    const cleanParams = paramArray.map(value => {
-      return value.replace(/"/g, '');
-    });
-
-    procRunner(cscript, [
-      thisFile,
-    ]);
-  } else {
-    procRunner(cscript, [thisFile]);
-  }
+  procRunner(cscript, [thisFile]);
 };
 
 function getDebugText() {
@@ -110,42 +93,12 @@ const debugConsole = () => {
   }
 };
 
-const changeConsoleParams = () => {
-  const currentParameters = workspace.getConfiguration('vbs').get('consoleParams').toString();
-
-  window
-    .showInputBox({
-      placeHolder: `param "param with spaces" 3`,
-      value: currentParameters,
-      prompt:
-        'Enter space-separated parameters to send to the command line when scripts are run. Wrap single parameters with one or more spaces with quotes.',
-    })
-    .then(input => {
-      let newParams = input;
-      if (input === undefined) {
-        // Preserve standing console parameters if input is cancelled
-        newParams = currentParameters;
-      }
-
-      configuration.update('consoleParams', newParams, false).then(() => {
-        const params = workspace.getConfiguration('vbs').get('consoleParams');
-
-        const message = params
-          ? `Current console parameter(s): ${params}`
-          : `Console parameter(s) have been cleared.`;
-
-        window.showInformationMessage(message);
-      });
-    });
-};
-
 const killScript = () => {
   runner.stdin.pause();
   runner.kill();
 };
 
 export {
-  changeConsoleParams,
   debugConsole,
   killScript,
   runScript,
