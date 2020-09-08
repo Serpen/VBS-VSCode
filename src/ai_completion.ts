@@ -9,7 +9,6 @@ import PATTERNS from './patterns';
 let currentIncludeFiles = [];
 let includes = [];
 
-const LIBRARY_INCLUDE_PATTERN = /^#include\s+<([\w.]+\.au3)>/gm;
 
 const createNewCompletionItem = (kind, name, strDetail = 'Document Function') => {
   const compItem = new CompletionItem(name, kind);
@@ -49,17 +48,16 @@ const findFilepath = file => {
  * @returns {Array} Array of functions in file
  */
 function getIncludeData(fileName, document) {
-  const includeFuncPattern = /^(?=\S)(?!;~\s)Func\s+(\w+)\s*\(/gm;
   const functions = [];
   const filePath = UTILS.getIncludePath(fileName, document);
 
   let pattern = null;
   const fileData = UTILS.getIncludeText(filePath);
 
-  pattern = includeFuncPattern.exec(fileData);
+  pattern = PATTERNS.FUNC_INC.exec(fileData);
   do {
     if (pattern) functions.push(pattern[1]);
-    pattern = includeFuncPattern.exec(fileData);
+    pattern = PATTERNS.FUNC_INC.exec(fileData);
   } while (pattern !== null);
 
   return functions;
@@ -94,14 +92,14 @@ const getLibraryFunctions = (libraryIncludes, doc) => {
  */
 const getLibraryIncludes = docText => {
   const items = [];
-  let pattern = LIBRARY_INCLUDE_PATTERN.exec(docText);
+  let pattern = PATTERNS.LIBRARY_INCLUDE.exec(docText);
   while (pattern) {
-    const filename = pattern[1].replace('.au3', '');
+    const filename = pattern[1].replace('.vbs', '');
     if (DEFAULT_UDFS.indexOf(filename) === -1) {
       items.push(pattern[1]);
     }
 
-    pattern = LIBRARY_INCLUDE_PATTERN.exec(docText);
+    pattern = PATTERNS.LIBRARY_INCLUDE.exec(docText);
   }
 
   return items;
@@ -113,22 +111,19 @@ const getLibraryIncludes = docText => {
  * @param {String} firstChar The first character of the text considered for a completion
  * @returns {Array<Object>} Array of CompletionItem objects
  */
-const getVariableCompletions = (text, firstChar) => {
-  const variablePattern = /\$(\w*)/g;
+const getVariableCompletions = (text : string, firstChar : string) => {
   const variables = [];
   const foundVariables = {};
-  let variableName;
+  let variableName : string;
 
-  if (firstChar === '$') {
-    let pattern = variablePattern.exec(text);
-    while (pattern) {
-      [variableName] = pattern;
-      if (!(variableName in foundVariables)) {
-        foundVariables[variableName] = true;
-        variables.push(createNewCompletionItem(CompletionItemKind.Variable, variableName));
-      }
-      pattern = variablePattern.exec(text);
+  let matches = PATTERNS.VAR_COMPL.exec(text);
+  while (matches) {
+    variableName = matches[2];
+    if (!(variableName in foundVariables)) {
+      foundVariables[variableName] = true;
+      variables.push(createNewCompletionItem(CompletionItemKind.Variable, variableName[2]));
     }
+    matches = PATTERNS.VAR_COMPL.exec(text);
   }
 
   return variables;
@@ -139,19 +134,18 @@ const getVariableCompletions = (text, firstChar) => {
  * @param {String} text Content of the document
  * @returns {Array<Object>} Array of CompletionItem objects
  */
-const getLocalFunctionCompletions = text => {
-  const functionPattern = /\b(?:Function|Sub)\s+(\w*)\s*\(/g;
+const getLocalFunctionCompletions = (text : string) => {
   const functions = [];
   const foundFunctions = {};
 
-  let pattern = functionPattern.exec(text);
+  let pattern = PATTERNS.FUNC_COMPL.exec(text);
   while (pattern) {
     const { 1: functionName } = pattern;
     if (!(functionName in foundFunctions)) {
       foundFunctions[functionName] = true;
       functions.push(createNewCompletionItem(CompletionItemKind.Function, functionName));
     }
-    pattern = functionPattern.exec(text);
+    pattern = PATTERNS.FUNC_COMPL.exec(text);
   }
 
   return functions;

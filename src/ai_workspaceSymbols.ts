@@ -3,7 +3,6 @@ import fs from 'fs';
 
 import PATTERNS from './patterns';
 
-const variablePattern = /(\$\w+)/g;
 const config = workspace.getConfiguration('vbs');
 
 const makeSymbol = (name : string, type : SymbolKind, filePath : Uri, docLine : number) => {
@@ -18,9 +17,6 @@ async function provideWorkspaceSymbols(search : string) {
     return [];
   }
 
-  // Enable searching for leading $
-  const searchFilter = new RegExp(search.replace('$', '\\$'), 'i');
-
   // Get list of AutoIt files in workspace
   await workspace.findFiles('**/*.vbs').then(data => {
     data.forEach(file => {
@@ -31,16 +27,12 @@ async function provideWorkspaceSymbols(search : string) {
         .split('\n')
         .forEach((line, index) => {
           let symbolKind : SymbolKind;
-          const variableFound = variablePattern.exec(line);
+          const variableFound = PATTERNS.VAR.exec(line);
           const functionFound = PATTERNS.FUNCTION.exec(line);
 
           if (variableFound && config.showVariablesInGoToSymbol) {
             const { 1: newName } = variableFound;
 
-            // Filter based on search (if it's not empty)
-            if (!searchFilter.exec(newName)) {
-              return false;
-            }
             symbolKind = SymbolKind.Variable;
 
             if (foundVars.indexOf(newName) === -1) {
@@ -52,9 +44,6 @@ async function provideWorkspaceSymbols(search : string) {
 
           if (functionFound) {
             const { 1: newName } = functionFound;
-            if (!searchFilter.exec(newName)) {
-              return false;
-            }
             symbolKind = SymbolKind.Function;
             return symbols.push(makeSymbol(newName, symbolKind, file, index));
           }

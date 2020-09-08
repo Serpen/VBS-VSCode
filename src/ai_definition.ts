@@ -1,5 +1,6 @@
 import { languages, Location, TextDocument, Position } from 'vscode';
 import UTILS from './util';
+import PATTERNS from './patterns';
 
 const AutoItDefinitionProvider = {
   provideDefinition(document : TextDocument, position : Position) {
@@ -7,14 +8,12 @@ const AutoItDefinitionProvider = {
     const lookup = document.getText(lookupRange);
     const docText = document.getText();
 
-    let defRegex = new RegExp(`(?:Function|Sub)\\s${lookup}\\(`, "i");
-    let found = docText.match(defRegex);
+    let found = docText.match(PATTERNS.FUNC_DEF(lookup));
     if (found) {
       return new Location(document.uri, document.positionAt(found.index));
     }
 
-    defRegex = new RegExp(`(?:Dim|Const)\\s${lookup}\\s?=?`, 'i');
-    found = docText.match(defRegex);
+    found = docText.match(PATTERNS.VAR_DEF(lookup));
     if (found) {
       return new Location(document.uri, document.positionAt(found.index));
     }
