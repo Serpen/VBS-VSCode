@@ -9,6 +9,7 @@ End Function
 
 Private Sub Subroutine(first)
     Call Abs(myConst)
+    
 End Sub
 
 Public sub KlassenConstruct()
