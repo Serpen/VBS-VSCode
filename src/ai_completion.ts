@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import completions from './completions';
 import DEFAULT_UDFS from './constants';
-import UTIL from './util';
+import UTILS from './util';
 import PATTERNS from './patterns';
 
 let currentIncludeFiles = [];
@@ -17,13 +17,6 @@ const createNewCompletionItem = (kind, name, strDetail = 'Document Function') =>
   compItem.detail = kind === CompletionItemKind.Variable ? 'Variable' : strDetail;
 
   return compItem;
-};
-
-const arraysMatch = (arr1, arr2) => {
-  if (arr1.length === arr2.length && arr1.some(v => arr2.indexOf(v) <= 0)) {
-    return true;
-  }
-  return false;
 };
 
 /**
@@ -58,10 +51,10 @@ const findFilepath = file => {
 function getIncludeData(fileName, document) {
   const includeFuncPattern = /^(?=\S)(?!;~\s)Func\s+(\w+)\s*\(/gm;
   const functions = [];
-  const filePath = UTIL.getIncludePath(fileName, document);
+  const filePath = UTILS.getIncludePath(fileName, document);
 
   let pattern = null;
-  const fileData = UTIL.getIncludeText(filePath);
+  const fileData = UTILS.getIncludeText(filePath);
 
   pattern = includeFuncPattern.exec(fileData);
   do {
@@ -196,7 +189,7 @@ const provideCompletionItems = (document, position) => {
   }
 
   // Redo the include collecting if the includes are different
-  if (!arraysMatch(includesCheck, currentIncludeFiles)) {
+  if (!UTILS.arraysMatch(includesCheck, currentIncludeFiles)) {
     includes = [];
     let includeFunctions = [];
     includesCheck.forEach(include => {

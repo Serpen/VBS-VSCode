@@ -4,6 +4,12 @@ import {TextDocument } from 'vscode';
 
 const VBS_MODE = { language: 'vbs', scheme: 'file' };
 
+function arraysMatch(arr1, arr2) {
+  if (arr1.length === arr2.length && arr1.some(v => arr2.indexOf(v) <= 0)) {
+    return true;
+  }
+  return false;
+}
 
 const getIncludeText = (filePath : string) => {
   return fs.readFileSync(filePath).toString();
@@ -33,6 +39,7 @@ const UTIL = {
   VBS_MODE,
   getIncludeText,
   getIncludePath,
+  arraysMatch
 };
 
 export default UTIL;
