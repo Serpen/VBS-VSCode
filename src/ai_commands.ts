@@ -1,5 +1,5 @@
 import { window, Position, workspace } from 'vscode';
-import { execFile as launch, spawn } from 'child_process';
+import {spawn } from 'child_process';
 import path from 'path';
 
 const configuration = workspace.getConfiguration('vbs');
@@ -7,6 +7,7 @@ const configuration = workspace.getConfiguration('vbs');
 const aiOut = window.createOutputChannel('VBScript');
 
 let runner;
+const cscript = "C:\\WINDOWS\\system32\\cscript.exe";
 
 function procRunner(cmdPath : string, args) {
   aiOut.clear();
@@ -54,11 +55,11 @@ const runScript = () => {
       return value.replace(/"/g, '');
     });
 
-    procRunner("C:\\WINDOWS\\system32\\cscript.exe", [
+    procRunner(cscript, [
       thisFile,
     ]);
   } else {
-    procRunner("C:\\WINDOWS\\system32\\cscript.exe", [thisFile]);
+    procRunner(cscript, [thisFile]);
   }
 };
 
