@@ -133,7 +133,7 @@ const getVariableCompletions = (text : string) => {
   const foundVariables = {};
   let variableName : string;
 
-  let matches = PATTERNS.VAR.exec(text);
+  let matches = PATTERNS.VAR_COMPL.exec(text);
   while (matches) {
     variableName = matches[2];
     if (!(variableName in foundVariables)) {
@@ -143,7 +143,7 @@ const getVariableCompletions = (text : string) => {
       foundVariables[variableName] = true;
       variables.push(createNewCompletionItem(itmKind, variableName));
     }
-    matches = PATTERNS.VAR.exec(text);
+    matches = PATTERNS.VAR_COMPL.exec(text);
   }
 
   return variables;

@@ -1,4 +1,4 @@
-const FUNCTION = /^[\t ]{0,}(?:Public\s+|Private\s+)?(Function|Sub)\s+([a-z_0-9]+)\(/i;
+const FUNCTION = /^[\t ]{0,}(?:Public\s+|Private\s+)?(Function|Sub)\s+([a-z_0-9]+\(.*\))/i; 
 const FUNC_DEF = (word : string) => new RegExp(`(?:Function|Sub)\\s${word}\\(`, "i");
 const FUNC_INC = /^(?=\S)(?!;~\s)(?:Function|Sub)\s+([a-z_0-9]+)\s*\(/gmi;
 const FUNC_COMPL = /\b(Function|Sub)\s+([a-z_0-9]+)\s*\(/gi;
@@ -9,7 +9,8 @@ const CLASS = /^[\t ]{0,}(?:Public\s+|Private\s+)?Class\s+([a-z_0-9]+)/i;
 const PROP = /^[\t ]{0,}(?:Public\s+|Private\s+)?Property\s+(?:Get|Let|Set)\s+([a-z_0-9]+)/i;
 
 const VAR_DEF = (word : string) => new RegExp(`(?:Dim|Const)\\s${word}\\s?=?`, 'i');
-const VAR = /\b(Dim|Const)\s+(\w+)/gi;
+const VAR_COMPL = /\b(Dim|Const)\s+(\w+)/gi;
+const VAR = /\b(Dim|Const)\s+(\w+)/i;
 
 const LIBRARY_INCLUDE = /^#include\s+<([\w.]+\.vbs)>/gm;
 const INCLUDE = /^#include\s"(.+)"/gm;
@@ -17,6 +18,7 @@ const INCLUDE = /^#include\s"(.+)"/gm;
 const PATTERNS = {
   FUNCTION,
   VAR,
+  VAR_COMPL,
   CLASS,
   PROP,
   FUNCTION_SIG,
