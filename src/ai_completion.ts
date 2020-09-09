@@ -30,6 +30,9 @@ const createNewCompletionItem = (kind : CompletionItemKind, name : string, strDe
       case CompletionItemKind.Variable:
         compItem.detail = "Document Variable";
         break;
+      case CompletionItemKind.Property:
+        compItem.detail = "Document Property";
+        break;
     }
   }
   return compItem;
@@ -73,7 +76,7 @@ function getIncludeData(fileName, document) {
 
   pattern = PATTERNS.FUNC_INC.exec(fileData);
   do {
-    if (pattern) functions.push(pattern[1]);
+    if (pattern) functions.push(pattern[3]);
     pattern = PATTERNS.FUNC_INC.exec(fileData);
   } while (pattern !== null);
 
@@ -160,18 +163,52 @@ const getLocalFunctionCompletions = (text : string) => {
 
   let matches = PATTERNS.FUNC_COMPL.exec(text);
   while (matches) {
-    const functionName = matches[2];
+    const functionName = matches[3];
     if (!(functionName in foundFunctions)) {
       let itmKind = CompletionItemKind.Function;
       if (matches[1].toLowerCase() == "sub")
         itmKind = CompletionItemKind.Method;
       foundFunctions[functionName] = true;
-      functions.push(createNewCompletionItem(CompletionItemKind.Function, functionName));
+      functions.push(createNewCompletionItem(itmKind, functionName));
     }
     matches = PATTERNS.FUNC_COMPL.exec(text);
   }
 
   return functions;
+};
+
+const getLocalPropertyCompletions = (text : string) => {
+  const vals = [];
+  const foundVals = {};
+
+  let matches = PATTERNS.PROP_COMPL.exec(text);
+  while (matches) {
+    const name = matches[1];
+    if (!(name in foundVals)) {
+      foundVals[name] = true;
+      vals.push(createNewCompletionItem(CompletionItemKind.Property, name));
+    }
+    matches = PATTERNS.PROP_COMPL.exec(text);
+  }
+
+  return vals;
+};
+
+const getLocalClassCompletions = (text : string) => {
+  const vals = [];
+  const foundVals = {};
+
+  let matches = PATTERNS.CLASS.exec(text);
+  while (matches) {
+    const name = matches[1];
+    if (!(name in foundVals)) {
+      foundVals[name] = true;
+      vals.push(createNewCompletionItem(CompletionItemKind.Class, name));
+    }
+    matches = PATTERNS.CLASS.exec(text);
+  }
+
+  return vals;
 };
 
 const provideCompletionItems = (document : TextDocument, position : Position) => {
@@ -194,8 +231,10 @@ const provideCompletionItems = (document : TextDocument, position : Position) =>
 
   const variableCompletions = getVariableCompletions(text);
   const functionCompletions = getLocalFunctionCompletions(text);
+  const propertyCompletions = getLocalPropertyCompletions(text);
+  const classCompletions = getLocalClassCompletions(text);
 
-  const localCompletions = [...variableCompletions, ...functionCompletions];
+  const localCompletions = [...variableCompletions, ...functionCompletions, ...propertyCompletions, ...classCompletions];
 
   // collect the includes of the document
   let pattern = PATTERNS.INCLUDE.exec(text);

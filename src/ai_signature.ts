@@ -90,10 +90,10 @@ function getIncludeData(fileName : string, doc : TextDocument) {
   do {
     pattern = PATTERNS.FUNCTION_SIG.exec(fileData);
     if (pattern) {
-      functions[pattern[2]] = {
+      functions[pattern[3]] = {
         label: pattern[1],
         documentation: `Function from ${fileName}`,
-        params: getParams(pattern[3]),
+        params: getParams(pattern[4]),
       };
     }
   } while (pattern);
@@ -125,10 +125,10 @@ function getLocalSigs(doc : TextDocument) {
     if (pattern) {
       functions = {
         ...functions,
-        [pattern[2]]: {
-          label: pattern[1],
-          documentation: 'Local Function',
-          params: getParams(pattern[3]),
+        [pattern[3]]: {
+          label: pattern[2],
+          documentation: 'Local1 Function',
+          params: getParams(pattern[4]),
         },
       };
     }

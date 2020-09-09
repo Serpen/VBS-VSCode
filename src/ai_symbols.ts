@@ -1,11 +1,11 @@
-import { languages, SymbolInformation, SymbolKind, workspace, TextLine } from 'vscode';
+"use strict";
+
+import { languages, SymbolInformation, SymbolKind, TextLine, Location, DocumentSymbol } from 'vscode';
 import UTILS from './util';
 import PATTERNS from './patterns';
 
-const config = workspace.getConfiguration('vbs');
-
 const isSkippableLine = (line: TextLine) => {
-  const skipChars = [';', '#'];
+  const skipChars = ["'"];
 
   if (line.isEmptyOrWhitespace) {
     return true;
@@ -19,25 +19,33 @@ const isSkippableLine = (line: TextLine) => {
   return false;
 };
 
-
 module.exports = languages.registerDocumentSymbolProvider(UTILS.VBS_MODE, {
   provideDocumentSymbols(doc) {
-    const result = [];
+    const result : DocumentSymbol[] = [];
     const found = [];
-    let matches: RegExpExecArray;
     let name: string;
 
+    const lastIdent = new Array<string>();
+    lastIdent.push('');
+  
+    const VAR = RegExp(PATTERNS.VAR.source, 'i');
+    const FUNCTION = RegExp(PATTERNS.FUNCTION.source, 'i');
+    const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
+    const PROP = RegExp(PATTERNS.PROP.source, 'i');
+    
     // Get the number of lines in the document to loop through
     const lineCount = Math.min(doc.lineCount, 10000);
-    for (let lineNum = 0; lineNum < lineCount; lineNum += 1) {
+    for (let lineNum = 0; lineNum < lineCount; lineNum++) {
       const line = doc.lineAt(lineNum);
+      const lineText = line.text;
+      const pos = new Location(doc.uri, line.range);
 
       if (isSkippableLine(line)) {
         // eslint-disable-next-line no-continue
         continue;
       }
-
-      let matches = PATTERNS.FUNCTION.exec(line.text);
+      
+      let matches = FUNCTION.exec(lineText);
       if (matches) {
         name = matches[2];
         let symKind = SymbolKind.Function;
@@ -47,38 +55,42 @@ module.exports = languages.registerDocumentSymbolProvider(UTILS.VBS_MODE, {
           else
             symKind = SymbolKind.Method;
 
-        const functionSymbol = new SymbolInformation(name, symKind, line.range);
+        const functionSymbol  = new DocumentSymbol(name, '', symKind, line.range, line.range);
+        
         result.push(functionSymbol);
         found.push(name);
+        lastIdent.push(name);
       }
 
-      matches = PATTERNS.CLASS.exec(line.text);
+      matches = CLASS.exec(lineText);
       if (matches) {
         name = matches[1];
-        const classSymbol = new SymbolInformation(name, SymbolKind.Class, line.range);
+        const classSymbol  = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
         result.push(classSymbol);
         found.push(name);
+        lastIdent.push(name);
       }
 
-      matches = PATTERNS.PROP.exec(line.text);
+      matches = PROP.exec(lineText);
       if (matches) {
         name = matches[1];
-        const classSymbol = new SymbolInformation(name, SymbolKind.Property, line.range);
+        const classSymbol  = new DocumentSymbol(name, '', SymbolKind.Property, line.range, line.range);
         result.push(classSymbol);
         found.push(name);
+        lastIdent.push(name);
       }
-
-      // if (!config.showVariablesInGoToSymbol) {
-      matches = PATTERNS.VAR.exec(line.text);
+      
+      matches = VAR.exec(lineText);
       if (matches) {
         let name = matches[2];
         let symKind = SymbolKind.Variable;
         if (matches[1].toLowerCase() === "const")
           symKind = SymbolKind.Constant;
 
-        const variableSymbol = new SymbolInformation(name, symKind, line.range);
+        const variableSymbol  = new DocumentSymbol(name, '', symKind, line.range, line.range);
         result.push(variableSymbol);
         found.push(name);
+
       }
       // }
     }

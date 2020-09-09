@@ -43,7 +43,7 @@ async function provideWorkspaceSymbols(search : string) {
           }
 
           if (functionFound) {
-            const { 1: newName } = functionFound;
+            const { 3: newName } = functionFound;
             symbolKind = SymbolKind.Function;
             return symbols.push(makeSymbol(newName, symbolKind, file, index));
           }
