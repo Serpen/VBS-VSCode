@@ -1,0 +1,26 @@
+{
+    "And": {
+        "label": "And",
+        "documentation": ""
+    },
+    "Like": {
+        "label": "Like",
+        "documentation": ""
+    },
+    "Mod": {
+        "label": "Mod",
+        "documentation": ""
+    },
+    "Not": {
+        "label": "Not",
+        "documentation": ""
+    },
+    "Or": {
+        "label": "Or",
+        "documentation": ""
+    },
+    "Xor": {
+        "label": "Xor",
+        "documentation": ""
+    }
+}

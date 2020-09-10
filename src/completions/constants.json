@@ -1,0 +1,294 @@
+{
+  "False": {
+    "label": "False",
+    "documentation": ""
+  },
+  "True": {
+    "label": "True",
+    "documentation": ""
+  },
+  "vbAbort": {
+    "label": "vbAbort",
+    "documentation": ""
+  },
+  "vbAbortRetryIgnore": {
+    "label": "vbAbortRetryIgnore",
+    "documentation": ""
+  },
+  "vbApplicationModal": {
+    "label": "vbApplicationModal",
+    "documentation": ""
+  },
+  "vbArray": {
+    "label": "vbArray",
+    "documentation": ""
+  },
+  "vbBinaryCompare": {
+    "label": "vbBinaryCompare",
+    "documentation": ""
+  },
+  "vbBoolean": {
+    "label": "vbBoolean",
+    "documentation": ""
+  },
+  "vbByte": {
+    "label": "vbByte",
+    "documentation": ""
+  },
+  "vbCancel": {
+    "label": "vbCancel",
+    "documentation": ""
+  },
+  "vbCr": {
+    "label": "vbCr",
+    "documentation": ""
+  },
+  "vbCritical": {
+    "label": "vbCritical",
+    "documentation": ""
+  },
+  "vbCrLf": {
+    "label": "vbCrLf",
+    "documentation": ""
+  },
+  "vbCurrency": {
+    "label": "vbCurrency",
+    "documentation": ""
+  },
+  "vbDatabaseCompare": {
+    "label": "vbDatabaseCompare",
+    "documentation": ""
+  },
+  "vbDataObject": {
+    "label": "vbDataObject",
+    "documentation": ""
+  },
+  "vbDate": {
+    "label": "vbDate",
+    "documentation": ""
+  },
+  "vbDecimal": {
+    "label": "vbDecimal",
+    "documentation": ""
+  },
+  "vbDouble": {
+    "label": "vbDouble",
+    "documentation": ""
+  },
+  "vbEmpty": {
+    "label": "vbEmpty",
+    "documentation": ""
+  },
+  "vbError": {
+    "label": "vbError",
+    "documentation": ""
+  },
+  "vbExclamation": {
+    "label": "vbExclamation",
+    "documentation": ""
+  },
+  "vbFalse": {
+    "label": "vbFalse",
+    "documentation": ""
+  },
+  "vbFirstFourDays": {
+    "label": "vbFirstFourDays",
+    "documentation": ""
+  },
+  "vbFirstFullWeek": {
+    "label": "vbFirstFullWeek",
+    "documentation": ""
+  },
+  "vbFormFeed": {
+    "label": "vbFormFeed",
+    "documentation": ""
+  },
+  "vbFriday": {
+    "label": "vbFriday",
+    "documentation": ""
+  },
+  "vbGeneralDate": {
+    "label": "vbGeneralDate",
+    "documentation": ""
+  },
+  "vbIgnore": {
+    "label": "vbIgnore",
+    "documentation": ""
+  },
+  "vbInformation": {
+    "label": "vbInformation",
+    "documentation": ""
+  },
+  "vbInteger": {
+    "label": "vbInteger",
+    "documentation": ""
+  },
+  "vbLf": {
+    "label": "vbLf",
+    "documentation": ""
+  },
+  "vbLong": {
+    "label": "vbLong",
+    "documentation": ""
+  },
+  "vbLongDate": {
+    "label": "vbLongDate",
+    "documentation": ""
+  },
+  "vbLongTime": {
+    "label": "vbLongTime",
+    "documentation": ""
+  },
+  "vbMonday": {
+    "label": "vbMonday",
+    "documentation": ""
+  },
+  "vbMsgBoxHelpButton": {
+    "label": "vbMsgBoxHelpButton",
+    "documentation": ""
+  },
+  "vbMsgBoxRight": {
+    "label": "vbMsgBoxRight",
+    "documentation": ""
+  },
+  "vbMsgBoxRtlReading": {
+    "label": "vbMsgBoxRtlReading",
+    "documentation": ""
+  },
+  "vbNewLine": {
+    "label": "vbNewLine",
+    "documentation": ""
+  },
+  "vbNo": {
+    "label": "vbNo",
+    "documentation": ""
+  },
+  "vbNull": {
+    "label": "vbNull",
+    "documentation": ""
+  },
+  "vbNullChar": {
+    "label": "vbNullChar",
+    "documentation": ""
+  },
+  "vbNullString": {
+    "label": "vbNullString",
+    "documentation": ""
+  },
+  "vbObject": {
+    "label": "vbObject",
+    "documentation": ""
+  },
+  "vbObjectError": {
+    "label": "vbObjectError",
+    "documentation": ""
+  },
+  "vbOK": {
+    "label": "vbOK",
+    "documentation": ""
+  },
+  "vbOKCancel": {
+    "label": "vbOKCancel",
+    "documentation": ""
+  },
+  "vbOKOnly": {
+    "label": "vbOKOnly",
+    "documentation": ""
+  },
+  "vbQuestion": {
+    "label": "vbQuestion",
+    "documentation": ""
+  },
+  "vbRetry": {
+    "label": "vbRetry",
+    "documentation": ""
+  },
+  "vbRetryCancel": {
+    "label": "vbRetryCancel",
+    "documentation": ""
+  },
+  "vbSaturday": {
+    "label": "vbSaturday",
+    "documentation": ""
+  },
+  "vbShortDate": {
+    "label": "vbShortDate",
+    "documentation": ""
+  },
+  "vbShortTime": {
+    "label": "vbShortTime",
+    "documentation": ""
+  },
+  "vbSingle": {
+    "label": "vbSingle",
+    "documentation": ""
+  },
+  "vbString": {
+    "label": "vbString",
+    "documentation": ""
+  },
+  "vbSunday": {
+    "label": "vbSunday",
+    "documentation": ""
+  },
+  "vbSystemModal": {
+    "label": "vbSystemModal",
+    "documentation": ""
+  },
+  "vbTab": {
+    "label": "vbTab",
+    "documentation": ""
+  },
+  "vbTextCompare": {
+    "label": "vbTextCompare",
+    "documentation": ""
+  },
+  "vbThursday": {
+    "label": "vbThursday",
+    "documentation": ""
+  },
+  "vbTrue": {
+    "label": "vbTrue",
+    "documentation": ""
+  },
+  "vbTuesday": {
+    "label": "vbTuesday",
+    "documentation": ""
+  },
+  "vbUseDefault": {
+    "label": "vbUseDefault",
+    "documentation": ""
+  },
+  "vbUseSystem": {
+    "label": "vbUseSystem",
+    "documentation": ""
+  },
+  "vbUseSystemDayOfWeek": {
+    "label": "vbUseSystemDayOfWeek",
+    "documentation": ""
+  },
+  "vbVariant": {
+    "label": "vbVariant",
+    "documentation": ""
+  },
+  "vbVerticalTab": {
+    "label": "vbVerticalTab",
+    "documentation": ""
+  },
+  "vbWednesday": {
+    "label": "vbWednesday",
+    "documentation": ""
+  },
+  "vbYes": {
+    "label": "vbYes",
+    "documentation": ""
+  },
+  "vbYesNo": {
+    "label": "vbYesNo",
+    "documentation": ""
+  },
+  "vbYesNoCancel": {
+    "label": "vbYesNoCancel",
+    "documentation": ""
+  }
+}

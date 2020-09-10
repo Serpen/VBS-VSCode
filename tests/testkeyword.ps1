@@ -6,7 +6,7 @@ add-type 'namespace Serpen {[System.Runtime.InteropServices.ComVisible(true)]pub
 $retObj = New-Object Serpen.RetObject
 $sc.AddObject("retObject", $retObj, $true)
 
-$content = cat D:\Austausch\vbscript-dll\vbscript-10-x86-Strings-2-sorted.txt
+$content = cat D:\Austausch\vbscript-dll\vbscript-95-Strings-Case-sorted.txt
 $toCheck = [System.Collections.Generic.List[string]]::new()
 
 foreach ($line in $content | select -First 39999) {

@@ -2,7 +2,6 @@ import { languages, CompletionItem, CompletionItemKind, workspace, Range, TextDo
 import fs from 'fs';
 import path from 'path';
 import completions from './completions';
-import DEFAULT_UDFS from './constants';
 import UTILS from './util';
 import PATTERNS from './patterns';
 import UTIL from './util';
@@ -13,7 +12,7 @@ let includes = [];
 
 const createNewCompletionItem = (kind : CompletionItemKind, name : string, strDetail = '') => {
   const compItem = new CompletionItem(name, kind);
-
+  
   if (strDetail != '')
     compItem.detail = strDetail;
   else { 
@@ -115,9 +114,9 @@ const getLibraryIncludes = docText => {
   let pattern = PATTERNS.LIBRARY_INCLUDE.exec(docText);
   while (pattern) {
     const filename = pattern[1].replace('.vbs', '');
-    if (DEFAULT_UDFS.indexOf(filename) === -1) {
-      items.push(pattern[1]);
-    }
+    // if (DEFAULT_UDFS.indexOf(filename) === -1) {
+    //   items.push(pattern[1]);
+    // }
 
     pattern = PATTERNS.LIBRARY_INCLUDE.exec(docText);
   }

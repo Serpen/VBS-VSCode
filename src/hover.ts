@@ -1,6 +1,6 @@
 "use strict";
 import { languages, Hover, CompletionItem, TextDocument, Position } from 'vscode';
-import vbs from './vbs.json';
+import vbs from './completions/func_def.json';
 import UTILS from './util';
 import PATTERNS from './patterns';
 

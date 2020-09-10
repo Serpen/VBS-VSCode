@@ -1,0 +1,442 @@
+{
+  "Abs": {
+    "label": "Function Abs(expr as Integer) as Integer",
+    "documentation": "Calculates the absolute value of a number.",
+    "params": [
+      {
+        "label": "expr",
+        "documentation": "Any valid numeric expression."
+      }
+    ]
+  },
+  "Asc": {
+    "label": "Function Asc(char as String) as Integer",
+    "documentation": "Returns the unicode code of a character.",
+    "params": [
+      {
+        "label": "char",
+        "documentation": "The character to get the code for. If a string is used, the code for the first character is given."
+      }
+    ]
+  },
+  "AscB": {
+    "label": "AscB",
+    "documentation": ""
+  },
+  "AscW": {
+    "label": "AscW",
+    "documentation": ""
+  },
+  "Atn": {
+    "label": "Atn",
+    "documentation": ""
+  },
+  "CBool": {
+    "label": "CBool",
+    "documentation": ""
+  },
+  "CByte": {
+    "label": "CByte",
+    "documentation": ""
+  },
+  "CCur": {
+    "label": "CCur",
+    "documentation": ""
+  },
+  "CDate": {
+    "label": "CDate",
+    "documentation": ""
+  },
+  "CDbl": {
+    "label": "CDbl",
+    "documentation": ""
+  },
+  "Chr": {
+    "label": "Chr",
+    "documentation": ""
+  },
+  "ChrB": {
+    "label": "ChrB",
+    "documentation": ""
+  },
+  "ChrW": {
+    "label": "ChrW",
+    "documentation": ""
+  },
+  "CInt": {
+    "label": "CInt",
+    "documentation": ""
+  },
+  "CLng": {
+    "label": "CLng",
+    "documentation": ""
+  },
+  "Cos": {
+    "label": "Cos",
+    "documentation": ""
+  },
+  "CreateObject": {
+    "label": "CreateObject",
+    "documentation": ""
+  },
+  "CSng": {
+    "label": "CSng",
+    "documentation": ""
+  },
+  "CStr": {
+    "label": "CStr",
+    "documentation": ""
+  },
+  "DateAdd": {
+    "label": "DateAdd",
+    "documentation": ""
+  },
+  "DateDiff": {
+    "label": "DateDiff",
+    "documentation": ""
+  },
+  "DatePart": {
+    "label": "DatePart",
+    "documentation": ""
+  },
+  "DateSerial": {
+    "label": "DateSerial",
+    "documentation": ""
+  },
+  "DateValue": {
+    "label": "DateValue",
+    "documentation": ""
+  },
+  "Day": {
+    "label": "Day",
+    "documentation": ""
+  },
+  "Double": {
+    "label": "Double",
+    "documentation": ""
+  },
+  "Empty": {
+    "label": "Empty",
+    "documentation": ""
+  },
+  "Eqv": {
+    "label": "Eqv",
+    "documentation": ""
+  },
+  "Err": {
+    "label": "Err",
+    "documentation": "Class"
+  },
+  "Erase": {
+    "label": "Erase",
+    "documentation": ""
+  },
+  "Escape": {
+    "label": "Escape",
+    "documentation": ""
+  },
+  "Eval": {
+    "label": "Eval",
+    "documentation": ""
+  },
+  "Execute": {
+    "label": "Execute",
+    "documentation": ""
+  },
+  "ExecuteGlobal": {
+    "label": "ExecuteGlobal",
+    "documentation": ""
+  },
+  "Exp": {
+    "label": "Exp",
+    "documentation": ""
+  },
+  "Filter": {
+    "label": "Filter",
+    "documentation": ""
+  },
+  "Fix": {
+    "label": "Fix",
+    "documentation": ""
+  },
+  "For": {
+    "label": "For",
+    "documentation": ""
+  },
+  "FormatCurrency": {
+    "label": "FormatCurrency",
+    "documentation": ""
+  },
+  "FormatDateTime": {
+    "label": "FormatDateTime",
+    "documentation": ""
+  },
+  "FormatNumber": {
+    "label": "FormatNumber",
+    "documentation": ""
+  },
+  "FormatPercent": {
+    "label": "FormatPercent",
+    "documentation": ""
+  },
+  "GetObject": {
+    "label": "GetObject",
+    "documentation": ""
+  },
+  "GetRef": {
+    "label": "GetRef",
+    "documentation": ""
+  },
+  "Hex": {
+    "label": "Hex",
+    "documentation": ""
+  },
+  "Hour": {
+    "label": "Hour",
+    "documentation": ""
+  },
+  "Imp": {
+    "label": "Imp",
+    "documentation": ""
+  },
+  "InputBox": {
+    "label": "InputBox",
+    "documentation": ""
+  },
+  "InStr": {
+    "label": "InStr",
+    "documentation": ""
+  },
+  "InStrB": {
+    "label": "InStrB",
+    "documentation": ""
+  },
+  "InStrRev": {
+    "label": "InStrRev",
+    "documentation": ""
+  },
+  "Int": {
+    "label": "Int",
+    "documentation": ""
+  },
+  "IsArray": {
+    "label": "IsArray",
+    "documentation": ""
+  },
+  "IsDate": {
+    "label": "IsDate",
+    "documentation": ""
+  },
+  "IsEmpty": {
+    "label": "IsEmpty",
+    "documentation": ""
+  },
+  "IsNull": {
+    "label": "IsNull",
+    "documentation": ""
+  },
+  "IsNumeric": {
+    "label": "IsNumeric",
+    "documentation": ""
+  },
+  "IsObject": {
+    "label": "IsObject",
+    "documentation": ""
+  },
+  "Join": {
+    "label": "Join",
+    "documentation": ""
+  },
+  "LBound": {
+    "label": "LBound",
+    "documentation": ""
+  },
+  "LCase": {
+    "label": "LCase",
+    "documentation": ""
+  },
+  "Left": {
+    "label": "Left",
+    "documentation": ""
+  },
+  "LeftB": {
+    "label": "LeftB",
+    "documentation": ""
+  },
+  "Len": {
+    "label": "Len",
+    "documentation": ""
+  },
+  "LenB": {
+    "label": "LenB",
+    "documentation": ""
+  },
+  "LoadPicture": {
+    "label": "LoadPicture",
+    "documentation": ""
+  },
+  "Log": {
+    "label": "Log",
+    "documentation": ""
+  },
+  "LSet": {
+    "label": "LSet",
+    "documentation": ""
+  },
+  "LTrim": {
+    "label": "LTrim",
+    "documentation": ""
+  },
+  "Mid": {
+    "label": "Mid",
+    "documentation": ""
+  },
+  "MidB": {
+    "label": "MidB",
+    "documentation": ""
+  },
+  "Minute": {
+    "label": "Minute",
+    "documentation": ""
+  },
+  "Month": {
+    "label": "Month",
+    "documentation": ""
+  },
+  "MonthName": {
+    "label": "MonthName",
+    "documentation": ""
+  },
+  "MsgBox": {
+    "label": "MsgBox",
+    "documentation": ""
+  },
+  "Oct": {
+    "label": "Oct",
+    "documentation": ""
+  },
+  "Randomize": {
+    "label": "Randomize",
+    "documentation": ""
+  },
+  "Replace": {
+    "label": "Replace",
+    "documentation": ""
+  },
+  "RGB": {
+    "label": "RGB",
+    "documentation": ""
+  },
+  "Right": {
+    "label": "Right",
+    "documentation": ""
+  },
+  "RightB": {
+    "label": "RightB",
+    "documentation": ""
+  },
+  "Rnd": {
+    "label": "Rnd",
+    "documentation": ""
+  },
+  "Round": {
+    "label": "Round",
+    "documentation": ""
+  },
+  "RSet": {
+    "label": "RSet",
+    "documentation": ""
+  },
+  "RTrim": {
+    "label": "RTrim",
+    "documentation": ""
+  },
+  "Second": {
+    "label": "Second",
+    "documentation": ""
+  },
+  "SetLocale": {
+    "label": "SetLocale",
+    "documentation": ""
+  },
+  "Sgn": {
+    "label": "Sgn",
+    "documentation": ""
+  },
+  "Sin": {
+    "label": "Sin",
+    "documentation": ""
+  },
+  "Space": {
+    "label": "Space",
+    "documentation": ""
+  },
+  "Split": {
+    "label": "Split",
+    "documentation": ""
+  },
+  "Sqr": {
+    "label": "Sqr",
+    "documentation": ""
+  },
+  "StrComp": {
+    "label": "StrComp",
+    "documentation": ""
+  },
+  "StrReverse": {
+    "label": "StrReverse",
+    "documentation": ""
+  },
+  "Tan": {
+    "label": "Tan",
+    "documentation": ""
+  },
+  "TimeSerial": {
+    "label": "TimeSerial",
+    "documentation": ""
+  },
+  "TimeValue": {
+    "label": "TimeValue",
+    "documentation": ""
+  },
+  "Trim": {
+    "label": "Trim",
+    "documentation": ""
+  },
+  "True": {
+    "label": "True",
+    "documentation": ""
+  },
+  "TypeName": {
+    "label": "TypeName",
+    "documentation": ""
+  },
+  "UBound": {
+    "label": "UBound",
+    "documentation": ""
+  },
+  "UCase": {
+    "label": "UCase",
+    "documentation": ""
+  },
+  "Unescape": {
+    "label": "Unescape",
+    "documentation": ""
+  },
+  "VarType": {
+    "label": "VarType",
+    "documentation": ""
+  },
+  "Weekday": {
+    "label": "Weekday",
+    "documentation": ""
+  },
+  "WeekdayName": {
+    "label": "WeekdayName",
+    "documentation": ""
+  },
+  "Year": {
+    "label": "Year",
+    "documentation": ""
+  }
+}

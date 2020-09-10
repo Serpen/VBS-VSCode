@@ -1,0 +1,34 @@
+{
+  "vbBlack": {
+    "label": "vbBlack",
+    "documentation": ""
+  },
+  "vbBlue": {
+    "label": "vbBlue",
+    "documentation": ""
+  },
+  "vbCyan": {
+    "label": "vbCyan",
+    "documentation": ""
+  },
+  "vbGreen": {
+    "label": "vbGreen",
+    "documentation": ""
+  },
+  "vbMagenta": {
+    "label": "vbMagenta",
+    "documentation": ""
+  },
+  "vbRed": {
+    "label": "vbRed",
+    "documentation": ""
+  },
+  "vbWhite": {
+    "label": "vbWhite",
+    "documentation": ""
+  },
+  "vbYellow": {
+    "label": "vbYellow",
+    "documentation": ""
+  }
+}

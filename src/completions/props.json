@@ -1,0 +1,54 @@
+{
+    "Date": {
+        "label": "Date",
+        "documentation": ""
+    },
+    "Debug": {
+        "label": "Debug",
+        "documentation": ""
+    },
+    "Err": {
+        "label": "Err",
+        "documentation": "Class"
+    },
+    "GetLocale": {
+        "label": "GetLocale",
+        "documentation": ""
+    },
+    "GetUILanguage": {
+        "label": "GetUILanguage",
+        "documentation": ""
+    },
+    "Now": {
+        "label": "Now",
+        "documentation": ""
+    },
+    "ScriptEngine": {
+        "label": "ScriptEngine",
+        "documentation": ""
+    },
+    "ScriptEngineBuildVersion": {
+        "label": "ScriptEngineBuildVersion",
+        "documentation": ""
+    },
+    "ScriptEngineMajorVersion": {
+        "label": "ScriptEngineMajorVersion",
+        "documentation": ""
+    },
+    "ScriptEngineMinorVersion": {
+        "label": "ScriptEngineMinorVersion",
+        "documentation": ""
+    },
+    "Time": {
+        "label": "Time",
+        "documentation": ""
+    },
+    "Timer": {
+        "label": "Timer",
+        "documentation": ""
+    },
+    "WScript": {
+        "label": "WScript",
+        "documentation": ""
+    }
+}

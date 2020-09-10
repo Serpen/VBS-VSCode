@@ -1,0 +1,186 @@
+{
+  "ByRef": {
+    "label": "ByRef",
+    "documentation": ""
+  },
+  "ByVal": {
+    "label": "ByVal",
+    "documentation": ""
+  },
+  "Call": {
+    "label": "Call",
+    "documentation": ""
+  },
+  "Case": {
+    "label": "Case",
+    "documentation": ""
+  },
+  "Class": {
+    "label": "Class",
+    "documentation": ""
+  },
+  "Const": {
+    "label": "Const",
+    "documentation": ""
+  },
+  "Dim": {
+    "label": "Dim",
+    "documentation": ""
+  },
+  "Each": {
+    "label": "Each",
+    "documentation": ""
+  },
+  "Else": {
+    "label": "Else",
+    "documentation": ""
+  },
+  "End": {
+    "label": "End",
+    "documentation": ""
+  },
+  "Enum": {
+    "label": "Enum",
+    "documentation": ""
+  },
+  "Event": {
+    "label": "Event",
+    "documentation": ""
+  },
+  "Exit": {
+    "label": "Exit",
+    "documentation": ""
+  },
+  "Function": {
+    "label": "Function",
+    "documentation": ""
+  },
+  "Get": {
+    "label": "Get",
+    "documentation": ""
+  },
+  "GoTo": {
+    "label": "GoTo",
+    "documentation": ""
+  },
+  "Implements": {
+    "label": "Implements",
+    "documentation": ""
+  },
+  "Let": {
+    "label": "Let",
+    "documentation": ""
+  },
+  "Loop": {
+    "label": "Loop",
+    "documentation": ""
+  },
+  "New": {
+    "label": "New",
+    "documentation": ""
+  },
+  "Next": {
+    "label": "Next",
+    "documentation": ""
+  },
+  "Nothing": {
+    "label": "Nothing",
+    "documentation": ""
+  },
+  "Null": {
+    "label": "Null",
+    "documentation": ""
+  },
+  "Option": {
+    "label": "Option",
+    "documentation": ""
+  },
+  "Optional": {
+    "label": "Optional",
+    "documentation": ""
+  },
+  "ParamArray": {
+    "label": "ParamArray",
+    "documentation": ""
+  },
+  "Preserve": {
+    "label": "Preserve",
+    "documentation": ""
+  },
+  "Private": {
+    "label": "Private",
+    "documentation": ""
+  },
+  "Public": {
+    "label": "Public",
+    "documentation": ""
+  },
+  "RaiseEvent": {
+    "label": "RaiseEvent",
+    "documentation": ""
+  },
+  "ReDim": {
+    "label": "ReDim",
+    "documentation": ""
+  },
+  "Rem": {
+    "label": "Rem",
+    "documentation": ""
+  },
+  "Resume": {
+    "label": "Resume",
+    "documentation": ""
+  },
+  "Select": {
+    "label": "Select",
+    "documentation": ""
+  },
+  "Set": {
+    "label": "Set",
+    "documentation": ""
+  },
+  "Shared": {
+    "label": "Shared",
+    "documentation": ""
+  },
+  "Static": {
+    "label": "Static",
+    "documentation": ""
+  },
+  "Stop": {
+    "label": "Stop",
+    "documentation": ""
+  },
+  "Sub": {
+    "label": "Sub",
+    "documentation": ""
+  },
+  "Then": {
+    "label": "Then",
+    "documentation": ""
+  },
+  "Type": {
+    "label": "Type",
+    "documentation": ""
+  },
+  "TypeOf": {
+    "label": "TypeOf",
+    "documentation": ""
+  },
+  "Until": {
+    "label": "Until",
+    "documentation": ""
+  },
+  "Wend": {
+    "label": "Wend",
+    "documentation": ""
+  },
+  "While": {
+    "label": "While",
+    "documentation": ""
+  },
+  "With": {
+    "label": "With",
+    "documentation": ""
+  }
+}

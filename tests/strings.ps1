@@ -1,4 +1,4 @@
-dir *10*.dll | % {
+dir *.dll | % {
 	Write-Progress -Activity "String Extraction" -CurrentOperation $_.Name
 	E:\SysinternalsSuite\strings.exe $_.FullName | out-file $_.FullName.Replace('.dll', '-Strings.txt')
 	$stringsfile = cat $_.FullName.Replace('.dll', '-Strings.txt')
