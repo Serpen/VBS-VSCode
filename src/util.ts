@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import {TextDocument } from 'vscode';
+import { TextDocument, DocumentSelector } from 'vscode';
 
-const VBS_MODE = { language: 'vbs', scheme: 'file' };
+const VBS_MODE: DocumentSelector = { scheme: 'file', language: 'vbs' };
 
 function arraysMatch(arr1, arr2) {
   if (arr1.length === arr2.length && arr1.some(v => arr2.indexOf(v) <= 0)) {
@@ -11,11 +11,11 @@ function arraysMatch(arr1, arr2) {
   return false;
 }
 
-const getIncludeText = (filePath : string) => {
+const getIncludeText = (filePath: string) => {
   return fs.readFileSync(filePath).toString();
 };
 
-const getIncludePath = (fileOrPath : string, document : TextDocument) : string => {
+const getIncludePath = (fileOrPath: string, document: TextDocument): string => {
   let includePath = '';
 
   if (fileOrPath.charAt(1) === ':') {

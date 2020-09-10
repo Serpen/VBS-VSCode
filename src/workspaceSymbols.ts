@@ -9,7 +9,7 @@ const makeSymbol = (name : string, type : SymbolKind, filePath : Uri, docLine : 
   return new SymbolInformation(name, type, '', new Location(filePath, new Position(docLine, 0)));
 };
 
-async function provideWorkspaceSymbols(search : string) {
+async function provideWorkspaceSymbols(search) {
   const symbols : SymbolInformation[] = [];
 
   // Don't start searching when it's empty

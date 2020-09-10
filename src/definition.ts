@@ -2,7 +2,7 @@ import { languages, Location, TextDocument, Position } from 'vscode';
 import UTILS from './util';
 import PATTERNS from './patterns';
 
-const AutoItDefinitionProvider = {
+const DefinitionProvider = {
   provideDefinition(document : TextDocument, position : Position) {
     const lookupRange = document.getWordRangeAtPosition(position);
     const lookup = document.getText(lookupRange);
@@ -22,6 +22,6 @@ const AutoItDefinitionProvider = {
   },
 };
 
-const defProvider = languages.registerDefinitionProvider(UTILS.VBS_MODE, AutoItDefinitionProvider);
+const defProvider = languages.registerDefinitionProvider(UTILS.VBS_MODE, DefinitionProvider);
 
 module.exports = defProvider;

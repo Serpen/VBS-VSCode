@@ -10,7 +10,7 @@ const CLASS = /^[\t ]*(?:Public[\t ]+|Private[\t ]+)?Class[\t ]+([a-zA-Z0-9_]+)/
 const PROP = /^[\t ]*(?:Public[\t ]+|Private[\t ]+)?Property[\t ]+(?:Get|Let|Set)[\t ]+([a-z_0-9]+)/img;
 
 const VAR_DEF = (word : string) => new RegExp(`(?:Dim|Const)\\s${word}\\s?=?`, 'i');
-const VAR = /^[\t ]*(Dim|Const)[\t ]+([a-z_0-9]+)\b/img;
+const VAR = /(?:^|:)[\t ]*(Dim|Const)[\t ]+([a-z_0-9]+)\b/img;
 
 const LIBRARY_INCLUDE = /^#include\s+<([\w.]+\.vbs)>/gm;
 const INCLUDE = /^#include\s"(.+)"/gm;

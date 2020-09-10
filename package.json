@@ -20,18 +20,6 @@
     "VBS",
     "VBScript"
   ],
-					  
-							 
-							   
-					   
-										   
-										
-									  
-									   
-								
-						 
-						  
-	
   "license": "MIT",
   "main": "./dist/extension",
   "activationEvents": [
@@ -39,9 +27,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/loganch/AutoIt-VSCode.git"
+    "url": "https://github.com/Serpen/VBS-VSCode"
   },
-  "homepage": "https://github.com/loganch/AutoIt-VSCode/blob/master/README.md",
+  "homepage": "https://github.com/Serpen/VBS-VSCode/blob/master/README.md",
   "contributes": {
     "languages": [
       {
@@ -71,14 +59,6 @@
           "command": "extension.runScript"
         },
         {
-          "command": "extension.launchInfo",
-          "when": "editorLangId == vbs"
-        },
-        {
-          "command": "extension.debugConsole",
-          "when": "editorLangId == vbs"
-        },
-        {
           "command": "extension.killScript",
           "when": "editorLangId == vbs"
         }
@@ -87,23 +67,11 @@
     "commands": [
       {
         "command": "extension.runScript",
-        "title": "AutoIt: Run Script"
-      },
-      {
-        "command": "extension.launchInfo",
-        "title": "AutoIt: Au3Info"
-      },
-      {
-        "command": "extension.debugConsole",
-        "title": "AutoIt: Debug to Console"
-      },
-      {
-        "command": "extension.changeParams",
-        "title": "AutoIt: Change Console Parameters"
+        "title": "VBS: Run Script"
       },
       {
         "command": "extension.killScript",
-        "title": "AutoIt: Kill Running Script"
+        "title": "VBS: Kill Running Script"
       }
     ],
     "grammars": [
@@ -126,28 +94,18 @@
         "when": "editorTextFocus && editorLangId == vbs"
       },
       {
-        "command": "extension.debugConsole",
-        "key": "alt+d",
-        "when": "editorTextFocus && editorLangId == vbs"
-      },
-      {
-        "command": "extension.changeParams",
-        "key": "shift+f8",
-        "when": "editorTextFocus && editorLangId == vbs"
-      },
-      {
         "command": "extension.killScript",
         "key": "ctrl+pausebreak"
       }
     ],
     "configuration": {
       "type": "object",
-      "title": "AutoIt Configuration",
+      "title": "VBS Configuration",
       "properties": {
-        "autoit.aiPath": {
+        "vbs.interpreter": {
           "type": "string",
-          "default": "C:\\Program Files (x86)\\AutoIt3\\AutoIt3.exe",
-          "description": "Path AutoIt3.exe"
+          "default": "C:\\WINDOWS\\system32\\cscript.exe",
+          "description": "Path to Script Interpreter"
         }
       }
     }

@@ -7,7 +7,7 @@ const configuration = workspace.getConfiguration('vbs');
 const vbsOut = window.createOutputChannel('VBScript');
 
 let runner;
-const cscript = "C:\\WINDOWS\\system32\\cscript.exe";
+const cscript : string = configuration.get("vbs.interpreter");
 
 function procRunner(cmdPath : string, args) {
   vbsOut.clear();

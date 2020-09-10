@@ -1,28 +1,37 @@
 'use strict'
 import { CompletionItem, CompletionItemKind } from "vscode";
 
-var items : CompletionItem[] = [{
-        label: 'And',
-        documentation: 'Logical And operation.\ne.g. If $vVar = 5 And $vVar2 > 6 Then\n(True if $vVar equals 5 and $vVar2 is greater than 6)',
-    },
+var items: CompletionItem[] = [
     {
         label: 'ByRef',
-        documentation: 'Indicates that a parameter should be treated as a reference to the original',
+        documentation: ''
+    },
+    {
+        label: 'ByVal',
+        documentation: ''
+    },
+    {
+        label: 'Call',
+        documentation: ''
     },
     {
         label: 'Case',
         documentation: ''
     },
     {
+        label: 'Class',
+        documentation: ''
+    },
+    {
         label: 'Const',
-        documentation: 'Declare a constant'
+        documentation: ''
     },
     {
         label: 'Dim',
-        documentation: 'Declare a variable in Local scope if the variable name doesn\'t already exist globally (in which case it reuses the global variable!)'
+        documentation: ''
     },
     {
-        label: 'Do',
+        label: 'Each',
         documentation: ''
     },
     {
@@ -30,47 +39,47 @@ var items : CompletionItem[] = [{
         documentation: ''
     },
     {
-        label: 'ElseIf',
+        label: 'End',
         documentation: ''
     },
     {
-        label: 'End Function',
-        documentation: 'Closes a Function definition'
+        label: 'Enum',
+        documentation: ''
     },
     {
-        label: 'End If',
-        documentation: 'Closes an If block'
-    },
-    {
-        label: 'End Select',
-        documentation: 'Closes a Select block'
+        label: 'Event',
+        documentation: ''
     },
     {
         label: 'Exit',
-        documentation: 'Terminates the script.'
-    },
-    {
-        label: 'False',
-        documentation: 'Boolean value for use in logical expressions.'
-    },
-    {
-        label: 'For',
         documentation: ''
     },
     {
-        label: 'Func',
-        documentation: 'Defines a user-defined function that takes zero or more arguments and optionally returns a result.'
-    },
-    {
-        label: 'Global',
+        label: 'Function',
         documentation: ''
     },
     {
-        label: 'If',
-        documentation: 'Conditionally run one or more statements.'
+        label: 'Get',
+        documentation: ''
     },
     {
-        label: 'In',
+        label: 'GoTo',
+        documentation: ''
+    },
+    {
+        label: 'Implements',
+        documentation: ''
+    },
+    {
+        label: 'Let',
+        documentation: ''
+    },
+    {
+        label: 'Loop',
+        documentation: ''
+    },
+    {
+        label: 'New',
         documentation: ''
     },
     {
@@ -78,57 +87,105 @@ var items : CompletionItem[] = [{
         documentation: ''
     },
     {
-        label: 'Not',
-        documentation: 'Logical Not operation'
-    },
-    {
-        label: 'Null',
-        documentation: 'Keyword value to use in function call.'
-    },
-    {
-        label: 'Or',
-        documentation: 'Logical Or operation'
-    },
-    {
-        label: 'Redim',
-        documentation: 'Resize an existing array.'
-    },
-    {
-        label: 'Select',
-        documentation: 'Conditionally run statements.'
-    },
-    {
-        label: 'Step',
+        label: 'Nothing',
         documentation: ''
     },
     {
-        label: 'Switch',
-        documentation: 'Conditionally run statements.'
+        label: 'Null',
+        documentation: ''
+    },
+    {
+        label: 'Option',
+        documentation: ''
+    },
+    {
+        label: 'Optional',
+        documentation: ''
+    },
+    {
+        label: 'ParamArray',
+        documentation: ''
+    },
+    {
+        label: 'Preserve',
+        documentation: ''
+    },
+    {
+        label: 'Private',
+        documentation: ''
+    },
+    {
+        label: 'Public',
+        documentation: ''
+    },
+    {
+        label: 'RaiseEvent',
+        documentation: ''
+    },
+    {
+        label: 'ReDim',
+        documentation: ''
+    },
+    {
+        label: 'Rem',
+        documentation: ''
+    },
+    {
+        label: 'Resume',
+        documentation: ''
+    },
+    {
+        label: 'Select',
+        documentation: ''
+    },
+    {
+        label: 'Set',
+        documentation: ''
+    },
+    {
+        label: 'Shared',
+        documentation: ''
+    },
+    {
+        label: 'Static',
+        documentation: ''
+    },
+    {
+        label: 'Stop',
+        documentation: ''
+    },
+    {
+        label: 'Sub',
+        documentation: ''
     },
     {
         label: 'Then',
         documentation: ''
     },
     {
-        label: 'To',
+        label: 'Type',
         documentation: ''
     },
     {
-        label: 'True',
-        documentation: 'Boolean value for use in logical expressions.'
+        label: 'TypeOf',
+        documentation: ''
     },
     {
         label: 'Until',
         documentation: ''
     },
     {
-        label: 'WEnd',
-        documentation: 'Closes a While Loop'
+        label: 'Wend',
+        documentation: ''
     },
     {
         label: 'While',
-        documentation: 'Loop based on an expression.'
-    }
+        documentation: ''
+    },
+    {
+        label: 'With',
+        documentation: ''
+    },
 ]
 
 // Add the function icon and detail to each entry

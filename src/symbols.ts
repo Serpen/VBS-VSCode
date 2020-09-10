@@ -1,6 +1,4 @@
-"use strict";
-
-import { languages, SymbolInformation, SymbolKind, TextLine, Location, DocumentSymbol } from 'vscode';
+import { languages, SymbolKind, TextLine, Location, DocumentSymbol } from 'vscode';
 import UTILS from './util';
 import PATTERNS from './patterns';
 
