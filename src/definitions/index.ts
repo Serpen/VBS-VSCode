@@ -1,5 +1,5 @@
 
-import functions from "./func_def.json";
+import functions from "./functions.json";
 import keywords from "./keywords.json";
 import constants from "./constants.json";
 import colorconstants from "./colorconstants.json";

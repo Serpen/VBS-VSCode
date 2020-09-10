@@ -11,7 +11,7 @@ import {
 } from 'vscode';
 import fs from 'fs';
 import path from 'path';
-import defaultSigs from './completions/func_def.json';
+import defaultSigs from './definitions/functions.json';
 import UTILS from './util';
 import PATTERNS from './patterns';
 

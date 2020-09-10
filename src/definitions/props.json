@@ -21,7 +21,7 @@
     },
     "Now": {
         "label": "Now",
-        "documentation": ""
+        "documentation": "Returns the current date and time according to the setting of your computer's system date and time."
     },
     "ScriptEngine": {
         "label": "ScriptEngine",
