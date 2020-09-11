@@ -91,9 +91,8 @@
     "label": "Null",
     "documentation": ""
   },
-  "Option": {
-    "label": "Option",
-    "documentation": ""
+  "Option Explicit": {
+    "documentation": "Used at script level to force explicit declaration of all variables in that script. "
   },
   "Optional": {
     "label": "Optional",

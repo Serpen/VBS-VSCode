@@ -1,4 +1,4 @@
-import { commands, ExtensionContext, DocumentSelector  } from 'vscode';
+import { commands, ExtensionContext } from 'vscode';
 import * as Commands from './commands';
 import * as hoverFeature from './hover';
 import * as completionFeature from './completion';
@@ -8,7 +8,7 @@ import * as workspaceSymbolsFeature from './workspaceSymbols';
 import * as goToDefinitionFeature from './definition';
 
 export function activate(context: ExtensionContext) {
-  const features : any = [
+  const features: any = [
     hoverFeature,
     completionFeature,
     symbolsFeature,
@@ -25,11 +25,6 @@ export function activate(context: ExtensionContext) {
     Commands.runScript();
   });
 
-  // Launch Debug-Console
-  commands.registerCommand('extension.debugConsole', () => {
-    Commands.debugConsole();
-  });
-
   // Kill running script command
   commands.registerCommand('extension.killScript', () => {
     Commands.killScript();
@@ -37,5 +32,5 @@ export function activate(context: ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
 

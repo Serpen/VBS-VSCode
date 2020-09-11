@@ -5,30 +5,35 @@ import PATTERNS from './patterns';
 
 const config = workspace.getConfiguration('vbs');
 
-const makeSymbol = (name : string, type : SymbolKind, filePath : Uri, docLine : number) => {
+function makeSymbol(name: string, type: SymbolKind, filePath: Uri, docLine: number) {
   return new SymbolInformation(name, type, '', new Location(filePath, new Position(docLine, 0)));
-};
+}
 
-async function provideWorkspaceSymbols(search) {
-  const symbols : SymbolInformation[] = [];
+async function provideWorkspaceSymbols(search: string) {
+  const symbols: SymbolInformation[] = [];
 
   // Don't start searching when it's empty
   if (!search) {
     return [];
   }
 
-  // Get list of AutoIt files in workspace
+  // Get list of vbs files in workspace
   await workspace.findFiles('**/*.vbs').then(data => {
     data.forEach(file => {
-      const foundVars = [];
+      const foundVars = Array<string>();
+
+      const VAR = RegExp(PATTERNS.VAR.source, 'i');
+      const FUNCTION = RegExp(PATTERNS.FUNCTION.source, 'i');
+      const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
+      const PROP = RegExp(PATTERNS.PROP.source, 'i');
 
       fs.readFileSync(file.fsPath)
         .toString()
         .split('\n')
         .forEach((line, index) => {
-          let symbolKind : SymbolKind;
-          const variableFound = PATTERNS.VAR.exec(line);
-          const functionFound = PATTERNS.FUNCTION.exec(line);
+          let symbolKind: SymbolKind;
+          const variableFound = VAR.exec(line);
+          const functionFound = FUNCTION.exec(line);
 
           if (variableFound && config.showVariablesInGoToSymbol) {
             const { 1: newName } = variableFound;

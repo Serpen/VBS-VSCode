@@ -1,4 +1,4 @@
-
+"use strict";
 import functions from "./functions.json";
 import keywords from "./keywords.json";
 import constants from "./constants.json";
@@ -31,14 +31,14 @@ for (let i in keywords) {
 
 for (let i in constants) {
     const itm = new CompletionItem(i, CompletionItemKind.Constant);
-    itm.detail = i;
+    itm.detail = "Const " + i;
     itm.documentation = constants[i]?.documentation;
     // i.insertText = new SnippetString(i.insertText)
     completions.push(itm);
 }
 for (let i in colorconstants) {
     const itm = new CompletionItem(i, CompletionItemKind.Color);
-    itm.detail = i;
+    itm.detail = "Const " + i;
     itm.documentation = colorconstants[i]?.documentation;
     // i.insertText = new SnippetString(i.insertText)
     completions.push(itm);
@@ -54,14 +54,14 @@ for (let i in operators) {
 
 for (let i in props) {
     const itm = new CompletionItem(i, CompletionItemKind.Property);
-    itm.detail = i;
+    itm.detail = "Property " + i;
     itm.documentation = props[i]?.documentation;
     // i.insertText = new SnippetString(i.insertText)
     completions.push(itm);
 }
 
 for (let i in types) {
-    const itm = new CompletionItem(i, CompletionItemKind.Property);
+    const itm = new CompletionItem(i, CompletionItemKind.Struct);
     itm.detail = i;
     itm.documentation = types[i]?.documentation;
     // i.insertText = new SnippetString(i.insertText)
