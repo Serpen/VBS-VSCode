@@ -1,7 +1,7 @@
 {
     "And": {
         "label": "And",
-        "documentation": ""
+        "documentation": "Performs a logical conjunction on two expressions."
     },
     "Like": {
         "label": "Like",
@@ -9,18 +9,18 @@
     },
     "Mod": {
         "label": "Mod",
-        "documentation": ""
+        "documentation": "Divides two integers and returns the integer remainder."
     },
     "Not": {
         "label": "Not",
-        "documentation": ""
+        "documentation": "Performs logical negation on an expression."
     },
     "Or": {
         "label": "Or",
-        "documentation": ""
+        "documentation": "Performs a logical disjunction on two expressions."
     },
     "Xor": {
         "label": "Xor",
-        "documentation": ""
+        "documentation": "Performs a logical exclusion on two expressions."
     }
 }

@@ -1,7 +1,7 @@
 {
   "Abs": {
     "label": "Function Abs(expr as Integer) as Integer",
-    "documentation": "Calculates the absolute value of a number.",
+    "documentation": "Returns the absolute value of a number.",
     "params": [
       {
         "label": "expr",
@@ -21,7 +21,7 @@
   },
   "AscB": {
     "label": "AscB",
-    "documentation": ""
+    "documentation": "Returns the ANSI character code corresponding to the first letter in a string."
   },
   "AscW": {
     "label": "AscW",
@@ -29,11 +29,11 @@
   },
   "Atn": {
     "label": "Atn",
-    "documentation": ""
+    "documentation": "Returns the arctangent of a number."
   },
   "CBool": {
     "label": "CBool",
-    "documentation": ""
+    "documentation": "Returns an expression that has been converted to a Variant of subtype Boolean."
   },
   "CByte": {
     "label": "CByte",
@@ -88,12 +88,34 @@
     "documentation": ""
   },
   "DateAdd": {
-    "label": "DateAdd",
+    "label": "DateAdd(interval, number, date)",
     "documentation": ""
   },
   "DateDiff": {
-    "label": "DateDiff",
-    "documentation": ""
+    "label": "DateDiff(interval, date1, date2 [,firstdayofweek[, firstweekofyear]])",
+    "documentation": "Returns the number of intervals between two dates.",
+    "params": [
+      {
+        "label": "interval",
+        "documentation": "Required. String expression that is the interval you want to use to calculate the differences between date1 and date2. See Settings section for values."
+      },
+      {
+        "label": "date1",
+        "documentation": "Required. Date expressions. Two dates you want to use in the calculation."
+      },
+      {
+        "label": "date2",
+        "documentation": "Required. Date expressions. Two dates you want to use in the calculation.."
+      },
+      {
+        "label": "firstdayofweek",
+        "documentation": "Optional. Constant that specifies the day of the week. If not specified, Sunday is assumed. See Settings section for values."
+      },
+      {
+        "label": "firstweekofyear",
+        "documentation": "Optional. Constant that specifies the first week of the year. If not specified, the first week is assumed to be the week in which January 1 occurs. See Settings section for values."
+      }
+    ]
   },
   "DatePart": {
     "label": "DatePart",
@@ -113,10 +135,6 @@
   },
   "Double": {
     "label": "Double",
-    "documentation": ""
-  },
-  "Empty": {
-    "label": "Empty",
     "documentation": ""
   },
   "Eqv": {
@@ -152,8 +170,8 @@
     "documentation": ""
   },
   "Filter": {
-    "label": "Filter",
-    "documentation": ""
+    "label": " Filter(InputStrings, Value[, Include[, Compare]])",
+    "documentation": "Returns a zero-based array containing a subset of a string array based on a specified filter criteria."
   },
   "Fix": {
     "label": "Fix",
@@ -200,12 +218,12 @@
     "documentation": ""
   },
   "InputBox": {
-    "label": "InputBox",
-    "documentation": ""
+    "label": "Function InputBox(prompt As String[, title As String][, default As String][, xpos][, ypos][, helpfile, context]) As String",
+    "documentation": "Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box."
   },
   "InStr": {
-    "label": "InStr",
-    "documentation": ""
+    "label": "InStr([start, ]string1, string2[, compare])",
+    "documentation": "Returns the position of the first occurrence of one string within another."
   },
   "InStrB": {
     "label": "InStrB",
@@ -236,8 +254,8 @@
     "documentation": ""
   },
   "IsNumeric": {
-    "label": "IsNumeric",
-    "documentation": ""
+    "label": "IsNumeric(expression) as Boolean",
+    "documentation": "Returns a Boolean value indicating whether an expression can be evaluated as a number."
   },
   "IsObject": {
     "label": "IsObject",
@@ -288,8 +306,8 @@
     "documentation": ""
   },
   "Mid": {
-    "label": "Mid",
-    "documentation": ""
+    "label": "Mid(string, start[, length])",
+    "documentation": "Returns a specified number of characters from a string."
   },
   "MidB": {
     "label": "MidB",
@@ -308,8 +326,30 @@
     "documentation": ""
   },
   "MsgBox": {
-    "label": "MsgBox",
-    "documentation": ""
+    "label": "MsgBox(prompt[, buttons][, title][, helpfile, context])",
+    "documentation": "Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.",
+    "params": [
+      {
+        "label": "prompt",
+        "documentation": "String expression displayed as the message in the dialog box. The maximum length of prompt is approximately 1024 characters, depending on the width of the characters used. If prompt consists of more than one line, you can separate the lines using a carriage return character (Chr(13)), a linefeed character (Chr(10)), or carriage return–linefeed character combination (Chr(13) & Chr(10)) between each line."
+      },
+      {
+        "label": "buttons",
+        "documentation": "Numeric expression that is the sum of values specifying the number and type of buttons to display, the icon style to use, the identity of the default button, and the modality of the message box. See Settings section for values. If omitted, the default value for buttons is 0."
+      },
+      {
+        "label": "title",
+        "documentation": "String expression displayed in the title bar of the dialog box. If you omit title, the application name is placed in the title bar."
+      },
+      {
+        "label": "helpfile",
+        "documentation": "String expression that identifies the Help file to use to provide context-sensitive Help for the dialog box. If helpfile is provided, context must also be provided. Not available on 16-bit platforms."
+      },
+      {
+        "label": "context",
+        "documentation": "Numeric expression that identifies the Help context number assigned by the Help author to the appropriate Help topic. If context is provided, helpfile must also be provided. Not available on 16-bit platforms."
+      }
+    ]
   },
   "Oct": {
     "label": "Oct",
@@ -372,7 +412,7 @@
     "documentation": ""
   },
   "Split": {
-    "label": "Split",
+    "label": "Split(expression[, delimiter[, count[, compare]]])",
     "documentation": ""
   },
   "Sqr": {
@@ -413,11 +453,11 @@
   },
   "UBound": {
     "label": "UBound",
-    "documentation": ""
+    "documentation": "Returns the largest available subscript for the indicated dimension of an array."
   },
   "UCase": {
-    "label": "UCase",
-    "documentation": ""
+    "label": "Function UCase(String As String) As String",
+    "documentation": "Returns a string that has been converted to uppercase."
   },
   "Unescape": {
     "label": "Unescape",

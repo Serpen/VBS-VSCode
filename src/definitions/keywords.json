@@ -35,6 +35,10 @@
     "label": "Else",
     "documentation": ""
   },
+  "Empty": {
+    "label": "Empty",
+    "documentation": "The Empty keyword is used to indicate an uninitialized variable value. This is not the same thing as Null. You can use the IsEmpty Function to determine whether a variable is initialized."
+  },
   "End": {
     "label": "End",
     "documentation": ""

@@ -25,7 +25,7 @@
   },
   "vbBinaryCompare": {
     "label": "vbBinaryCompare",
-    "documentation": ""
+    "documentation": "Perform a binary comparison."
   },
   "vbBoolean": {
     "label": "vbBoolean",
@@ -189,23 +189,23 @@
   },
   "vbOKCancel": {
     "label": "vbOKCancel",
-    "documentation": ""
+    "documentation": "Display OK and Cancel buttons."
   },
   "vbOKOnly": {
     "label": "vbOKOnly",
-    "documentation": ""
+    "documentation": "Display OK button only."
   },
   "vbQuestion": {
     "label": "vbQuestion",
-    "documentation": ""
+    "documentation": "Display Warning Query icon."
   },
   "vbRetry": {
     "label": "vbRetry",
-    "documentation": ""
+    "documentation": "Retry button was clicked."
   },
   "vbRetryCancel": {
     "label": "vbRetryCancel",
-    "documentation": ""
+    "documentation": "Display Retry and Cancel buttons."
   },
   "vbSaturday": {
     "label": "vbSaturday",
@@ -241,7 +241,7 @@
   },
   "vbTextCompare": {
     "label": "vbTextCompare",
-    "documentation": ""
+    "documentation": "Perform a textual comparison."
   },
   "vbThursday": {
     "label": "vbThursday",
