@@ -1,10 +1,8 @@
-"use strict";
 import { languages, Hover, TextDocument, Position } from 'vscode';
 import definitions from './definitions';
-import UTILS from './util';
 import PATTERNS from './patterns';
 
-module.exports = languages.registerHoverProvider(UTILS.VBS_MODE, {
+export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs' }, {
   provideHover(document: TextDocument, position: Position) {
     const wordRange = document.getWordRangeAtPosition(position);
     const word: string = wordRange ? document.getText(wordRange) : '';

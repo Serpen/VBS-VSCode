@@ -1,5 +1,4 @@
 import { languages, Location, TextDocument, Position } from 'vscode';
-import UTILS from './util';
 import PATTERNS from './patterns';
 
 const DefinitionProvider = {
@@ -22,6 +21,4 @@ const DefinitionProvider = {
   },
 };
 
-const defProvider = languages.registerDefinitionProvider(UTILS.VBS_MODE, DefinitionProvider);
-
-module.exports = defProvider;
+export default languages.registerDefinitionProvider({ scheme: 'file', language: 'vbs' }, DefinitionProvider);

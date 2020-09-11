@@ -1,4 +1,3 @@
-"use strict";
 import {
   languages,
   SignatureHelp,
@@ -6,10 +5,9 @@ import {
   ParameterInformation,
   MarkdownString,
   TextDocument,
-  Position, ExtensionContext
+  Position
 } from 'vscode';
 import defaultSigs from './definitions/functions.json';
-import UTILS from './util';
 import PATTERNS from './patterns';
 
 
@@ -30,9 +28,15 @@ function getParsableCode(code: string): string {
 
 function getCurrentFunction(code: string) {
   const parenSplit = code.split('(');
+  let index: number;
+  if (parenSplit.length == 1)
+    index = 0;
+  else
+    index = parenSplit.length - 2;
+
   // Get the 2nd to last item (right in front of last open paren)
   // and clean up the results
-  return parenSplit[parenSplit.length - 2].match(/(.*)\b(\w+)/)[2];
+  return parenSplit[index].match(/(.*)\b(\w+)/)[2];
 }
 
 function countCommas(code: string) {
@@ -49,7 +53,7 @@ function countCommas(code: string) {
 
 function getCallInfo(doc: TextDocument, pos: Position) {
   // Acquire the text up the point where the current cursor/paren/comma is at
-  const codeAtPosition = doc.lineAt(pos.line).text.substring(0, pos.character);
+  const codeAtPosition = doc.lineAt(pos).text.substring(0, pos.character);
   const cleanCode = getParsableCode(codeAtPosition);
 
   return {
@@ -98,8 +102,8 @@ function getLocalSigs(doc: TextDocument) {
   return functions;
 }
 
-module.exports = languages.registerSignatureHelpProvider(
-  UTILS.VBS_MODE,
+export default languages.registerSignatureHelpProvider(
+  { scheme: 'file', language: 'vbs' },
   {
     provideSignatureHelp(document, position) {
       // Find out what called for sig
@@ -144,4 +148,5 @@ module.exports = languages.registerSignatureHelpProvider(
   },
   '(',
   ',',
+  ' '
 );

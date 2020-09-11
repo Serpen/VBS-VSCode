@@ -1,5 +1,4 @@
 import { languages, SymbolKind, TextLine, Location, DocumentSymbol } from 'vscode';
-import UTILS from './util';
 import PATTERNS from './patterns';
 
 function isSkippableLine(line: TextLine) {
@@ -17,11 +16,10 @@ function isSkippableLine(line: TextLine) {
   return false;
 }
 
-module.exports = languages.registerDocumentSymbolProvider(UTILS.VBS_MODE, {
+export default languages.registerDocumentSymbolProvider({ scheme: 'file', language: 'vbs' }, {
   provideDocumentSymbols(doc) {
     const result: DocumentSymbol[] = [];
     const found = [];
-    let name: string;
 
     const lastIdent = new Array<string>();
     lastIdent.push('');
@@ -35,15 +33,14 @@ module.exports = languages.registerDocumentSymbolProvider(UTILS.VBS_MODE, {
     const lineCount = Math.min(doc.lineCount, 10000);
     for (let lineNum = 0; lineNum < lineCount; lineNum++) {
       const line = doc.lineAt(lineNum);
-      const lineText = line.text;
-      const pos = new Location(doc.uri, line.range);
+      let name: string;
 
       if (isSkippableLine(line)) {
         // eslint-disable-next-line no-continue
         continue;
       }
 
-      let matches = FUNCTION.exec(lineText);
+      let matches = FUNCTION.exec(line.text);
       if (matches) {
         name = matches[2];
         let symKind = SymbolKind.Function;
@@ -60,7 +57,7 @@ module.exports = languages.registerDocumentSymbolProvider(UTILS.VBS_MODE, {
         lastIdent.push(name);
       }
 
-      matches = CLASS.exec(lineText);
+      matches = CLASS.exec(line.text);
       if (matches) {
         name = matches[1];
         const classSymbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
@@ -69,7 +66,7 @@ module.exports = languages.registerDocumentSymbolProvider(UTILS.VBS_MODE, {
         lastIdent.push(name);
       }
 
-      matches = PROP.exec(lineText);
+      matches = PROP.exec(line.text);
       if (matches) {
         name = matches[1];
         const classSymbol = new DocumentSymbol(name, '', SymbolKind.Property, line.range, line.range);
@@ -78,7 +75,7 @@ module.exports = languages.registerDocumentSymbolProvider(UTILS.VBS_MODE, {
         lastIdent.push(name);
       }
 
-      matches = VAR.exec(lineText);
+      matches = VAR.exec(line.text);
       if (matches) {
         let name = matches[2];
         let symKind = SymbolKind.Variable;

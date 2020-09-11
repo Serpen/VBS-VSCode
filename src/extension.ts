@@ -1,33 +1,30 @@
 import { commands, ExtensionContext } from 'vscode';
-import * as Commands from './commands';
-import * as hoverFeature from './hover';
-import * as completionFeature from './completion';
-import * as symbolsFeature from './symbols';
-import * as signaturesFeature from './signature';
-import * as workspaceSymbolsFeature from './workspaceSymbols';
-import * as goToDefinitionFeature from './definition';
+import * as cmds from './commands';
+import hoverProvider from './hover';
+import completionProvider from './completion';
+import symbolsProvider from './symbols';
+import signatureProvider from './signature';
+import definitionProvider from './definition';
 
 export function activate(context: ExtensionContext) {
-  const features: any = [
-    hoverFeature,
-    completionFeature,
-    symbolsFeature,
-    signaturesFeature,
-    workspaceSymbolsFeature,
-    goToDefinitionFeature,
+  const providers: any = [
+    hoverProvider,
+    completionProvider,
+    symbolsProvider,
+    signatureProvider,
+    definitionProvider,
   ];
-  context.subscriptions.push(...features);
 
-  // context.subscriptions.push(languages.setLanguageConfiguration('vbs', langConfig));
+  context.subscriptions.push(...providers);
 
   // Run Script Command
   commands.registerCommand('extension.runScript', () => {
-    Commands.runScript();
+    cmds.runScript();
   });
 
   // Kill running script command
   commands.registerCommand('extension.killScript', () => {
-    Commands.killScript();
+    cmds.killScript();
   });
 }
 

@@ -1,7 +1,6 @@
 import { languages, CompletionItem, CompletionItemKind, Range, TextDocument, Position } from 'vscode';
 import definitions from './definitions';
 import PATTERNS from './patterns';
-import UTIL from './util';
 
 function createNewCompletionItem(kind: CompletionItemKind, name: string, strDetail = '') {
   const compItem = new CompletionItem(name, kind);
@@ -30,11 +29,6 @@ function createNewCompletionItem(kind: CompletionItemKind, name: string, strDeta
   return compItem;
 }
 
-/**
- * Creates an array of completion items for AutoIt variables from the document.
- * @param {String} text Content of the document
- * @returns {Array<Object>} Array of CompletionItem objects
- */
 function getVariableCompletions(text: string): CompletionItem[] {
   const variables: CompletionItem[] = [];
   const foundVariables = {};
@@ -56,11 +50,6 @@ function getVariableCompletions(text: string): CompletionItem[] {
   return variables;
 }
 
-/**
- * Creates an array of CompletionItems for Functions declared in the document
- * @param {String} text Content of the document
- * @returns {Array<Object>} Array of CompletionItem objects
- */
 function getLocalFunctionCompletions(text: string): CompletionItem[] {
   const functions: CompletionItem[] = [];
   const foundFunctions = {};
@@ -115,9 +104,8 @@ function getLocalClassCompletions(text: string): CompletionItem[] {
   return vals;
 }
 
-const provideCompletionItems = (document: TextDocument, position: Position) => {
+function provideCompletionItems(document: TextDocument, position: Position) {
   // Gather the functions created by the user
-
   const text = document.getText();
   let range = document.getWordRangeAtPosition(position);
 
@@ -126,24 +114,25 @@ const provideCompletionItems = (document: TextDocument, position: Position) => {
   }
 
   // Remove completion offerings from commented lines
-  const line = document.lineAt(position.line);
+  const line = document.lineAt(position);
   const firstChar = line.text.charAt(line.firstNonWhitespaceCharacterIndex);
-  if (firstChar === ';') {
+  if (firstChar === "'") {
     return null;
   }
+
+  const VAR = /^[\t ]*(Dim|Const|((Private|Public)[\t ]+)?(Function|Sub|Class))[\t ]+([a-z_0-9]+)\b/i; //fix: should again after var name
+  if (VAR.exec(line.text))
+    return;
 
   const variableCompletions = getVariableCompletions(text);
   const functionCompletions = getLocalFunctionCompletions(text);
   const propertyCompletions = getLocalPropertyCompletions(text);
   const classCompletions = getLocalClassCompletions(text);
 
-  const localCompletions = [...variableCompletions, ...functionCompletions, ...propertyCompletions, ...classCompletions];
+  return [...definitions, ...variableCompletions, ...functionCompletions, ...propertyCompletions, ...classCompletions];
+}
 
-  return [...definitions, ...localCompletions];
-};
-
-module.exports = languages.registerCompletionItemProvider(
-  UTIL.VBS_MODE,
+export default languages.registerCompletionItemProvider(
+  { scheme: 'file', language: 'vbs' },
   { provideCompletionItems },
-  '.',
 );

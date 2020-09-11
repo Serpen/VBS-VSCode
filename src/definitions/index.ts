@@ -1,4 +1,3 @@
-"use strict";
 import functions from "./functions.json";
 import keywords from "./keywords.json";
 import constants from "./constants.json";
@@ -9,62 +8,53 @@ import types from "./types.json"
 
 import { CompletionItem, CompletionItemKind } from "vscode";
 
-// Add the function icon and detail to each entry
-
 var completions = new Array<CompletionItem>();
 
-for (let i in functions) {
-    const itm = new CompletionItem(i, CompletionItemKind.Function);
-    itm.detail = functions[i]?.label;
-    itm.documentation = functions[i]?.documentation;
-    // i.insertText = new SnippetString(i.insertText)
+for (let entry in functions) {
+    const itm = new CompletionItem(entry, CompletionItemKind.Function);
+    itm.detail = functions[entry]?.label;
+    itm.documentation = functions[entry]?.documentation;
     completions.push(itm);
 }
 
-for (let i in keywords) {
-    const itm = new CompletionItem(i, CompletionItemKind.Keyword);
-    itm.detail = i;
-    itm.documentation = keywords[i]?.documentation;
-    // i.insertText = new SnippetString(i.insertText)
+for (let entry in keywords) {
+    const itm = new CompletionItem(entry, CompletionItemKind.Keyword);
+    itm.detail = entry;
+    itm.documentation = keywords[entry]?.documentation;
     completions.push(itm);
 }
 
-for (let i in constants) {
-    const itm = new CompletionItem(i, CompletionItemKind.Constant);
-    itm.detail = "Const " + i;
-    itm.documentation = constants[i]?.documentation;
-    // i.insertText = new SnippetString(i.insertText)
+for (let entry in constants) {
+    const itm = new CompletionItem(entry, CompletionItemKind.Constant);
+    itm.detail = "Const " + entry;
+    itm.documentation = constants[entry]?.documentation;
     completions.push(itm);
 }
-for (let i in colorconstants) {
-    const itm = new CompletionItem(i, CompletionItemKind.Color);
-    itm.detail = "Const " + i;
-    itm.documentation = colorconstants[i]?.documentation;
-    // i.insertText = new SnippetString(i.insertText)
-    completions.push(itm);
-}
-
-for (let i in operators) {
-    const itm = new CompletionItem(i, CompletionItemKind.Operator);
-    itm.detail = i;
-    itm.documentation = operators[i]?.documentation;
-    // i.insertText = new SnippetString(i.insertText)
+for (let entry in colorconstants) {
+    const itm = new CompletionItem(entry, CompletionItemKind.Color);
+    itm.detail = "Const " + entry;
+    itm.documentation = colorconstants[entry]?.documentation;
     completions.push(itm);
 }
 
-for (let i in props) {
-    const itm = new CompletionItem(i, CompletionItemKind.Property);
-    itm.detail = "Property " + i;
-    itm.documentation = props[i]?.documentation;
-    // i.insertText = new SnippetString(i.insertText)
+for (let entry in operators) {
+    const itm = new CompletionItem(entry, CompletionItemKind.Operator);
+    itm.detail = entry;
+    itm.documentation = operators[entry]?.documentation;
     completions.push(itm);
 }
 
-for (let i in types) {
-    const itm = new CompletionItem(i, CompletionItemKind.Struct);
-    itm.detail = i;
-    itm.documentation = types[i]?.documentation;
-    // i.insertText = new SnippetString(i.insertText)
+for (let entry in props) {
+    const itm = new CompletionItem(entry, CompletionItemKind.Property);
+    itm.detail = "Property " + entry;
+    itm.documentation = props[entry]?.documentation;
+    completions.push(itm);
+}
+
+for (let entry in types) {
+    const itm = new CompletionItem(entry, CompletionItemKind.Struct);
+    itm.detail = "Type " + entry;
+    itm.documentation = types[entry]?.documentation;
     completions.push(itm);
 }
 
