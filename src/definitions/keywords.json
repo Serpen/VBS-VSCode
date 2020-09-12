@@ -47,12 +47,28 @@
     "label": "Enum",
     "documentation": ""
   },
+  "Erase": {
+    "label": "Erase",
+    "documentation": ""
+  },
   "Event": {
     "label": "Event",
     "documentation": ""
   },
+  "Execute": {
+    "label": "Execute",
+    "documentation": ""
+  },
+  "ExecuteGlobal": {
+    "label": "ExecuteGlobal",
+    "documentation": ""
+  },
   "Exit": {
     "label": "Exit",
+    "documentation": ""
+  },
+  "For": {
+    "label": "For",
     "documentation": ""
   },
   "Function": {
@@ -116,6 +132,10 @@
   },
   "Public": {
     "label": "Public",
+    "documentation": ""
+  },
+  "Randomize": {
+    "label": "Randomize",
     "documentation": ""
   },
   "RaiseEvent": {

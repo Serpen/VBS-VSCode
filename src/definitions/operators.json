@@ -3,6 +3,14 @@
         "label": "And",
         "documentation": "Performs a logical conjunction on two expressions."
     },
+    "Eqv": {
+        "label": "Eqv",
+        "documentation": ""
+    },
+    "Imp": {
+        "label": "Imp",
+        "documentation": "-Used to perform a logical implication on two expressions."
+      },
     "Like": {
         "label": "Like",
         "documentation": ""

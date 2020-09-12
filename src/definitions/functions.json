@@ -25,7 +25,7 @@
   },
   "AscW": {
     "label": "AscW",
-    "documentation": ""
+    "documentation": "Function that returns the Unicode (wide) character code that represents a specific Unicode character."
   },
   "Atn": {
     "label": "Atn",
@@ -137,32 +137,12 @@
     "label": "Double",
     "documentation": ""
   },
-  "Eqv": {
-    "label": "Eqv",
-    "documentation": ""
-  },
-  "Err": {
-    "label": "Err",
-    "documentation": "Class"
-  },
-  "Erase": {
-    "label": "Erase",
-    "documentation": ""
-  },
   "Escape": {
     "label": "Escape",
     "documentation": ""
   },
   "Eval": {
     "label": "Eval",
-    "documentation": ""
-  },
-  "Execute": {
-    "label": "Execute",
-    "documentation": ""
-  },
-  "ExecuteGlobal": {
-    "label": "ExecuteGlobal",
     "documentation": ""
   },
   "Exp": {
@@ -175,10 +155,6 @@
   },
   "Fix": {
     "label": "Fix",
-    "documentation": ""
-  },
-  "For": {
-    "label": "For",
     "documentation": ""
   },
   "FormatCurrency": {
@@ -211,10 +187,6 @@
   },
   "Hour": {
     "label": "Hour",
-    "documentation": ""
-  },
-  "Imp": {
-    "label": "Imp",
     "documentation": ""
   },
   "InputBox": {
@@ -297,10 +269,6 @@
     "label": "Log",
     "documentation": ""
   },
-  "LSet": {
-    "label": "LSet",
-    "documentation": ""
-  },
   "LTrim": {
     "label": "LTrim",
     "documentation": ""
@@ -355,10 +323,6 @@
     "label": "Oct",
     "documentation": ""
   },
-  "Randomize": {
-    "label": "Randomize",
-    "documentation": ""
-  },
   "Replace": {
     "label": "Replace",
     "documentation": ""
@@ -383,10 +347,6 @@
     "label": "Round",
     "documentation": ""
   },
-  "RSet": {
-    "label": "RSet",
-    "documentation": ""
-  },
   "RTrim": {
     "label": "RTrim",
     "documentation": ""
@@ -396,8 +356,8 @@
     "documentation": ""
   },
   "SetLocale": {
-    "label": "SetLocale",
-    "documentation": ""
+    "label": "Function SetLocale(integer) as Integer",
+    "documentation": "undocumented"
   },
   "Sgn": {
     "label": "Sgn",
