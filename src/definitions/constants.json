@@ -71,8 +71,16 @@
     "label": "vbDecimal",
     "documentation": ""
   },
-  "vbDouble": {
-    "label": "vbDouble",
+  "vbDefaultButton1": {
+    "documentation": ""
+  },
+  "vbDefaultButton2": {
+    "documentation": ""
+  },
+  "vbDefaultButton3": {
+    "documentation": ""
+  },
+  "vbDefaultButton4": {
     "documentation": ""
   },
   "vbEmpty": {
@@ -97,6 +105,9 @@
   },
   "vbFirstFullWeek": {
     "label": "vbFirstFullWeek",
+    "documentation": ""
+  },
+  "vbFirstJan1": {
     "documentation": ""
   },
   "vbFormFeed": {

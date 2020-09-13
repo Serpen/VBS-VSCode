@@ -273,6 +273,9 @@
     "label": "LTrim",
     "documentation": ""
   },
+  "Me": {
+    "documentation": ""
+  },
   "Mid": {
     "label": "Mid(string, start[, length])",
     "documentation": "Returns a specified number of characters from a string."
@@ -437,6 +440,24 @@
   },
   "Year": {
     "label": "Year",
+    "documentation": ""
+  },
+  "Err.Raise": {
+    "documentation": ""
+  },
+  "Debug.Write": {
+    "documentation": ""
+  },
+  "Debug.WriteLine": {
+    "documentation": ""
+  },
+  "RegExp.Execute": {
+    "documentation": ""
+  },
+  "RegExp.Replace": {
+    "documentation": ""
+  },
+  "RegExp.Test": {
     "documentation": ""
   }
 }

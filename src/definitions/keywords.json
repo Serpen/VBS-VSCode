@@ -1,4 +1,7 @@
 {
+  "As": {
+    "documentation": ""
+  },
   "ByRef": {
     "label": "ByRef",
     "documentation": ""
@@ -25,6 +28,9 @@
   },
   "Dim": {
     "label": "Dim",
+    "documentation": ""
+  },
+  "Do": {
     "documentation": ""
   },
   "Each": {
@@ -81,6 +87,12 @@
   },
   "GoTo": {
     "label": "GoTo",
+    "documentation": ""
+  },
+  "If": {
+    "documentation": ""
+  },
+  "In": {
     "documentation": ""
   },
   "Implements": {
@@ -180,6 +192,9 @@
   },
   "Then": {
     "label": "Then",
+    "documentation": ""
+  },
+  "To": {
     "documentation": ""
   },
   "Type": {

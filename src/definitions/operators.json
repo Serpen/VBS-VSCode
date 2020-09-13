@@ -9,8 +9,11 @@
     },
     "Imp": {
         "label": "Imp",
-        "documentation": "-Used to perform a logical implication on two expressions."
-      },
+        "documentation": "undocumented Used to perform a logical implication on two expressions."
+    },
+    "Is": {
+        "documentation": "Used to compare two object reference variables."
+    },
     "Like": {
         "label": "Like",
         "documentation": ""

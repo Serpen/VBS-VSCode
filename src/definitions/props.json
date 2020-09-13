@@ -48,7 +48,39 @@
         "documentation": ""
     },
     "WScript": {
-        "label": "WScript",
+        "documentation": ""
+    },
+    "Err.Clear": {
+        "documentation": ""
+    },
+    "Err.Description": {
+        "documentation": ""
+    },
+    "Err.HelpContext": {
+        "documentation": ""
+    },
+    "Err.HelpFile": {
+        "documentation": ""
+    },
+    "Err.Number": {
+        "documentation": ""
+    },
+    "Err.Source": {
+        "documentation": ""
+    },
+    "RegExp.Global": {
+        "documentation": ""
+    },
+    "RegExp.IgnoreCase": {
+        "documentation": ""
+    },
+    "Match.FirstIndex": {
+        "documentation": ""
+    },
+    "Match.Length": {
+        "documentation": ""
+    },
+    "Match.Value": {
         "documentation": ""
     }
 }
