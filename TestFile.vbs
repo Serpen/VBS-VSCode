@@ -1,4 +1,22 @@
-Wscript.Echo 1
+Option Explicit
+
+
+Main
+
+Sub Main()
+
+dim fso : set fso = CreateObject("Scripting.FileSystemObject")
+dim testVar4
+
+MsgBox Wscript.ReadLine
+
+WScript.Quit(1)
+
+Wscript.StdErr
+Wscript.StdIn
+Wscript.StdOut
+
+End Sub
 
 
 Const myConst = 4
@@ -29,9 +47,9 @@ If True Then
     
 End If
 
-if Hallo = "" then Abs(8)
+if firstVar = "" then Abs(8)
 
-For i=0 To Value Step 1
+For secondVar=0 To myConst Step 1
 
 Next
 
@@ -68,11 +86,11 @@ End Class
 
 Class Klasse3
 
-    Private Sub Class_Initialize
+    Private Sub Class_Initialize()
         ' Called automatically when class is created
     End Sub
 
-    Private Sub Class_Terminate
+    Private Sub Class_Terminate()
         ' Called automatically when all references to class instance are removed
     End Sub
 

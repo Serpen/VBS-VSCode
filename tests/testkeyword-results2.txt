@@ -1,6 +1,7 @@
 Abs : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Abs' 
 And : wrong syntax -2146827286
 Array : Klasse unterstützt keine Automatisierung.: 'retObject.Val' -2146827858
+As : wrong syntax -2146827286
 Asc : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Asc' 
 AscB : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'AscB' 
 AscW : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'AscW' 
@@ -16,7 +17,7 @@ CByte : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'CBy
 CCur : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'CCur' 
 CDate : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'CDate' 
 CDbl : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'CDbl' 
-Chr : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Chr' 
+chr : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'chr' 
 ChrB : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'ChrB' 
 ChrW : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'ChrW' 
 CInt : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'CInt' 
@@ -28,7 +29,7 @@ CreateObject : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisun
 CSng : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'CSng' 
 CStr : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'CStr' 
 Currency : wrong syntax -2146827286
-Date : works 10.09.2020
+Date : works 13.09.2020
 DateAdd : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'DateAdd' 
 DateDiff : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'DateDiff' 
 DatePart : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'DatePart' 
@@ -37,6 +38,7 @@ DateValue : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 
 Day : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Day' 
 Debug : Klasse unterstützt keine Automatisierung.: 'retObject.Val' -2146827858
 Dim : wrong syntax -2146827286
+Do : wrong syntax -2146827286
 Double : wrong syntax -2146827286
 Each : wrong syntax -2146827286
 Else : wrong syntax -2146827286
@@ -55,7 +57,7 @@ Execute : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'E
 ExecuteGlobal : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'ExecuteGlobal' 
 Exit : wrong syntax -2146827286
 Exp : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Exp' 
-false : works Falsch
+False : works Falsch
 Filter : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Filter' 
 Fix : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Fix' 
 For : wrong syntax -2146827286
@@ -72,14 +74,17 @@ GetUILanguage : works 1031
 GoTo : wrong syntax -2146827286
 Hex : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Hex' 
 Hour : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Hour' 
+iF : wrong syntax -2146827286
 Imp : wrong syntax -2146827286
 Implements : wrong syntax -2146827286
+in : wrong syntax -2146827286
 InputBox : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'InputBox' 
 InStr : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'InStr' 
 InStrB : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'InStrB' 
 InStrRev : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'InStrRev' 
 Int : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Int' 
 Integer : wrong syntax -2146827286
+is : wrong syntax -2146827286
 IsArray : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'IsArray' 
 IsDate : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'IsDate' 
 IsEmpty : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'IsEmpty' 
@@ -96,11 +101,12 @@ LenB : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'LenB
 Let : wrong syntax -2146827286
 Like : wrong syntax -2146827286
 LoadPicture : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'LoadPicture' 
-Log : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Log' 
+log : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'log' 
 Long : wrong syntax -2146827286
 Loop : wrong syntax -2146827286
 LSet : wrong syntax -2146827286
 LTrim : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'LTrim' 
+Me : works Serpen.RetObject
 Mid : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Mid' 
 MidB : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'MidB' 
 Minute : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Minute' 
@@ -112,11 +118,13 @@ New : Bezeichner erwartet -2146827278
 Next : wrong syntax -2146827286
 Not : wrong syntax -2146827286
 Nothing : works 
-Now : works 10.09.2020 20:57:44
+Now : works 13.09.2020 00:59:40
 Null : works 
 Oct : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Oct' 
+On : wrong syntax -2146827286
 Option : wrong syntax -2146827286
 Optional : wrong syntax -2146827286
+or : wrong syntax -2146827286
 ParamArray : wrong syntax -2146827286
 Preserve : wrong syntax -2146827286
 Private : wrong syntax -2146827286
@@ -157,10 +165,11 @@ StrReverse : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung:
 Sub : wrong syntax -2146827286
 Tan : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Tan' 
 Then : wrong syntax -2146827286
-Time : works 20:57:45
-Timer : works 75465,08
+Time : works 00:59:40
+Timer : works 3580,501
 TimeSerial : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'TimeSerial' 
 TimeValue : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'TimeValue' 
+to : wrong syntax -2146827286
 Trim : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Trim' 
 True : works Wahr
 Type : wrong syntax -2146827286
@@ -192,6 +201,10 @@ vbDatabaseCompare : works 2
 vbDataObject : works 13
 vbDate : works 7
 vbDecimal : works 14
+vbDefaultButton1 : works 0
+vbDefaultButton2 : works 256
+vbDefaultButton3 : works 512
+vbDefaultButton4 : works 768
 vbDouble : works 5
 vbEmpty : works 0
 vbError : works 10
@@ -199,6 +212,7 @@ vbExclamation : works 48
 vbFalse : works 0
 vbFirstFourDays : works 2
 vbFirstFullWeek : works 3
+vbFirstJan1 : works 1
 vbFormFeed : works 
 vbFriday : works 6
 vbGeneralDate : works 0
@@ -261,5 +275,36 @@ Wend : wrong syntax -2146827286
 While : wrong syntax -2146827286
 With : wrong syntax -2146827286
 Xor : wrong syntax -2146827286
-Year : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Year' 
- : wrong syntax -2146827286
+Year : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'Year'
+
+
+fso.GetExtensionName : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'GetExtensionName' 
+fso.FolderExists : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'FolderExists' 
+fso.DeleteFolder : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'DeleteFolder' 
+fso.MoveFile : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'MoveFile' 
+fso.CopyFile : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'CopyFile' 
+fso.CreateFolder : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'CreateFolder' 
+fso.OpenTextFile : Falsche Anzahl an Argumenten oder ungültige Eigenschaftszuweisung: 'OpenTextFile' 
+
+Wscript.Arguments 
+Wscript.BuildVersion 16384
+Wscript.CreateObject: Falsche Anzahl an Argumenten oder ung�ltige Eigenschaftszuweisung 450
+Wscript.ConnectObject
+Wscript.DisconnectObject
+Wscript.Echo
+Wscript.FullName
+Wscript.GetObject: Falsche Anzahl an Argumenten oder ung�ltige Eigenschaftszuweisung 450
+Wscript.Interactive
+Wscript.Name
+Wscript.Path
+Wscript.Quit
+Wscript.ScriptName
+Wscript.ScriptFullName
+Wscript.TimeOut
+Wscript.Sleep: Falsche Anzahl an Argumenten oder ung�ltige Eigenschaftszuweisung 450
+Wscript.Version:  0
+
+'?
+Wscript.StdErr
+Wscript.StdIn
+Wscript.StdOut
