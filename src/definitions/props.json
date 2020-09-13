@@ -82,5 +82,15 @@
     },
     "Match.Value": {
         "documentation": ""
-    }
+    },
+    "WScript.Arguments": {},
+    "WScript.BuildVersion": {},
+    "WScript.FullName": {},
+    "WScript.Interactive": {},
+    "WScript.Name": {},
+    "WScript.Path": {},
+    "WScript.ScriptName": {},
+    "WScript.ScriptFullName": {},
+    "WScript.TimeOut": {},
+    "WScript.Version": {}
 }

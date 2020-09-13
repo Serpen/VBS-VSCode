@@ -459,5 +459,12 @@
   },
   "RegExp.Test": {
     "documentation": ""
-  }
+  },
+  "WScript.CreateObject": {},
+  "WScript.ConnectObject": {},
+  "WScript.DisconnectObject": {},
+  "WScript.Echo": {},
+  "WScript.GetObject": {},
+  "WScript.Quit": {},
+  "WScript.Sleep": {}
 }
