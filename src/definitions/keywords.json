@@ -130,6 +130,14 @@
     "label": "Optional",
     "documentation": ""
   },
+  "On Error Resume Next": {
+    "label": "",
+    "documentation": ""
+  },
+  "On Error Goto": {
+    "label": "",
+    "documentation": ""
+  },
   "ParamArray": {
     "label": "ParamArray",
     "documentation": ""

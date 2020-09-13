@@ -95,11 +95,11 @@
 			]
 		},
 		{
-			"match": "(?i:\\b(If|Then|Else|ElseIf|Else If|End If|Set|While|Wend|For|To|Each|Case|Select|End Select|Return|Continue|Do|Until|Loop|Next|Exit Do|Exit For|Exit Function|Exit Property|Exit Sub|IIf)\\b)",
+			"match": "(?i:\\b(If|Then|Else|ElseIf|Else If|End If|Set|While|Wend|For|Step|To|Each|In|Case|Select|End Select|Return|Continue|Do|Until|Loop|Next|Exit Do|Exit For|Exit Function|Exit Property|Exit Sub|IIf)\\b)",
 			"name": "keyword.control.vbs"
 		},
 		{
-			"match": "(?i:\\b(Mod|And|Not|Or|Xor|as)\\b)",
+			"match": "(?i:\\b(Mod|And|Not|Or|Xor|as|Is|Eqv)\\b)",
 			"name": "keyword.operator.vbs"
 		},
 		{
