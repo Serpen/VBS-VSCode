@@ -9,23 +9,7 @@ function createNewCompletionItem(kind: CompletionItemKind, name: string, strDeta
   if (strDetail != '')
     compItem.detail = strDetail;
   else {
-    switch (kind) {
-      case CompletionItemKind.Constant:
-        compItem.detail = "Document Constant";
-        break;
-      case CompletionItemKind.Function:
-        compItem.detail = "Document Function";
-        break;
-      case CompletionItemKind.Method:
-        compItem.detail = "Document Sub";
-        break;
-      case CompletionItemKind.Variable:
-        compItem.detail = "Document Variable";
-        break;
-      case CompletionItemKind.Property:
-        compItem.detail = "Document Property";
-        break;
-    }
+    compItem.detail = "Document " + CompletionItemKind[compItem.kind];
   }
   return compItem;
 }
@@ -51,7 +35,7 @@ function getVariableCompletions(text: string): CompletionItem[] {
   return variables;
 }
 
-function getLocalFunctionCompletions(text: string): CompletionItem[] {
+function getFunctionCompletions(text: string): CompletionItem[] {
   const functions: CompletionItem[] = [];
   const foundFunctions = {};
 
@@ -71,7 +55,7 @@ function getLocalFunctionCompletions(text: string): CompletionItem[] {
   return functions;
 }
 
-function getLocalPropertyCompletions(text: string): CompletionItem[] {
+function getPropertyCompletions(text: string): CompletionItem[] {
   const vals: CompletionItem[] = [];
   const foundVals = {};
 
@@ -126,8 +110,8 @@ function provideCompletionItems(document: TextDocument, position: Position) {
     return;
 
   const variableCompletions = getVariableCompletions(text);
-  const functionCompletions = getLocalFunctionCompletions(text);
-  const propertyCompletions = getLocalPropertyCompletions(text);
+  const functionCompletions = getFunctionCompletions(text);
+  const propertyCompletions = getPropertyCompletions(text);
   const classCompletions = getLocalClassCompletions(text);
 
   const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
@@ -135,10 +119,10 @@ function provideCompletionItems(document: TextDocument, position: Position) {
   let extracompl : CompletionItem[] = [];
   if (ExtraDocument != null) {
     const exttext = fs.readFileSync(ExtraDocument).toString();
-    extracompl = (getLocalFunctionCompletions(exttext));
+    extracompl = [...getFunctionCompletions(exttext), ...getPropertyCompletions(exttext), ...getLocalClassCompletions(exttext)];
   
     extracompl.forEach(element => {
-      element.detail = "Included Function"
+      element.detail = "Included " + CompletionItemKind[element.kind];
     });
   }
   
