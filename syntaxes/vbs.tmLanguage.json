@@ -95,7 +95,7 @@
 			]
 		},
 		{
-			"match": "(?i:\\b(If|Then|Else|ElseIf|Else If|End If|Set|While|Wend|For|Step|To|Each|In|Case|Select|End Select|Return|Continue|Do|Until|Loop|Next|Exit Do|Exit For|Exit Function|Exit Property|Exit Sub|IIf)\\b)",
+			"match": "(?i:\\b(If|Then|Else|ElseIf|End If|Set|While|Wend|For|Step|To|Each|In|Case|Select|End Select|Continue|Do|Until|Loop|Next|Exit Do|Exit For|Exit Function|Exit Property|Exit Sub)\\b)",
 			"name": "keyword.control.vbs"
 		},
 		{
@@ -118,11 +118,11 @@
 			"name": "variable.other.dim.vbs"
 		},
 		{
-			"match": "(?i:\\s*\\b(Call|Class|Const|Dim|Redim|Function|Sub|With|Private Sub|Public Sub|End Sub|End Function|End Class|End Property|End With|((Public|Private)? Property (Set|Let|Get))|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo)\\b\\s*)",
+			"match": "(?i:\\s*\\b(Call|Class|Const|Dim|Redim|Redim Preserve|Function|Sub|With|End Sub|End Function|End Class|End Property|End With|Property (Set|Let|Get)|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo)\\b\\s*)",
 			"name": "storage.type.vbs"
 		},
 		{
-			"match": "(?i:\\b(Private|Public|Default)\\b)",
+			"match": "(?i:\\b(Private|Public)\\b)",
 			"name": "storage.modifier.vbs"
 		},
 		{
@@ -160,31 +160,15 @@
 			"name": "variable.other.vbs"
 		},
 		{
-			"match": "(?i:\\b(Application|ObjectContext|Request|Response|Server|Session)\\b)",
-			"name": "support.class.vbs"
-		},
-		{
-			"match": "(?i:\\b(Contents|StaticObjects|ClientCertificate|Cookies|Form|QueryString|ServerVariables)\\b)",
-			"name": "support.class.collection.vbs"
-		},
-		{
-			"match": "(?i:\\b(TotalBytes|Buffer|CacheControl|Charset|ContentType|Expires|ExpiresAbsolute|IsClientConnected|PICS|Status|ScriptTimeout|CodePage|LCID|SessionID|Timeout)\\b)",
-			"name": "support.constant.vbs"
-		},
-		{
-			"match": "(?i:\\b(Lock|Unlock|SetAbort|SetComplete|BinaryRead|AddHeader|AppendToLog|BinaryWrite|Clear|End|Flush|Redirect|Write|CreateObject|HTMLEncode|MapPath|URLEncode|Abandon|Convert|Regex)\\b)",
+			"match": "(?i:\\b(CreateObject|Regex|FileSystemObject|Dictionary)\\b)",
 			"name": "support.function.vbs"
-		},
-		{
-			"match": "(?i:\\b(Application_OnEnd|Application_OnStart|OnTransactionAbort|OnTransactionCommit|Session_OnEnd|Session_OnStart)\\b)",
-			"name": "support.function.event.vbs"
 		},
 		{
 			"match": "(?i:(?<=as )(\\b[a-zA-Z_x7f-xff][a-zA-Z0-9_x7f-xff]*?\\b))",
 			"name": "support.type.vbs"
 		},
 		{
-			"match": "(?i:\\b(Array|Add|Asc|Atn|CBool|CByte|CCur|CDate|CDbl|Chr|CInt|CLng|Conversions|Cos|CreateObject|CSng|CStr|Date|DateAdd|DateDiff|DatePart|DateSerial|DateValue|Day|Derived|Math|Escape|Eval|Exists|Exp|Filter|FormatCurrency|FormatDateTime|FormatNumber|FormatPercent|GetLocale|GetObject|GetRef|Hex|Hour|InputBox|InStr|InStrRev|Int|Fix|IsArray|IsDate|IsEmpty|IsNull|IsNumeric|IsObject|Item|Items|Join|Keys|LBound|LCase|Left|Len|LoadPicture|Log|LTrim|RTrim|Trim|Maths|Mid|Minute|Month|MonthName|MsgBox|Now|Oct|Remove|RemoveAll|Replace|RGB|Right|Rnd|Round|ScriptEngine|ScriptEngineBuildVersion|ScriptEngineMajorVersion|ScriptEngineMinorVersion|Second|SetLocale|Sgn|Sin|Space|Split|Sqr|StrComp|String|StrReverse|Tan|Time|Timer|TimeSerial|TimeValue|TypeName|UBound|UCase|Unescape|VarType|Weekday|WeekdayName|Year)\\b)",
+			"match": "(?i:\\b(Array|Add|Asc|Atn|CBool|CByte|CCur|CDate|CDbl|Chr|CInt|CLng|Cos|CreateObject|CSng|CStr|Date|DateAdd|DateDiff|DatePart|DateSerial|DateValue|Day|Derived|Escape|Eval|Exists|Exp|Filter|FormatCurrency|FormatDateTime|FormatNumber|FormatPercent|GetLocale|GetObject|GetRef|Hex|Hour|InputBox|InStr|InStrRev|Int|Fix|IsArray|IsDate|IsEmpty|IsNull|IsNumeric|IsObject|Join|LBound|LCase|Left|Len|LoadPicture|Log|LTrim|RTrim|Trim|Mid|Minute|Month|MonthName|MsgBox|Now|Oct|Replace|RGB|Right|Rnd|Round|ScriptEngine|ScriptEngineBuildVersion|ScriptEngineMajorVersion|ScriptEngineMinorVersion|Second|SetLocale|Sgn|Sin|Space|Split|Sqr|StrComp|String|StrReverse|Tan|Time|Timer|TimeSerial|TimeValue|TypeName|UBound|UCase|Unescape|VarType|Weekday|WeekdayName|Year)\\b)",
 			"name": "support.function.vbs"
 		},
 		{
