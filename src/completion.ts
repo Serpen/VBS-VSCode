@@ -1,4 +1,5 @@
-import { languages, CompletionItem, CompletionItemKind, Range, TextDocument, Position } from 'vscode';
+import fs from 'fs';
+import { languages, CompletionItem, CompletionItemKind, Range, TextDocument, Position, workspace } from 'vscode';
 import definitions from './definitions';
 import PATTERNS from './patterns';
 
@@ -129,7 +130,19 @@ function provideCompletionItems(document: TextDocument, position: Position) {
   const propertyCompletions = getLocalPropertyCompletions(text);
   const classCompletions = getLocalClassCompletions(text);
 
-  return [...definitions, ...variableCompletions, ...functionCompletions, ...propertyCompletions, ...classCompletions];
+  const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
+
+  let extracompl : CompletionItem[] = [];
+  if (ExtraDocument != null) {
+    const exttext = fs.readFileSync(ExtraDocument).toString();
+    extracompl = (getLocalFunctionCompletions(exttext));
+  
+    extracompl.forEach(element => {
+      element.detail = "Included Function"
+    });
+  }
+  
+  return [...definitions, ...variableCompletions, ...functionCompletions, ...propertyCompletions, ...classCompletions, ...extracompl];
 }
 
 export default languages.registerCompletionItemProvider(

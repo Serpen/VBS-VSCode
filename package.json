@@ -105,6 +105,11 @@
           "type": "string",
           "default": "C:\\WINDOWS\\system32\\cscript.exe",
           "description": "Path to Script Interpreter"
+        },
+        "vbs.includes": {
+          "type": "string",
+          "default": "D:\\Temp\\VBS-VSCode\\src\\definitions\\medico.vbs",
+          "description": "Include for completion"
         }
       }
     }
