@@ -108,7 +108,7 @@
         },
         "vbs.includes": {
           "type": "string",
-          "default": "D:\\Temp\\VBS-VSCode\\src\\definitions\\medico.vbs",
+          "default": "",
           "description": "Include for completion"
         }
       }

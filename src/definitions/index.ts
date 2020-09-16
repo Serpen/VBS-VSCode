@@ -4,7 +4,7 @@ import constants from "./constants.json";
 import colorconstants from "./colorconstants.json";
 import operators from "./operators.json"
 import props from './props.json'
-import types from "./types.json"
+// import types from "./types.json"
 
 import { CompletionItem, CompletionItemKind } from "vscode";
 
@@ -51,11 +51,11 @@ for (let entry in props) {
     completions.push(itm);
 }
 
-for (let entry in types) {
-    const itm = new CompletionItem(entry, CompletionItemKind.Struct);
-    itm.detail = "Type " + entry;
-    itm.documentation = types[entry]?.documentation;
-    completions.push(itm);
-}
+// for (let entry in types) {
+//     const itm = new CompletionItem(entry, CompletionItemKind.Struct);
+//     itm.detail = "Type " + entry;
+//     itm.documentation = types[entry]?.documentation;
+//     completions.push(itm);
+// }
 
 export default completions

@@ -9,6 +9,10 @@
       }
     ]
   },
+  "Array": {
+    "label": "Array",
+    "documentation": ""
+  },
   "Asc": {
     "label": "Function Asc(char as String) as Integer",
     "documentation": "Returns the unicode code of a character.",
@@ -404,10 +408,6 @@
   },
   "Trim": {
     "label": "Trim",
-    "documentation": ""
-  },
-  "True": {
-    "label": "True",
     "documentation": ""
   },
   "TypeName": {

@@ -122,7 +122,7 @@
 			"name": "storage.type.vbs"
 		},
 		{
-			"match": "(?i:\\b(Private|Public)\\b)",
+			"match": "(?i:\\b(Private|Public|ByRef|ByVal)\\b)",
 			"name": "storage.modifier.vbs"
 		},
 		{

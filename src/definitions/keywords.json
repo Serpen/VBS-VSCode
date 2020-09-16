@@ -14,10 +14,6 @@
     "label": "Call",
     "documentation": ""
   },
-  "Case": {
-    "label": "Case",
-    "documentation": ""
-  },
   "Class": {
     "label": "Class",
     "documentation": ""
@@ -33,10 +29,6 @@
   "Do": {
     "documentation": ""
   },
-  "Each": {
-    "label": "Each",
-    "documentation": ""
-  },
   "Else": {
     "label": "Else",
     "documentation": ""
@@ -49,16 +41,8 @@
     "label": "End",
     "documentation": ""
   },
-  "Enum": {
-    "label": "Enum",
-    "documentation": ""
-  },
   "Erase": {
     "label": "Erase",
-    "documentation": ""
-  },
-  "Event": {
-    "label": "Event",
     "documentation": ""
   },
   "Execute": {
@@ -77,12 +61,12 @@
     "label": "For",
     "documentation": ""
   },
-  "Function": {
-    "label": "Function",
+  "For Each": {
+    "label": "For Each",
     "documentation": ""
   },
-  "Get": {
-    "label": "Get",
+  "Function": {
+    "label": "Function",
     "documentation": ""
   },
   "GoTo": {
@@ -93,14 +77,6 @@
     "documentation": ""
   },
   "In": {
-    "documentation": ""
-  },
-  "Implements": {
-    "label": "Implements",
-    "documentation": ""
-  },
-  "Let": {
-    "label": "Let",
     "documentation": ""
   },
   "Loop": {
@@ -126,10 +102,6 @@
   "Option Explicit": {
     "documentation": "Used at script level to force explicit declaration of all variables in that script. "
   },
-  "Optional": {
-    "label": "Optional",
-    "documentation": ""
-  },
   "On Error Resume Next": {
     "label": "",
     "documentation": ""
@@ -138,12 +110,20 @@
     "label": "",
     "documentation": ""
   },
-  "ParamArray": {
-    "label": "ParamArray",
+  "Redim Preserve": {
+    "label": "Redim Preserve",
     "documentation": ""
   },
-  "Preserve": {
-    "label": "Preserve",
+  "Property Get": {
+    "label": "Property Get",
+    "documentation": ""
+  },
+  "Property Let": {
+    "label": "Property Let",
+    "documentation": ""
+  },
+  "Property Set": {
+    "label": "Property Set",
     "documentation": ""
   },
   "Private": {
@@ -158,10 +138,6 @@
     "label": "Randomize",
     "documentation": ""
   },
-  "RaiseEvent": {
-    "label": "RaiseEvent",
-    "documentation": ""
-  },
   "ReDim": {
     "label": "ReDim",
     "documentation": ""
@@ -170,20 +146,8 @@
     "label": "Rem",
     "documentation": ""
   },
-  "Resume": {
-    "label": "Resume",
-    "documentation": ""
-  },
-  "Select": {
-    "label": "Select",
-    "documentation": ""
-  },
-  "Set": {
-    "label": "Set",
-    "documentation": ""
-  },
-  "Shared": {
-    "label": "Shared",
+  "Select Case": {
+    "label": "Select Case",
     "documentation": ""
   },
   "Static": {
@@ -203,14 +167,6 @@
     "documentation": ""
   },
   "To": {
-    "documentation": ""
-  },
-  "Type": {
-    "label": "Type",
-    "documentation": ""
-  },
-  "TypeOf": {
-    "label": "TypeOf",
     "documentation": ""
   },
   "Until": {

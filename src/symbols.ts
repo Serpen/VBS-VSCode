@@ -1,4 +1,4 @@
-import { languages, SymbolKind, TextLine, Location, DocumentSymbol } from 'vscode';
+import { languages, SymbolKind, TextLine, Location, DocumentSymbol, Range } from 'vscode';
 import PATTERNS from './patterns';
 
 function isSkippableLine(line: TextLine) {
@@ -24,7 +24,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
     const lastIdent = new Array<string>();
     lastIdent.push('');
 
-    const VAR = RegExp(PATTERNS.VAR.source, 'i');
+    const VAR = PATTERNS.VAR;
     const FUNCTION = RegExp(PATTERNS.FUNCTION.source, 'i');
     const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
     const PROP = RegExp(PATTERNS.PROP.source, 'i');
@@ -75,14 +75,13 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
         lastIdent.push(name);
       }
 
-      matches = VAR.exec(line.text);
-      if (matches) {
+      while ((matches = VAR.exec(line.text)) !== null) {
         let name = matches[2];
         let symKind = SymbolKind.Variable;
         if (matches[1].toLowerCase() === "const")
           symKind = SymbolKind.Constant;
-
-        const variableSymbol = new DocumentSymbol(name, '', symKind, line.range, line.range);
+        let r = new Range(line.lineNumber, VAR.lastIndex-matches[0].length, line.lineNumber, VAR.lastIndex);
+        const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
         result.push(variableSymbol);
         found.push(name);
 
