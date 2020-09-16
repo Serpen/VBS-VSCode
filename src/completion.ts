@@ -106,7 +106,7 @@ function provideCompletionItems(document: TextDocument, position: Position) {
   }
 
   const VAR = /^[\t ]*(Dim|Const|((Private|Public)[\t ]+)?(Function|Sub|Class))[\t ]+([a-z_0-9]+)\b/i; //fix: should again after var name
-  if (VAR.exec(line.text))
+  if (VAR.test(line.text))
     return;
 
   const variableCompletions = getVariableCompletions(text);
@@ -117,7 +117,7 @@ function provideCompletionItems(document: TextDocument, position: Position) {
   const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
 
   let extracompl : CompletionItem[] = [];
-  if (ExtraDocument != null) {
+  if (ExtraDocument != '') {
     const exttext = fs.readFileSync(ExtraDocument).toString();
     extracompl = [...getFunctionCompletions(exttext), ...getPropertyCompletions(exttext), ...getLocalClassCompletions(exttext)];
   
