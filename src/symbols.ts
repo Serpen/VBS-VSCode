@@ -1,4 +1,4 @@
-import { languages, SymbolKind, TextLine, Location, DocumentSymbol, Range } from 'vscode';
+import { languages, SymbolKind, TextLine, DocumentSymbol, Range, workspace } from 'vscode';
 import PATTERNS from './patterns';
 
 function isSkippableLine(line: TextLine) {
@@ -21,27 +21,34 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
     const result: DocumentSymbol[] = [];
     const found = [];
 
-    const lastIdent = new Array<string>();
-    lastIdent.push('');
-
     const VAR = PATTERNS.VAR;
     const FUNCTION = RegExp(PATTERNS.FUNCTION.source, 'i');
     const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
     const PROP = RegExp(PATTERNS.PROP.source, 'i');
 
+    const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get("showVariableSymbols");
+
+    let currentBlock: DocumentSymbol[] = [];
+
     // Get the number of lines in the document to loop through
     const lineCount = Math.min(doc.lineCount, 10000);
     for (let lineNum = 0; lineNum < lineCount; lineNum++) {
       const line = doc.lineAt(lineNum);
-      let name: string;
 
-      if (isSkippableLine(line)) {
+
+      if (isSkippableLine(line))
         // eslint-disable-next-line no-continue
         continue;
-      }
 
-      let matches = FUNCTION.exec(line.text);
-      if (matches) {
+      let name: string;
+      let symbol: DocumentSymbol;
+
+      let matches: RegExpMatchArray = [];
+      if ((matches = CLASS.exec(line.text)) !== null) {
+        name = matches[1];
+        symbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
+
+      } else if ((matches = FUNCTION.exec(line.text)) !== null) {
         name = matches[2];
         let symKind = SymbolKind.Function;
         if (matches[1].toLowerCase() === "sub")
@@ -50,45 +57,39 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
           else
             symKind = SymbolKind.Method;
 
-        const functionSymbol = new DocumentSymbol(name, '', symKind, line.range, line.range);
-
-        result.push(functionSymbol);
-        found.push(name);
-        lastIdent.push(name);
+        symbol = new DocumentSymbol(name, '', symKind, line.range, line.range);
       }
-
-      matches = CLASS.exec(line.text);
-      if (matches) {
+      else if ((matches = PROP.exec(line.text)) !== null) {
         name = matches[1];
-        const classSymbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
-        result.push(classSymbol);
+        symbol = new DocumentSymbol(name, '', SymbolKind.Property, line.range, line.range);
+      } else if ((/^[\t ]*End\s+(Sub|Class|Function|Property)/i).test(line.text))
+        currentBlock.pop();
+
+      if (symbol != null) {
+        if (currentBlock.length == 0)
+          result.push(symbol);
+        else
+          currentBlock[currentBlock.length - 1].children.push(symbol);
+        currentBlock.push(symbol);
         found.push(name);
-        lastIdent.push(name);
       }
 
-      matches = PROP.exec(line.text);
-      if (matches) {
-        name = matches[1];
-        const classSymbol = new DocumentSymbol(name, '', SymbolKind.Property, line.range, line.range);
-        result.push(classSymbol);
-        found.push(name);
-        lastIdent.push(name);
-      }
-
-      while ((matches = VAR.exec(line.text)) !== null) {
+      while (showVariableSymbols && (matches = VAR.exec(line.text)) !== null) {
         let name = matches[2];
         let symKind = SymbolKind.Variable;
         if (matches[1].toLowerCase() === "const")
           symKind = SymbolKind.Constant;
-        let r = new Range(line.lineNumber, VAR.lastIndex-matches[0].length, line.lineNumber, VAR.lastIndex);
+        let r = new Range(line.lineNumber, VAR.lastIndex - matches[0].length, line.lineNumber, VAR.lastIndex);
         const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
-        result.push(variableSymbol);
+        if (currentBlock.length == 0)
+          result.push(variableSymbol);
+        else
+          currentBlock[currentBlock.length - 1].children.push(variableSymbol);
         found.push(name);
 
       }
-      // }
     }
-
     return result;
   },
 });
+

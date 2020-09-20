@@ -110,6 +110,10 @@
           "type": "string",
           "default": "",
           "description": "Include for completion"
+        },
+        "vbs.showVariableSymbols": {
+          "type": "boolean",
+          "default": "false"
         }
       }
     }
