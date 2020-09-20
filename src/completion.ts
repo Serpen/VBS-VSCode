@@ -19,7 +19,7 @@ function getVariableCompletions(text: string): CompletionItem[] {
   const foundVariables = {};
   let variableName: string;
 
-  let matches = PATTERNS.VAR_COMPL.exec(text);
+  let matches = PATTERNS.VAR.exec(text);
   while (matches) {
     variableName = matches[2];
     if (!(variableName in foundVariables)) {
@@ -29,7 +29,7 @@ function getVariableCompletions(text: string): CompletionItem[] {
       foundVariables[variableName] = true;
       variables.push(createNewCompletionItem(itmKind, variableName));
     }
-    matches = PATTERNS.VAR_COMPL.exec(text);
+    matches = PATTERNS.VAR.exec(text);
   }
 
   return variables;
@@ -39,7 +39,7 @@ function getFunctionCompletions(text: string): CompletionItem[] {
   const functions: CompletionItem[] = [];
   const foundFunctions = {};
 
-  let matches = PATTERNS.FUNC_COMPL.exec(text);
+  let matches = PATTERNS.FUNCTION.exec(text);
   while (matches) {
     const functionName = matches[3];
     if (!(functionName in foundFunctions)) {
@@ -49,7 +49,7 @@ function getFunctionCompletions(text: string): CompletionItem[] {
       foundFunctions[functionName] = true;
       functions.push(createNewCompletionItem(itmKind, functionName));
     }
-    matches = PATTERNS.FUNC_COMPL.exec(text);
+    matches = PATTERNS.FUNCTION.exec(text);
   }
 
   return functions;
@@ -59,14 +59,14 @@ function getPropertyCompletions(text: string): CompletionItem[] {
   const vals: CompletionItem[] = [];
   const foundVals = {};
 
-  let matches = PATTERNS.PROP_COMPL.exec(text);
+  let matches = PATTERNS.PROP.exec(text);
   while (matches) {
     const name = matches[1];
     if (!(name in foundVals)) {
       foundVals[name] = true;
       vals.push(createNewCompletionItem(CompletionItemKind.Property, name));
     }
-    matches = PATTERNS.PROP_COMPL.exec(text);
+    matches = PATTERNS.PROP.exec(text);
   }
 
   return vals;
@@ -94,18 +94,15 @@ function provideCompletionItems(document: TextDocument, position: Position) {
   const text = document.getText();
   let range = document.getWordRangeAtPosition(position);
 
-  if (!range) {
+  if (!range)
     range = new Range(position, position);
-  }
 
   // Remove completion offerings from commented lines
   const line = document.lineAt(position);
-  const firstChar = line.text.charAt(line.firstNonWhitespaceCharacterIndex);
-  if (firstChar === "'") {
+  if (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
     return null;
-  }
 
-  const VAR = /^[\t ]*(Dim|Const|((Private|Public)[\t ]+)?(Function|Sub|Class))[\t ]+([a-z_0-9]+)\b/i; //fix: should again after var name
+  const VAR = /^[\t ]*(Dim|Const|((Private|Public)[\t ]+)?(Function|Sub|Class|Property [GLT]et))[\t ]+([a-z_0-9]+)\b/i; //fix: should again after var name
   if (VAR.test(line.text))
     return;
 
@@ -115,9 +112,9 @@ function provideCompletionItems(document: TextDocument, position: Position) {
   const classCompletions = getLocalClassCompletions(text);
 
   const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
-
+  
   let extracompl : CompletionItem[] = [];
-  if (ExtraDocument != '') {
+  if (ExtraDocument != '' && fs.statSync(ExtraDocument)) {
     const exttext = fs.readFileSync(ExtraDocument).toString();
     extracompl = [...getFunctionCompletions(exttext), ...getPropertyCompletions(exttext), ...getLocalClassCompletions(exttext)];
   

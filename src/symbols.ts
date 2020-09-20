@@ -19,7 +19,6 @@ function isSkippableLine(line: TextLine) {
 export default languages.registerDocumentSymbolProvider({ scheme: 'file', language: 'vbs' }, {
   provideDocumentSymbols(doc) {
     const result: DocumentSymbol[] = [];
-    const found = [];
 
     const VAR = PATTERNS.VAR;
     const FUNCTION = RegExp(PATTERNS.FUNCTION.source, 'i');
@@ -35,7 +34,6 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
     for (let lineNum = 0; lineNum < lineCount; lineNum++) {
       const line = doc.lineAt(lineNum);
 
-
       if (isSkippableLine(line))
         // eslint-disable-next-line no-continue
         continue;
@@ -44,24 +42,28 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
       let symbol: DocumentSymbol;
 
       let matches: RegExpMatchArray = [];
+
       if ((matches = CLASS.exec(line.text)) !== null) {
         name = matches[1];
         symbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
 
       } else if ((matches = FUNCTION.exec(line.text)) !== null) {
         name = matches[2];
+        let detail : string;
         let symKind = SymbolKind.Function;
         if (matches[1].toLowerCase() === "sub")
-          if (name.toLowerCase() == "class_initialize" || name.toLowerCase() == "class_terminate")
+          if (name.toLowerCase() == "class_initialize()" || name.toLowerCase() == "class_terminate()")
             symKind = SymbolKind.Constructor;
           else
-            symKind = SymbolKind.Method;
+            detail = "Sub";
+        else
+          detail = "Function";
 
-        symbol = new DocumentSymbol(name, '', symKind, line.range, line.range);
-      }
-      else if ((matches = PROP.exec(line.text)) !== null) {
-        name = matches[1];
-        symbol = new DocumentSymbol(name, '', SymbolKind.Property, line.range, line.range);
+        symbol = new DocumentSymbol(name, detail, symKind, line.range, line.range);
+
+      } else if ((matches = PROP.exec(line.text)) !== null) {
+        name = matches[2];
+        symbol = new DocumentSymbol(name, matches[1], SymbolKind.Property, line.range, line.range);
       } else if ((/^[\t ]*End\s+(Sub|Class|Function|Property)/i).test(line.text))
         currentBlock.pop();
 
@@ -71,7 +73,6 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
         else
           currentBlock[currentBlock.length - 1].children.push(symbol);
         currentBlock.push(symbol);
-        found.push(name);
       }
 
       while (showVariableSymbols && (matches = VAR.exec(line.text)) !== null) {
@@ -85,8 +86,6 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
           result.push(variableSymbol);
         else
           currentBlock[currentBlock.length - 1].children.push(variableSymbol);
-        found.push(name);
-
       }
     }
     return result;
