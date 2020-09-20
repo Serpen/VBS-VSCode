@@ -118,7 +118,7 @@
 			"name": "variable.other.dim.vbs"
 		},
 		{
-			"match": "(?i:\\s*\\b(Call|Class|Const|Dim|Redim|Redim Preserve|Function|Sub|With|End Sub|End Function|End Class|End Property|End With|Property (Set|Let|Get)|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo)\\b\\s*)",
+			"match": "(?i:\\s*\\b(Call|Class|Const|Dim|Redim|Redim Preserve|Function|Sub|With|End Sub|End Function|End Class|End Property|End With|Public Default Property Get|Property [GLS]et|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo)\\b\\s*)",
 			"name": "storage.type.vbs"
 		},
 		{

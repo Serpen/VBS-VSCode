@@ -5,26 +5,36 @@
     },
     // symbols used as brackets
     "brackets": [
-        ["{", "}"],
-        ["[", "]"],
-        ["(", ")"]
+        [
+            "(",
+            ")"
+        ]
     ],
     // symbols that are auto closed when typing
     "autoClosingPairs": [
-        ["{", "}"],
-        ["[", "]"],
-        ["(", ")"],
-        ["\"", "\""]
+        [
+            "(",
+            ")"
+        ],
+        [
+            "\"",
+            "\""
+        ]
     ],
     // symbols that that can be used to surround a selection
     "surroundingPairs": [
-        ["{", "}"],
-        ["[", "]"],
-        ["(", ")"],
-        ["\"", "\""]
-    ],    
+        [
+            "(",
+            ")"
+        ],
+        [
+            "\"",
+            "\""
+        ]
+    ],
     "indentationRules": {
         "increaseIndentPattern": "(?i)(^\\s*\\b((Class|Else|For|Select|Case|Property|Sub|Function|With)|(Else)?If\\b.*\\bThen)\\b.*$",
         "decreaseIndentPattern": "^(?i)\\s*\\b(End\\s\\b(Class|If|Select|Property|Sub|Function|With)\\b|Else(If)?|Case|Next|Loop|WEnd)\\b"
-    }
+    },
+    "wordPattern": "(?i)[a-z][a-z0-9_]+"
 }
