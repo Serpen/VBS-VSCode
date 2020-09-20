@@ -24,10 +24,12 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
     const FUNCTION = RegExp(PATTERNS.FUNCTION.source, 'i');
     const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
     const PROP = RegExp(PATTERNS.PROP.source, 'i');
+    const endLine = (/^[\t ]*End\s+(?:Sub|Class|Function|Property)/i);
 
     const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get("showVariableSymbols");
 
     let currentBlock: DocumentSymbol[] = [];
+    let waitCurrentBlockEnd: String[] = [];
 
     // Get the number of lines in the document to loop through
     const lineCount = Math.min(doc.lineCount, 10000);
@@ -46,10 +48,11 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
       if ((matches = CLASS.exec(line.text)) !== null) {
         name = matches[1];
         symbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
+        waitCurrentBlockEnd.push("End Class")
 
       } else if ((matches = FUNCTION.exec(line.text)) !== null) {
         name = matches[2];
-        let detail : string;
+        let detail: string;
         let symKind = SymbolKind.Function;
         if (matches[1].toLowerCase() === "sub")
           if (name.toLowerCase() == "class_initialize()" || name.toLowerCase() == "class_terminate()")
@@ -60,12 +63,27 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
           detail = "Function";
 
         symbol = new DocumentSymbol(name, detail, symKind, line.range, line.range);
+        waitCurrentBlockEnd.push("End " + detail);
 
       } else if ((matches = PROP.exec(line.text)) !== null) {
         name = matches[2];
         symbol = new DocumentSymbol(name, matches[1], SymbolKind.Property, line.range, line.range);
-      } else if ((/^[\t ]*End\s+(Sub|Class|Function|Property)/i).test(line.text))
+      } else if (endLine.test(line.text))
         currentBlock.pop();
+      else if (showVariableSymbols) {
+        while ((matches = VAR.exec(line.text)) !== null) {
+          let name = matches[2];
+          let symKind = SymbolKind.Variable;
+          if (matches[1].toLowerCase().endsWith("const"))
+            symKind = SymbolKind.Constant;
+          let r = new Range(line.lineNumber, VAR.lastIndex - matches[0].length, line.lineNumber, VAR.lastIndex);
+          const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
+          if (currentBlock.length == 0)
+            result.push(variableSymbol);
+          else
+            currentBlock[currentBlock.length - 1].children.push(variableSymbol);
+        }
+      }
 
       if (symbol != null) {
         if (currentBlock.length == 0)
@@ -73,19 +91,6 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
         else
           currentBlock[currentBlock.length - 1].children.push(symbol);
         currentBlock.push(symbol);
-      }
-
-      while (showVariableSymbols && (matches = VAR.exec(line.text)) !== null) {
-        let name = matches[2];
-        let symKind = SymbolKind.Variable;
-        if (matches[1].toLowerCase() === "const")
-          symKind = SymbolKind.Constant;
-        let r = new Range(line.lineNumber, VAR.lastIndex - matches[0].length, line.lineNumber, VAR.lastIndex);
-        const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
-        if (currentBlock.length == 0)
-          result.push(variableSymbol);
-        else
-          currentBlock[currentBlock.length - 1].children.push(variableSymbol);
       }
     }
     return result;

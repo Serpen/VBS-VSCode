@@ -24,7 +24,7 @@ function getVariableCompletions(text: string): CompletionItem[] {
     variableName = matches[2];
     if (!(variableName in foundVariables)) {
       let itmKind = CompletionItemKind.Variable;
-      if (matches[1].toLowerCase() == "const")
+      if (matches[1].toLowerCase().endsWith("const"))
         itmKind = CompletionItemKind.Constant;
       foundVariables[variableName] = true;
       variables.push(createNewCompletionItem(itmKind, variableName));

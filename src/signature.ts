@@ -92,7 +92,7 @@ function getLocalSigs(doc: TextDocument) {
         ...functions,
         [pattern[3]]: {
           label: pattern[2],
-          documentation: 'Local1 Function',
+          documentation: 'Local Function',
           params: getParams(pattern[4]),
         },
       };
