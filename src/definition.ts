@@ -17,6 +17,16 @@ const DefinitionProvider = {
       return new Location(document.uri, document.positionAt(found.index!));
     }
 
+    found = docText.match(PATTERNS.PROP_DEF(lookup));
+    if (found) {
+      return new Location(document.uri, document.positionAt(found.index!));
+    }
+
+    found = docText.match(PATTERNS.CLASS_DEF(lookup));
+    if (found) {
+      return new Location(document.uri, document.positionAt(found.index!));
+    }
+
     return null;
   },
 };
