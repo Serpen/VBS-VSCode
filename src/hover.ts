@@ -13,7 +13,7 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
 
     const text = document.getText();
 
-    let matches = PATTERNS.Function(word).exec(text);
+    let matches = PATTERNS.DEF(word).exec(text);
     if (matches) {
       return new Hover(matches[1] + " " + word);
     }

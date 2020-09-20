@@ -95,7 +95,7 @@
 			]
 		},
 		{
-			"match": "(?i:\\b(If|Then|Else|ElseIf|End If|Set|While|Wend|For|Step|To|Each|In|Case|Select|End Select|Continue|Do|Until|Loop|Next|Exit Do|Exit For|Exit Function|Exit Property|Exit Sub)\\b)",
+			"match": "(?i:\\b(If|Then|Else|ElseIf|End If|Set|While|Wend|For|Step|To|Each|In|Case|Select|End Select|Continue|Do|Until|Loop|Next|Exit (Do|For|Function|Property|Sub))\\b)",
 			"name": "keyword.control.vbs"
 		},
 		{
@@ -118,7 +118,7 @@
 			"name": "variable.other.dim.vbs"
 		},
 		{
-			"match": "(?i:\\s*\\b(Call|Class|Const|Dim|Redim|Redim Preserve|Function|Sub|With|End Sub|End Function|End Class|End Property|End With|Public Default Property Get|Property [GLS]et|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo)\\b\\s*)",
+			"match": "(?i:\\s*\\b(Call|Class|Const|Dim|Redim|Redim Preserve|Function|Sub|With|End (Sub|Function|Class|Property|With)|Public Default Property Get|Property [GLS]et|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo)\\b\\s*)",
 			"name": "storage.type.vbs"
 		},
 		{

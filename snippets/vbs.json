@@ -2,18 +2,18 @@
 	"new class": {
 		"prefix": "Class",
 		"body": [
-			"Class ${1:$TM_FILENAME_BASE}$0",
+			"Class ${1:$TM_FILENAME_BASE}",
 				"",
 				"\tPrivate Sub Class_Initialize()",
-					"\t\t' Called automatically when class is created",
+					"\t\t",
 				"\tEnd Sub",
 				"",
 				"\tPrivate Sub Class_Terminate()",
-					"\t\t' Called automatically when all references to class instance are removed",
+					"\t\t",
 				"\tEnd Sub",
 				"",
-				"",
-			"End Class"
+				"$0",
+			"End Class ' $1"
 		],
 		"description": "New Class..."
 	},
@@ -36,18 +36,18 @@
 	"new function": {
 		"prefix": "Function",
 		"body": [
-			"Function $1($2)",
+			"Function ${1:Name}(${2:Parameter})",
 				"\t$0",
-			"End Function"
+			"End Function ' ${1:Name}"
 		],
 		"description": "New Function..."
 	},
 	"new sub": {
 		"prefix": "Sub",
 		"body": [
-			"Sub $1($2)",
+			"Sub ${1:Name}(${2:Parameter})",
 				"\t$0",
-			"End Sub"
+			"End Sub ' ${1:Name}"
 		],
 		"description": "New Sub..."
 	},
@@ -124,18 +124,18 @@
 	"for... next": {
 		"prefix": "For",
 		"body": [
-			"For ${1:i}=0 To ${2:Value} Step 1",
+			"For ${1:i}=0 To ${2:Value}",
 				"\t$0",
-			"Next"
+			"Next '${1:i}"
 		],
 		"description": "For... Next"
 	},
 	"for each": {
-		"prefix": "For",
+		"prefix": "For Each",
 		"body": [
 			"For Each ${1:Element} In ${2:ElementList}",
 				"\t$0",
-			"Next"
+			"Next ' ${1:Element}"
 		],
 		"description": "For Each..."
 	},
@@ -175,5 +175,23 @@
 			"Loop"
 		],
 		"description": "Do While Loop"
+	},
+	"with": {
+		"prefix": "With",
+		"body": [
+			"With ${1:Object}",
+				"$0",
+			"End With ' ${1:Object}"
+		],
+		"description": "With Block"
+	},
+	"error ": {
+		"prefix": "Error Handler",
+		"body": [
+			"On Error Resume Next",
+				"$0",
+			"On Error Goto 0"
+		],
+		"description": "Error Handler"
 	}
 }

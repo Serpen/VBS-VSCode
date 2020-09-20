@@ -69,10 +69,6 @@
     "label": "Function",
     "documentation": ""
   },
-  "GoTo": {
-    "label": "GoTo",
-    "documentation": ""
-  },
   "If": {
     "documentation": ""
   },

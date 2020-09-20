@@ -7,27 +7,11 @@ const DefinitionProvider = {
     const lookup = document.getText(lookupRange);
     const docText = document.getText();
 
-    let found = docText.match(PATTERNS.FUNC_DEF(lookup));
-    if (found) {
+    let found = docText.match(PATTERNS.DEF(lookup));
+    if (found)
       return new Location(document.uri, document.positionAt(found.index!));
-    }
-
-    found = docText.match(PATTERNS.VAR_DEF(lookup));
-    if (found) {
-      return new Location(document.uri, document.positionAt(found.index!));
-    }
-
-    found = docText.match(PATTERNS.PROP_DEF(lookup));
-    if (found) {
-      return new Location(document.uri, document.positionAt(found.index!));
-    }
-
-    found = docText.match(PATTERNS.CLASS_DEF(lookup));
-    if (found) {
-      return new Location(document.uri, document.positionAt(found.index!));
-    }
-
-    return null;
+    else
+      return null;
   },
 };
 

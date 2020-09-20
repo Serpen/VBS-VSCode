@@ -93,7 +93,7 @@ function provideCompletionItems(document: TextDocument, position: Position) {
   // Gather the functions created by the user
   const text = document.getText();
   let range = document.getWordRangeAtPosition(position);
-
+  
   if (!range)
     range = new Range(position, position);
 
