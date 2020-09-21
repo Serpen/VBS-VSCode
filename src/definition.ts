@@ -1,7 +1,7 @@
 import { languages, Location, TextDocument, Position } from 'vscode';
 import PATTERNS from './patterns';
 
-const DefinitionProvider = {
+export default languages.registerDefinitionProvider({ scheme: 'file', language: 'vbs' }, {
   provideDefinition(document: TextDocument, position: Position) {
     const lookupRange = document.getWordRangeAtPosition(position);
     const lookup = document.getText(lookupRange);
@@ -13,6 +13,4 @@ const DefinitionProvider = {
     else
       return null;
   },
-};
-
-export default languages.registerDefinitionProvider({ scheme: 'file', language: 'vbs' }, DefinitionProvider);
+});
