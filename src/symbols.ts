@@ -24,8 +24,8 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
     const FUNCTION = RegExp(PATTERNS.FUNCTION.source, 'i');
     const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
     const PROP = RegExp(PATTERNS.PROP.source, 'i');
-    const endLine = (/^[\t ]*End\s+(?:Sub|Class|Function|Property)/i);
-
+    const endLine = (/(?:^|:)[\t ]*End\s+(?:Sub|Class|Function|Property)/i);
+    
     const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get("showVariableSymbols");
 
     let currentBlock: DocumentSymbol[] = [];
@@ -68,7 +68,8 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
       } else if ((matches = PROP.exec(line.text)) !== null) {
         name = matches[2];
         symbol = new DocumentSymbol(name, matches[1], SymbolKind.Property, line.range, line.range);
-      } else if (endLine.test(line.text))
+      } 
+      if (endLine.test(line.text))
         currentBlock.pop();
       else if (showVariableSymbols) {
         while ((matches = PATTERNS.VAR2.exec(line.text)) !== null) {
