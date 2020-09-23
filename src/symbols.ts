@@ -71,17 +71,22 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
       } else if (endLine.test(line.text))
         currentBlock.pop();
       else if (showVariableSymbols) {
-        while ((matches = VAR.exec(line.text)) !== null) {
-          let name = matches[2];
-          let symKind = SymbolKind.Variable;
-          if (matches[1].toLowerCase().endsWith("const"))
-            symKind = SymbolKind.Constant;
-          let r = new Range(line.lineNumber, VAR.lastIndex - matches[0].length, line.lineNumber, VAR.lastIndex);
-          const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
-          if (currentBlock.length == 0)
-            result.push(variableSymbol);
-          else
-            currentBlock[currentBlock.length - 1].children.push(variableSymbol);
+        while ((matches = PATTERNS.VAR2.exec(line.text)) !== null) {
+          const varNames = matches[1].split(',');
+          for (let i = 0; i < varNames.length; i++) {
+
+            let name = varNames[i].trim();
+            let symKind = SymbolKind.Variable;
+            if (matches[1].toLowerCase().indexOf("const") > 0)
+              symKind = SymbolKind.Constant;
+            let r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR2.lastIndex);
+            const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
+            if (currentBlock.length == 0)
+              result.push(variableSymbol);
+            else
+              currentBlock[currentBlock.length - 1].children.push(variableSymbol);
+          }
+
         }
       }
 
