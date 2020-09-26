@@ -53,27 +53,6 @@
 			]
 		},
 		{
-			"captures": {
-				"1": {
-					"name": "storage.type.function.vbs"
-				},
-				"2": {
-					"name": "entity.name.function.vbs"
-				},
-				"3": {
-					"name": "punctuation.definition.parameters.vbs"
-				},
-				"4": {
-					"name": "variable.parameter.function.vbs"
-				},
-				"5": {
-					"name": "punctuation.definition.parameters.vbs"
-				}
-			},
-			"match": "^\\s*((?i:function|sub))\\s*([a-zA-Z_]\\w*)\\s*(\\()([^)]*)(\\)).*\\n?",
-			"name": "meta.function.vbs"
-		},
-		{
 			"begin": "(^[ \\t]+)?(?=')",
 			"beginCaptures": {
 				"1": {
@@ -95,7 +74,7 @@
 			]
 		},
 		{
-			"begin": "(^[ \\t]+)?(?=Rem)",
+			"begin": "(^[ \\t]+)?(?i:(?=Rem))",
 			"beginCaptures": {
 				"1": {
 					"name": "punctuation.whitespace.comment.leading.vbs"
@@ -104,7 +83,7 @@
 			"end": "(?!\\G)",
 			"patterns": [
 				{
-					"begin": "'",
+					"begin": "(?i:Rem)",
 					"beginCaptures": {
 						"0": {
 							"name": "punctuation.definition.comment.vbs"
@@ -114,6 +93,42 @@
 					"name": "comment.line.rem.vbs"
 				}
 			]
+		},
+		{
+			"captures": {
+				"1": {
+					"name": "storage.modifier.vbs"
+				},
+				"2": {
+					"name": "storage.type.function.vbs"
+				},
+				"3": {
+					"name": "entity.name.function.vbs"
+				},
+				"4": {
+					"name": "punctuation.definition.parameters.vbs"
+				},
+				"5": {
+					"name": "variable.parameter.function.vbs"
+				},
+				"6": {
+					"name": "punctuation.definition.parameters.vbs"
+				}
+			},
+			"match": "\\s*(?i:(Private|Public)\\s+)?(?i:(Class|Function|Sub|(?:Default )?Property [GLS]et))\\s*([a-zA-Z]\\w*)\\s*(?:(\\()([^)]*)(\\)))?\\s*"
+		},
+		{
+			"match": "(?i:End (Sub|Function|Class|Property))",
+			"name": "storage.type.end.vbs"
+		},
+		{
+			"disabled": "1",
+			"match": "(?i:\\s*\\b(Redim|Redim Preserve|With|End With|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo)\\b\\s*)",
+			"name": "keyword.control.vbs"
+		},
+		{
+			"match": "(?i:\\b(ByRef|ByVal)\\b)",
+			"name": "storage.modifier.vbs"
 		},
 		{
 			"match": "(?i:\\b(Call|If|Then|Else|ElseIf|End If|Set|While|Wend|For|Step|To|Each|In|Case|Select|End Select|Continue|Do|Until|Loop|Next|Exit (Do|For|Function|Property|Sub))\\b)",
@@ -135,16 +150,8 @@
 					"name": "meta.separator.comma.vbs"
 				}
 			},
-			"match": "(?i:(dim)\\s*(?:(\\b[a-zA-Z_x7f-xff][a-zA-Z0-9_x7f-xff]*?\\b)\\s*(,?)))",
+			"match": "(?i:(dim|const)\\s*(?:(\\b[a-zA-Z_x7f-xff][a-zA-Z0-9_x7f-xff]*?\\b)\\s*(,?)))",
 			"name": "variable.other.dim.vbs"
-		},
-		{
-			"match": "(?i:\\s*\\b(Class|Const|Dim|Redim|Redim Preserve|Function|Sub|With|End (Sub|Function|Class|Property|With)|Public Default Property Get|Property [GLS]et|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo)\\b\\s*)",
-			"name": "storage.type.vbs"
-		},
-		{
-			"match": "(?i:\\b(Private|Public|ByRef|ByVal)\\b)",
-			"name": "storage.modifier.vbs"
 		},
 		{
 			"match": "(?i:\\s*\\b(Empty|False|Nothing|Null|True)\\b)",
