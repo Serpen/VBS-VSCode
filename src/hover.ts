@@ -12,7 +12,6 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
     
     let hover = definitions.find(key => key.label.toLowerCase() == word.toLowerCase())
     if (hover) {
-      console.log(word + " | " + hover);
       return new Hover([hover.detail, hover.documentation]);
     }
     
@@ -20,7 +19,6 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
 
     let matches = PATTERNS.DEF(word).exec(text);
     if (matches) {
-      console.log(word + " | " + matches);
       return new Hover(matches);
     }
   },

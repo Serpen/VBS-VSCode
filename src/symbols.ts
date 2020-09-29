@@ -20,12 +20,11 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
   provideDocumentSymbols(doc) {
     const result: DocumentSymbol[] = [];
 
-    const VAR = PATTERNS.VAR;
     const FUNCTION = RegExp(PATTERNS.FUNCTION.source, 'i');
     const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
     const PROP = RegExp(PATTERNS.PROP.source, 'i');
     const endLine = (/(?:^|:)[\t ]*End\s+(?:Sub|Class|Function|Property)/i);
-    
+
     const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get("showVariableSymbols");
 
     let currentBlock: DocumentSymbol[] = [];
@@ -68,10 +67,9 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
       } else if ((matches = PROP.exec(line.text)) !== null) {
         name = matches[2];
         symbol = new DocumentSymbol(name, matches[1], SymbolKind.Property, line.range, line.range);
-      } 
-      if (endLine.test(line.text))
-        currentBlock.pop();
-      else if (showVariableSymbols) {
+      }
+      
+      if (showVariableSymbols) {
         while ((matches = PATTERNS.VAR2.exec(line.text)) !== null) {
           const varNames = matches[1].split(',');
           for (let i = 0; i < varNames.length; i++) {
@@ -98,6 +96,9 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
           currentBlock[currentBlock.length - 1].children.push(symbol);
         currentBlock.push(symbol);
       }
+
+      if (endLine.test(line.text))
+        currentBlock.pop();
     }
     return result;
   },
