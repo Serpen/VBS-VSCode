@@ -102,7 +102,7 @@ function provideCompletionItems(document: TextDocument, position: Position) {
   if (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
     return null;
 
-  const VAR = /^[\t ]*(Dim|Const|((Private|Public)[\t ]+)?(Function|Sub|Class|Property [GLT]et))[\t ]+([a-z_0-9]+)\b/i; //fix: should again after var name
+  const VAR = /^[\t ]*(Dim|Const|((Private|Public)[\t ]+)?(Function|Sub|Class|Property [GLT]et))[\t ]+/i; //fix: should again after var name
   if (VAR.test(line.text))
     return;
 
@@ -128,5 +128,5 @@ function provideCompletionItems(document: TextDocument, position: Position) {
 
 export default languages.registerCompletionItemProvider(
   { scheme: 'file', language: 'vbs' },
-  { provideCompletionItems },
+  { provideCompletionItems }, " "
 );
