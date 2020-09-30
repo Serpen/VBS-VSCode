@@ -1,15 +1,7 @@
-import {
-  languages,
-  SignatureHelp,
-  SignatureInformation,
-  ParameterInformation,
-  MarkdownString,
-  TextDocument,
-  Position
-} from 'vscode';
+import fs from 'fs';
+import { languages, SignatureHelp, SignatureInformation, ParameterInformation, MarkdownString, TextDocument, Position, workspace, CompletionItem } from 'vscode';
 import defaultSigs from './definitions/functions.json';
 import PATTERNS from './patterns';
-
 
 /**
  * Reduces a partial line of code to the current Function for parsing
@@ -80,8 +72,7 @@ function getParams(paramText: string) {
   return params;
 }
 
-function getLocalSigs(doc: TextDocument) {
-  const text = doc.getText();
+function getSignatures(text : string, docComment : string) {
   let functions = {};
 
   let pattern = null;
@@ -92,7 +83,7 @@ function getLocalSigs(doc: TextDocument) {
         ...functions,
         [pattern[3]]: {
           label: pattern[2],
-          documentation: 'Local Function',
+          documentation: docComment,
           params: getParams(pattern[4]),
         },
       };
@@ -107,28 +98,34 @@ export default languages.registerSignatureHelpProvider(
   {
     provideSignatureHelp(document, position) {
       // Find out what called for sig
+
+      const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
+      let ExtraDocumentText : string = "";
+      if (ExtraDocument != '' && fs.statSync(ExtraDocument))
+        ExtraDocumentText = fs.readFileSync(ExtraDocument).toString();
+
       const caller = getCallInfo(document, position);
-      if (caller == null) {
+      if (caller == null)
         return null;
-      }
 
       // Integrate user functions
       const signatures: {} = Object.assign(
         {},
+        getSignatures(document.getText(), "Local Function"),
+        getSignatures(ExtraDocumentText, "Included Function"),
         defaultSigs,
-        getLocalSigs(document),
       );
 
       // Get the called word from the json files
       const foundSig = signatures[caller.func];
-      if (foundSig == null) {
+      if (foundSig == null)
         return null;
-      }
 
       const thisSignature = new SignatureInformation(
         foundSig.label,
         new MarkdownString(`##### ${foundSig.documentation}`),
       );
+
       // Enter parameter information into signature information
       thisSignature.parameters = Object.keys(foundSig.params).map(key => {
         return new ParameterInformation(
@@ -146,7 +143,5 @@ export default languages.registerSignatureHelpProvider(
       return result;
     },
   },
-  '(',
-  ',',
-  ' '
+  '(', ',', ' '
 );
