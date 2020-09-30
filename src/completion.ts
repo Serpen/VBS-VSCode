@@ -61,7 +61,7 @@ function getPropertyCompletions(text: string): CompletionItem[] {
 
   let matches = PATTERNS.PROP.exec(text);
   while (matches) {
-    const name = matches[1];
+    const name = matches[2];
     if (!(name in foundVals)) {
       foundVals[name] = true;
       vals.push(createNewCompletionItem(CompletionItemKind.Property, name));
