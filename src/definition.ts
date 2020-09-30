@@ -1,4 +1,5 @@
-import { languages, Location, TextDocument, Position } from 'vscode';
+import fs from 'fs';
+import { languages, Location, TextDocument, Position, workspace, Uri } from 'vscode';
 import PATTERNS from './patterns';
 
 export default languages.registerDefinitionProvider({ scheme: 'file', language: 'vbs' }, {
@@ -10,7 +11,15 @@ export default languages.registerDefinitionProvider({ scheme: 'file', language: 
     let found = docText.match(PATTERNS.DEF(lookup));
     if (found)
       return new Location(document.uri, document.positionAt(found.index!));
-    else
-      return null;
+
+    const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
+    if (ExtraDocument != '' && fs.statSync(ExtraDocument)) {
+      const ExtraDocumentText = fs.readFileSync(ExtraDocument).toString();
+      found = ExtraDocumentText.match(PATTERNS.DEF(lookup));
+      if (found)
+        return new Location(Uri.file(ExtraDocument), document.positionAt(found.index!));
+    }
+
   },
+
 });
