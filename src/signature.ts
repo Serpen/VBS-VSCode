@@ -54,93 +54,51 @@ function getCallInfo(doc: TextDocument, pos: Position) {
   };
 }
 
-function getParams(paramText: string) {
-  let params = {};
+function getSignatures(text: string, docComment: string): Map<string, SignatureInformation[]> {
+  let map = new Map<string, SignatureInformation[]>();
 
-  if (paramText) {
-    paramText.split(',').forEach(param => {
-      params = {
-        ...params,
-        [param]: {
-          label: param.trim(),
-          documentation: '',
-        },
-      };
+  let matches: RegExpExecArray;
+  while ((matches = PATTERNS.FUNCTION.exec(text)) !== null) {
+    const si = new SignatureInformation(matches[2], docComment);
+    matches[4].split(",").forEach(element => {
+      si.parameters.push(new ParameterInformation(element.trim()));
     });
+
+    let prevMatches;
+    if ((prevMatches = map.get(matches[3])) !== undefined)
+      map.set(matches[3], [si, ...prevMatches]);
+    else
+      map.set(matches[3], [si]);
   }
 
-  return params;
+  return map;
 }
 
-function getSignatures(text : string, docComment : string) {
-  let functions = {};
-
-  let pattern = null;
-  do {
-    pattern = PATTERNS.FUNCTION.exec(text);
-    if (pattern) {
-      functions = {
-        ...functions,
-        [pattern[3]]: {
-          label: pattern[2],
-          documentation: docComment,
-          params: getParams(pattern[4]),
-        },
-      };
-    }
-  } while (pattern);
-
-  return functions;
-}
-
-export default languages.registerSignatureHelpProvider(
-  { scheme: 'file', language: 'vbs' },
+export default languages.registerSignatureHelpProvider({ scheme: 'file', language: 'vbs' },
   {
     provideSignatureHelp(document, position) {
-      // Find out what called for sig
-
-      const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
-      let ExtraDocumentText : string = "";
-      if (ExtraDocument != '' && fs.statSync(ExtraDocument))
-        ExtraDocumentText = fs.readFileSync(ExtraDocument).toString();
-
       const caller = getCallInfo(document, position);
       if (caller == null)
         return null;
 
-      // Integrate user functions
-      const signatures: {} = Object.assign(
-        {},
-        getSignatures(document.getText(), "Local Function"),
-        getSignatures(ExtraDocumentText, "Included Function"),
-        defaultSigs,
-      );
+      const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
+      let ExtraDocumentText: string = "";
+      if (ExtraDocument != '' && fs.statSync(ExtraDocument))
+        ExtraDocumentText = fs.readFileSync(ExtraDocument).toString();
 
-      // Get the called word from the json files
-      const foundSig = signatures[caller.func];
-      if (foundSig == null)
-        return null;
+      const sigs = new SignatureHelp();
+      sigs.activeSignature = 0;
+      sigs.activeParameter = caller.commas;
 
-      const thisSignature = new SignatureInformation(
-        foundSig.label,
-        new MarkdownString(`##### ${foundSig.documentation}`),
-      );
+      let sig;
+      if ((sig = getSignatures(document.getText(), "Local Function").get(caller.func)) !== undefined) {
+        sigs.signatures.push(...sig);
+      }
+      if ((sig = getSignatures(ExtraDocumentText, "Included Function").get(caller.func)) !== undefined) {
+        sigs.signatures.push(...sig);
+      }
 
-      // Enter parameter information into signature information
-      thisSignature.parameters = Object.keys(foundSig.params).map(key => {
-        return new ParameterInformation(
-          foundSig.params[key].label,
-          new MarkdownString(foundSig.params[key].documentation),
-        );
-      });
-
-      // Place signature information into results
-      const result = new SignatureHelp();
-      result.signatures = [thisSignature];
-      result.activeSignature = 0;
-      result.activeParameter = caller.commas;
-
-      return result;
+      return sigs;
     },
   },
   '(', ',', ' '
