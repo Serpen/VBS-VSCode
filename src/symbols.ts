@@ -1,21 +1,6 @@
 import { languages, SymbolKind, TextLine, DocumentSymbol, Range, workspace } from 'vscode';
 import PATTERNS from './patterns';
 
-function isSkippableLine(line: TextLine) {
-  const skipChars = ["'"];
-
-  if (line.isEmptyOrWhitespace) {
-    return true;
-  }
-
-  const firstChar = line.text.charAt(line.firstNonWhitespaceCharacterIndex);
-  if (skipChars.includes(firstChar)) {
-    return true;
-  }
-
-  return false;
-}
-
 export default languages.registerDocumentSymbolProvider({ scheme: 'file', language: 'vbs' }, {
   provideDocumentSymbols(doc) {
     const result: DocumentSymbol[] = [];
@@ -23,7 +8,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
     const FUNCTION = RegExp(PATTERNS.FUNCTION.source, 'i');
     const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
     const PROP = RegExp(PATTERNS.PROP.source, 'i');
-    const endLine = (/(?:^|:)[\t ]*End\s+(?:Sub|Class|Function|Property)/i);
+    const endLine = (/(?:^|:)[\t ]*End\s+(Sub|Class|Function|Property)/i);
 
     const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get("showVariableSymbols");
 
@@ -35,8 +20,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
     for (let lineNum = 0; lineNum < lineCount; lineNum++) {
       const line = doc.lineAt(lineNum);
 
-      if (isSkippableLine(line))
-        // eslint-disable-next-line no-continue
+      if (line.isEmptyOrWhitespace || line.text.charAt(line.firstNonWhitespaceCharacterIndex) == "'")
         continue;
 
       let name: string;
@@ -47,29 +31,31 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
       if ((matches = CLASS.exec(line.text)) !== null) {
         name = matches[1];
         symbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
-        waitCurrentBlockEnd.push("End Class")
+        waitCurrentBlockEnd.push("class")
 
       } else if ((matches = FUNCTION.exec(line.text)) !== null) {
         name = matches[2];
-        let detail: string;
+        let detail: string = "";
         let symKind = SymbolKind.Function;
         if (matches[1].toLowerCase() === "sub")
-          if (name.toLowerCase() == "class_initialize()" || name.toLowerCase() == "class_terminate()")
+          if (name.toLowerCase() == "class_initialize()" || name.toLowerCase() == "class_terminate()") {
             symKind = SymbolKind.Constructor;
-          else
+            waitCurrentBlockEnd.push("sub");
+          } else {
             detail = "Sub";
-        else
+            waitCurrentBlockEnd.push(detail.toLowerCase());
+          }
+        else {
           detail = "Function";
+          waitCurrentBlockEnd.push(detail.toLowerCase());
+        }
 
         symbol = new DocumentSymbol(name, detail, symKind, line.range, line.range);
-        waitCurrentBlockEnd.push("End " + detail);
-
       } else if ((matches = PROP.exec(line.text)) !== null) {
         name = matches[2];
         symbol = new DocumentSymbol(name, matches[1], SymbolKind.Property, line.range, line.range);
-      }
-      
-      if (showVariableSymbols) {
+        waitCurrentBlockEnd.push("property");
+      } else if (showVariableSymbols) {
         while ((matches = PATTERNS.VAR2.exec(line.text)) !== null) {
           const varNames = matches[1].split(',');
           for (let i = 0; i < varNames.length; i++) {
@@ -97,9 +83,23 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
         currentBlock.push(symbol);
       }
 
-      if (endLine.test(line.text))
-        currentBlock.pop();
+      if ((matches = endLine.exec(line.text)) !== null)
+        if (waitCurrentBlockEnd[waitCurrentBlockEnd.length - 1] == matches[1].toLowerCase()) {
+          currentBlock.pop();
+          waitCurrentBlockEnd.pop();
+        } else {
+          currentBlock.pop();
+          console.log("symbol wrong ending (awaiting closing for " + waitCurrentBlockEnd.pop().toString() + " got " + matches[1].toLowerCase() + ") in " + doc.uri + " " + line.lineNumber)
+        }
+
+
     }
+
+    if (waitCurrentBlockEnd.length > 0)
+      console.log(waitCurrentBlockEnd);
+    if (currentBlock.length > 0)
+      console.log(currentBlock);
+
     return result;
   },
 });
