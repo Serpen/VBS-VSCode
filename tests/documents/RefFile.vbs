@@ -5,6 +5,11 @@ class Form
 
     Public Sub SubName(Parameter) : End Sub ' Name
 
-    Public Property Get PropertyName : End Property
-    Public Property Let PropertyName(Value) : End Property
+    Public Property Get FormPropertyName : End Property
+    Public Property Let FormPropertyName(Value) : End Property
 end class
+
+''' <summary></summary>
+Public Function Array()
+
+End Function
