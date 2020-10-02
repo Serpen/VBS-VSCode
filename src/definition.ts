@@ -8,16 +8,19 @@ export default languages.registerDefinitionProvider({ scheme: 'file', language: 
     const lookup = document.getText(lookupRange);
     const docText = document.getText();
 
-    let found = docText.match(PATTERNS.DEF(lookup));
-    if (found)
-      return new Location(document.uri, document.positionAt(found.index!));
+    let match = docText.match(PATTERNS.DEF(lookup));
+    if (match)
+      return new Location(document.uri, document.positionAt(match.index!));
 
     const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
     if (ExtraDocument != '' && fs.statSync(ExtraDocument)) {
       const ExtraDocumentText = fs.readFileSync(ExtraDocument).toString();
-      found = ExtraDocumentText.match(PATTERNS.DEF(lookup));
-      if (found)
-        return new Location(Uri.file(ExtraDocument), document.positionAt(found.index!));
+      match = ExtraDocumentText.match(PATTERNS.DEF(lookup));
+
+      const line = ExtraDocumentText.slice(0, match.index).match(/\n/g).length;
+
+      if (match)
+        return new Location(Uri.file(ExtraDocument), new Position(line, 0));
     }
 
   },
