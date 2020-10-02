@@ -120,7 +120,10 @@ Public Function CStr(expr)
 End Function
 
 
-''' <summary></summary>
+''' <summary>Returns a date to which a specified time interval has been added.</summary>
+''' <param name="interval">String expression that is the interval you want to add. See Settings section for values.</param>
+''' <param name="number">Numeric expression that is the number of interval you want to add. The numeric expression can either be positive, for dates in the future, or negative, for dates in the past.</param>
+''' <param name="date">Variant or literal representing the date to which interval is added.</param>
 Public Function DateAdd(interval, number, date)
 
 End Function
@@ -191,7 +194,7 @@ Public Class Debug
     End Sub
 End Class
 
-''' <summary></summary>
+
 Public Function Double()
 
 End Function

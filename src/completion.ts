@@ -39,17 +39,31 @@ function getFunctionCompletions(text: string): CompletionItem[] {
   const functions: CompletionItem[] = [];
   const foundFunctions = {};
 
-  let matches = PATTERNS.FUNCTION.exec(text);
+  const FUNCTION = /((?:^[\t ]*'''.*(?:\n|\r\n))+)*[\t ]*((?:Public[\t ]+|Private[\t ]+)?(Function|Sub)[\t ]+(([a-z]\w+)\((.*)\)))\s*$/img;
+  const SUMMARY = /'''\s*<summary>(.*)<\/summary>/i
+
+  let matches = FUNCTION.exec(text);
   while (matches) {
-    const functionName = matches[3];
+    const functionName = matches[5];
+    console.log("getFunctionCompletions "+ functionName);
+    
     if (!(functionName in foundFunctions)) {
       let itmKind = CompletionItemKind.Function;
-      if (matches[1].toLowerCase() == "sub")
+      if (matches[3].toLowerCase() == "sub")
         itmKind = CompletionItemKind.Method;
+      const ci = new CompletionItem(functionName, itmKind);
+     
+      if (matches[1]) {
+        const summary = SUMMARY.exec(matches[1]);
+        ci.documentation = summary[1];
+      }
+      
+      ci.detail = "[Global] " + matches[2];
+
       foundFunctions[functionName] = true;
-      functions.push(createNewCompletionItem(itmKind, functionName));
+      functions.push(ci);
     }
-    matches = PATTERNS.FUNCTION.exec(text);
+    matches = FUNCTION.exec(text);
   }
 
   return functions;
@@ -72,7 +86,7 @@ function getPropertyCompletions(text: string): CompletionItem[] {
   return vals;
 }
 
-function getLocalClassCompletions(text: string): CompletionItem[] {
+function getClassCompletions(text: string): CompletionItem[] {
   const vals: CompletionItem[] = [];
   const foundVals = {};
 
@@ -93,7 +107,7 @@ function provideCompletionItems(document: TextDocument, position: Position) {
   // Gather the functions created by the user
   const text = document.getText();
   let range = document.getWordRangeAtPosition(position);
-  
+
   if (!range)
     range = new Range(position, position);
 
@@ -109,20 +123,22 @@ function provideCompletionItems(document: TextDocument, position: Position) {
   const variableCompletions = getVariableCompletions(text);
   const functionCompletions = getFunctionCompletions(text);
   const propertyCompletions = getPropertyCompletions(text);
-  const classCompletions = getLocalClassCompletions(text);
+  const classCompletions = getClassCompletions(text);
 
   const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
-  
-  let extracompl : CompletionItem[] = [];
+
+  let extracompl: CompletionItem[] = [];
   if (ExtraDocument != '' && fs.statSync(ExtraDocument)) {
     const exttext = fs.readFileSync(ExtraDocument).toString();
-    extracompl = [...getFunctionCompletions(exttext), ...getPropertyCompletions(exttext), ...getLocalClassCompletions(exttext)];
-  
+    extracompl = [...getFunctionCompletions(exttext), ...getPropertyCompletions(exttext), ...getClassCompletions(exttext)];
+
     extracompl.forEach(element => {
-      element.detail = "Included " + CompletionItemKind[element.kind];
+      if (element.detail == null) {
+        element.detail = "Included " + CompletionItemKind[element.kind];
+      }
     });
   }
-  
+
   return [...definitions, ...variableCompletions, ...functionCompletions, ...propertyCompletions, ...classCompletions, ...extracompl];
 }
 
