@@ -120,6 +120,12 @@ Public Function CStr(expr)
 End Function
 
 
+''' <summary></summary>
+Public Property Get Date
+
+End Property
+
+
 ''' <summary>Returns a date to which a specified time interval has been added.</summary>
 ''' <param name="interval">String expression that is the interval you want to add. See Settings section for values.</param>
 ''' <param name="number">Numeric expression that is the number of interval you want to add. The numeric expression can either be positive, for dates in the future, or negative, for dates in the past.</param>
@@ -206,10 +212,41 @@ Public Class Err
 
     End Sub
 
+
     ''' <summary></summary>
+    Public Property Get Description
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get HelpContext
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get HelpFile
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get Number
+
+    End Property
+
+
+     ''' <summary></summary>
     Public Sub Raise(number, source, description, helpfile, helpcontext)
 
     End Sub
+
+
+    ''' <summary></summary>
+    Public Property Get Source
+
+    End Property
 End Class
 
 
@@ -268,6 +305,12 @@ End Function
 
 
 ''' <summary></summary>
+Public Property Get GetLocale
+
+End Property
+
+
+''' <summary></summary>
 Public Function GetObject([pathname] [, class])
 
 End Function
@@ -277,6 +320,12 @@ End Function
 Public Function GetRef(procname)
 
 End Function
+
+
+''' <summary></summary>
+Public Property Get GetUILanguage
+
+End Property
 
 
 ''' <summary></summary>
@@ -416,6 +465,24 @@ Public Function LTrim()
 
 End Function
 
+Public Class Match
+    ''' <summary></summary>
+    Public Property Get FirstIndex
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get Length
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get Value
+
+    End Property
+End Class
 
 ''' <summary></summary>
 Public Function Me()
@@ -484,6 +551,12 @@ Public Function MsgBox(prompt, buttons, title, helpfile, context)
 End Function
 
 
+''' <summary>Returns the current date and time according to the setting of your computer's system date and time.)</summary>
+Public Property Get Now
+
+End Property
+
+
 ''' <summary></summary>
 Public Function Oct()
 
@@ -497,6 +570,18 @@ Class RegExp
 
 
     ''' <summary></summary>
+    Public Property Get Global
+
+    End Property
+
+
+     ''' <summary></summary>
+    Public Property Get IgnoreCase
+
+    End Property
+
+
+    ''' <summary></summary>
     Public Function Replace()
 
     End Function
@@ -506,6 +591,7 @@ Class RegExp
     Public Function Test()
 
     End Function
+
 End Class
 
 
@@ -549,6 +635,30 @@ End Function
 Public Function RTrim()
 
 End Function
+
+
+''' <summary></summary>
+Public Property Get ScriptEngine
+
+End Property
+
+
+''' <summary></summary>
+Public Property Get ScriptEngineBuildVersion
+
+End Property
+
+
+''' <summary></summary>
+Public Property Get ScriptEngineMajorVersion
+
+End Property
+
+
+''' <summary></summary>
+Public Property Get ScriptEngineMinorVersion
+
+End Property
 
 
 ''' <summary></summary>
@@ -609,6 +719,19 @@ End Function
 Public Function Tan()
 
 End Function
+
+
+
+''' <summary></summary>
+Public Property Get Time
+
+End Property
+
+
+''' <summary></summary>
+Public Property Get Timer
+
+End Property
 
 
 ''' <summary></summary>
@@ -713,9 +836,156 @@ Public Class WScript
 
     End Function
 
+
+    ''' <summary></summary>
+    Public Property Get Arguments
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get BuildVersion
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get FullName
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get Interactive
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get Name
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get Path
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get ScriptFullName
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get ScriptName
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get TimeOut
+
+    End Property
+
+
+    ''' <summary></summary>
+    Public Property Get Version
+
+    End Property
+
 End Class
 
 ''' <summary></summary>
 Public Function Year()
 
 End Function
+
+Public Const False = Empty ' Boolean
+Public Const True = Empty
+Public Const vbAbort = Empty
+Public Const vbAbortRetryIgnore = Empty
+Public Const vbApplicationModal = Empty
+Public Const vbArray = Empty
+Public Const vbBinaryCompare = Empty ' Perform a binary comparison
+Public Const vbBoolean = Empty
+Public Const vbByte = Empty
+Public Const vbCancel = Empty
+Public Const vbCr = Empty
+Public Const vbCritical = Empty
+Public Const vbCrLf = Empty
+Public Const vbCurrency = Empty
+Public Const vbDatabaseCompare = Empty
+Public Const vbDataObject = Empty
+Public Const vbDate = Empty
+Public Const vbDecimal = Empty
+Public Const vbDefaultButton1 = Empty
+Public Const vbDefaultButton2 = Empty
+Public Const vbDefaultButton3 = Empty
+Public Const vbDefaultButton4 = Empty
+Public Const vbEmpty = Empty
+Public Const vbError = Empty
+Public Const vbExclamation = Empty
+Public Const vbFalse = Empty
+Public Const vbFirstFourDays = Empty
+Public Const vbFirstFullWeek = Empty
+Public Const vbFirstJan1 = Empty
+Public Const vbFormFeed = Empty
+Public Const vbFriday = Empty
+Public Const vbGeneralDate = Empty
+Public Const vbIgnore = Empty
+Public Const vbInformation = Empty
+Public Const vbInteger = Empty
+Public Const vbLf = Empty
+Public Const vbLong = Empty
+Public Const vbLongDate = Empty
+Public Const vbLongTime = Empty
+Public Const vbMonday = Empty
+Public Const vbMsgBoxHelpButton = Empty
+Public Const vbMsgBoxRight = Empty
+Public Const vbMsgBoxRtlReading = Empty
+Public Const vbNewLine = Empty
+Public Const vbNo = Empty
+Public Const vbNull = Empty
+Public Const vbNullChar = Empty
+Public Const vbNullString = Empty
+Public Const vbObject = Empty
+Public Const vbObjectError = Empty
+Public Const vbOK = Empty
+Public Const vbOKCancel = Empty ' Display OK and Cancel buttons
+Public Const vbOKOnly = Empty ' Display OK button only.
+Public Const vbQuestion = Empty ' Display Warning Query icon.
+Public Const vbRetry = Empty ' Retry button was clicked
+Public Const vbRetryCancel = Empty ' Display Retry and Cancel buttons.
+Public Const vbSaturday = Empty
+Public Const vbShortDate = Empty
+Public Const vbShortTime = Empty
+Public Const vbSingle = Empty
+Public Const vbString = Empty
+Public Const vbSunday = Empty
+Public Const vbSystemModal = Empty
+Public Const vbTab = Empty
+Public Const vbTextCompare = Empty ' Perform a textual comparison
+Public Const vbThursday = Empty
+Public Const vbTrue = Empty
+Public Const vbTuesday = Empty
+Public Const vbUseDefault = Empty
+Public Const vbUseSystem = Empty
+Public Const vbUseSystemDayOfWeek = Empty
+Public Const vbVariant = Empty
+Public Const vbVerticalTab = Empty
+Public Const vbWednesday = Empty
+Public Const vbYes = Empty
+Public Const vbYesNo = Empty
+Public Const vbYesNoCancel = Empty
+
+Public Const vbBlack = &h00
+Public Const vbBlue = &hFF0000
+Public Const vbCyan = &hFFFF00
+Public Const vbGreen = &hFF00
+Public Const vbMagenta = &hFF00FF
+Public Const vbRed = &hFF
+Public Const vbWhite = &hFFFFFF
+Public Const vbYellow = &hFFFF

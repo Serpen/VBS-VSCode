@@ -15,24 +15,32 @@ function createNewCompletionItem(kind: CompletionItemKind, name: string, strDeta
 }
 
 function getVariableCompletions(text: string): CompletionItem[] {
-  const variables: CompletionItem[] = [];
-  const foundVariables = {};
-  let variableName: string;
+  const vals: CompletionItem[] = [];
+  const foundVals = {};
 
-  let matches = PATTERNS.VAR.exec(text);
+  const VAR = /(?:^|:)[\t ]*((Dim|(?:Private[\t ]*|Public[\t ]*)?Const)[\t ]+([a-z]\w+)(?:\s*=\s*[^'\n\r]+)?)(?:'\s*(.+))?$/img;
+
+  let matches = VAR.exec(text);
   while (matches) {
-    variableName = matches[2];
-    if (!(variableName in foundVariables)) {
+    const name = matches[3];
+
+    if (!(name in foundVals)) {
       let itmKind = CompletionItemKind.Variable;
-      if (matches[1].toLowerCase().endsWith("const"))
+      if (matches[1].toLowerCase().indexOf("const") > 0)
         itmKind = CompletionItemKind.Constant;
-      foundVariables[variableName] = true;
-      variables.push(createNewCompletionItem(itmKind, variableName));
+
+      const ci = new CompletionItem(name, itmKind);
+      ci.documentation = matches[4];
+
+      ci.detail = "[Global] " + matches[1];
+
+      foundVals[name] = true;
+      vals.push(ci);
     }
-    matches = PATTERNS.VAR.exec(text);
+    matches = VAR.exec(text);
   }
 
-  return variables;
+  return vals;
 }
 
 function getFunctionCompletions(text: string): CompletionItem[] {
@@ -45,19 +53,18 @@ function getFunctionCompletions(text: string): CompletionItem[] {
   let matches = FUNCTION.exec(text);
   while (matches) {
     const functionName = matches[5];
-    console.log("getFunctionCompletions "+ functionName);
-    
+
     if (!(functionName in foundFunctions)) {
       let itmKind = CompletionItemKind.Function;
       if (matches[3].toLowerCase() == "sub")
         itmKind = CompletionItemKind.Method;
       const ci = new CompletionItem(functionName, itmKind);
-     
+
       if (matches[1]) {
         const summary = SUMMARY.exec(matches[1]);
         ci.documentation = summary[1];
       }
-      
+
       ci.detail = "[Global] " + matches[2];
 
       foundFunctions[functionName] = true;
@@ -73,14 +80,27 @@ function getPropertyCompletions(text: string): CompletionItem[] {
   const vals: CompletionItem[] = [];
   const foundVals = {};
 
-  let matches = PATTERNS.PROP.exec(text);
+  const PROP = /((?:^[\t ]*'''.*(?:\n|\r\n))+)*[\t ]*((?:Public[\t ]+(?:Default[\t ]+)?|Private[\t ]+)?Property[\t ]+(?:Get|Let|Set)[\t ]+([a-z]\w+))/img;
+  const SUMMARY = /'''\s*<summary>(.*)<\/summary>/i
+
+  let matches = PROP.exec(text);
   while (matches) {
-    const name = matches[2];
+    const name = matches[3];
+
     if (!(name in foundVals)) {
+      const ci = new CompletionItem(name, CompletionItemKind.Property);
+
+      if (matches[1]) {
+        const summary = SUMMARY.exec(matches[1]);
+        ci.documentation = summary[1];
+      }
+
+      ci.detail = "[Global] " + matches[2];
+
       foundVals[name] = true;
-      vals.push(createNewCompletionItem(CompletionItemKind.Property, name));
+      vals.push(ci);
     }
-    matches = PATTERNS.PROP.exec(text);
+    matches = PROP.exec(text);
   }
 
   return vals;
@@ -130,7 +150,7 @@ function provideCompletionItems(document: TextDocument, position: Position) {
   let extracompl: CompletionItem[] = [];
   if (ExtraDocument != '' && fs.statSync(ExtraDocument)) {
     const exttext = fs.readFileSync(ExtraDocument).toString();
-    extracompl = [...getFunctionCompletions(exttext), ...getPropertyCompletions(exttext), ...getClassCompletions(exttext)];
+    extracompl = [...getFunctionCompletions(exttext), ...getPropertyCompletions(exttext), ...getClassCompletions(exttext), ...getVariableCompletions(exttext)];
 
     extracompl.forEach(element => {
       if (element.detail == null) {
