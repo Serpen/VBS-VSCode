@@ -1,6 +1,5 @@
 import fs from 'fs';
-import { languages, SignatureHelp, SignatureInformation, ParameterInformation, MarkdownString, TextDocument, Position, workspace, CompletionItem } from 'vscode';
-import defaultSigs from './definitions/functions.json';
+import { languages, SignatureHelp, SignatureInformation, ParameterInformation, TextDocument, Position, workspace } from 'vscode';
 import PATTERNS from './patterns';
 
 /**
@@ -28,7 +27,7 @@ function getCurrentFunction(code: string) {
 
   // Get the 2nd to last item (right in front of last open paren)
   // and clean up the results
-  return parenSplit[index].match(/(.*)\b(\w+)/)[2];
+  return parenSplit[index].match(/(?:.*)\b(\w+)/)[1].toLowerCase();
 }
 
 function countCommas(code: string) {
@@ -57,18 +56,34 @@ function getCallInfo(doc: TextDocument, pos: Position) {
 function getSignatures(text: string, docComment: string): Map<string, SignatureInformation[]> {
   let map = new Map<string, SignatureInformation[]>();
 
+  const FUNCTION = /((?:^[\t ]*'''.*(?:\n|\r\n))+)*[\t ]*((?:Public[\t ]+|Private[\t ]+)?(Function|Sub)[\t ]+(([a-z]\w+)\((.*)\)))\s*$/img;
+
   let matches: RegExpExecArray;
-  while ((matches = PATTERNS.FUNCTION.exec(text)) !== null) {
-    const si = new SignatureInformation(matches[2], docComment);
-    matches[4].split(",").forEach(element => {
-      si.parameters.push(new ParameterInformation(element.trim()));
+  while ((matches = FUNCTION.exec(text)) !== null) {
+    const name = matches[5].toLowerCase()
+    console.log(name);
+
+    if (matches[1]) {
+      const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
+      docComment = summary[1];
+    }
+    const si = new SignatureInformation(matches[4], docComment);
+    matches[6].split(",").forEach(element => {
+      let paramInfo = "";
+      if (matches[1]) {
+        const param = PATTERNS.PARAM_SUMMARY(matches[1], element.trim());
+        if (param)
+          paramInfo = param[1];
+      }
+      si.parameters.push(new ParameterInformation(element.trim(), paramInfo));
     });
 
+
     let prevMatches;
-    if ((prevMatches = map.get(matches[3])) !== undefined)
-      map.set(matches[3], [si, ...prevMatches]);
+    if ((prevMatches = map.get(name)) !== undefined)
+      map.set(name, [...prevMatches, si]);
     else
-      map.set(matches[3], [si]);
+      map.set(name, [si]);
   }
 
   return map;
@@ -76,28 +91,36 @@ function getSignatures(text: string, docComment: string): Map<string, SignatureI
 
 export default languages.registerSignatureHelpProvider({ scheme: 'file', language: 'vbs' },
   {
-    provideSignatureHelp(document, position) {
+    provideSignatureHelp(document, position, _cancel, context) {
       const caller = getCallInfo(document, position);
       if (caller == null)
         return null;
+
+      // if (context.activeSignatureHelp) {
+      //   context.activeSignatureHelp.activeParameter = caller.commas;
+      //   return context.activeSignatureHelp;
+      // }
 
       const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
       let ExtraDocumentText: string = "";
       if (ExtraDocument != '' && fs.statSync(ExtraDocument))
         ExtraDocumentText = fs.readFileSync(ExtraDocument).toString();
 
-      const sigs = new SignatureHelp();
-      sigs.activeSignature = 0;
+        const sigs = new SignatureHelp();
+      if (context.activeSignatureHelp)
+        sigs.activeSignature = context.activeSignatureHelp.activeSignature;
+      else
+        sigs.activeSignature = 0;
       sigs.activeParameter = caller.commas;
 
       let sig;
       if ((sig = getSignatures(document.getText(), "Local Function").get(caller.func)) !== undefined) {
-        sigs.signatures.push(...sig);
+        sigs.signatures.push(...sig.filter(sig => sig.parameters.length > caller.commas));
       }
       if ((sig = getSignatures(ExtraDocumentText, "Included Function").get(caller.func)) !== undefined) {
-        sigs.signatures.push(...sig);
+        sigs.signatures.push(...sig.filter(sig => sig.parameters.length > caller.commas));
       }
-
+      
       return sigs;
     },
   },

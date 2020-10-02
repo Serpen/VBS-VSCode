@@ -103,7 +103,12 @@ End Function
 
 
 ''' <summary></summary>
-Public Function CreateObject(class [, location])
+Public Function CreateObject(class)
+
+End Function
+
+''' <summary></summary>
+Public Function CreateObject(class, location)
 
 End Function
 
@@ -148,7 +153,7 @@ End Function
 ''' <param name="date1">Required. Date expressions. Two dates you want to use in the calculation.</param>
 ''' <param name="date2">Required. Date expressions. Two dates you want to use in the calculation..</param>
 ''' <param name="firstdayofweek">Optional. Constant that specifies the day of the week. If not specified, Sunday is assumed. See Settings section for values.</param>
-Public Function DateDiff(interval, date1, date2 ,firstdayofweek)
+Public Function DateDiff(interval, date1, date2, firstdayofweek)
 
 End Function
 
@@ -158,13 +163,23 @@ End Function
 ''' <param name="date2">Required. Date expressions. Two dates you want to use in the calculation..</param>
 ''' <param name="firstdayofweek">Optional. Constant that specifies the day of the week. If not specified, Sunday is assumed. See Settings section for values.</param>
 ''' <param name="firstweekofyear">Optional. Constant that specifies the first week of the year. If not specified, the first week is assumed to be the week in which January 1 occurs. See Settings section for values.</param>
-Public Function DateDiff(interval, date1, date2 ,firstdayofweek, firstweekofyear)
+Public Function DateDiff(interval, date1, date2, firstdayofweek, firstweekofyear)
 
 End Function
 
 
 ''' <summary></summary>
-Public Function DatePart(interval, date[, firstdayofweek[, firstweekofyear]])
+Public Function DatePart(interval, date)
+
+End Function
+
+''' <summary></summary>
+Public Function DatePart(interval, date, firstdayofweek)
+
+End Function
+
+''' <summary></summary>
+Public Function DatePart(interval, date, firstdayofweek, firstweekofyear)
 
 End Function
 
@@ -269,7 +284,17 @@ End Function
 
 
 ''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
-Public Function Filter(InputStrings, Value[, Include[, Compare]])
+Public Function Filter(InputStrings, Value)
+
+End Function
+
+''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
+Public Function Filter(InputStrings, Value, Include)
+
+End Function
+
+''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
+Public Function Filter(InputStrings, Value, Include, Compare)
 
 End Function
 
@@ -281,25 +306,90 @@ End Function
 
 
 ''' <summary></summary>
-Public Function FormatCurrency(Expression[,NumDigitsAfterDecimal [,IncludeLeadingDigit [,UseParensForNegativeNumbers [,GroupDigits]]]])
+Public Function FormatCurrency(Expression)
+
+End Function
+
+''' <summary></summary>
+Public Function FormatCurrency(Expression,NumDigitsAfterDecimal)
+
+End Function
+
+''' <summary></summary>
+Public Function FormatCurrency(Expression,NumDigitsAfterDecimal ,IncludeLeadingDigit)
+
+End Function
+
+''' <summary></summary>
+Public Function FormatCurrency(Expression,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers)
+
+End Function
+
+''' <summary></summary>
+Public Function FormatCurrency(Expression,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers ,GroupDigits)
 
 End Function
 
 
 ''' <summary></summary>
-Public Function FormatDateTime(Date[, NamedFormat])
+Public Function FormatDateTime(Date)
+
+End Function
+
+''' <summary></summary>
+Public Function FormatDateTime(Date, NamedFormat)
 
 End Function
 
 
 ''' <summary></summary>
-Public Function FormatNumber(Expression [,NumDigitsAfterDecimal [,IncludeLeadingDigit [,UseParensForNegativeNumbers [,GroupDigits]]]])
+Public Function FormatNumber(Expression)
+
+End Function
+
+''' <summary></summary>
+Public Function FormatNumber(Expression ,NumDigitsAfterDecimal)
+
+End Function
+
+''' <summary></summary>
+Public Function FormatNumber(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit)
+
+End Function
+
+''' <summary></summary>
+Public Function FormatNumber(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers)
+
+End Function
+
+''' <summary></summary>
+Public Function FormatNumber(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers ,GroupDigits)
 
 End Function
 
 
 ''' <summary></summary>
-Public Function FormatPercent(Expression[,NumDigitsAfterDecimal [,IncludeLeadingDigit [,UseParensForNegativeNumbers [,GroupDigits]]]])
+Public Function FormatPercent(Expression)
+
+End Function
+
+''' <summary></summary>
+Public Function FormatPercent(Expression ,NumDigitsAfterDecimal)
+
+End Function
+
+''' <summary></summary>
+Public Function FormatPercent(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit)
+
+End Function
+
+''' <summary></summary>
+Public Function FormatPercent(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers)
+
+End Function
+
+''' <summary></summary>
+Public Function FormatPercent(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers ,GroupDigits)
 
 End Function
 
@@ -310,8 +400,13 @@ Public Property Get GetLocale
 End Property
 
 
-''' <summary></summary>
-Public Function GetObject([pathname] [, class])
+''' <summary>?</summary>
+Public Function GetObject(pathname)
+
+End Function
+
+''' <summary>?</summary>
+Public Function GetObject(pathname, class)
 
 End Function
 
@@ -341,13 +436,53 @@ End Function
 
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Public Function InputBox(prompt As String[, title As String][, default As String][, xpos][, ypos][, helpfile, context]) As String
+Public Function InputBox(prompt As String)
+
+End Function
+
+''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
+Public Function InputBox(prompt As String, title As String)
+
+End Function
+
+''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
+Public Function InputBox(prompt As String, title As String, default As String)
+
+End Function
+
+''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
+Public Function InputBox(prompt As String, title As String, default As String, xpos)
+
+End Function
+
+''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
+Public Function InputBox(prompt As String, title As String, default As String, xpos, ypos)
+
+End Function
+
+''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
+Public Function InputBox(prompt As String, title As String, default As String, xpos, ypos, helpfile, context)
 
 End Function
 
 
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-Public Function InStr([start, ]string1, string2[, compare])
+Public Function InStr(string1, string2)
+
+End Function
+
+''' <summary>Returns the position of the first occurrence of one string within another.</summary>
+Public Function InStr(start, string1, string2)
+
+End Function
+
+''' <summary>Returns the position of the first occurrence of one string within another.</summary>
+Public Function InStr(string1, string2 compare)
+
+End Function
+
+''' <summary>Returns the position of the first occurrence of one string within another.</summary>
+Public Function InStr(start,string1, string2, compare)
 
 End Function
 
@@ -491,7 +626,12 @@ End Function
 
 
 ''' <summary>Returns a specified number of characters from a string.</summary>
-Public Function Mid(string, start[, length])
+Public Function Mid(string, start)
+
+End Function
+
+''' <summary>Returns a specified number of characters from a string.</summary>
+Public Function Mid(string, start, length)
 
 End Function
 
@@ -521,19 +661,20 @@ End Function
 
 
 ''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
+''' <param name="prompt">String expression displayed as the message in the dialog box</param>
 Public Function MsgBox(prompt)
 
 End Function
 
 ''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
-''' <param name="prompt">String expression displayed as the message in the dialog box. The maximum length of prompt is approximately 1024 characters, depending on the width of the characters used. If prompt consists of more than one line, you can separate the lines using a carriage return character (Chr(13)), a linefeed character (Chr(10)), or carriage return–linefeed character combination (Chr(13) & Chr(10)) between each line.</param>
+''' <param name="prompt">String expression displayed as the message in the dialog box</param>
 ''' <param name="buttons">Numeric expression that is the sum of values specifying the number and type of buttons to display, the icon style to use, the identity of the default button, and the modality of the message box. See Settings section for values. If omitted, the default value for buttons is 0.</param>
 Public Function MsgBox(prompt, buttons)
 
 End Function
 
 ''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
-''' <param name="prompt">String expression displayed as the message in the dialog box. The maximum length of prompt is approximately 1024 characters, depending on the width of the characters used. If prompt consists of more than one line, you can separate the lines using a carriage return character (Chr(13)), a linefeed character (Chr(10)), or carriage return–linefeed character combination (Chr(13) & Chr(10)) between each line.</param>
+''' <param name="prompt">String expression displayed as the message in the dialog box</param>
 ''' <param name="buttons">Numeric expression that is the sum of values specifying the number and type of buttons to display, the icon style to use, the identity of the default button, and the modality of the message box. See Settings section for values. If omitted, the default value for buttons is 0.</param>
 ''' <param name="title">String expression displayed in the title bar of the dialog box. If you omit title, the application name is placed in the title bar.</param>
 Public Function MsgBox(prompt, buttons, title)
@@ -541,7 +682,7 @@ Public Function MsgBox(prompt, buttons, title)
 End Function
 
 ''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
-''' <param name="prompt">String expression displayed as the message in the dialog box. The maximum length of prompt is approximately 1024 characters, depending on the width of the characters used. If prompt consists of more than one line, you can separate the lines using a carriage return character (Chr(13)), a linefeed character (Chr(10)), or carriage return–linefeed character combination (Chr(13) & Chr(10)) between each line.</param>
+''' <param name="prompt">String expression displayed as the message in the dialog box</param>
 ''' <param name="buttons">Numeric expression that is the sum of values specifying the number and type of buttons to display, the icon style to use, the identity of the default button, and the modality of the message box. See Settings section for values. If omitted, the default value for buttons is 0.</param>
 ''' <param name="title">String expression displayed in the title bar of the dialog box. If you omit title, the application name is placed in the title bar.</param>
 ''' <param name="helpfile">String expression that identifies the Help file to use to provide context-sensitive Help for the dialog box. If helpfile is provided, context must also be provided. Not available on 16-bit platforms.</param>
@@ -601,8 +742,8 @@ Public Function Replace()
 End Function
 
 
-''' <summary></summary>
-Public Function RGB()
+''' <summary>Returns a whole number representing an RGB color value.</summary>
+Public Function RGB(red, green, blue)
 
 End Function
 
@@ -692,7 +833,22 @@ End Function
 
 
 ''' <summary></summary>
-Public Function Split(expression[, delimiter[, count[, compare]]])
+Public Function Split(expression)
+
+End Function
+
+''' <summary></summary>
+Public Function Split(expression, delimiter)
+
+End Function
+
+''' <summary></summary>
+Public Function Split(expression, delimiter, count)
+
+End Function
+
+''' <summary></summary>
+Public Function Split(expression, delimiter, count, compare)
 
 End Function
 
@@ -898,8 +1054,9 @@ Public Class WScript
 
 End Class
 
-''' <summary></summary>
-Public Function Year()
+''' <summary>Returns a whole number representing the year.</summary>
+''' <param name="date">Any expression that can represent a date</param>
+Public Function Year(date)
 
 End Function
 

@@ -48,7 +48,6 @@ function getFunctionCompletions(text: string): CompletionItem[] {
   const foundFunctions = {};
 
   const FUNCTION = /((?:^[\t ]*'''.*(?:\n|\r\n))+)*[\t ]*((?:Public[\t ]+|Private[\t ]+)?(Function|Sub)[\t ]+(([a-z]\w+)\((.*)\)))\s*$/img;
-  const SUMMARY = /'''\s*<summary>(.*)<\/summary>/i
 
   let matches = FUNCTION.exec(text);
   while (matches) {
@@ -61,7 +60,7 @@ function getFunctionCompletions(text: string): CompletionItem[] {
       const ci = new CompletionItem(functionName, itmKind);
 
       if (matches[1]) {
-        const summary = SUMMARY.exec(matches[1]);
+        const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
         ci.documentation = summary[1];
       }
 
@@ -164,5 +163,5 @@ function provideCompletionItems(document: TextDocument, position: Position) {
 
 export default languages.registerCompletionItemProvider(
   { scheme: 'file', language: 'vbs' },
-  { provideCompletionItems }, " "
+  { provideCompletionItems }
 );

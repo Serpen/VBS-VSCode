@@ -1,6 +1,6 @@
-import { languages, Hover, TextDocument, Position } from 'vscode';
-import definitions from './definitions';
+import { languages, Hover, TextDocument, Position, workspace } from 'vscode';
 import PATTERNS from './patterns';
+import fs from 'fs';
 
 export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs' }, {
   provideHover(document: TextDocument, position: Position) {
@@ -9,17 +9,21 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
 
     if (word.trim() == "")
       return;
-    
-    let hover = definitions.find(key => key.label.toLowerCase() == word.toLowerCase())
-    if (hover) {
-      return new Hover([hover.detail, hover.documentation]);
-    }
-    
+
     const text = document.getText();
 
     let matches = PATTERNS.DEF(word).exec(text);
     if (matches) {
       return new Hover(matches);
+    }
+
+    const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
+    if (ExtraDocument != '' && fs.statSync(ExtraDocument)) {
+      const ExtraDocumentText = fs.readFileSync(ExtraDocument).toString();
+      matches = PATTERNS.DEF(word).exec(ExtraDocumentText);
+
+      if (matches)
+        return new Hover(matches[1])
     }
   },
 });
