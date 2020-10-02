@@ -15,5 +15,4 @@ dim s  :' dim s2
 dim t  : ' dim t2
 dim u  ':dim u2
 
-Private Sub mySub()
 
