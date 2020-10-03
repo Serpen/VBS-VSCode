@@ -11,8 +11,8 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
 
     const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showVariableSymbols")!;
 
-    let currentBlock: DocumentSymbol[] = [];
-    let waitCurrentBlockEnd: String[] = [];
+    let Blocks: DocumentSymbol[] = [];
+    let BlockEnds: String[] = [];
 
     // Get the number of lines in the document to loop through
     const lineCount = Math.min(doc.lineCount, 10000);
@@ -30,30 +30,30 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
       if ((matches = CLASS.exec(line.text)) !== null) {
         name = matches[1];
         symbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
-        waitCurrentBlockEnd.push("class")
+        BlockEnds.push("class")
 
       } else if ((matches = FUNCTION.exec(line.text)) !== null) {
-        name = matches[5];
+        name = matches[4];
         let detail: string = "";
         let symKind = SymbolKind.Function;
         if (matches[3].toLowerCase() === "sub")
           if (name.toLowerCase() == "class_initialize()" || name.toLowerCase() == "class_terminate()") {
             symKind = SymbolKind.Constructor;
-            waitCurrentBlockEnd.push("sub");
+            BlockEnds.push("sub");
           } else {
             detail = "Sub";
-            waitCurrentBlockEnd.push(detail.toLowerCase());
+            BlockEnds.push(detail.toLowerCase());
           }
         else {
           detail = "Function";
-          waitCurrentBlockEnd.push(detail.toLowerCase());
+          BlockEnds.push(detail.toLowerCase());
         }
 
         symbol = new DocumentSymbol(name, detail, symKind, line.range, line.range);
       } else if ((matches = PROP.exec(line.text)) !== null) {
         name = matches[4];
         symbol = new DocumentSymbol(name, matches[3], SymbolKind.Property, line.range, line.range);
-        waitCurrentBlockEnd.push("property");
+        BlockEnds.push("property");
       } else if (showVariableSymbols) {
         while ((matches = PATTERNS.VAR2.exec(line.text)) !== null) {
           const varNames = matches[1].split(',');
@@ -61,43 +61,45 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
 
             let name = varNames[i].trim();
             let symKind = SymbolKind.Variable;
-            if (matches[1].toLowerCase().indexOf("const") > 0)
+            if (/\bconst\b/i.test(matches[0]))
               symKind = SymbolKind.Constant;
+            // else if (/\bSet\b/i.test(matches[0]))
+            //   symKind = SymbolKind.Struct;
             let r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR2.lastIndex);
             const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
-            if (currentBlock.length == 0)
+            if (Blocks.length == 0)
               result.push(variableSymbol);
             else
-              currentBlock[currentBlock.length - 1].children.push(variableSymbol);
+              Blocks[Blocks.length - 1].children.push(variableSymbol);
           }
 
         }
       }
 
       if (symbol!) {
-        if (currentBlock.length == 0)
+        if (Blocks.length == 0)
           result.push(symbol!);
         else
-          currentBlock[currentBlock.length - 1].children.push(symbol!);
-        currentBlock.push(symbol!);
+          Blocks[Blocks.length - 1].children.push(symbol!);
+        Blocks.push(symbol!);
       }
 
       if ((matches = PATTERNS.ENDLINE.exec(line.text)) !== null)
-        if (waitCurrentBlockEnd[waitCurrentBlockEnd.length - 1] == matches[1].toLowerCase()) {
-          currentBlock.pop();
-          waitCurrentBlockEnd.pop();
+        if (BlockEnds[BlockEnds.length - 1] == matches[1].toLowerCase()) {
+          Blocks.pop();
+          BlockEnds.pop();
         } else {
-          currentBlock.pop();
-          console.log("symbol wrong ending (awaiting closing for " + waitCurrentBlockEnd.pop()?.toString() + " got " + matches[1].toLowerCase() + ") in " + doc.uri + " " + line.lineNumber)
+          Blocks.pop();
+          console.log("symbol wrong ending (awaiting closing for " + BlockEnds.pop()?.toString() + " got " + matches[1].toLowerCase() + ") in " + doc.uri + " " + line.lineNumber)
         }
 
 
     }
 
-    if (waitCurrentBlockEnd.length > 0)
-      console.log(waitCurrentBlockEnd);
-    if (currentBlock.length > 0)
-      console.log(currentBlock);
+    if (BlockEnds.length > 0)
+      console.log(BlockEnds);
+    if (Blocks.length > 0)
+      console.log(Blocks);
 
     return result;
   },

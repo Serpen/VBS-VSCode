@@ -1,109 +1,109 @@
 ''' <summary>Returns the absolute value of a number.</summary>
 ''' <param name="expr">Any valid numeric expression.</param>
-Public Function Abs(expr)
+Function Abs(expr)
 End Function
 
 ''' <summary></summary>
-Public Function Array(arglist)
+Function Array(arglist)
 End Function
 
 ''' <summary>Returns the unicode code of a character.</summary>
 ''' <param name="char">The character to get the code for. If a string is used, the code for the first character is given.</param>
-Public Function Asc(char)
+Function Asc(char)
 End Function
 
 
 ''' <summary>Returns the ANSI character code corresponding to the first letter in a string.</summary>
-Public Function AscB(char)
+Function AscB(char)
 End Function
 
 
 ''' <summary>Function that returns the Unicode (wide) character code that represents a specific Unicode character.</summary>
-Public Function AscW(char)
+Function AscW(char)
 End Function
 
 
 ''' <summary>Returns the arctangent of a number.</summary>
-Public Function Atn(number)
+Function Atn(number)
 End Function
 
 
 ''' <summary>Returns an expression that has been converted to a Variant of subtype Boolean.</summary>
-Public Function CBool(expr)
+Function CBool(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Function CByte(expr)
+Function CByte(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Function CCur(expr)
+Function CCur(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Function CDate(expr)
+Function CDate(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Function CDbl(expr)
+Function CDbl(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Function Chr(charcode)
+Function Chr(charcode)
 End Function
 
 
 ''' <summary></summary>
-Public Function ChrB(charcode)
+Function ChrB(charcode)
 End Function
 
 
 ''' <summary></summary>
-Public Function ChrW(charcode)
+Function ChrW(charcode)
 End Function
 
 
 ''' <summary></summary>
-Public Function CInt(expr)
+Function CInt(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Function CLng(expr)
+Function CLng(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Function Cos(number)
+Function Cos(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function CreateObject(classname)
+Function CreateObject(classname)
 End Function
 
 ''' <summary></summary>
-Public Function CreateObject(classname, location)
-End Function
-
-
-''' <summary></summary>
-Public Function CSng(expr)
+Function CreateObject(classname, location)
 End Function
 
 
 ''' <summary></summary>
-Public Function CStr(expr)
+Function CSng(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Property Get Date
+Function CStr(expr)
+End Function
+
+
+''' <summary></summary>
+Property Get Date
 End Property
 
 
@@ -111,492 +111,526 @@ End Property
 ''' <param name="interval">String expression that is the interval you want to add. See Settings section for values.</param>
 ''' <param name="number">Numeric expression that is the number of interval you want to add. The numeric expression can either be positive, for dates in the future, or negative, for dates in the past.</param>
 ''' <param name="date">Variant or literal representing the date to which interval is added.</param>
-Public Function DateAdd(interval, number, date)
+Function DateAdd(interval, number, date)
 End Function
 
 
 ''' <summary>Returns the number of intervals between two dates.</summary>
-''' <param name="interval">Required. String expression that is the interval you want to use to calculate the differences between date1 and date2. See Settings section for values.</param>
-''' <param name="date1">Required. Date expressions. Two dates you want to use in the calculation.</param>
-''' <param name="date2">Required. Date expressions. Two dates you want to use in the calculation..</param>
-Public Function DateDiff(interval, date1, date2)
+''' <param name="interval">String expression that is the interval you want to use to calculate the differences between date1 and date2. See Settings section for values.</param>
+''' <param name="date1">Date expressions. Two dates you want to use in the calculation.</param>
+''' <param name="date2">Date expressions. Two dates you want to use in the calculation.</param>
+Function DateDiff(interval, date1, date2)
 End Function
 
 ''' <summary>Returns the number of intervals between two dates.</summary>
-''' <param name="interval">Required. String expression that is the interval you want to use to calculate the differences between date1 and date2. See Settings section for values.</param>
-''' <param name="date1">Required. Date expressions. Two dates you want to use in the calculation.</param>
-''' <param name="date2">Required. Date expressions. Two dates you want to use in the calculation..</param>
-''' <param name="firstdayofweek">Optional. Constant that specifies the day of the week. If not specified, Sunday is assumed. See Settings section for values.</param>
-Public Function DateDiff(interval, date1, date2, firstdayofweek)
+''' <param name="interval">String expression that is the interval you want to use to calculate the differences between date1 and date2. See Settings section for values.</param>
+''' <param name="date1">Date expressions. Two dates you want to use in the calculation.</param>
+''' <param name="date2">Date expressions. Two dates you want to use in the calculation.</param>
+''' <param name="firstdayofweek">Constant that specifies the day of the week. If not specified, Sunday is assumed. See Settings section for values.</param>
+Function DateDiff(interval, date1, date2, firstdayofweek)
 End Function
 
 ''' <summary>Returns the number of intervals between two dates.</summary>
-''' <param name="interval">Required. String expression that is the interval you want to use to calculate the differences between date1 and date2. See Settings section for values.</param>
-''' <param name="date1">Required. Date expressions. Two dates you want to use in the calculation.</param>
-''' <param name="date2">Required. Date expressions. Two dates you want to use in the calculation..</param>
-''' <param name="firstdayofweek">Optional. Constant that specifies the day of the week. If not specified, Sunday is assumed. See Settings section for values.</param>
-''' <param name="firstweekofyear">Optional. Constant that specifies the first week of the year. If not specified, the first week is assumed to be the week in which January 1 occurs. See Settings section for values.</param>
-Public Function DateDiff(interval, date1, date2, firstdayofweek, firstweekofyear)
+''' <param name="interval">String expression that is the interval you want to use to calculate the differences between date1 and date2. See Settings section for values.</param>
+''' <param name="date1">Date expressions. Two dates you want to use in the calculation.</param>
+''' <param name="date2">Date expressions. Two dates you want to use in the calculation.</param>
+''' <param name="firstdayofweek">Constant that specifies the day of the week. If not specified, Sunday is assumed. See Settings section for values.</param>
+''' <param name="firstweekofyear">Constant that specifies the first week of the year. If not specified, the first week is assumed to be the week in which January 1 occurs. See Settings section for values.</param>
+Function DateDiff(interval, date1, date2, firstdayofweek, firstweekofyear)
 End Function
 
 
 ''' <summary></summary>
-Public Function DatePart(interval, date)
+Function DatePart(interval, date)
 End Function
 
 ''' <summary></summary>
-Public Function DatePart(interval, date, firstdayofweek)
+Function DatePart(interval, date, firstdayofweek)
 End Function
 
 ''' <summary></summary>
-Public Function DatePart(interval, date, firstdayofweek, firstweekofyear)
-End Function
-
-
-''' <summary></summary>
-Public Function DateSerial(year, month, day)
+Function DatePart(interval, date, firstdayofweek, firstweekofyear)
 End Function
 
 
 ''' <summary></summary>
-Public Function DateValue(date)
+Function DateSerial(year, month, day)
 End Function
 
 
 ''' <summary></summary>
-Public Function Day(date)
+Function DateValue(date)
 End Function
 
-Public Class Debug
 
-    ''' <summary></summary>
-    Public Sub Write(str)
-    End Sub
+''' <summary></summary>
+Function Day(date)
+End Function
+
+Class Debug
+
+	''' <summary></summary>
+	Sub Write(str)
+	End Sub
 
 
-    ''' <summary></summary>
-    Public Sub WriteLine(str)
-    End Sub
+	''' <summary></summary>
+	Sub WriteLine(str)
+	End Sub
 End Class
 
 
-Public Class Err
-
-    ''' <summary></summary>
-    Public Sub Clear()
-    End Sub
-
-
-    ''' <summary></summary>
-    Public Property Get Description
-    End Property
-
-
-    ''' <summary></summary>
-    Public Property Get HelpContext
-    End Property
-
-
-    ''' <summary></summary>
-    Public Property Get HelpFile
-    End Property
-
-
-    ''' <summary></summary>
-    Public Property Get Number
-    End Property
-
-
-     ''' <summary></summary>
-    Public Sub Raise(number)
-
-    End Sub
+Class Dictionary
 	
-     ''' <summary></summary>
-    Public Sub Raise(number, source, description, helpfile, helpcontext)
-    End Sub
+	Sub Add(key, value)
+	End Sub
+	
+	Property Let CompareMode
+	End Property
+	
+	Property Get Count
+	End Property
+	
+	Function Exists(key)
+	End Function
+	
+	Default Property Get Item(key)
+	End Property
+	
+	Function Items(key)
+	End Function
+	
+	Property Get Key(key)
+	End Property
+	
+	Function Keys()
+	End Property
+	
+	Sub Remove(key)
+	End Sub
+	
+	Sub RemoveAll()
+	End Sub
+	
+End Class
+
+Class Err
+
+	''' <summary></summary>
+	Sub Clear()
+	End Sub
 
 
-    ''' <summary></summary>
-    Public Property Get Source
-    End Property
+	''' <summary></summary>
+	Property Get Description
+	End Property
+
+
+	''' <summary></summary>
+	Property Get HelpContext
+	End Property
+
+
+	''' <summary></summary>
+	Property Get HelpFile
+	End Property
+
+
+	''' <summary></summary>
+	Property Get Number
+	End Property
+
+
+	 ''' <summary></summary>
+	Sub Raise(number)
+	End Sub
+	
+	 ''' <summary></summary>
+	Sub Raise(number, source, description, helpfile, helpcontext)
+	End Sub
+
+
+	''' <summary></summary>
+	Property Get Source
+	End Property
+	
 End Class
 
 
 ''' <summary></summary>
-Public Function Escape(string)
+Function Escape(str)
 End Function
 
 
 ''' <summary></summary>
-Public Function Eval(expr)
+Function Eval(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Function Exp(number)
+Function Exp(number)
 End Function
 
 
 ''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
-Public Function Filter(InputStrings, Value)
+Function Filter(InputStrings, Value)
 End Function
 
 ''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
-Public Function Filter(InputStrings, Value, Include)
+Function Filter(InputStrings, Value, Include)
 End Function
 
 ''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
-Public Function Filter(InputStrings, Value, Include, Compare)
+Function Filter(InputStrings, Value, Include, Compare)
 End Function
 
 
 ''' <summary></summary>
-Public Function Fix(number)
+Function Fix(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function FormatCurrency(Expression)
+Function FormatCurrency(Expression)
 End Function
 
 ''' <summary></summary>
-Public Function FormatCurrency(Expression,NumDigitsAfterDecimal)
+Function FormatCurrency(Expression, NumDigitsAfterDecimal)
 End Function
 
 ''' <summary></summary>
-Public Function FormatCurrency(Expression,NumDigitsAfterDecimal ,IncludeLeadingDigit)
+Function FormatCurrency(Expression, NumDigitsAfterDecimal, IncludeLeadingDigit)
 End Function
 
 ''' <summary></summary>
-Public Function FormatCurrency(Expression,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers)
+Function FormatCurrency(Expression, NumDigitsAfterDecimal, IncludeLeadingDigit, UseParensForNegativeNumbers)
 End Function
 
 ''' <summary></summary>
-Public Function FormatCurrency(Expression,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers ,GroupDigits)
-End Function
-
-
-''' <summary></summary>
-Public Function FormatDateTime(Date)
-End Function
-
-''' <summary></summary>
-Public Function FormatDateTime(Date, NamedFormat)
+Function FormatCurrency(Expression, NumDigitsAfterDecimal, IncludeLeadingDigit, UseParensForNegativeNumbers, GroupDigits)
 End Function
 
 
 ''' <summary></summary>
-Public Function FormatNumber(Expression)
+Function FormatDateTime(Date)
 End Function
 
 ''' <summary></summary>
-Public Function FormatNumber(Expression ,NumDigitsAfterDecimal)
-End Function
-
-''' <summary></summary>
-Public Function FormatNumber(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit)
-End Function
-
-''' <summary></summary>
-Public Function FormatNumber(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers)
-End Function
-
-''' <summary></summary>
-Public Function FormatNumber(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers ,GroupDigits)
+Function FormatDateTime(Date, NamedFormat)
 End Function
 
 
 ''' <summary></summary>
-Public Function FormatPercent(Expression)
+Function FormatNumber(Expression)
 End Function
 
 ''' <summary></summary>
-Public Function FormatPercent(Expression ,NumDigitsAfterDecimal)
+Function FormatNumber(Expression, NumDigitsAfterDecimal)
 End Function
 
 ''' <summary></summary>
-Public Function FormatPercent(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit)
+Function FormatNumber(Expression, NumDigitsAfterDecimal, IncludeLeadingDigit)
 End Function
 
 ''' <summary></summary>
-Public Function FormatPercent(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers)
+Function FormatNumber(Expression, NumDigitsAfterDecimal, IncludeLeadingDigit, UseParensForNegativeNumbers)
 End Function
 
 ''' <summary></summary>
-Public Function FormatPercent(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers ,GroupDigits)
+Function FormatNumber(Expression, NumDigitsAfterDecimal, IncludeLeadingDigit, UseParensForNegativeNumbers, GroupDigits)
 End Function
 
 
 ''' <summary></summary>
-Public Property Get GetLocale
+Function FormatPercent(Expression)
+End Function
+
+''' <summary></summary>
+Function FormatPercent(Expression, NumDigitsAfterDecimal)
+End Function
+
+''' <summary></summary>
+Function FormatPercent(Expression, NumDigitsAfterDecimal, IncludeLeadingDigit)
+End Function
+
+''' <summary></summary>
+Function FormatPercent(Expression, NumDigitsAfterDecimal, IncludeLeadingDigit, UseParensForNegativeNumbers)
+End Function
+
+''' <summary></summary>
+Function FormatPercent(Expression, NumDigitsAfterDecimal, IncludeLeadingDigit, UseParensForNegativeNumbers, GroupDigits)
+End Function
+
+
+''' <summary></summary>
+Property Get GetLocale
 End Property
 
 
 ''' <summary>?</summary>
-Public Function GetObject(pathname)
+Function GetObject(pathname)
 End Function
 
 ''' <summary>?</summary>
-Public Function GetObject(pathname, class)
+Function GetObject(pathname, classname)
 End Function
 
 
 ''' <summary></summary>
-Public Function GetRef(procname)
+Function GetRef(procname)
 End Function
 
 
 ''' <summary></summary>
-Public Property Get GetUILanguage
+Property Get GetUILanguage
 End Property
 
 
 ''' <summary></summary>
-Public Function Hex(number)
+Function Hex(number)
 End Function
 
 
 ''' <summary>Returns a whole number between 0 and 23, inclusive, representing the hour of the day.</summary>
-Public Function Hour(time)
+Function Hour(time)
 End Function
 
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Public Function InputBox(prompt)
+Function InputBox(prompt)
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Public Function InputBox(prompt, title)
+Function InputBox(prompt, title)
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Public Function InputBox(prompt, title, default)
+Function InputBox(prompt, title, default)
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Public Function InputBox(prompt, title, default, xpos)
+Function InputBox(prompt, title, default, xpos)
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Public Function InputBox(prompt, title, default, xpos, ypos)
+Function InputBox(prompt, title, default, xpos, ypos)
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Public Function InputBox(prompt, title, default, xpos, ypos, helpfile, context)
+Function InputBox(prompt, title, default, xpos, ypos, helpfile, context)
 End Function
 
 
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-Public Function InStr(string1, string2)
+Function InStr(string1, string2)
 End Function
 
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-Public Function InStr(start, string1, string2)
+Function InStr(start, string1, string2)
 End Function
 
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-Public Function InStr(string1, string2 compare)
+Function InStr(string1, string2, compare)
 End Function
 
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-Public Function InStr(start,string1, string2, compare)
+Function InStr(start, string1, string2, compare)
 End Function
 
 
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-Public Function InStrB(string1, string2)
+Function InStrB(string1, string2)
 End Function
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-Public Function InStrB(start, string1, string2)
+Function InStrB(start, string1, string2)
 End Function
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-Public Function InStrB(string1, string2 compare)
+Function InStrB(string1, string2, compare)
 End Function
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
-Public Function InStrB(start,string1, string2, compare)
+Function InStrB(start, string1, string2, compare)
 End Function
 
 
 ''' <summary>Returns the position of an occurrence of one string within another, from the end of string.</summary>
-Public Function InStrRev(string1, string2)
+Function InStrRev(string1, string2)
 End Function
 
 ''' <summary>Returns the position of an occurrence of one string within another, from the end of string.</summary>
-Public Function InStrRev(string1, string2, start)
+Function InStrRev(string1, string2, start)
 End Function
 
 ''' <summary>Returns the position of an occurrence of one string within another, from the end of string.</summary>
-Public Function InStrRev(string1, string2, start, compare)
+Function InStrRev(string1, string2, start, compare)
 End Function
 
 
 ''' <summary></summary>
-Public Function Int(number)
+Function Int(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function IsArray(var)
+Function IsArray(var)
 End Function
 
 
 ''' <summary></summary>
-Public Function IsDate(expr)
+Function IsDate(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Function IsEmpty(expr)
+Function IsEmpty(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Function IsNull(expr)
+Function IsNull(expr)
 End Function
 
 
 ''' <summary>Returns a Boolean value indicating whether an expression can be evaluated as a number.</summary>
-Public Function IsNumeric(expr)
+Function IsNumeric(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Function IsObject(expr)
+Function IsObject(expr)
 End Function
 
 
 ''' <summary>Returns a string created by joining a number of substrings contained in an array.</summary>
-Public Function Join(list)
+Function Join(list)
 End Function
 
 ''' <summary>Returns a string created by joining a number of substrings contained in an array.</summary>
-Public Function Join(list, delimiter)
+Function Join(list, delimiter)
 End Function
 
 
 ''' <summary></summary>
-Public Function LBound(arrayname)
+Function LBound(arrayname)
 End Function
 
 ''' <summary></summary>
-Public Function LBound(arrayname, dimension)
-End Function
-
-
-''' <summary></summary>
-Public Function LCase(str)
+Function LBound(arrayname, dimension)
 End Function
 
 
 ''' <summary></summary>
-Public Function Left(str, length)
+Function LCase(str)
 End Function
 
 
 ''' <summary></summary>
-Public Function LeftB(str, length)
+Function Left(str, length)
+End Function
+
+
+''' <summary></summary>
+Function LeftB(str, length)
 End Function
 
 
 ''' <summary>Returns the number of characters in a string or the number of bytes required to store a variable.</summary>
-Public Function Len(str)
+Function Len(str)
 End Function
 
 
 ''' <summary></summary>
-Public Function LenB(str)
+Function LenB(str)
 End Function
 
 
 ''' <summary></summary>
-Public Function LoadPicture(picturename)
+Function LoadPicture(picturename)
 End Function
 
 
 ''' <summary></summary>
-Public Function Log(number)
+Function Log(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function LTrim(str)
+Function LTrim(str)
 End Function
 
-Public Class Match
-    ''' <summary></summary>
-    Public Property Get FirstIndex
-    End Property
+Class Match
+	''' <summary></summary>
+	Property Get FirstIndex
+	End Property
 
 
-    ''' <summary></summary>
-    Public Property Get Length
-    End Property
+	''' <summary></summary>
+	Property Get Length
+	End Property
 
 
-    ''' <summary></summary>
-    Public Property Get Value
-    End Property
+	''' <summary></summary>
+	Property Get Value
+	End Property
 End Class
 
 ''' <summary></summary>
-Public Function Me()
+Function Me()
 End Function
 
 
 ''' <summary>Returns a specified number of characters from a string.</summary>
-Public Function Mid(string, start)
+Function Mid(str, start)
 End Function
 
 ''' <summary>Returns a specified number of characters from a string.</summary>
-Public Function Mid(string, start, length)
+Function Mid(str, start, length)
 End Function
 
 
 ''' <summary>Returns a specified number of characters from a string.</summary>
-Public Function MidB(string, start)
+Function MidB(str, start)
 End Function
 
 ''' <summary>Returns a specified number of characters from a string.</summary>
-Public Function MidB(string, start, length)
+Function MidB(str, start, length)
 End Function
 
 
 ''' <summary></summary>
-Public Function Minute(time)
+Function Minute(time)
 End Function
 
 
 ''' <summary></summary>
-Public Function Month(date)
+Function Month(date)
 End Function
 
 
 ''' <summary></summary>
-Public Function MonthName(date)
+Function MonthName(date)
 End Function
 
 ''' <summary></summary>
-Public Function MonthName(date, abbrevation)
+Function MonthName(date, abbrevation)
 End Function
 
 
 ''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
 ''' <param name="prompt">String expression displayed as the message in the dialog box</param>
-Public Function MsgBox(prompt)
+Function MsgBox(prompt)
 End Function
 
 ''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
 ''' <param name="prompt">String expression displayed as the message in the dialog box</param>
 ''' <param name="buttons">Numeric expression that is the sum of values specifying the number and type of buttons to display, the icon style to use, the identity of the default button, and the modality of the message box. See Settings section for values. If omitted, the default value for buttons is 0.</param>
-Public Function MsgBox(prompt, buttons)
+Function MsgBox(prompt, buttons)
 End Function
 
 ''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
 ''' <param name="prompt">String expression displayed as the message in the dialog box</param>
 ''' <param name="buttons">Numeric expression that is the sum of values specifying the number and type of buttons to display, the icon style to use, the identity of the default button, and the modality of the message box. See Settings section for values. If omitted, the default value for buttons is 0.</param>
 ''' <param name="title">String expression displayed in the title bar of the dialog box. If you omit title, the application name is placed in the title bar.</param>
-Public Function MsgBox(prompt, buttons, title)
+Function MsgBox(prompt, buttons, title)
 End Function
 
 ''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
@@ -605,439 +639,444 @@ End Function
 ''' <param name="title">String expression displayed in the title bar of the dialog box. If you omit title, the application name is placed in the title bar.</param>
 ''' <param name="helpfile">String expression that identifies the Help file to use to provide context-sensitive Help for the dialog box. If helpfile is provided, context must also be provided. Not available on 16-bit platforms.</param>
 ''' <param name="context">Numeric expression that identifies the Help context number assigned by the Help author to the appropriate Help topic. If context is provided, helpfile must also be provided. Not available on 16-bit platforms.</param>
-Public Function MsgBox(prompt, buttons, title, helpfile, context)
+Function MsgBox(prompt, buttons, title, helpfile, context)
 End Function
 
 
 ''' <summary>Returns the current date and time according to the setting of your computer's system date and time.)</summary>
-Public Property Get Now
+Property Get Now
 End Property
 
 
 ''' <summary></summary>
-Public Function Oct(number)
+Function Oct(number)
 End Function
 
 ''' <summary></summary>
 Class RegExp
 
-    ''' <summary></summary>
-    Public Function Execute()
-    End Function
+	''' <summary></summary>
+	Function Execute(str)
+	End Function
 
 
-    ''' <summary></summary>
-    Public Property Get Global
-    End Property
+	''' <summary></summary>
+	Property Get Global
+	End Property
 
 
-     ''' <summary></summary>
-    Public Property Get IgnoreCase
-    End Property
+	 ''' <summary></summary>
+	Property Get IgnoreCase
+	End Property
 
 
-    ''' <summary></summary>
-    Public Function Replace()
-    End Function
+	 ''' <summary></summary>
+	Property Get Pattern
+	End Property
+	
+
+	''' <summary></summary>
+	Function Replace(string1, string2)
+	End Function
 
 
-    ''' <summary></summary>
-    Public Function Test()
-    End Function
+	''' <summary></summary>
+	Function Test(str)
+	End Function
 
 End Class
 
 
 ''' <summary>Returns a string in which a specified substring has been replaced with another substring a specified number of times.</summary>
-Public Function Replace(expression, find, replacewith)
+Function Replace(str, find, replacewith)
 End Function
 
 ''' <summary>Returns a string in which a specified substring has been replaced with another substring a specified number of times.</summary>
-Public Function Replace(expression, find, replacewith, start)
+Function Replace(str, find, replacewith, start)
 End Function
 
 ''' <summary>Returns a string in which a specified substring has been replaced with another substring a specified number of times.</summary>
-Public Function Replace(expression, find, replacewith, start, count)
+Function Replace(str, find, replacewith, start, count)
 End Function
 
 ''' <summary>Returns a string in which a specified substring has been replaced with another substring a specified number of times.</summary>
-Public Function Replace(expression, find, replacewith, start, count, compare)
+Function Replace(str, find, replacewith, start, count, compare)
 End Function
 
 
 ''' <summary>Returns a whole number representing an RGB color value.</summary>
-Public Function RGB(red, green, blue)
+Function RGB(red, green, blue)
 End Function
 
 
 ''' <summary></summary>
-Public Function Right(str, length)
+Function Right(str, length)
 End Function
 
 
 ''' <summary></summary>
-Public Function RightB(str, length)
+Function RightB(str, length)
 End Function
 
 
 ''' <summary></summary>
-Public Function Rnd()
+Function Rnd()
 End Function
 
 ''' <summary></summary>
-Public Function Rnd(number)
-End Function
-
-
-''' <summary></summary>
-Public Function Round(number, digits)
+Function Rnd(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function RTrim(str)
+Function Round(number, digits)
 End Function
 
 
 ''' <summary></summary>
-Public Property Get ScriptEngine
+Function RTrim(str)
+End Function
+
+
+''' <summary></summary>
+Property Get ScriptEngine
 End Property
 
 
 ''' <summary></summary>
-Public Property Get ScriptEngineBuildVersion
+Property Get ScriptEngineBuildVersion
 End Property
 
 
 ''' <summary></summary>
-Public Property Get ScriptEngineMajorVersion
+Property Get ScriptEngineMajorVersion
 End Property
 
 
 ''' <summary></summary>
-Public Property Get ScriptEngineMinorVersion
+Property Get ScriptEngineMinorVersion
 End Property
 
 
 ''' <summary></summary>
-Public Function Second(time)
+Function Second(time)
 End Function
 
 
 ''' <summary>undocumented</summary>
-Public Function SetLocale(integer)
+Function SetLocale(integer)
 End Function
 
 
 ''' <summary></summary>
-Public Function Sgn(number)
+Function Sgn(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function Sin(number)
+Function Sin(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function Space(number)
+Function Space(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function Split(str)
+Function Split(str)
 End Function
 
 ''' <summary></summary>
-Public Function Split(str, delimiter)
+Function Split(str, delimiter)
 End Function
 
 ''' <summary></summary>
-Public Function Split(str, delimiter, count)
+Function Split(str, delimiter, count)
 End Function
 
 ''' <summary></summary>
-Public Function Split(str, delimiter, count, compare)
-End Function
-
-
-''' <summary></summary>
-Public Function Sqr(number)
+Function Split(str, delimiter, count, compare)
 End Function
 
 
 ''' <summary></summary>
-Public Function StrComp(string1, string2)
-End Function
-
-''' <summary></summary>
-Public Function StrComp(string1, string2, compare)
+Function Sqr(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function StrReverse(str)
+Function StrComp(string1, string2)
+End Function
+
+''' <summary></summary>
+Function StrComp(string1, string2, compare)
 End Function
 
 
 ''' <summary></summary>
-Public Function Tan(number)
+Function StrReverse(str)
+End Function
+
+
+''' <summary></summary>
+Function Tan(number)
 End Function
 
 
 
 ''' <summary></summary>
-Public Property Get Time
+Property Get Time
 End Property
 
 
 ''' <summary></summary>
-Public Property Get Timer
+Property Get Timer
 End Property
 
 
 ''' <summary></summary>
-Public Function TimeSerial(hour, minute, second)
+Function TimeSerial(hour, minute, second)
 End Function
 
 
 ''' <summary></summary>
-Public Function TimeValue(time)
+Function TimeValue(time)
 End Function
 
 
 ''' <summary></summary>
-Public Function Trim(str)
+Function Trim(str)
 End Function
 
 
 ''' <summary></summary>
-Public Function TypeName(var)
+Function TypeName(var)
 End Function
 
 
 ''' <summary>Returns the largest available subscript for the indicated dimension of an array.</summary>
-Public Function UBound(arrayname)
+Function UBound(arrayname)
 End Function
 
 ''' <summary>Returns the largest available subscript for the indicated dimension of an array.</summary>
-Public Function UBound(arrayname, dimension)
+Function UBound(arrayname, dimension)
 End Function
 
 
 ''' <summary>Returns a string that has been converted to uppercase.</summary>
-Public Function UCase(str)
+Function UCase(str)
 End Function
 
 
 ''' <summary></summary>
-Public Function Unescape(str)
+Function Unescape(str)
 End Function
 
 
 ''' <summary></summary>
-Public Function VarType(var)
+Function VarType(var)
 End Function
 
 
 ''' <summary></summary>
-Public Function Weekday(date)
+Function Weekday(date)
 End Function
 
 ''' <summary></summary>
-Public Function Weekday(date, firstdayofweek)
+Function Weekday(date, firstdayofweek)
 End Function
 
 
 ''' <summary></summary>
-Public Function WeekdayName(weekday)
+Function WeekdayName(weekday)
 End Function
 
 ''' <summary></summary>
-Public Function WeekdayName(weekday, abbreviate)
+Function WeekdayName(weekday, abbreviate)
 End Function
 
 ''' <summary></summary>
-Public Function WeekdayName(weekday, abbreviate, firstdayofweek)
+Function WeekdayName(weekday, abbreviate, firstdayofweek)
 End Function
 
-Public Class WScript
+Class WScript
 
-    ''' <summary></summary>
-    Public Function ConnectObject()
-    End Function
-
-
-    ''' <summary></summary>
-    Public Function CreateObject()
-    End Function
+	''' <summary></summary>
+	Function ConnectObject()
+	End Function
 
 
-    ''' <summary></summary>
-    Public Function DisconnectObject()
-    End Function
+	''' <summary></summary>
+	Function CreateObject()
+	End Function
 
 
-    ''' <summary></summary>
-    Public Function Echo()
-    End Function
+	''' <summary></summary>
+	Function DisconnectObject()
+	End Function
 
 
-    ''' <summary></summary>
-    Public Function GetObject()
-    End Function
+	''' <summary></summary>
+	Function Echo()
+	End Function
 
 
-    ''' <summary></summary>
-    Public Function Quit()
-    End Function
+	''' <summary></summary>
+	Function GetObject()
+	End Function
 
 
-    ''' <summary></summary>
-    Public Function Sleep()
-    End Function
+	''' <summary></summary>
+	Function Quit()
+	End Function
 
 
-    ''' <summary></summary>
-    Public Property Get Arguments
-    End Property
+	''' <summary></summary>
+	Function Sleep()
+	End Function
 
 
-    ''' <summary></summary>
-    Public Property Get BuildVersion
-    End Property
+	''' <summary></summary>
+	Property Get Arguments
+	End Property
 
 
-    ''' <summary></summary>
-    Public Property Get FullName
-    End Property
+	''' <summary></summary>
+	Property Get BuildVersion
+	End Property
 
 
-    ''' <summary></summary>
-    Public Property Get Interactive
-    End Property
+	''' <summary></summary>
+	Property Get FullName
+	End Property
 
 
-    ''' <summary></summary>
-    Public Property Get Name
-    End Property
+	''' <summary></summary>
+	Property Get Interactive
+	End Property
 
 
-    ''' <summary></summary>
-    Public Property Get Path
-    End Property
+	''' <summary></summary>
+	Property Get Name
+	End Property
 
 
-    ''' <summary></summary>
-    Public Property Get ScriptFullName
-    End Property
+	''' <summary></summary>
+	Property Get Path
+	End Property
 
 
-    ''' <summary></summary>
-    Public Property Get ScriptName
-    End Property
+	''' <summary></summary>
+	Property Get ScriptFullName
+	End Property
 
 
-    ''' <summary></summary>
-    Public Property Get TimeOut
-    End Property
+	''' <summary></summary>
+	Property Get ScriptName
+	End Property
 
 
-    ''' <summary></summary>
-    Public Property Get Version
-    End Property
+	''' <summary></summary>
+	Property Get TimeOut
+	End Property
+
+
+	''' <summary></summary>
+	Property Get Version
+	End Property
 
 End Class
 
 ''' <summary>Returns a whole number representing the year.</summary>
 ''' <param name="date">Any expression that can represent a date</param>
-Public Function Year(date)
+Function Year(date)
 End Function
 
 
-Public Const False = False ' Boolean
-Public Const True = True
-Public Const vbAbort = 3
-Public Const vbAbortRetryIgnore = 2
-Public Const vbApplicationModal = 0
-Public Const vbArray = 8192
-Public Const vbBinaryCompare = 0 ' Perform a binary comparison
-Public Const vbBoolean = 11
-Public Const vbByte = 17
-Public Const vbCancel = 2
-Public Const vbCr = Chr(13)
-Public Const vbCritical = 16
-Public Const vbCrLf = Chr(13) & Chr(10)
-Public Const vbCurrency = 6
-Public Const vbDatabaseCompare = 2
-Public Const vbDataObject = 13
-Public Const vbDate = 7
-Public Const vbDecimal = 14
-Public Const vbDefaultButton1 = 0
-Public Const vbDefaultButton2 = 256
-Public Const vbDefaultButton3 = 512
-Public Const vbDefaultButton4 = 768
-Public Const vbEmpty = 0
-Public Const vbError = 10
-Public Const vbExclamation = 18
-Public Const vbFalse = 0
-Public Const vbFirstFourDays = 2
-Public Const vbFirstFullWeek = 3
-Public Const vbFirstJan1 = 1
-Public Const vbFormFeed = Chr(12)
-Public Const vbFriday = 6
-Public Const vbGeneralDate = 0
-Public Const vbIgnore = 5
-Public Const vbInformation =64
-Public Const vbInteger = 2
-Public Const vbLf = Chr(10)
-Public Const vbLong = 3
-Public Const vbLongDate = 1
-Public Const vbLongTime = 3
-Public Const vbMonday = 2
-Public Const vbMsgBoxHelpButton = 16384
-Public Const vbMsgBoxRight = 524288
-Public Const vbMsgBoxRtlReading = 1048576
-Public Const vbNewLine = Empty
-Public Const vbNo = 7
-Public Const vbNull = 1
-Public Const vbNullChar = Chr(0)
-Public Const vbNullString = Empty
-Public Const vbObject = 9
-Public Const vbObjectError = -2147221504
-Public Const vbOK = 1
-Public Const vbOKCancel = 1 ' Display OK and Cancel buttons
-Public Const vbOKOnly = 0 ' Display OK button only.
-Public Const vbQuestion = 32 ' Display Warning Query icon.
-Public Const vbRetry = 4 ' Retry button was clicked
-Public Const vbRetryCancel = 5 ' Display Retry and Cancel buttons.
-Public Const vbSaturday = 7
-Public Const vbShortDate = 2
-Public Const vbShortTime = 4
-Public Const vbSingle = 4
-Public Const vbString = 8
-Public Const vbSunday = 1
-Public Const vbSystemModal = 4096
-Public Const vbTab = Chr(9)
-Public Const vbTextCompare = 1 ' Perform a textual comparison
-Public Const vbThursday = 5
-Public Const vbTrue = -1
-Public Const vbTuesday = 3
-Public Const vbUseDefault = -2
-Public Const vbUseSystem = 0
-Public Const vbUseSystemDayOfWeek = 0
-Public Const vbVariant = 12
-Public Const vbVerticalTab = Chr(11)
-Public Const vbWednesday = 4
-Public Const vbYes = 6
-Public Const vbYesNo = 4
-Public Const vbYesNoCancel = 3
+Const False = False ' Boolean
+Const True = True
+Const vbAbort = 3
+Const vbAbortRetryIgnore = 2
+Const vbApplicationModal = 0
+Const vbArray = 8192
+Const vbBinaryCompare = 0 ' Perform a binary comparison
+Const vbBoolean = 11
+Const vbByte = 17
+Const vbCancel = 2
+Const vbCr = Chr(13)
+Const vbCritical = 16
+Const vbCrLf = Chr(13) & Chr(10)
+Const vbCurrency = 6
+Const vbDatabaseCompare = 2
+Const vbDataObject = 13
+Const vbDate = 7
+Const vbDecimal = 14
+Const vbDefaultButton1 = 0
+Const vbDefaultButton2 = 256
+Const vbDefaultButton3 = 512
+Const vbDefaultButton4 = 768
+Const vbEmpty = 0
+Const vbError = 10
+Const vbExclamation = 18
+Const vbFalse = 0
+Const vbFirstFourDays = 2
+Const vbFirstFullWeek = 3
+Const vbFirstJan1 = 1
+Const vbFormFeed = Chr(12)
+Const vbFriday = 6
+Const vbGeneralDate = 0
+Const vbIgnore = 5
+Const vbInformation =64
+Const vbInteger = 2
+Const vbLf = Chr(10)
+Const vbLong = 3
+Const vbLongDate = 1
+Const vbLongTime = 3
+Const vbMonday = 2
+Const vbMsgBoxHelpButton = 16384
+Const vbMsgBoxRight = 524288
+Const vbMsgBoxRtlReading = 1048576
+Const vbNewLine = Empty
+Const vbNo = 7
+Const vbNull = 1
+Const vbNullChar = Chr(0)
+Const vbNullString = Empty
+Const vbObject = 9
+Const vbObjectError = -2147221504
+Const vbOK = 1
+Const vbOKCancel = 1 ' Display OK and Cancel buttons
+Const vbOKOnly = 0 ' Display OK button only.
+Const vbQuestion = 32 ' Display Warning Query icon.
+Const vbRetry = 4 ' Retry button was clicked
+Const vbRetryCancel = 5 ' Display Retry and Cancel buttons.
+Const vbSaturday = 7
+Const vbShortDate = 2
+Const vbShortTime = 4
+Const vbSingle = 4
+Const vbString = 8
+Const vbSunday = 1
+Const vbSystemModal = 4096
+Const vbTab = Chr(9)
+Const vbTextCompare = 1 ' Perform a textual comparison
+Const vbThursday = 5
+Const vbTrue = -1
+Const vbTuesday = 3
+Const vbUseDefault = -2
+Const vbUseSystem = 0
+Const vbUseSystemDayOfWeek = 0
+Const vbVariant = 12
+Const vbVerticalTab = Chr(11)
+Const vbWednesday = 4
+Const vbYes = 6
+Const vbYesNo = 4
+Const vbYesNoCancel = 3
 
-Public Const vbBlack = &h00
-Public Const vbBlue = &hFF0000
-Public Const vbCyan = &hFFFF00
-Public Const vbGreen = &hFF00
-Public Const vbMagenta = &hFF00FF
-Public Const vbRed = &hFF
-Public Const vbWhite = &hFFFFFF
-Public Const vbYellow = &hFFFF
+Const vbBlack = &h00
+Const vbBlue = &hFF0000
+Const vbCyan = &hFFFF00
+Const vbGreen = &hFF00
+Const vbMagenta = &hFF00FF
+Const vbRed = &hFF
+Const vbWhite = &hFFFFFF
+Const vbYellow = &hFFFF
