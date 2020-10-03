@@ -1,133 +1,109 @@
-
-
 ''' <summary>Returns the absolute value of a number.</summary>
 ''' <param name="expr">Any valid numeric expression.</param>
 Public Function Abs(expr)
-
 End Function
 
 ''' <summary></summary>
-Public Function Array()
-
+Public Function Array(arglist)
 End Function
 
 ''' <summary>Returns the unicode code of a character.</summary>
 ''' <param name="char">The character to get the code for. If a string is used, the code for the first character is given.</param>
 Public Function Asc(char)
-
 End Function
 
 
 ''' <summary>Returns the ANSI character code corresponding to the first letter in a string.</summary>
 Public Function AscB(char)
-
 End Function
 
 
 ''' <summary>Function that returns the Unicode (wide) character code that represents a specific Unicode character.</summary>
 Public Function AscW(char)
-
 End Function
 
 
 ''' <summary>Returns the arctangent of a number.</summary>
 Public Function Atn(number)
-
 End Function
 
 
 ''' <summary>Returns an expression that has been converted to a Variant of subtype Boolean.</summary>
 Public Function CBool(expr)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function CByte(expr)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function CCur(expr)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function CDate(expr)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function CDbl(expr)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function Chr(charcode)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function ChrB(charcode)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function ChrW(charcode)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function CInt(expr)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function CLng(expr)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function Cos(number)
-
 End Function
 
 
 ''' <summary></summary>
-Public Function CreateObject(class)
-
+Public Function CreateObject(classname)
 End Function
 
 ''' <summary></summary>
-Public Function CreateObject(class, location)
-
+Public Function CreateObject(classname, location)
 End Function
 
 
 ''' <summary></summary>
 Public Function CSng(expr)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function CStr(expr)
-
 End Function
 
 
 ''' <summary></summary>
 Public Property Get Date
-
 End Property
 
 
@@ -136,7 +112,6 @@ End Property
 ''' <param name="number">Numeric expression that is the number of interval you want to add. The numeric expression can either be positive, for dates in the future, or negative, for dates in the past.</param>
 ''' <param name="date">Variant or literal representing the date to which interval is added.</param>
 Public Function DateAdd(interval, number, date)
-
 End Function
 
 
@@ -145,7 +120,6 @@ End Function
 ''' <param name="date1">Required. Date expressions. Two dates you want to use in the calculation.</param>
 ''' <param name="date2">Required. Date expressions. Two dates you want to use in the calculation..</param>
 Public Function DateDiff(interval, date1, date2)
-
 End Function
 
 ''' <summary>Returns the number of intervals between two dates.</summary>
@@ -154,7 +128,6 @@ End Function
 ''' <param name="date2">Required. Date expressions. Two dates you want to use in the calculation..</param>
 ''' <param name="firstdayofweek">Optional. Constant that specifies the day of the week. If not specified, Sunday is assumed. See Settings section for values.</param>
 Public Function DateDiff(interval, date1, date2, firstdayofweek)
-
 End Function
 
 ''' <summary>Returns the number of intervals between two dates.</summary>
@@ -164,513 +137,459 @@ End Function
 ''' <param name="firstdayofweek">Optional. Constant that specifies the day of the week. If not specified, Sunday is assumed. See Settings section for values.</param>
 ''' <param name="firstweekofyear">Optional. Constant that specifies the first week of the year. If not specified, the first week is assumed to be the week in which January 1 occurs. See Settings section for values.</param>
 Public Function DateDiff(interval, date1, date2, firstdayofweek, firstweekofyear)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function DatePart(interval, date)
-
 End Function
 
 ''' <summary></summary>
 Public Function DatePart(interval, date, firstdayofweek)
-
 End Function
 
 ''' <summary></summary>
 Public Function DatePart(interval, date, firstdayofweek, firstweekofyear)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function DateSerial(year, month, day)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function DateValue(date)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function Day(date)
-
 End Function
 
 Public Class Debug
 
     ''' <summary></summary>
-    Public Sub Write()
-
+    Public Sub Write(str)
     End Sub
 
 
     ''' <summary></summary>
-    Public Sub WriteLine()
-
+    Public Sub WriteLine(str)
     End Sub
 End Class
 
-
-Public Function Double()
-
-End Function
 
 Public Class Err
 
     ''' <summary></summary>
     Public Sub Clear()
-
     End Sub
 
 
     ''' <summary></summary>
     Public Property Get Description
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get HelpContext
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get HelpFile
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get Number
-
     End Property
 
 
      ''' <summary></summary>
-    Public Sub Raise(number, source, description, helpfile, helpcontext)
+    Public Sub Raise(number)
 
+    End Sub
+	
+     ''' <summary></summary>
+    Public Sub Raise(number, source, description, helpfile, helpcontext)
     End Sub
 
 
     ''' <summary></summary>
     Public Property Get Source
-
     End Property
 End Class
 
 
 ''' <summary></summary>
 Public Function Escape(string)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function Eval(expr)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function Exp(number)
-
 End Function
 
 
 ''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
 Public Function Filter(InputStrings, Value)
-
 End Function
 
 ''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
 Public Function Filter(InputStrings, Value, Include)
-
 End Function
 
 ''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
 Public Function Filter(InputStrings, Value, Include, Compare)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function Fix(number)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function FormatCurrency(Expression)
-
 End Function
 
 ''' <summary></summary>
 Public Function FormatCurrency(Expression,NumDigitsAfterDecimal)
-
 End Function
 
 ''' <summary></summary>
 Public Function FormatCurrency(Expression,NumDigitsAfterDecimal ,IncludeLeadingDigit)
-
 End Function
 
 ''' <summary></summary>
 Public Function FormatCurrency(Expression,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers)
-
 End Function
 
 ''' <summary></summary>
 Public Function FormatCurrency(Expression,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers ,GroupDigits)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function FormatDateTime(Date)
-
 End Function
 
 ''' <summary></summary>
 Public Function FormatDateTime(Date, NamedFormat)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function FormatNumber(Expression)
-
 End Function
 
 ''' <summary></summary>
 Public Function FormatNumber(Expression ,NumDigitsAfterDecimal)
-
 End Function
 
 ''' <summary></summary>
 Public Function FormatNumber(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit)
-
 End Function
 
 ''' <summary></summary>
 Public Function FormatNumber(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers)
-
 End Function
 
 ''' <summary></summary>
 Public Function FormatNumber(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers ,GroupDigits)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function FormatPercent(Expression)
-
 End Function
 
 ''' <summary></summary>
 Public Function FormatPercent(Expression ,NumDigitsAfterDecimal)
-
 End Function
 
 ''' <summary></summary>
 Public Function FormatPercent(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit)
-
 End Function
 
 ''' <summary></summary>
 Public Function FormatPercent(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers)
-
 End Function
 
 ''' <summary></summary>
 Public Function FormatPercent(Expression ,NumDigitsAfterDecimal ,IncludeLeadingDigit ,UseParensForNegativeNumbers ,GroupDigits)
-
 End Function
 
 
 ''' <summary></summary>
 Public Property Get GetLocale
-
 End Property
 
 
 ''' <summary>?</summary>
 Public Function GetObject(pathname)
-
 End Function
 
 ''' <summary>?</summary>
 Public Function GetObject(pathname, class)
-
 End Function
 
 
 ''' <summary></summary>
 Public Function GetRef(procname)
-
 End Function
 
 
 ''' <summary></summary>
 Public Property Get GetUILanguage
-
 End Property
 
 
 ''' <summary></summary>
 Public Function Hex(number)
-
 End Function
 
 
 ''' <summary>Returns a whole number between 0 and 23, inclusive, representing the hour of the day.</summary>
 Public Function Hour(time)
-
 End Function
 
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Public Function InputBox(prompt As String)
-
+Public Function InputBox(prompt)
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Public Function InputBox(prompt As String, title As String)
-
+Public Function InputBox(prompt, title)
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Public Function InputBox(prompt As String, title As String, default As String)
-
+Public Function InputBox(prompt, title, default)
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Public Function InputBox(prompt As String, title As String, default As String, xpos)
-
+Public Function InputBox(prompt, title, default, xpos)
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Public Function InputBox(prompt As String, title As String, default As String, xpos, ypos)
-
+Public Function InputBox(prompt, title, default, xpos, ypos)
 End Function
 
 ''' <summary>Displays a prompt in a dialog box, waits for the user to input text or click a button, and returns the contents of the text box.</summary>
-Public Function InputBox(prompt As String, title As String, default As String, xpos, ypos, helpfile, context)
-
+Public Function InputBox(prompt, title, default, xpos, ypos, helpfile, context)
 End Function
 
 
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
 Public Function InStr(string1, string2)
-
 End Function
 
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
 Public Function InStr(start, string1, string2)
-
 End Function
 
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
 Public Function InStr(string1, string2 compare)
-
 End Function
 
 ''' <summary>Returns the position of the first occurrence of one string within another.</summary>
 Public Function InStr(start,string1, string2, compare)
+End Function
 
+
+''' <summary>Returns the position of the first occurrence of one string within another.</summary>
+Public Function InStrB(string1, string2)
+End Function
+''' <summary>Returns the position of the first occurrence of one string within another.</summary>
+Public Function InStrB(start, string1, string2)
+End Function
+''' <summary>Returns the position of the first occurrence of one string within another.</summary>
+Public Function InStrB(string1, string2 compare)
+End Function
+''' <summary>Returns the position of the first occurrence of one string within another.</summary>
+Public Function InStrB(start,string1, string2, compare)
+End Function
+
+
+''' <summary>Returns the position of an occurrence of one string within another, from the end of string.</summary>
+Public Function InStrRev(string1, string2)
+End Function
+
+''' <summary>Returns the position of an occurrence of one string within another, from the end of string.</summary>
+Public Function InStrRev(string1, string2, start)
+End Function
+
+''' <summary>Returns the position of an occurrence of one string within another, from the end of string.</summary>
+Public Function InStrRev(string1, string2, start, compare)
 End Function
 
 
 ''' <summary></summary>
-Public Function InStrB()
-
+Public Function Int(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function InStrRev()
-
+Public Function IsArray(var)
 End Function
 
 
 ''' <summary></summary>
-Public Function Int()
-
+Public Function IsDate(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Function IsArray()
-
+Public Function IsEmpty(expr)
 End Function
 
 
 ''' <summary></summary>
-Public Function IsDate()
-
-End Function
-
-
-''' <summary></summary>
-Public Function IsEmpty()
-
-End Function
-
-
-''' <summary></summary>
-Public Function IsNull()
-
+Public Function IsNull(expr)
 End Function
 
 
 ''' <summary>Returns a Boolean value indicating whether an expression can be evaluated as a number.</summary>
 Public Function IsNumeric(expr)
-
 End Function
 
 
 ''' <summary></summary>
-Public Function IsObject()
+Public Function IsObject(expr)
+End Function
 
+
+''' <summary>Returns a string created by joining a number of substrings contained in an array.</summary>
+Public Function Join(list)
+End Function
+
+''' <summary>Returns a string created by joining a number of substrings contained in an array.</summary>
+Public Function Join(list, delimiter)
 End Function
 
 
 ''' <summary></summary>
-Public Function Join()
+Public Function LBound(arrayname)
+End Function
 
+''' <summary></summary>
+Public Function LBound(arrayname, dimension)
 End Function
 
 
 ''' <summary></summary>
-Public Function LBound()
-
+Public Function LCase(str)
 End Function
 
 
 ''' <summary></summary>
-Public Function LCase()
-
+Public Function Left(str, length)
 End Function
 
 
 ''' <summary></summary>
-Public Function Left()
+Public Function LeftB(str, length)
+End Function
 
+
+''' <summary>Returns the number of characters in a string or the number of bytes required to store a variable.</summary>
+Public Function Len(str)
 End Function
 
 
 ''' <summary></summary>
-Public Function LeftB()
-
+Public Function LenB(str)
 End Function
 
 
 ''' <summary></summary>
-Public Function Len()
-
+Public Function LoadPicture(picturename)
 End Function
 
 
 ''' <summary></summary>
-Public Function LenB()
-
+Public Function Log(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function LoadPicture()
-
-End Function
-
-
-''' <summary></summary>
-Public Function Log()
-
-End Function
-
-
-''' <summary></summary>
-Public Function LTrim()
-
+Public Function LTrim(str)
 End Function
 
 Public Class Match
     ''' <summary></summary>
     Public Property Get FirstIndex
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get Length
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get Value
-
     End Property
 End Class
 
 ''' <summary></summary>
 Public Function Me()
-
 End Function
 
 
 ''' <summary>Returns a specified number of characters from a string.</summary>
 Public Function Mid(string, start)
-
 End Function
 
 ''' <summary>Returns a specified number of characters from a string.</summary>
 Public Function Mid(string, start, length)
+End Function
 
+
+''' <summary>Returns a specified number of characters from a string.</summary>
+Public Function MidB(string, start)
+End Function
+
+''' <summary>Returns a specified number of characters from a string.</summary>
+Public Function MidB(string, start, length)
 End Function
 
 
 ''' <summary></summary>
-Public Function MidB()
-
+Public Function Minute(time)
 End Function
 
 
 ''' <summary></summary>
-Public Function Minute()
-
+Public Function Month(date)
 End Function
 
 
 ''' <summary></summary>
-Public Function Month()
-
+Public Function MonthName(date)
 End Function
 
-
 ''' <summary></summary>
-Public Function MonthName()
-
+Public Function MonthName(date, abbrevation)
 End Function
 
 
 ''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
 ''' <param name="prompt">String expression displayed as the message in the dialog box</param>
 Public Function MsgBox(prompt)
-
 End Function
 
 ''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
 ''' <param name="prompt">String expression displayed as the message in the dialog box</param>
 ''' <param name="buttons">Numeric expression that is the sum of values specifying the number and type of buttons to display, the icon style to use, the identity of the default button, and the modality of the message box. See Settings section for values. If omitted, the default value for buttons is 0.</param>
 Public Function MsgBox(prompt, buttons)
-
 End Function
 
 ''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
@@ -678,7 +597,6 @@ End Function
 ''' <param name="buttons">Numeric expression that is the sum of values specifying the number and type of buttons to display, the icon style to use, the identity of the default button, and the modality of the message box. See Settings section for values. If omitted, the default value for buttons is 0.</param>
 ''' <param name="title">String expression displayed in the title bar of the dialog box. If you omit title, the application name is placed in the title bar.</param>
 Public Function MsgBox(prompt, buttons, title)
-
 End Function
 
 ''' <summary>Displays a message in a dialog box, waits for the user to click a button, and returns a value indicating which button the user clicked.</summary>
@@ -688,368 +606,345 @@ End Function
 ''' <param name="helpfile">String expression that identifies the Help file to use to provide context-sensitive Help for the dialog box. If helpfile is provided, context must also be provided. Not available on 16-bit platforms.</param>
 ''' <param name="context">Numeric expression that identifies the Help context number assigned by the Help author to the appropriate Help topic. If context is provided, helpfile must also be provided. Not available on 16-bit platforms.</param>
 Public Function MsgBox(prompt, buttons, title, helpfile, context)
-
 End Function
 
 
 ''' <summary>Returns the current date and time according to the setting of your computer's system date and time.)</summary>
 Public Property Get Now
-
 End Property
 
 
 ''' <summary></summary>
-Public Function Oct()
-
+Public Function Oct(number)
 End Function
 
+''' <summary></summary>
 Class RegExp
+
     ''' <summary></summary>
     Public Function Execute()
-
     End Function
 
 
     ''' <summary></summary>
     Public Property Get Global
-
     End Property
 
 
      ''' <summary></summary>
     Public Property Get IgnoreCase
-
     End Property
 
 
     ''' <summary></summary>
     Public Function Replace()
-
     End Function
 
 
     ''' <summary></summary>
     Public Function Test()
-
     End Function
 
 End Class
 
 
-''' <summary></summary>
-Public Function Replace()
+''' <summary>Returns a string in which a specified substring has been replaced with another substring a specified number of times.</summary>
+Public Function Replace(expression, find, replacewith)
+End Function
 
+''' <summary>Returns a string in which a specified substring has been replaced with another substring a specified number of times.</summary>
+Public Function Replace(expression, find, replacewith, start)
+End Function
+
+''' <summary>Returns a string in which a specified substring has been replaced with another substring a specified number of times.</summary>
+Public Function Replace(expression, find, replacewith, start, count)
+End Function
+
+''' <summary>Returns a string in which a specified substring has been replaced with another substring a specified number of times.</summary>
+Public Function Replace(expression, find, replacewith, start, count, compare)
 End Function
 
 
 ''' <summary>Returns a whole number representing an RGB color value.</summary>
 Public Function RGB(red, green, blue)
-
 End Function
 
 
 ''' <summary></summary>
-Public Function Right()
-
+Public Function Right(str, length)
 End Function
 
 
 ''' <summary></summary>
-Public Function RightB()
-
+Public Function RightB(str, length)
 End Function
 
 
 ''' <summary></summary>
 Public Function Rnd()
+End Function
 
+''' <summary></summary>
+Public Function Rnd(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function Round()
-
+Public Function Round(number, digits)
 End Function
 
 
 ''' <summary></summary>
-Public Function RTrim()
-
+Public Function RTrim(str)
 End Function
 
 
 ''' <summary></summary>
 Public Property Get ScriptEngine
-
 End Property
 
 
 ''' <summary></summary>
 Public Property Get ScriptEngineBuildVersion
-
 End Property
 
 
 ''' <summary></summary>
 Public Property Get ScriptEngineMajorVersion
-
 End Property
 
 
 ''' <summary></summary>
 Public Property Get ScriptEngineMinorVersion
-
 End Property
 
 
 ''' <summary></summary>
-Public Function Second()
-
+Public Function Second(time)
 End Function
 
 
 ''' <summary>undocumented</summary>
 Public Function SetLocale(integer)
-
 End Function
 
 
 ''' <summary></summary>
-Public Function Sgn()
-
+Public Function Sgn(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function Sin()
-
+Public Function Sin(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function Space()
-
+Public Function Space(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function Split(expression)
-
+Public Function Split(str)
 End Function
 
 ''' <summary></summary>
-Public Function Split(expression, delimiter)
-
+Public Function Split(str, delimiter)
 End Function
 
 ''' <summary></summary>
-Public Function Split(expression, delimiter, count)
-
+Public Function Split(str, delimiter, count)
 End Function
 
 ''' <summary></summary>
-Public Function Split(expression, delimiter, count, compare)
-
+Public Function Split(str, delimiter, count, compare)
 End Function
 
 
 ''' <summary></summary>
-Public Function Sqr()
-
+Public Function Sqr(number)
 End Function
 
 
 ''' <summary></summary>
-Public Function StrComp()
+Public Function StrComp(string1, string2)
+End Function
 
+''' <summary></summary>
+Public Function StrComp(string1, string2, compare)
 End Function
 
 
 ''' <summary></summary>
-Public Function StrReverse()
-
+Public Function StrReverse(str)
 End Function
 
 
 ''' <summary></summary>
-Public Function Tan()
-
+Public Function Tan(number)
 End Function
 
 
 
 ''' <summary></summary>
 Public Property Get Time
-
 End Property
 
 
 ''' <summary></summary>
 Public Property Get Timer
-
 End Property
 
 
 ''' <summary></summary>
-Public Function TimeSerial()
-
+Public Function TimeSerial(hour, minute, second)
 End Function
 
 
 ''' <summary></summary>
-Public Function TimeValue()
-
+Public Function TimeValue(time)
 End Function
 
 
 ''' <summary></summary>
-Public Function Trim()
-
+Public Function Trim(str)
 End Function
 
 
 ''' <summary></summary>
-Public Function TypeName()
-
+Public Function TypeName(var)
 End Function
 
 
 ''' <summary>Returns the largest available subscript for the indicated dimension of an array.</summary>
-Public Function UBound()
+Public Function UBound(arrayname)
+End Function
 
+''' <summary>Returns the largest available subscript for the indicated dimension of an array.</summary>
+Public Function UBound(arrayname, dimension)
 End Function
 
 
 ''' <summary>Returns a string that has been converted to uppercase.</summary>
 Public Function UCase(str)
-
 End Function
 
 
 ''' <summary></summary>
-Public Function Unescape()
-
+Public Function Unescape(str)
 End Function
 
 
 ''' <summary></summary>
-Public Function VarType()
-
+Public Function VarType(var)
 End Function
 
 
 ''' <summary></summary>
-Public Function Weekday()
+Public Function Weekday(date)
+End Function
 
+''' <summary></summary>
+Public Function Weekday(date, firstdayofweek)
 End Function
 
 
 ''' <summary></summary>
-Public Function WeekdayName()
+Public Function WeekdayName(weekday)
+End Function
 
+''' <summary></summary>
+Public Function WeekdayName(weekday, abbreviate)
+End Function
+
+''' <summary></summary>
+Public Function WeekdayName(weekday, abbreviate, firstdayofweek)
 End Function
 
 Public Class WScript
 
     ''' <summary></summary>
     Public Function ConnectObject()
-
     End Function
 
 
     ''' <summary></summary>
     Public Function CreateObject()
-
     End Function
 
 
     ''' <summary></summary>
     Public Function DisconnectObject()
-
     End Function
 
 
     ''' <summary></summary>
     Public Function Echo()
-
     End Function
 
 
     ''' <summary></summary>
     Public Function GetObject()
-
     End Function
 
 
     ''' <summary></summary>
     Public Function Quit()
-
     End Function
 
 
     ''' <summary></summary>
     Public Function Sleep()
-
     End Function
 
 
     ''' <summary></summary>
     Public Property Get Arguments
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get BuildVersion
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get FullName
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get Interactive
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get Name
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get Path
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get ScriptFullName
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get ScriptName
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get TimeOut
-
     End Property
 
 
     ''' <summary></summary>
     Public Property Get Version
-
     End Property
 
 End Class
@@ -1057,7 +952,6 @@ End Class
 ''' <summary>Returns a whole number representing the year.</summary>
 ''' <param name="date">Any expression that can represent a date</param>
 Public Function Year(date)
-
 End Function
 
 
