@@ -34,7 +34,7 @@ function getFunctionCompletions(text: string, scope: string): CompletionItem[] {
   const foundFunctions = {};
 
   let matches : RegExpExecArray;
-  while ((matches = PATTERNS.FUNCTION_COMMENT.exec(text)) !== null) {
+  while ((matches = PATTERNS.FUNCTION.exec(text)) !== null) {
     const functionName = matches[5];
 
     if (!(functionName in foundFunctions)) {
@@ -63,8 +63,8 @@ function getPropertyCompletions(text: string, scope: string): CompletionItem[] {
   const foundVals = {};
 
   let matches : RegExpMatchArray;
-  while ((matches = PATTERNS.PROP_COMMENT.exec(text)) !== null) {
-    const name = matches[3];
+  while ((matches = PATTERNS.PROP.exec(text)) !== null) {
+    const name = matches[4];
 
     if (!(name in foundVals)) {
       const ci = new CompletionItem(name, CompletionItemKind.Property);
@@ -88,8 +88,8 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
   const CIs: CompletionItem[] = [];
   const foundVals = {};
 
-  let matches = PATTERNS.CLASS.exec(text);
-  while (matches) {
+  let matches;
+  while ((matches = PATTERNS.CLASS.exec(text)) !== null) {
     const name = matches[1];
     if (!(name in foundVals)) {
       foundVals[name] = true;
@@ -97,7 +97,6 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
       ci.detail = `[${scope}] ` + name
       CIs.push(ci);
     }
-    matches = PATTERNS.CLASS.exec(text);
   }
 
   return CIs;
@@ -121,8 +120,7 @@ function provideCompletionItems(document: TextDocument, position: Position): Com
   if (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
     return [];
 
-  const VAR = /^[\t ]*(Dim|Const|((Private|Public)[\t ]+)?(Function|Sub|Class|Property [GLT]et))[\t ]+/i; //fix: should again after var name
-  if (VAR.test(line.text))
+  if (PATTERNS.VAR_COMPLS.test(line.text))
     return [];
 
   const retCI: CompletionItem[] = [];

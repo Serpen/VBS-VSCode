@@ -8,21 +8,18 @@ export default languages.registerDefinitionProvider({ scheme: 'file', language: 
     const lookup = document.getText(lookupRange);
     const docText = document.getText();
 
-    let match = docText.match(PATTERNS.DEF(lookup));
+    let match = PATTERNS.DEF(docText, lookup);
     if (match)
       return new Location(document.uri, document.positionAt(match.index!));
 
-    {
-      match = GlobalSourceImport.match(PATTERNS.DEF(lookup));
-
-      if (match) {
-        const line = GlobalSourceImport.slice(0, match.index).match(/\n/g)!.length;
-        return new Location(Uri.file(GlobalSourceImportFile), new Position(line, 0));
-      }
+    match = PATTERNS.DEF(GlobalSourceImport, lookup);
+    if (match) {
+      const line = GlobalSourceImport.slice(0, match.index).match(/\n/g)!.length;
+      return new Location(Uri.file(GlobalSourceImportFile), new Position(line, 0));
     }
 
     for (let index = 0; index < SourceImports.length; index++) {
-      match = SourceImports[index].match(PATTERNS.DEF(lookup));
+      match = PATTERNS.DEF(SourceImports[index], lookup);
 
       if (match) {
         const line = SourceImports[index].slice(0, match.index).match(/\n/g)!.length;

@@ -12,13 +12,13 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
 
     const text = document.getText();
 
-    let matches = PATTERNS.DEF(word).exec(text);
+    let matches = PATTERNS.DEF(text, word);
     if (matches)
       return new Hover(matches);
-    
+
     const incs = [GlobalSourceImport, ...SourceImports];
     for (const ExtraDocText of incs) {
-      matches = PATTERNS.DEF(word).exec(ExtraDocText);
+      matches = PATTERNS.DEF(ExtraDocText, word);
 
       if (matches)
         return new Hover(matches[1])

@@ -8,7 +8,6 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
     const FUNCTION = RegExp(PATTERNS.FUNCTION.source, 'i');
     const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
     const PROP = RegExp(PATTERNS.PROP.source, 'i');
-    const endLine = (/(?:^|:)[\t ]*End\s+(Sub|Class|Function|Property)/i);
 
     const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showVariableSymbols")!;
 
@@ -34,10 +33,10 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
         waitCurrentBlockEnd.push("class")
 
       } else if ((matches = FUNCTION.exec(line.text)) !== null) {
-        name = matches[2];
+        name = matches[5];
         let detail: string = "";
         let symKind = SymbolKind.Function;
-        if (matches[1].toLowerCase() === "sub")
+        if (matches[3].toLowerCase() === "sub")
           if (name.toLowerCase() == "class_initialize()" || name.toLowerCase() == "class_terminate()") {
             symKind = SymbolKind.Constructor;
             waitCurrentBlockEnd.push("sub");
@@ -52,8 +51,8 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
 
         symbol = new DocumentSymbol(name, detail, symKind, line.range, line.range);
       } else if ((matches = PROP.exec(line.text)) !== null) {
-        name = matches[2];
-        symbol = new DocumentSymbol(name, matches[1], SymbolKind.Property, line.range, line.range);
+        name = matches[4];
+        symbol = new DocumentSymbol(name, matches[3], SymbolKind.Property, line.range, line.range);
         waitCurrentBlockEnd.push("property");
       } else if (showVariableSymbols) {
         while ((matches = PATTERNS.VAR2.exec(line.text)) !== null) {
@@ -83,7 +82,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
         currentBlock.push(symbol!);
       }
 
-      if ((matches = endLine.exec(line.text)) !== null)
+      if ((matches = PATTERNS.ENDLINE.exec(line.text)) !== null)
         if (waitCurrentBlockEnd[waitCurrentBlockEnd.length - 1] == matches[1].toLowerCase()) {
           currentBlock.pop();
           waitCurrentBlockEnd.pop();

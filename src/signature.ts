@@ -56,7 +56,7 @@ function getCallInfo(doc: TextDocument, pos: Position) {
 function getSignatures(text: string, docComment: string): Map<string, SignatureInformation[]> {
   let map = new Map<string, SignatureInformation[]>();
   let matches: RegExpExecArray | null;
-  while ((matches = PATTERNS.FUNCTION_COMMENT.exec(text)) !== null) {
+  while ((matches = PATTERNS.FUNCTION.exec(text)) !== null) {
     const name = matches[5].toLowerCase()
     console.log(name);
 
