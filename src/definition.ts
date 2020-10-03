@@ -1,5 +1,5 @@
-import fs from 'fs';
-import { languages, Location, TextDocument, Position, workspace, Uri } from 'vscode';
+import { languages, Location, TextDocument, Position, Uri } from 'vscode';
+import { GlobalSourceImport, GlobalSourceImportFile, SourceImportFiles, SourceImports as SourceImports } from './extension';
 import PATTERNS from './patterns';
 
 export default languages.registerDefinitionProvider({ scheme: 'file', language: 'vbs' }, {
@@ -12,17 +12,25 @@ export default languages.registerDefinitionProvider({ scheme: 'file', language: 
     if (match)
       return new Location(document.uri, document.positionAt(match.index!));
 
-    const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
-    if (ExtraDocument != '' && fs.statSync(ExtraDocument)) {
-      const ExtraDocumentText = fs.readFileSync(ExtraDocument).toString();
-      match = ExtraDocumentText.match(PATTERNS.DEF(lookup));
+    {
+      match = GlobalSourceImport.match(PATTERNS.DEF(lookup));
 
-      const line = ExtraDocumentText.slice(0, match.index).match(/\n/g).length;
-
-      if (match)
-        return new Location(Uri.file(ExtraDocument), new Position(line, 0));
+      if (match) {
+        const line = GlobalSourceImport.slice(0, match.index).match(/\n/g)!.length;
+        return new Location(Uri.file(GlobalSourceImportFile), new Position(line, 0));
+      }
     }
 
-  },
+    for (let index = 0; index < SourceImports.length; index++) {
+      match = SourceImports[index].match(PATTERNS.DEF(lookup));
 
-});
+      if (match) {
+        const line = SourceImports[index].slice(0, match.index).match(/\n/g)!.length;
+        return new Location(Uri.file(SourceImportFiles[index]), new Position(line, 0));
+      }
+    }
+  }
+
+},
+
+);
