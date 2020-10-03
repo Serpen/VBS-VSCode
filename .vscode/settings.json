@@ -1,3 +1,16 @@
 {
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "files.exclude": {
+        "**/dist": true,
+        "**/node_modules": true,
+        ".eslintrc.json": true,
+        ".prettierrc.json": true,
+        ".cache": true
+    },
+    "search.exclude": {
+        "**/node_modules/": true,
+        "**/*.js": true,
+        "**/*.txt": true,
+        "package-lock.json":true
+    }
 }
