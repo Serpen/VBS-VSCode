@@ -18,12 +18,12 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(...providers);
 
   // Run Script Command
-  commands.registerCommand('extension.runScript', () => {
+  commands.registerCommand('vbs.runScript', () => {
     cmds.runScript();
   });
 
   // Kill running script command
-  commands.registerCommand('extension.killScript', () => {
+  commands.registerCommand('vbs.killScript', () => {
     cmds.killScript();
   });
 }

@@ -37,14 +37,12 @@ function procRunner(cmdPath: string, args: string[]) {
 
 export function runScript() {
   const thisDoc = window.activeTextEditor.document; // Get the object of the text editor
-  const thisFile = thisDoc.fileName; // Get the current file name
-
   // Save the file
   thisDoc.save();
 
   window.setStatusBarMessage('Running the script...', 1500);
 
-  procRunner(cscript, [thisFile]);
+  procRunner(cscript, [thisDoc.fileName]);
 }
 
 export function killScript() {

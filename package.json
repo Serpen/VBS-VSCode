@@ -88,12 +88,12 @@
     ],
     "keybindings": [
       {
-        "command": "extension.runScript",
+        "command": "vbs.runScript",
         "key": "f5",
         "when": "editorTextFocus && editorLangId == vbs"
       },
       {
-        "command": "extension.killScript",
+        "command": "vbs.killScript",
         "key": "ctrl+pausebreak"
       }
     ],
