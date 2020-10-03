@@ -11,7 +11,7 @@ This extension implements basic language features of Visual Basic Script/VBScrip
 
 
 ## References / Thanks
-This project is based upton the Visual Basic extension ship with VS Code and the AutoIt Extension https://github.com/loganch/AutoIt-VSCode.
+This project is based on the Visual Basic extension shipped with VS Code and the AutoIt Extension https://github.com/loganch/AutoIt-VSCode.
 
 ### Purpose
 This project was founded to help developing with VBS in an buisness application (medico Klinische Dokumentation)

@@ -1,6 +1,5 @@
-import fs from 'fs';
-import { languages, SignatureHelp, SignatureInformation, ParameterInformation, MarkdownString, TextDocument, Position, workspace, CompletionItem } from 'vscode';
-import defaultSigs from './definitions/functions.json';
+import { languages, SignatureHelp, SignatureInformation, ParameterInformation, TextDocument, Position } from 'vscode';
+import { GlobalSourceImport, SourceImports } from './extension';
 import PATTERNS from './patterns';
 
 /**
@@ -28,7 +27,7 @@ function getCurrentFunction(code: string) {
 
   // Get the 2nd to last item (right in front of last open paren)
   // and clean up the results
-  return parenSplit[index].match(/(.*)\b(\w+)/)[2];
+  return parenSplit[index].match(/(?:.*)\b(\w+)/)[1].toLowerCase();
 }
 
 function countCommas(code: string) {
@@ -54,93 +53,74 @@ function getCallInfo(doc: TextDocument, pos: Position) {
   };
 }
 
-function getParams(paramText: string) {
-  let params = {};
+function getSignatures(text: string, docComment: string): Map<string, SignatureInformation[]> {
+  let map = new Map<string, SignatureInformation[]>();
+  let matches: RegExpExecArray | null;
+  while ((matches = PATTERNS.FUNCTION_COMMENT.exec(text)) !== null) {
+    const name = matches[5].toLowerCase()
+    console.log(name);
 
-  if (paramText) {
-    paramText.split(',').forEach(param => {
-      params = {
-        ...params,
-        [param]: {
-          label: param.trim(),
-          documentation: '',
-        },
-      };
+    if (matches[1]) {
+      const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
+      if (summary)
+        docComment = summary[1];
+    }
+    const si = new SignatureInformation(matches[4], docComment);
+    matches[6].split(",").forEach(element => {
+      let paramInfo = "";
+      if (matches![1]) {
+        const param = PATTERNS.PARAM_SUMMARY(matches![1], element.trim());
+        if (param)
+          paramInfo = param[1];
+      }
+      si.parameters.push(new ParameterInformation(element.trim(), paramInfo));
     });
+
+
+    let prevMatches;
+    if ((prevMatches = map.get(name)) !== undefined)
+      map.set(name, [...prevMatches, si]);
+    else
+      map.set(name, [si]);
   }
 
-  return params;
+  return map;
 }
 
-function getSignatures(text : string, docComment : string) {
-  let functions = {};
-
-  let pattern = null;
-  do {
-    pattern = PATTERNS.FUNCTION.exec(text);
-    if (pattern) {
-      functions = {
-        ...functions,
-        [pattern[3]]: {
-          label: pattern[2],
-          documentation: docComment,
-          params: getParams(pattern[4]),
-        },
-      };
-    }
-  } while (pattern);
-
-  return functions;
-}
-
-export default languages.registerSignatureHelpProvider(
-  { scheme: 'file', language: 'vbs' },
+export default languages.registerSignatureHelpProvider({ scheme: 'file', language: 'vbs' },
   {
-    provideSignatureHelp(document, position) {
-      // Find out what called for sig
-
-      const ExtraDocument: string = workspace.getConfiguration("vbs").get("includes");
-      let ExtraDocumentText : string = "";
-      if (ExtraDocument != '' && fs.statSync(ExtraDocument))
-        ExtraDocumentText = fs.readFileSync(ExtraDocument).toString();
-
+    provideSignatureHelp(document, position, _cancel, context) {
       const caller = getCallInfo(document, position);
       if (caller == null)
         return null;
 
-      // Integrate user functions
-      const signatures: {} = Object.assign(
-        {},
-        getSignatures(document.getText(), "Local Function"),
-        getSignatures(ExtraDocumentText, "Included Function"),
-        defaultSigs,
-      );
+      // if (context.activeSignatureHelp) {
+      //   context.activeSignatureHelp.activeParameter = caller.commas;
+      //   return context.activeSignatureHelp;
+      // }
 
-      // Get the called word from the json files
-      const foundSig = signatures[caller.func];
-      if (foundSig == null)
-        return null;
+      const sigs = new SignatureHelp();
+      if (context.activeSignatureHelp)
+        sigs.activeSignature = context.activeSignatureHelp.activeSignature;
+      else
+        sigs.activeSignature = 0;
+      sigs.activeParameter = caller.commas;
 
-      const thisSignature = new SignatureInformation(
-        foundSig.label,
-        new MarkdownString(`##### ${foundSig.documentation}`),
-      );
+      let sig : SignatureInformation[] | undefined;
+      if ((sig = getSignatures(document.getText(), "Local").get(caller.func)) !== undefined) {
+        sigs.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length > caller.commas));
+      }
 
-      // Enter parameter information into signature information
-      thisSignature.parameters = Object.keys(foundSig.params).map(key => {
-        return new ParameterInformation(
-          foundSig.params[key].label,
-          new MarkdownString(foundSig.params[key].documentation),
-        );
+      if ((sig = getSignatures(GlobalSourceImport, "Global").get(caller.func)) !== undefined) {
+        sigs.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length > caller.commas));
+      }
+      SourceImports.forEach(SourceImport => {
+        if ((sig = getSignatures(SourceImport, "Import").get(caller.func)) !== undefined) {
+          sigs.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length > caller.commas));
+        }
       });
 
-      // Place signature information into results
-      const result = new SignatureHelp();
-      result.signatures = [thisSignature];
-      result.activeSignature = 0;
-      result.activeParameter = caller.commas;
-
-      return result;
+      return sigs;
     },
   },
   '(', ',', ' '

@@ -88,18 +88,18 @@
     ],
     "keybindings": [
       {
-        "command": "extension.runScript",
+        "command": "vbs.runScript",
         "key": "f5",
         "when": "editorTextFocus && editorLangId == vbs"
       },
       {
-        "command": "extension.killScript",
+        "command": "vbs.killScript",
         "key": "ctrl+pausebreak"
       }
     ],
     "configuration": {
       "type": "object",
-      "title": "VBS Configuration",
+      "title": "VBS",
       "properties": {
         "vbs.interpreter": {
           "type": "string",
@@ -107,13 +107,18 @@
           "description": "Path to Script Interpreter"
         },
         "vbs.includes": {
-          "type": "string",
-          "default": "",
-          "description": "Include for completion"
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Include Sourcefiles for completion"
         },
         "vbs.showVariableSymbols": {
           "type": "boolean",
-          "default": "false"
+          "default": "false",
+          "description": "Show variables in Outline"
         }
       }
     }

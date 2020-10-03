@@ -1,10 +1,37 @@
-import { commands, ExtensionContext } from 'vscode';
+import { commands, ExtensionContext, workspace } from 'vscode';
 import * as cmds from './commands';
 import hoverProvider from './hover';
 import completionProvider from './completion';
 import symbolsProvider from './symbols';
 import signatureProvider from './signature';
 import definitionProvider from './definition';
+import fs from 'fs';
+
+export let GlobalSourceImport: string = '';
+export let GlobalSourceImportFile: string = '';
+export let SourceImports : string[] = [];
+export let SourceImportFiles : string[] = [];
+
+export let ImportDocuments = [ //doesn't work
+  GlobalSourceImport,
+  ...SourceImports
+]
+
+function reloadImportDocuments() {
+  SourceImports = [];
+  SourceImportFiles = workspace.getConfiguration("vbs").get<string[]>("includes")!;
+  SourceImportFiles.forEach((SourceImportFile, index) => {
+    if (SourceImportFile.startsWith(".\\") && workspace.workspaceFolders) {
+      SourceImportFile = workspace.workspaceFolders[0].uri.fsPath + SourceImportFile.substr(1);
+      SourceImportFiles[index] = SourceImportFile;
+    }
+    if (SourceImportFile != '' && fs.statSync(SourceImportFile)) {
+      const ExtraDocumentText = fs.readFileSync(SourceImportFile).toString();
+
+      SourceImports.push(ExtraDocumentText);
+    }
+  });
+}
 
 export function activate(context: ExtensionContext) {
   const providers: any = [
@@ -15,15 +42,21 @@ export function activate(context: ExtensionContext) {
     definitionProvider,
   ];
 
+  GlobalSourceImportFile = context.asAbsolutePath("./tests/documents/functions.vbs");
+  GlobalSourceImport = fs.readFileSync(GlobalSourceImportFile).toString();
+
+  workspace.onDidChangeConfiguration(reloadImportDocuments);
+  reloadImportDocuments();
+
   context.subscriptions.push(...providers);
 
   // Run Script Command
-  commands.registerCommand('extension.runScript', () => {
+  commands.registerCommand('vbs.runScript', () => {
     cmds.runScript();
   });
 
   // Kill running script command
-  commands.registerCommand('extension.killScript', () => {
+  commands.registerCommand('vbs.killScript', () => {
     cmds.killScript();
   });
 }

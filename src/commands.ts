@@ -14,6 +14,9 @@ function procRunner(cmdPath: string, args: string[]) {
   vbsOut.clear();
   vbsOut.show(true);
 
+  if (!window.activeTextEditor)
+    return;
+  
   const workDir = path.dirname(window.activeTextEditor.document.fileName);
 
   runner = spawn(cmdPath, args, {
@@ -36,15 +39,15 @@ function procRunner(cmdPath: string, args: string[]) {
 }
 
 export function runScript() {
+  if (!window.activeTextEditor)
+    return;
   const thisDoc = window.activeTextEditor.document; // Get the object of the text editor
-  const thisFile = thisDoc.fileName; // Get the current file name
-
   // Save the file
   thisDoc.save();
 
   window.setStatusBarMessage('Running the script...', 1500);
 
-  procRunner(cscript, [thisFile]);
+  procRunner(cscript, [thisDoc.fileName]);
 }
 
 export function killScript() {

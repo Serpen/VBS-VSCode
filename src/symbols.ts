@@ -10,7 +10,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
     const PROP = RegExp(PATTERNS.PROP.source, 'i');
     const endLine = (/(?:^|:)[\t ]*End\s+(Sub|Class|Function|Property)/i);
 
-    const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get("showVariableSymbols");
+    const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showVariableSymbols")!;
 
     let currentBlock: DocumentSymbol[] = [];
     let waitCurrentBlockEnd: String[] = [];
@@ -24,9 +24,9 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
         continue;
 
       let name: string;
-      let symbol: DocumentSymbol;
+      let symbol: DocumentSymbol | null;
 
-      let matches: RegExpMatchArray = [];
+      let matches: RegExpMatchArray | null = [];
 
       if ((matches = CLASS.exec(line.text)) !== null) {
         name = matches[1];
@@ -75,12 +75,12 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
         }
       }
 
-      if (symbol != null) {
+      if (symbol!) {
         if (currentBlock.length == 0)
-          result.push(symbol);
+          result.push(symbol!);
         else
-          currentBlock[currentBlock.length - 1].children.push(symbol);
-        currentBlock.push(symbol);
+          currentBlock[currentBlock.length - 1].children.push(symbol!);
+        currentBlock.push(symbol!);
       }
 
       if ((matches = endLine.exec(line.text)) !== null)
@@ -89,7 +89,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
           waitCurrentBlockEnd.pop();
         } else {
           currentBlock.pop();
-          console.log("symbol wrong ending (awaiting closing for " + waitCurrentBlockEnd.pop().toString() + " got " + matches[1].toLowerCase() + ") in " + doc.uri + " " + line.lineNumber)
+          console.log("symbol wrong ending (awaiting closing for " + waitCurrentBlockEnd.pop()?.toString() + " got " + matches[1].toLowerCase() + ") in " + doc.uri + " " + line.lineNumber)
         }
 
 
