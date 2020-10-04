@@ -7,7 +7,7 @@ function getVariableCompletions(text: string, scope: string): CompletionItem[] {
   const CIs: CompletionItem[] = [];
   const foundVals = {};
 
-  let matches : RegExpMatchArray;
+  let matches: RegExpMatchArray;
   while ((matches = PATTERNS.VAR_COMMENT.exec(text)) !== null) {
     const name = matches[3];
 
@@ -33,7 +33,7 @@ function getFunctionCompletions(text: string, scope: string): CompletionItem[] {
   const CIs: CompletionItem[] = [];
   const foundFunctions = {};
 
-  let matches : RegExpExecArray;
+  let matches: RegExpExecArray;
   while ((matches = PATTERNS.FUNCTION.exec(text)) !== null) {
     const functionName = matches[5];
 
@@ -62,7 +62,7 @@ function getPropertyCompletions(text: string, scope: string): CompletionItem[] {
   const CIs: CompletionItem[] = [];
   const foundVals = {};
 
-  let matches : RegExpMatchArray;
+  let matches: RegExpMatchArray;
   while ((matches = PATTERNS.PROP.exec(text)) !== null) {
     const name = matches[4];
 
@@ -90,10 +90,16 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
 
   let matches;
   while ((matches = PATTERNS.CLASS.exec(text)) !== null) {
-    const name = matches[1];
+    const name = matches[2];
     if (!(name in foundVals)) {
       foundVals[name] = true;
       let ci = new CompletionItem(name, CompletionItemKind.Class);
+
+      if (matches[1]) {
+        const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
+        ci.documentation = summary?.[1];
+      }
+
       ci.detail = `[${scope}] ` + name
       CIs.push(ci);
     }

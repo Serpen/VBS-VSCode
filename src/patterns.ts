@@ -1,8 +1,8 @@
-const FUNCTION = /((?:^[\t ]*'''.*(?:\n|\r\n))+)*[\t ]*((?:Public[\t ]+|Private[\t ]+)?(Function|Sub)[\t ]+(([a-z]\w+)[\t ]*(?:\((.*)\))?))\s*$/img;
+const FUNCTION = /((?:^[\t ]*'+.*(?:\n|\r\n))+)*[\t ]*((?:Public[\t ]+|Private[\t ]+)?(Function|Sub)[\t ]+(([a-z]\w*)[\t ]*(?:\((.*)\))?))\s*$/img;
 
-const CLASS = /^[\t ]*(?:Public[\t ]+|Private[\t ]+)?Class[\t ]+([a-z0-9_]+)/img;
+const CLASS = /((?:^[\t ]*'+.*(?:\n|\r\n))+)*[\t ]*(?:Public[\t ]+|Private[\t ]+)?Class[\t ]+([a-z]\w*)/img;
 
-const PROP = /((?:^[\t ]*'''.*(?:\n|\r\n))+)*[\t ]*((?:Public[\t ]+(?:Default[\t ]+)?|Private[\t ]+)?Property[\t ]+(Get|Let|Set)[\t ]+([a-z]\w+))/img;
+const PROP = /((?:^[\t ]*'+.*(?:\n|\r\n))+)*[\t ]*((?:Public[\t ]+(?:Default[\t ]+)?|Private[\t ]+)?Property[\t ]+(Get|Let|Set)[\t ]+([a-z]\w*))/img;
 
 const VAR2 = /(?<!'\s*)(?:^|:)[\t ]*(Dim|Set|Const|Private[\t ]+Const|Public[\t ]+Const|Private|Public)[\t ]+(?!Sub|Function|Class|Property)([a-z0-9_]+(?:[\t ]*,[\t ]*[a-z0-9_]+)*)[\t ]*/img;
 const VAR_COMMENT = /(?<!'\s*)(?:^|:)[\t ]*((Dim|(?:Private[\t ]*|Public[\t ]*)?Const)[\t ]+(?!Sub|Function|Class|Property)([a-z]\w*)(?:\s*=\s*[^'\n\r]+)?)(?:'\s*(.+))?$/img;
@@ -14,8 +14,8 @@ function DEF(input: string, word: string) {
     , "im").exec(input);
 }
 
-const COMMENT_SUMMARY = /'''\s*<summary>(.*)<\/summary>/i;
-const PARAM_SUMMARY = (input: string, word: string) => new RegExp(`'''\\s*<param name="${word}">(.*)<\\/param>`, "i").exec(input);
+const COMMENT_SUMMARY = /(?:'''\s*<summary>|'\s*)([^<\n\r]*)(?:<\/summary>)?/i;
+const PARAM_SUMMARY = (input: string, word: string) => new RegExp(`'''\\s*<param name=["']${word}["']>(.*)<\\/param>`, "i").exec(input);
 
 const ENDLINE = (/(?:^|:)[\t ]*End\s+(Sub|Class|Function|Property)/i);
 

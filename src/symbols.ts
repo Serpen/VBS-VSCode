@@ -35,7 +35,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
           let matches: RegExpMatchArray | null = [];
 
           if ((matches = CLASS.exec(lineText)) !== null) {
-            name = matches[1];
+            name = matches[2];
             symbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
             BlockEnds.push("class")
 
@@ -55,12 +55,13 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
               detail = "Function";
               BlockEnds.push(detail.toLowerCase());
             }
-
             symbol = new DocumentSymbol(name, detail, symKind, line.range, line.range);
+            
           } else if ((matches = PROP.exec(lineText)) !== null) {
             name = matches[4];
             symbol = new DocumentSymbol(name, matches[3], SymbolKind.Property, line.range, line.range);
             BlockEnds.push("property");
+
           } else if (showVariableSymbols) {
             while ((matches = PATTERNS.VAR2.exec(lineText)) !== null) {
               const varNames = matches[2].split(',');

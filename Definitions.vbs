@@ -167,19 +167,20 @@ End Function
 Function Day(date)
 End Function
 
+
+''' <summary>An intrinsic global object that can send output to a script debugger, such as the Microsoft Script Debugger.</summary>
 Class Debug
 
 	''' <summary></summary>
 	Sub Write(str)
 	End Sub
-
-
+	
 	''' <summary></summary>
 	Sub WriteLine(str)
 	End Sub
 End Class
 
-
+''' <summary>Object that stores data key, item pairs.</summary>
 Class Dictionary
 	
 	Sub Add(key, value)
@@ -214,6 +215,7 @@ Class Dictionary
 	
 End Class
 
+''' <summary>Contains information about run-time errors. Accepts the Raise and Clear methods for generating and clearing run-time errors.</summary>
 Class Err
 
 	''' <summary></summary>
@@ -286,8 +288,8 @@ Class FileSystemObject
 	Sub CopyFolder(source, destination, overwrite)
 	End Sub
 
-	Function CreateFolder(foldername)
-	End Function
+	Sub CreateFolder(foldername)
+	End Sub
 
 	Function CreateTextFile(filename)
 	End Function
@@ -651,7 +653,9 @@ End Function
 Function LTrim(str)
 End Function
 
+''' <summary>Provides access to the read-only properties of a regular expression match.</summary>
 Class Match
+
 	''' <summary></summary>
 	Property Get FirstIndex
 	End Property
@@ -746,7 +750,8 @@ End Property
 Function Oct(number)
 End Function
 
-''' <summary></summary>
+
+''' <summary>Provides simple regular expression support</summary>
 Class RegExp
 
 	''' <summary></summary>

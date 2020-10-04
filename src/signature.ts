@@ -58,7 +58,6 @@ function getSignatures(text: string, docComment: string): Map<string, SignatureI
   let matches: RegExpExecArray | null;
   while ((matches = PATTERNS.FUNCTION.exec(text)) !== null) {
     const name = matches[5].toLowerCase()
-    console.log(name);
 
     if (matches[1]) {
       const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
