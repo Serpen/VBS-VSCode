@@ -18,19 +18,20 @@
 		"description": "New Class..."
 	},
 
+	"new fso": {
+		"prefix": "FileSystemObject",
+		"body": [
+			"Set fso = CreateObject(\"Scripting.FileSystemObject\")"
+		],
+		"description": "New FileSystemObject..."
+	},
+
 	"new dictionary": {
 		"prefix": "Dictionary",
 		"body": [
 			"Set ${1:ObjName} = CreateObject(\"Scripting.Dictionary\")"
 		],
 		"description": "New Dictionary..."
-	},
-	"new SortedList": {
-		"prefix": "SortedList",
-		"body": [
-			"Set ${1:ObjName} = CreateObject(\"System.Collections.SortedList\")"
-		],
-		"description": "New SortedList..."
 	},
 
 	"new function": {

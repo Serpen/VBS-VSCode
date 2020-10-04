@@ -271,6 +271,100 @@ End Function
 Function Exp(number)
 End Function
 
+Class FileSystemObject
+
+	Function BuildPath(path, name)
+	End Function
+
+	Sub CopyFile(source, destination)
+	End Sub
+	Sub CopyFile(source, destination, overwrite)
+	End Sub
+
+	Sub CopyFolder(source, destination)
+	End Sub
+	Sub CopyFolder(source, destination, overwrite)
+	End Sub
+
+	Function CreateFolder(foldername)
+	End Function
+
+	Function CreateTextFile(filename)
+	End Function
+	Function CreateTextFile(filename, overwrite)
+	End Function
+	Function CreateTextFile(filename, overwrite, unicode)
+	End Function
+
+	Sub DeleteFile(filename)
+	End Sub
+	Sub DeleteFile(filename, force)
+	End Sub
+
+	Sub DeleteFolder(filename)
+	End Sub
+	Sub DeleteFolder(filename, force)
+	End Sub
+
+	Function DriveExists(drive)
+	End Function
+
+	Function FileExists(filename)
+	End Function
+
+	Function FolderExists(foldername)
+	End Function
+
+	Function GetAbsolutePathName(path)
+	End Function
+
+	Function GetBaseName(path)
+	End Function
+
+	Function GetDrive(drive)
+	End Function
+
+	Function GetDriveName(drive)
+	End Function
+
+	Function GetExtensionName(path)
+	End Function
+
+	Function GetFile(filename)
+	End Function
+
+	Function GetFileName(filename)
+	End Function
+
+	Function GetFolder(foldername)
+	End Function
+
+	Function GetParentFolderName(foldername)
+	End Function
+
+	Function GetSpecialFolder(folderspec)
+	End Function
+
+	Function GetTempName()
+	End Function
+
+	Sub MoveFile(source, destination)
+	End Sub
+
+	Sub MoveFolder(source, destination)
+	End Sub
+
+	Function OpenTextFile(filename)
+	End Function
+	Function OpenTextFile(filename, iomode)
+	End Function
+	Function OpenTextFile(filename, iomode, create)
+	End Function
+	Function OpenTextFile(filename, iomode, create, format)
+	End Function
+
+End Class
+
 
 ''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
 Function Filter(InputStrings, Value)
@@ -903,27 +997,39 @@ End Function
 Class WScript
 
 	''' <summary></summary>
-	Function ConnectObject()
+	Function ConnectObject(objEventSource, strPrefix)
 	End Function
 
 
 	''' <summary></summary>
-	Function CreateObject()
+	Function CreateObject(strProgID)
+	End Function
+
+	''' <summary></summary>
+	Function CreateObject(strProgID,strPrefix)
 	End Function
 
 
 	''' <summary></summary>
-	Function DisconnectObject()
+	Function DisconnectObject(obj)
 	End Function
 
 
 	''' <summary></summary>
-	Function Echo()
+	Function Echo(args)
 	End Function
 
 
 	''' <summary></summary>
-	Function GetObject()
+	Function GetObject(strPathname)
+	End Function
+
+	''' <summary></summary>
+	Function GetObject(strPathname, strProgID)
+	End Function
+
+	''' <summary></summary>
+	Function GetObject(strPathname, strProgID, strPrefix)
 	End Function
 
 
@@ -931,9 +1037,13 @@ Class WScript
 	Function Quit()
 	End Function
 
+	''' <summary></summary>
+	Function Quit(ErrorCode)
+	End Function
+
 
 	''' <summary></summary>
-	Function Sleep()
+	Function Sleep(ms)
 	End Function
 
 
