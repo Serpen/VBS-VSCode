@@ -2,7 +2,7 @@
   "name": "vbscript",
   "displayName": "VBScript",
   "description": "VBScript Language Support",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "Serpen",
   "galleryBanner": {
     "color": "#254768",

@@ -20,7 +20,7 @@ export let ImportDocuments = [ //doesn't work
 function reloadImportDocuments() {
   SourceImports = [];
   SourceImportFiles = workspace.getConfiguration("vbs").get<string[]>("includes")!;
-  SourceImportFiles.forEach((SourceImportFile, index) => {
+  SourceImportFiles?.forEach((SourceImportFile, index) => {
     if (SourceImportFile.startsWith(".\\") && workspace.workspaceFolders) {
       SourceImportFile = workspace.workspaceFolders[0].uri.fsPath + SourceImportFile.substr(1);
       SourceImportFiles[index] = SourceImportFile;
@@ -42,7 +42,7 @@ export function activate(context: ExtensionContext) {
     definitionProvider,
   ];
 
-  GlobalSourceImportFile = context.asAbsolutePath("./tests/documents/functions.vbs");
+  GlobalSourceImportFile = context.asAbsolutePath("./Definitions.vbs");
   GlobalSourceImport = fs.readFileSync(GlobalSourceImportFile).toString();
 
   workspace.onDidChangeConfiguration(reloadImportDocuments);
