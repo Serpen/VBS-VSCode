@@ -6,22 +6,30 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
   provideHover(document: TextDocument, position: Position) {
     const wordRange = document.getWordRangeAtPosition(position);
     const word: string = wordRange ? document.getText(wordRange) : '';
+    const line = document.lineAt(position).text;
 
     if (word.trim() == "")
-      return;
+      return null;
 
-    const text = document.getText();
+    if (!new RegExp(`^[^']*${word}`).test(line))
+      return null;
 
-    let matches = PATTERNS.DEF(text, word);
+
+    let matches = PATTERNS.DEF(document.getText(), word);
     if (matches)
-      return new Hover(matches);
+      if (matches[0].startsWith("\t"))
+        return new Hover(matches[0] + "\n[Local]");
+      else
+        return new Hover("\t" + matches[0] + "\n[Local]"); // why??
 
-    const incs = [GlobalSourceImport, ...SourceImports];
-    for (const ExtraDocText of incs) {
+
+    for (const ExtraDocText of [GlobalSourceImport, ...SourceImports]) {
       matches = PATTERNS.DEF(ExtraDocText, word);
-
       if (matches)
-        return new Hover(matches[1])
+        if (matches[0].startsWith("\t"))
+          return new Hover(matches[0] + "\n[Import/Global]");
+        else
+          return new Hover("\t" + matches[0] + "\n[Import/Global]"); // why??
     }
   },
 });
