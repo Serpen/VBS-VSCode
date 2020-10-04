@@ -1,4 +1,4 @@
-import { languages, SymbolKind, TextLine, DocumentSymbol, Range, workspace } from 'vscode';
+import { languages, SymbolKind, DocumentSymbol, Range, workspace } from 'vscode';
 import PATTERNS from './patterns';
 
 export default languages.registerDocumentSymbolProvider({ scheme: 'file', language: 'vbs' }, {
@@ -19,82 +19,88 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
     for (let lineNum = 0; lineNum < lineCount; lineNum++) {
       const line = doc.lineAt(lineNum);
 
+
       if (line.isEmptyOrWhitespace || line.text.charAt(line.firstNonWhitespaceCharacterIndex) == "'")
         continue;
 
-      let name: string;
-      let symbol: DocumentSymbol | null;
+      const LineTextwithoutComment = (/^([^'\n\r]*).*$/m).exec(line.text);
 
-      let matches: RegExpMatchArray | null = [];
+      if (LineTextwithoutComment?.[1]) {
+        LineTextwithoutComment[1].split(":").forEach(lineText => {
+          let name: string;
+          let symbol: DocumentSymbol | null;
 
-      if ((matches = CLASS.exec(line.text)) !== null) {
-        name = matches[1];
-        symbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
-        BlockEnds.push("class")
+          let matches: RegExpMatchArray | null = [];
 
-      } else if ((matches = FUNCTION.exec(line.text)) !== null) {
-        name = matches[4];
-        let detail: string = "";
-        let symKind = SymbolKind.Function;
-        if (matches[3].toLowerCase() === "sub")
-          if (name.toLowerCase() == "class_initialize()" || name.toLowerCase() == "class_terminate()") {
-            symKind = SymbolKind.Constructor;
-            BlockEnds.push("sub");
-          } else {
-            detail = "Sub";
-            BlockEnds.push(detail.toLowerCase());
+          if ((matches = CLASS.exec(lineText)) !== null) {
+            name = matches[1];
+            symbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
+            BlockEnds.push("class")
+
+          } else if ((matches = FUNCTION.exec(lineText)) !== null) {
+            name = matches[4];
+            let detail: string = "";
+            let symKind = SymbolKind.Function;
+            if (matches[3].toLowerCase() === "sub")
+              if (name.toLowerCase() == "class_initialize()" || name.toLowerCase() == "class_terminate()") {
+                symKind = SymbolKind.Constructor;
+                BlockEnds.push("sub");
+              } else {
+                detail = "Sub";
+                BlockEnds.push(detail.toLowerCase());
+              }
+            else {
+              detail = "Function";
+              BlockEnds.push(detail.toLowerCase());
+            }
+
+            symbol = new DocumentSymbol(name, detail, symKind, line.range, line.range);
+          } else if ((matches = PROP.exec(lineText)) !== null) {
+            name = matches[4];
+            symbol = new DocumentSymbol(name, matches[3], SymbolKind.Property, line.range, line.range);
+            BlockEnds.push("property");
+          } else if (showVariableSymbols) {
+            while ((matches = PATTERNS.VAR2.exec(lineText)) !== null) {
+              const varNames = matches[1].split(',');
+              for (let i = 0; i < varNames.length; i++) {
+
+                let name = varNames[i].trim();
+                let symKind = SymbolKind.Variable;
+                if (/\bconst\b/i.test(matches[0]))
+                  symKind = SymbolKind.Constant;
+                // else if (/\bSet\b/i.test(matches[0]))
+                //   symKind = SymbolKind.Struct;
+                let r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR2.lastIndex);
+                const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
+                if (Blocks.length == 0)
+                  result.push(variableSymbol);
+                else
+                  Blocks[Blocks.length - 1].children.push(variableSymbol);
+              }
+
+            }
           }
-        else {
-          detail = "Function";
-          BlockEnds.push(detail.toLowerCase());
-        }
 
-        symbol = new DocumentSymbol(name, detail, symKind, line.range, line.range);
-      } else if ((matches = PROP.exec(line.text)) !== null) {
-        name = matches[4];
-        symbol = new DocumentSymbol(name, matches[3], SymbolKind.Property, line.range, line.range);
-        BlockEnds.push("property");
-      } else if (showVariableSymbols) {
-        while ((matches = PATTERNS.VAR2.exec(line.text)) !== null) {
-          const varNames = matches[1].split(',');
-          for (let i = 0; i < varNames.length; i++) {
-
-            let name = varNames[i].trim();
-            let symKind = SymbolKind.Variable;
-            if (/\bconst\b/i.test(matches[0]))
-              symKind = SymbolKind.Constant;
-            // else if (/\bSet\b/i.test(matches[0]))
-            //   symKind = SymbolKind.Struct;
-            let r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR2.lastIndex);
-            const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
+          if (symbol!) {
             if (Blocks.length == 0)
-              result.push(variableSymbol);
+              result.push(symbol!);
             else
-              Blocks[Blocks.length - 1].children.push(variableSymbol);
+              Blocks[Blocks.length - 1].children.push(symbol!);
+            Blocks.push(symbol!);
           }
 
-        }
+          if ((matches = PATTERNS.ENDLINE.exec(lineText)) !== null)
+            if (BlockEnds[BlockEnds.length - 1] == matches[1].toLowerCase()) {
+              Blocks.pop();
+              BlockEnds.pop();
+            } else {
+              Blocks.pop();
+              console.log("symbol wrong ending (awaiting closing for " + BlockEnds.pop()?.toString() + " got " + matches[1].toLowerCase() + ") in " + doc.uri + " " + line.lineNumber)
+            }
+
+        });
       }
-
-      if (symbol!) {
-        if (Blocks.length == 0)
-          result.push(symbol!);
-        else
-          Blocks[Blocks.length - 1].children.push(symbol!);
-        Blocks.push(symbol!);
-      }
-
-      if ((matches = PATTERNS.ENDLINE.exec(line.text)) !== null)
-        if (BlockEnds[BlockEnds.length - 1] == matches[1].toLowerCase()) {
-          Blocks.pop();
-          BlockEnds.pop();
-        } else {
-          Blocks.pop();
-          console.log("symbol wrong ending (awaiting closing for " + BlockEnds.pop()?.toString() + " got " + matches[1].toLowerCase() + ") in " + doc.uri + " " + line.lineNumber)
-        }
-
-
-    }
+    } // next linenum
 
     if (BlockEnds.length > 0)
       console.log(BlockEnds);
