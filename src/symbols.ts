@@ -9,6 +9,8 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
     const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
     const PROP = RegExp(PATTERNS.PROP.source, 'i');
 
+    const varList: String[] = [];
+
     const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showVariableSymbols")!;
 
     let Blocks: DocumentSymbol[] = [];
@@ -61,23 +63,24 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
             BlockEnds.push("property");
           } else if (showVariableSymbols) {
             while ((matches = PATTERNS.VAR2.exec(lineText)) !== null) {
-              const varNames = matches[1].split(',');
+              const varNames = matches[2].split(',');
               for (let i = 0; i < varNames.length; i++) {
-
                 let name = varNames[i].trim();
-                let symKind = SymbolKind.Variable;
-                if (/\bconst\b/i.test(matches[0]))
-                  symKind = SymbolKind.Constant;
-                // else if (/\bSet\b/i.test(matches[0]))
-                //   symKind = SymbolKind.Struct;
-                let r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR2.lastIndex);
-                const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
-                if (Blocks.length == 0)
-                  result.push(variableSymbol);
-                else
-                  Blocks[Blocks.length - 1].children.push(variableSymbol);
+                if (varList.indexOf(name) == -1 || !(/\bSet\b/i.test(matches[0]))) { // match multiple same Dim, but not an additional set to a dim
+                  varList.push(name);
+                  let symKind = SymbolKind.Variable;
+                  if (/\bconst\b/i.test(matches[1]))
+                    symKind = SymbolKind.Constant;
+                  else if (/\bSet\b/i.test(matches[0]))
+                    symKind = SymbolKind.Struct;
+                  let r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR2.lastIndex);
+                  const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
+                  if (Blocks.length == 0)
+                    result.push(variableSymbol);
+                  else
+                    Blocks[Blocks.length - 1].children.push(variableSymbol);
+                }
               }
-
             }
           }
 

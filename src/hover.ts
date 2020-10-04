@@ -17,19 +17,19 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
 
     let matches = PATTERNS.DEF(document.getText(), word);
     if (matches)
-      if (matches[0].startsWith("\t"))
-        return new Hover(matches[0] + "\n[Local]");
+      if (matches[1].startsWith("\t"))
+        return new Hover(matches[1] + "\n[Local]");
       else
-        return new Hover("\t" + matches[0] + "\n[Local]"); // why??
+        return new Hover("\t" + matches[1] + "\n[Local]"); // why??
 
 
     for (const ExtraDocText of [GlobalSourceImport, ...SourceImports]) {
       matches = PATTERNS.DEF(ExtraDocText, word);
       if (matches)
-        if (matches[0].startsWith("\t"))
-          return new Hover(matches[0] + "\n[Import/Global]");
+        if (matches[1].startsWith("\t"))
+          return new Hover(matches[1] + "\n[Import/Global]");
         else
-          return new Hover("\t" + matches[0] + "\n[Import/Global]"); // why??
+          return new Hover("\t" + matches[1] + "\n[Import/Global]"); // why??
     }
   },
 });
