@@ -55,21 +55,21 @@
       "commandPalette": [
         {
           "when": "editorLangId == vbs",
-          "command": "extension.runScript"
+          "command": "vbs.runScript"
         },
         {
-          "command": "extension.killScript",
+          "command": "vbs.killScript",
           "when": "editorLangId == vbs"
         }
       ]
     },
     "commands": [
       {
-        "command": "extension.runScript",
+        "command": "vbs.runScript",
         "title": "VBS: Run Script"
       },
       {
-        "command": "extension.killScript",
+        "command": "vbs.killScript",
         "title": "VBS: Kill Running Script"
       }
     ],
