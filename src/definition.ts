@@ -1,5 +1,5 @@
 import { languages, Location, TextDocument, Position, Uri } from 'vscode';
-import { GlobalSourceImport, GlobalSourceImportFile, SourceImportFiles, SourceImports as SourceImports } from './extension';
+import { GlobalSourceImport, GlobalSourceImportFile, ObjectSourceImport, ObjectSourceImportFile, SourceImportFiles, SourceImports as SourceImports } from './extension';
 import PATTERNS from './patterns';
 
 export default languages.registerDefinitionProvider({ scheme: 'file', language: 'vbs' }, {
@@ -16,6 +16,12 @@ export default languages.registerDefinitionProvider({ scheme: 'file', language: 
     if (match) {
       const line = GlobalSourceImport.slice(0, match.index).match(/\n/g)!.length;
       return new Location(Uri.file(GlobalSourceImportFile), new Position(line, 0));
+    }
+
+    match = PATTERNS.DEF(ObjectSourceImport, lookup);
+    if (match) {
+      const line = ObjectSourceImport.slice(0, match.index).match(/\n/g)!.length;
+      return new Location(Uri.file(ObjectSourceImportFile), new Position(line, 0));
     }
 
     for (let index = 0; index < SourceImports.length; index++) {

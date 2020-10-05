@@ -9,6 +9,8 @@ import fs from 'fs';
 
 export let GlobalSourceImport: string = '';
 export let GlobalSourceImportFile: string = '';
+export let ObjectSourceImport: string = '';
+export let ObjectSourceImportFile: string = '';
 export let SourceImports : string[] = [];
 export let SourceImportFiles : string[] = [];
 
@@ -42,8 +44,11 @@ export function activate(context: ExtensionContext) {
     definitionProvider,
   ];
 
-  GlobalSourceImportFile = context.asAbsolutePath("./Definitions.vbs");
+  GlobalSourceImportFile = context.asAbsolutePath("./GlobalDefs.vbs");
   GlobalSourceImport = fs.readFileSync(GlobalSourceImportFile).toString();
+  
+  ObjectSourceImportFile = context.asAbsolutePath("./ObjectDefs.vbs");
+  ObjectSourceImport = fs.readFileSync(ObjectSourceImportFile).toString();
 
   workspace.onDidChangeConfiguration(reloadImportDocuments);
   reloadImportDocuments();

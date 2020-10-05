@@ -1,6 +1,6 @@
-import { languages, Hover, TextDocument, Position, workspace } from 'vscode';
+import { languages, Hover, TextDocument, Position } from 'vscode';
 import PATTERNS from './patterns';
-import { GlobalSourceImport, SourceImports } from './extension';
+import { GlobalSourceImport, ObjectSourceImport, SourceImports } from './extension';
 
 export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs' }, {
   provideHover(document: TextDocument, position: Position) {
@@ -23,7 +23,7 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
         return new Hover("\t" + matches[1] + "\n[Local]"); // why??
 
 
-    for (const ExtraDocText of [GlobalSourceImport, ...SourceImports]) {
+    for (const ExtraDocText of [GlobalSourceImport, ObjectSourceImport, ...SourceImports]) {
       matches = PATTERNS.DEF(ExtraDocText, word);
       if (matches)
         if (matches[1].startsWith("\t"))

@@ -1,6 +1,6 @@
-import { languages, CompletionItem, CompletionItemKind, Range, TextDocument, Position } from 'vscode';
+import { languages, CompletionItem, CompletionItemKind, TextDocument, Position, CompletionContext } from 'vscode';
 import definitions from './definitions';
-import { GlobalSourceImport, SourceImports } from './extension';
+import { GlobalSourceImport, ObjectSourceImport, SourceImports } from './extension';
 import PATTERNS from './patterns';
 
 function getVariableCompletions(text: string, scope: string): CompletionItem[] {
@@ -113,36 +113,57 @@ function getCompletions(text: string, scope: string) {
 
 }
 
-function provideCompletionItems(document: TextDocument, position: Position): CompletionItem[] {
+function provideCompletionItems(document: TextDocument, position: Position, _token, context: CompletionContext): CompletionItem[] {
   // Gather the functions created by the user
   const text = document.getText();
-  let range = document.getWordRangeAtPosition(position);
-
-  if (!range)
-    range = new Range(position, position);
+  const codeAtPosition = document.lineAt(position).text.substring(0, position.character);
 
   // Remove completion offerings from commented lines
   const line = document.lineAt(position);
   if (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
     return [];
 
-  if (PATTERNS.VAR_COMPLS.test(line.text))
+  if (PATTERNS.VAR_COMPLS.test(codeAtPosition))
     return [];
 
   const retCI: CompletionItem[] = [];
 
-  retCI.push(...getCompletions(text, "Local"));
+  if (/.*\.\w*$/.test(codeAtPosition)) {
+    if (/.*\bErr\.\w*$/i.test(codeAtPosition)) {
+      const Obj = /Class Err.*?End Class/is.exec(ObjectSourceImport);
+      retCI.push(...getFunctionCompletions(Obj[0], "Err"), ...getPropertyCompletions(Obj[0], "Err"));
+    } else if (/.*\bWScript\.\w*$/i.test(codeAtPosition)) {
+      const Obj = /Class WScript.*?End Class/is.exec(ObjectSourceImport);
+      retCI.push(...getFunctionCompletions(Obj[0], "WScript"), ...getPropertyCompletions(Obj[0], "WScript"));
+    } else if (/.*fso\.\w*$/i.test(codeAtPosition)) { // dirty!
+      const Obj = /Class FileSystemObject.*?End Class/is.exec(ObjectSourceImport);
+      retCI.push(...getFunctionCompletions(Obj[0], "FSO"), ...getPropertyCompletions(Obj[0], "FSO"));
+    } else {
+      retCI.push(...getCompletions(text, "Local"));
 
-  retCI.push(...getCompletions(GlobalSourceImport, "Global"));
+      retCI.push(...getFunctionCompletions(ObjectSourceImport, "Object"), ...getPropertyCompletions(ObjectSourceImport, "Object"));
 
-  SourceImports.forEach(ImportDoc => {
-    retCI.push(...getCompletions(ImportDoc, "Import"));
-  });
+      SourceImports.forEach(ImportDoc => {
+        retCI.push(...getCompletions(ImportDoc, "Import"));
+      });
+    }
+  } else {
+    retCI.push(...definitions);
+    retCI.push(...getCompletions(text, "Local"));
 
-  return [...definitions, ...retCI];
+    retCI.push(...getClassCompletions(ObjectSourceImport, "Global"));
+
+    retCI.push(...getCompletions(GlobalSourceImport, "Global"));
+
+    SourceImports.forEach(ImportDoc => {
+      retCI.push(...getCompletions(ImportDoc, "Import"));
+    });
+  }
+
+  return retCI;
 }
 
 export default languages.registerCompletionItemProvider(
   { scheme: 'file', language: 'vbs' },
-  { provideCompletionItems }
+  { provideCompletionItems }, "."
 );

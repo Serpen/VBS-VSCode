@@ -1,5 +1,5 @@
 import { languages, SignatureHelp, SignatureInformation, ParameterInformation, TextDocument, Position } from 'vscode';
-import { GlobalSourceImport, SourceImports } from './extension';
+import { GlobalSourceImport, ObjectSourceImport, SourceImports } from './extension';
 import PATTERNS from './patterns';
 
 /**
@@ -57,14 +57,17 @@ function getSignatures(text: string, docComment: string): Map<string, SignatureI
   let map = new Map<string, SignatureInformation[]>();
   let matches: RegExpExecArray | null;
   while ((matches = PATTERNS.FUNCTION.exec(text)) !== null) {
-    const name = matches[5].toLowerCase()
+    const name = matches[5].toLowerCase();
+    let documentation = "";
 
     if (matches[1]) {
       const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
       if (summary)
-        docComment = summary[1];
+        documentation = summary[1];
+      else
+        documentation = docComment;
     }
-    const si = new SignatureInformation(matches[4], docComment);
+    const si = new SignatureInformation(matches[4], documentation);
     matches[6].split(",").forEach(element => {
       let paramInfo = "";
       if (matches![1]) {
@@ -105,12 +108,15 @@ export default languages.registerSignatureHelpProvider({ scheme: 'file', languag
         sigs.activeSignature = 0;
       sigs.activeParameter = caller.commas;
 
-      let sig : SignatureInformation[] | undefined;
+      let sig: SignatureInformation[] | undefined;
       if ((sig = getSignatures(document.getText(), "Local").get(caller.func)) !== undefined) {
         sigs.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length > caller.commas));
       }
 
       if ((sig = getSignatures(GlobalSourceImport, "Global").get(caller.func)) !== undefined) {
+        sigs.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length > caller.commas));
+      }
+      if ((sig = getSignatures(ObjectSourceImport, "Object").get(caller.func)) !== undefined) {
         sigs.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length > caller.commas));
       }
       SourceImports.forEach(SourceImport => {
