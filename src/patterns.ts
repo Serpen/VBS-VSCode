@@ -4,9 +4,9 @@ const CLASS = /((?:^[\t ]*'+.*(?:\n|\r\n))+)*[\t ]*(?:Public[\t ]+|Private[\t ]+
 
 const PROP = /((?:^[\t ]*'+.*(?:\n|\r\n))+)*[\t ]*((?:Public[\t ]+(?:Default[\t ]+)?|Private[\t ]+)?Property[\t ]+(Get|Let|Set)[\t ]+([a-z]\w*))/img;
 
-const VAR2 = /(?<!'\s*)(?:^|:)[\t ]*(Dim|Set|Const|Private[\t ]+Const|Public[\t ]+Const|Private|Public)[\t ]+(?!Sub|Function|Class|Property)([a-z0-9_]+(?:[\t ]*,[\t ]*[a-z0-9_]+)*)[\t ]*/img;
-const VAR_COMMENT = /(?<!'\s*)(?:^|:)[\t ]*((Dim|(?:Private[\t ]*|Public[\t ]*)?Const)[\t ]+(?!Sub|Function|Class|Property)([a-z]\w*)(?:\s*=\s*[^'\n\r]+)?)(?:'\s*(.+))?$/img;
-const VAR_COMPLS = /^[\t ]*(Dim|Const|((Private|Public)[\t ]+)?(Function|Sub|Class|Property [GLT]et))[\t ]+/i; //fix: should again after var name
+const VAR2 = /(?<!'\s*)(?:^|:)[\t ]*(Dim|Set|Const|Private[\t ]+Const|Public[\t ]+Const|Private|Public)[\t ]+(?!Sub|Function|Class|Property)([a-z0-9_]+(?:[\t ]*\([\t ]*\d*[\t ]*\))?(?:[\t ]*,[\t ]*[a-z0-9_]+(?:[\t ]*\([\t ]*\d*[\t ]*\))?)*)[\t ]*/img;
+const VAR_COMMENT = /(?<!'\s*)(?:^|:)[\t ]*((Dim|(?:Private[\t ]*|Public[\t ]*)?Const)[\t ]+(?!Sub|Function|Class|Property)([a-z]\w*)(?:[\t ]*\([\t ]*\d*[\t ]*\))?(?:\s*=\s*[^'\n\r]+)?)(?:'\s*(.+))?$/img;
+const VAR_COMPLS = /^[\t ]*(Dim|Const|((Private|Public)[\t ]+)?(Function|Sub|Class|Property [GLT]et))[\t ]+/i; //fix: should again after var name #22
 
 function DEF(input: string, word: string) {
   return new RegExp(

@@ -3,6 +3,8 @@
 Function Abs(expr)
 End Function
 
+''' <summary>Returns a Variant containing an array.</summary>
+''' <param name="arglist">arglist argument is a comma-delimited list of values that are assigned to the elements of an array</param>
 Function Array(arglist)
 End Function
 
@@ -658,6 +660,6 @@ Const vbRed = &hFF
 Const vbWhite = &hFFFFFF
 Const vbYellow = &hFFFF
 
-Const SystemFolder = 1
-Const TemporaryFolder = 2
-Const WindowsFolder = 0
+' Const SystemFolder = 1
+' Const TemporaryFolder = 2
+' Const WindowsFolder = 0

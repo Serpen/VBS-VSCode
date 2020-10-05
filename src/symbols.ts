@@ -74,6 +74,8 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
                     symKind = SymbolKind.Constant;
                   else if (/\bSet\b/i.test(matches[0]))
                     symKind = SymbolKind.Struct;
+                  else if (/\w+[\t ]*\([\t ]*\d*[\t ]*\)/i.test(name))
+                    symKind = SymbolKind.Array;
                   let r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR2.lastIndex);
                   const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
                   if (Blocks.length == 0)
