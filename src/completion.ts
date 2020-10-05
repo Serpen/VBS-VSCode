@@ -128,6 +128,15 @@ function provideCompletionItems(document: TextDocument, position: Position, _tok
 
   const retCI: CompletionItem[] = [];
 
+  if (/\s+\.$/.test(codeAtPosition))
+    return [];
+  
+  let count : number = 0;
+  for (let i = 0; i < codeAtPosition.length; i++)
+    if (codeAtPosition[i] == '"') count++;
+  if (count % 2 == 1)
+    return [];
+
   if (/.*\.\w*$/.test(codeAtPosition)) {
     if (/.*\bErr\.\w*$/i.test(codeAtPosition)) {
       const Obj = /Class Err.*?End Class/is.exec(ObjectSourceImport);
