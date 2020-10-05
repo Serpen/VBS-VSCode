@@ -14,6 +14,12 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
     if (!new RegExp(`^[^']*${word}`).test(line))
       return null;
 
+    let count : number = 0;
+    for (let i = 0; i < position.character; i++)
+      if (line[i] == '"') count++;
+    if (count % 2 == 1)
+      return null;
+
 
     let matches = PATTERNS.DEF(document.getText(), word);
     if (matches)
