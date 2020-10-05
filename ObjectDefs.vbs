@@ -397,3 +397,25 @@ Class WScript
 	End Property
 
 End Class
+
+Private Class Picture
+
+	Property Get Handle
+	End Property
+
+	Sub Render(hdc, x, y, cx, cy, xSrc, ySrc, cxSrc, cySrc, prcWBounds)
+	End Sub
+
+	Property Get Height
+	End Property
+
+	Property Get hPal
+	End Property
+
+	Property Get Type
+	End Property
+
+	Property Get Width
+	End Property
+
+End Class
