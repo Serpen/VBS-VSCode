@@ -63,7 +63,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
             BlockEnds.push("property");
 
           } else if (showVariableSymbols) {
-            while ((matches = PATTERNS.VAR2.exec(lineText)) !== null) {
+            while ((matches = PATTERNS.VAR.exec(lineText)) !== null) {
               const varNames = matches[2].split(',');
               for (let i = 0; i < varNames.length; i++) {
                 let name = varNames[i].trim();
@@ -76,7 +76,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
                     symKind = SymbolKind.Struct;
                   else if (/\w+[\t ]*\([\t ]*\d*[\t ]*\)/i.test(name))
                     symKind = SymbolKind.Array;
-                  let r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR2.lastIndex);
+                  let r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR.lastIndex);
                   const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
                   if (Blocks.length == 0)
                     result.push(variableSymbol);

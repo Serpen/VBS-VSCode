@@ -8,22 +8,24 @@ function getVariableCompletions(text: string, scope: string): CompletionItem[] {
   const foundVals = {};
 
   let matches: RegExpMatchArray;
-  while ((matches = PATTERNS.VAR_COMMENT.exec(text)) !== null) {
-    const name = matches[3];
+  while ((matches = PATTERNS.VAR.exec(text)) !== null) {
+    matches[2].split(",").forEach(match => {
+      const name = match.trim();
 
-    if (!(name in foundVals)) {
-      let itmKind = CompletionItemKind.Variable;
-      if (matches[1].toLowerCase().indexOf("const") > 0)
-        itmKind = CompletionItemKind.Constant;
+      if (!(name in foundVals)) {
+        let itmKind = CompletionItemKind.Variable;
+        if (matches[1].toLowerCase().indexOf("const") > 0)
+          itmKind = CompletionItemKind.Constant;
 
-      const ci = new CompletionItem(name, itmKind);
-      ci.documentation = matches[4];
+        const ci = new CompletionItem(name, itmKind);
+        ci.documentation = matches[3];
 
-      ci.detail = `[${scope}] ` + matches[1];
+        ci.detail = matches[0] + ` [${scope}]`;
 
-      foundVals[name] = true;
-      CIs.push(ci);
-    }
+        foundVals[name] = true;
+        CIs.push(ci);
+      }
+    });
   }
 
   return CIs;
@@ -130,8 +132,8 @@ function provideCompletionItems(document: TextDocument, position: Position, _tok
 
   if (/\s+\.$/.test(codeAtPosition))
     return [];
-  
-  let count : number = 0;
+
+  let count: number = 0;
   for (let i = 0; i < codeAtPosition.length; i++)
     if (codeAtPosition[i] == '"') count++;
   if (count % 2 == 1)
