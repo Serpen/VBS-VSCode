@@ -50,7 +50,7 @@ function getFunctionCompletions(text: string, scope: string): CompletionItem[] {
         ci.documentation = summary?.[1];
       }
 
-      ci.detail = `[${scope}] ` + matches[2];
+      ci.detail = matches[2] + ` [${scope}]`;;
 
       foundFunctions[functionName] = true;
       CIs.push(ci);
@@ -76,7 +76,7 @@ function getPropertyCompletions(text: string, scope: string): CompletionItem[] {
         ci.documentation = summary?.[1];
       }
 
-      ci.detail = `[${scope}] ` + matches[2];
+      ci.detail = matches[2] + ` [${scope}]`;;
 
       foundVals[name] = true;
       CIs.push(ci);
@@ -102,7 +102,7 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
         ci.documentation = summary?.[1];
       }
 
-      ci.detail = `[${scope}] ` + name
+      ci.detail = name + ` [${scope}]`;
       CIs.push(ci);
     }
   }
@@ -112,7 +112,6 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
 
 function getCompletions(text: string, scope: string) {
   return [...getVariableCompletions(text, scope), ...getFunctionCompletions(text, scope), ...getPropertyCompletions(text, scope), ...getClassCompletions(text, scope)];
-
 }
 
 function provideCompletionItems(document: TextDocument, position: Position, _token, context: CompletionContext): CompletionItem[] {
