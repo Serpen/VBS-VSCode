@@ -1,4 +1,4 @@
-const FUNCTION = /((?:^[\t ]*'+.*(?:\n|\r\n))+)*[\t ]*((?:Public[\t ]+|Private[\t ]+)?(Function|Sub)[\t ]+(([a-z]\w*)[\t ]*(?:\((.*)\))?))\s*$/img;
+const FUNCTION = /((?:^[\t ]*'+.*(?:\n|\r\n))+)*[\t ]*((?:Public[\t ]+|Private[\t ]+)?(Function|Sub)[\t ]+(([a-z]\w*)[\t ]*(?:\((.*)\))?))\s*/img;
 
 const CLASS = /((?:^[\t ]*'+.*(?:\n|\r\n))+)*[\t ]*(?:Public[\t ]+|Private[\t ]+)?Class[\t ]+([a-z]\w*)/img;
 
