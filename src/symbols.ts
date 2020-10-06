@@ -66,7 +66,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
             while ((matches = PATTERNS.VAR.exec(lineText)) !== null) {
               const varNames = matches[2].split(',');
               for (let i = 0; i < varNames.length; i++) {
-                let name = varNames[i].trim();
+                let name = varNames[i].replace(PATTERNS.ARRAYBRACKETS, '').trim();
                 if (varList.indexOf(name) == -1 || !(/\bSet\b/i.test(matches[0]))) { // match multiple same Dim, but not an additional set to a dim
                   varList.push(name);
                   let symKind = SymbolKind.Variable;
@@ -74,7 +74,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
                     symKind = SymbolKind.Constant;
                   else if (/\bSet\b/i.test(matches[0]))
                     symKind = SymbolKind.Struct;
-                  else if (/\w+[\t ]*\([\t ]*\d*[\t ]*\)/i.test(name))
+                  else if (/\w+[\t ]*\([\t ]*\d*[\t ]*\)/i.test(varNames[i]))
                     symKind = SymbolKind.Array;
                   let r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR.lastIndex);
                   const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);

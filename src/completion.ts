@@ -10,7 +10,7 @@ function getVariableCompletions(text: string, scope: string): CompletionItem[] {
   let matches: RegExpMatchArray;
   while ((matches = PATTERNS.VAR.exec(text)) !== null) {
     matches[2].split(",").forEach(match => {
-      const name = match.trim();
+      const name = match.replace(PATTERNS.ARRAYBRACKETS, '').trim();
 
       if (!(name in foundVals)) {
         let itmKind = CompletionItemKind.Variable;

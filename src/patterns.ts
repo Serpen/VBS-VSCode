@@ -18,4 +18,5 @@ export const PARAM_SUMMARY = (input: string, word: string) => new RegExp(`'''\\s
 
 export const ENDLINE = (/(?:^|:)[\t ]*End\s+(Sub|Class|Function|Property)/i);
 
+export const ARRAYBRACKETS = /\(\s*\d*\s*\)/;
 
