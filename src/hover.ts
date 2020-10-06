@@ -1,5 +1,5 @@
 import { languages, Hover, TextDocument, Position } from 'vscode';
-import PATTERNS from './patterns';
+import * as PATTERNS from './patterns';
 import { GlobalSourceImport, ObjectSourceImport, SourceImports } from './extension';
 
 export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs' }, {

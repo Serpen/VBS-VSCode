@@ -1,7 +1,7 @@
 import { languages, CompletionItem, CompletionItemKind, TextDocument, Position, CompletionContext } from 'vscode';
 import definitions from './definitions';
 import { GlobalSourceImport, ObjectSourceImport, SourceImports } from './extension';
-import PATTERNS from './patterns';
+import * as PATTERNS from './patterns';
 
 function getVariableCompletions(text: string, scope: string): CompletionItem[] {
   const CIs: CompletionItem[] = [];

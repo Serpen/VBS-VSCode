@@ -1,5 +1,5 @@
 import { languages, SymbolKind, DocumentSymbol, Range, workspace } from 'vscode';
-import PATTERNS from './patterns';
+import * as PATTERNS from './patterns';
 
 export default languages.registerDocumentSymbolProvider({ scheme: 'file', language: 'vbs' }, {
   provideDocumentSymbols(doc) {

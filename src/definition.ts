@@ -1,6 +1,6 @@
 import { languages, Location, TextDocument, Position, Uri } from 'vscode';
 import { GlobalSourceImport, GlobalSourceImportFile, ObjectSourceImport, ObjectSourceImportFile, SourceImportFiles, SourceImports as SourceImports } from './extension';
-import PATTERNS from './patterns';
+import * as PATTERNS from './patterns';
 
 export default languages.registerDefinitionProvider({ scheme: 'file', language: 'vbs' }, {
   provideDefinition(document: TextDocument, position: Position) {

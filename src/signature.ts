@@ -1,6 +1,6 @@
 import { languages, SignatureHelp, SignatureInformation, ParameterInformation, TextDocument, Position } from 'vscode';
 import { GlobalSourceImport, ObjectSourceImport, SourceImports } from './extension';
-import PATTERNS from './patterns';
+import * as PATTERNS from './patterns';
 
 /**
  * Reduces a partial line of code to the current Function for parsing
