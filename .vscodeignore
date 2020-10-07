@@ -10,3 +10,4 @@ node_modules
 **/*.map
 build.ps1
 tsconfig.json
+assets/**
