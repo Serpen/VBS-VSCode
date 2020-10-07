@@ -1,6 +1,6 @@
 .vscode/**
 .vscode-test/**
-test/**
+tests/**
 .gitignore
 src/
 node_modules
@@ -8,3 +8,5 @@ node_modules
 .prettierrc.json
 .cache
 **/*.map
+build.ps1
+tsconfig.json

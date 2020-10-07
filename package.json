@@ -2,14 +2,15 @@
   "name": "vbscript",
   "displayName": "VBScript",
   "description": "VBScript Language Support",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "publisher": "Serpen",
+  "icon": "assets/logo.png",
   "galleryBanner": {
-    "color": "#254768",
-    "theme": "dark"
+    "color": "#6EE5E5",
+    "theme": "light"
   },
   "engines": {
-    "vscode": "^1.14.0"
+    "vscode": "^1.32.0"
   },
   "categories": [
     "Programming Languages",
@@ -19,6 +20,9 @@
     "VBS",
     "VBScript"
   ],
+  "bugs": {
+    "url": "https://github.com/Serpen/VBS-VSCode/issues"
+  },
   "license": "MIT",
   "main": "./dist/extension",
   "activationEvents": [
@@ -26,9 +30,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Serpen/VBS-VSCode"
+    "url": "https://github.com/Serpen/VBS-VSCode.git"
   },
-  "homepage": "https://github.com/Serpen/VBS-VSCode/blob/master/README.md",
+  "homepage": "https://github.com/Serpen/VBS-VSCode",
   "contributes": {
     "languages": [
       {
@@ -38,15 +42,7 @@
           "vbs"
         ],
         "extensions": [
-          ".vbs",
-          ".vba",
-          ".bas",
-          ".vbe",
-          ".wsf",
-          ".wsc",
-          ".acm",
-          ".acr",
-          ".acf"
+          ".vbs"
         ],
         "configuration": "./syntaxes/language-configuration.json"
       }
@@ -126,7 +122,7 @@
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^14.11.2",
-    "@types/vscode": "^1.49.0",
+    "@types/vscode": "^1.32.0",
     "eslint": "^7.10.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.12.0",
