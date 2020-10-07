@@ -6,15 +6,16 @@ This extension implements basic language features of Visual Basic Script/VBScrip
 - Completion / Autovervollständigung
 
 ![Outline](assets/Completion-And-Outline.png)
-- Goto Definition
+- Goto Definition / Gehe zu Definition
 - Run (no debugging)
-- Hover
+- Hover / 
 
 ![Hover](assets/Hover.png)
-- Signatures
+- Signatures / Signaturen
 
 ![Hover](assets/Signature.png)
-- Extend Completion with an extra VBS Language extending code file
+
+- Add extra VBS Source (libraries) files for extra completion
 
 ## Configuration
 | Config                 | Description                          

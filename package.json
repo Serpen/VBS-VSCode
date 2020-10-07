@@ -1,6 +1,6 @@
 {
-  "name": "vbscript",
-  "displayName": "VBScript",
+  "name": "vbsvscode",
+  "displayName": "VBS-VSCode",
   "description": "VBScript Language Support",
   "version": "1.0.0",
   "publisher": "Serpen",
