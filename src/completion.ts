@@ -92,7 +92,7 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
 
   let matches;
   while ((matches = PATTERNS.CLASS.exec(text)) !== null) {
-    const name = matches[2];
+    const name = matches[3];
     if (!(name in foundVals)) {
       foundVals[name] = true;
       let ci = new CompletionItem(name, CompletionItemKind.Class);

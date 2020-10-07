@@ -35,7 +35,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
           let matches: RegExpMatchArray | null = [];
 
           if ((matches = CLASS.exec(lineText)) !== null) {
-            name = matches[2];
+            name = matches[3];
             symbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
             BlockEnds.push("class")
 
@@ -107,11 +107,6 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
         });
       }
     } // next linenum
-
-    if (BlockEnds.length > 0)
-      console.log(BlockEnds);
-    if (Blocks.length > 0)
-      console.log(Blocks);
 
     return result;
   },
