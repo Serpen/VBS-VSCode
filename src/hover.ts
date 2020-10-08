@@ -14,7 +14,7 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
     if (!new RegExp(`^[^']*${word}`).test(line))
       return null;
 
-    let count : number = 0;
+    let count: number = 0;
     for (let i = 0; i < position.character; i++)
       if (line[i] == '"') count++;
     if (count % 2 == 1)
@@ -23,19 +23,26 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
 
     let matches = PATTERNS.DEF(document.getText(), word);
     if (matches)
-      if (matches[1].startsWith("\t"))
-        return new Hover(matches[1] + "\n[Local]");
-      else
-        return new Hover("\t" + matches[1] + "\n[Local]"); // why??
-
+      if (matches[1]) {
+        let summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
+        if (summary[1])
+          return new Hover({ language: "vbs", value: matches[2] + " ' [Local]\n' " + summary[1] });
+        else
+          return new Hover({ language: "vbs", value: matches[2] + " ' [Local]" });
+      } else
+        return new Hover({ language: "vbs", value: matches[2] + " ' [Local]" });
 
     for (const ExtraDocText of [GlobalSourceImport, ObjectSourceImport, ...SourceImports]) {
       matches = PATTERNS.DEF(ExtraDocText, word);
       if (matches)
-        if (matches[1].startsWith("\t"))
-          return new Hover(matches[1] + "\n[Import/Global]");
+      if (matches[1]) {
+        let summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
+        if (summary[1])
+          return new Hover({ language: "vbs", value: matches[2] + " ' [Import/Global]\n' " + summary[1] });
         else
-          return new Hover("\t" + matches[1] + "\n[Import/Global]"); // why??
+          return new Hover({ language: "vbs", value: matches[2] + " ' [Import/Global]" });
+      } else
+        return new Hover({ language: "vbs", value: matches[2] + " ' [Import/Global]" });
     }
   },
 });

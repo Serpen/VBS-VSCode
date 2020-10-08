@@ -9,7 +9,7 @@ export const VAR_COMPLS = /^[\t ]*(Dim|Const|((Private|Public)[\t ]+)?(Function|
 
 export function DEF(input: string, word: string) {
   return new RegExp(
-    `^[^'\\n\\r]*(\\b(?:Class|Const|Dim|Function|Property[\\t ][GLS]et|Sub)\\b[\\t ]+[\\w,\\t ]*\\b${word}\\b(?:[\\t ]*\(.*\))?)(?<!.*\\bRem\\b.*)`
+    `((?:^'.*$(?:\r\n|\n))*)^[^'\\n\\r]*(\\b(?:Class|Const|Dim|Function|Property[\\t ][GLS]et|Sub)\\b[\\t ]+[\\w,\\t ]*\\b${word}\\b(?:[\\t ]*\(.*\))?)(?<!.*\\bRem\\b.*)`
     , "im").exec(input);
 }
 
