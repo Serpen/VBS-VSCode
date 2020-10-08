@@ -5,15 +5,15 @@ This extension implements basic language features of Visual Basic Script/VBScrip
 - Outline / Gliederung
 - Completion / Autovervollständigung
 
-![Outline](assets/Completion-And-Outline.png)
+![Outline](assets/docs/Completion-And-Outline.png)
 - Goto Definition / Gehe zu Definition
 - Run (no debugging)
 - Hover / 
 
-![Hover](assets/Hover.png)
+![Hover](assets/docs/Hover.png)
 - Signatures / Signaturen
 
-![Hover](assets/Signature.png)
+![Hover](assets/docs/Signature.png)
 
 - Add extra VBS Source (libraries) files for extra completion
 
