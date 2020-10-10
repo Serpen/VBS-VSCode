@@ -43,11 +43,11 @@ export function runScript() {
     return;
   const thisDoc = window.activeTextEditor.document; // Get the object of the text editor
   // Save the file
-  thisDoc.save();
+  thisDoc.save().then(v => {
+    window.setStatusBarMessage('Running the script...', 1500);
 
-  window.setStatusBarMessage('Running the script...', 1500);
-
-  procRunner(cscript, [thisDoc.fileName]);
+    procRunner(cscript, [thisDoc.fileName]);
+  });
 }
 
 export function killScript() {
