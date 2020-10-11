@@ -1,6 +1,9 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2019
+  },
   "plugins": [
     "@typescript-eslint"
   ],
@@ -8,5 +11,17 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
-  ]
+  ],
+  "rules": {
+    "max-len": ["error", { "code": 150 }],
+    "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-use-before-define": "warn",
+    "no-caller": "error",
+    "no-shadow": "warn",
+    "prefer-const": "warn",
+    "quotes": ["warn", "double", {"avoidEscape": true}],
+    "@typescript-eslint/semi": ["error", "always", { "beforeStatementContinuationChars": "always" }],
+    "eqeqeq": ["error", "always"],
+    "no-multi-spaces": ["error", { "ignoreEOLComments": true }]
+  }
 }
