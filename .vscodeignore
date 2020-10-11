@@ -11,3 +11,4 @@ node_modules
 build.ps1
 tsconfig.json
 assets/docs/**
+.github/
