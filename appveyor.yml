@@ -2,7 +2,6 @@ environment:
   VSCODE_BUILD_VERBOSE: true
 
 install:
-  - ps: Install-Product node
   - npm install -g npm --silent
 
 build_script:
