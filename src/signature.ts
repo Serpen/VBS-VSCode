@@ -68,14 +68,14 @@ function getSignatures(text: string, docComment: string): Map<string, SignatureI
         documentation = docComment;
     }
     const si = new SignatureInformation(matches[4], documentation);
-    matches[6]?.split(",").forEach(element => {
-      let paramInfo = "";
+    matches[6]?.split(",").forEach(param => {
+      const pi = new ParameterInformation(param.trim());
       if (matches![1]) {
-        const param = PATTERNS.PARAM_SUMMARY(matches![1], element.trim());
-        if (param)
-          paramInfo = param[1];
+        const paramComment = PATTERNS.PARAM_SUMMARY(matches![1], param.trim());
+        if (paramComment)
+          pi.documentation = paramComment[1];
       }
-      si.parameters.push(new ParameterInformation(element.trim(), paramInfo));
+      si.parameters.push(pi);
     });
 
 
