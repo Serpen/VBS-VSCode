@@ -31,7 +31,7 @@ function getVariableCompletions(text: string, scope: string): CompletionItem[] {
   return CIs;
 }
 
-function getFunctionCompletions(text: string, scope: string): CompletionItem[] {
+function getFunctionCompletions(text: string, scope: string, parseParams: boolean = false): CompletionItem[] {
   const CIs: CompletionItem[] = [];
   const foundVals = new Array<string>();
 
@@ -49,6 +49,18 @@ function getFunctionCompletions(text: string, scope: string): CompletionItem[] {
         const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
         ci.documentation = summary?.[1];
       }
+
+      if (parseParams)
+        matches[6]?.split(",").forEach(param => {
+          const paramCI = new CompletionItem(param.trim(), CompletionItemKind.Variable);
+          if (matches![1]) {
+            const paramComment = PATTERNS.PARAM_SUMMARY(matches![1], param.trim());
+            if (paramComment)
+              paramCI.documentation = paramComment[1];
+          }
+
+          CIs.push(paramCI);  //new ParameterInformation(element.trim(), paramInfo));
+        });
 
       ci.detail = matches[2] + ` [${scope}]`;;
 
@@ -110,8 +122,8 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
   return CIs;
 }
 
-function getCompletions(text: string, scope: string) {
-  return [...getVariableCompletions(text, scope), ...getFunctionCompletions(text, scope), ...getPropertyCompletions(text, scope), ...getClassCompletions(text, scope)];
+function getCompletions(text: string, scope: string, parseParams : boolean = false) {
+  return [...getVariableCompletions(text, scope), ...getFunctionCompletions(text, scope, parseParams), ...getPropertyCompletions(text, scope), ...getClassCompletions(text, scope)];
 }
 
 function provideCompletionItems(document: TextDocument, position: Position, _token, context: CompletionContext): CompletionItem[] {
@@ -159,7 +171,7 @@ function provideCompletionItems(document: TextDocument, position: Position, _tok
     }
   } else {
     retCI.push(...definitions);
-    retCI.push(...getCompletions(text, "Local"));
+    retCI.push(...getCompletions(text, "Local", true));
 
     retCI.push(...getClassCompletions(ObjectSourceImport, "Global"));
 
