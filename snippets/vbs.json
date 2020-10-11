@@ -34,6 +34,14 @@
 		"description": "New Dictionary..."
 	},
 
+	"wmiquery": {
+		"prefix": "wmi query",
+		"body": [
+			"Set ${1:WmiQuery} = GetObject(\"winmgmts:\").ExecQuery(\"SELECT * FROM ${2:Win32_Class}\")"
+		],
+		"description": "Execute WMI Query"
+	},
+
 	"new function": {
 		"prefix": "Function",
 		"body": [
