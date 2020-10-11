@@ -1,72 +1,53 @@
 {
-  "As": {
-    "documentation": ""
-  },
   "ByRef": {
-    "label": "ByRef",
     "documentation": ""
   },
   "ByVal": {
-    "label": "ByVal",
     "documentation": ""
   },
   "Call": {
-    "label": "Call",
-    "documentation": ""
+    "documentation": "Transfers control to a Sub procedure or Function procedure"
   },
   "Class": {
-    "label": "Class",
     "documentation": ""
   },
   "Const": {
-    "label": "Const",
     "documentation": ""
   },
   "Dim": {
-    "label": "Dim",
     "documentation": ""
   },
   "Do": {
     "documentation": ""
   },
+  "Each": {
+    "documentation": ""
+  },
   "Else": {
-    "label": "Else",
     "documentation": ""
   },
   "Empty": {
-    "label": "Empty",
     "documentation": "The Empty keyword is used to indicate an uninitialized variable value. This is not the same thing as Null. You can use the IsEmpty Function to determine whether a variable is initialized."
   },
   "End": {
-    "label": "End",
     "documentation": ""
   },
   "Erase": {
-    "label": "Erase",
     "documentation": ""
   },
   "Execute": {
-    "label": "Execute",
     "documentation": ""
   },
   "ExecuteGlobal": {
-    "label": "ExecuteGlobal",
     "documentation": ""
   },
   "Exit": {
-    "label": "Exit",
     "documentation": ""
   },
   "For": {
-    "label": "For",
-    "documentation": ""
-  },
-  "For Each": {
-    "label": "For Each",
     "documentation": ""
   },
   "Function": {
-    "label": "Function",
     "documentation": ""
   },
   "If": {
@@ -76,109 +57,84 @@
     "documentation": ""
   },
   "Loop": {
-    "label": "Loop",
     "documentation": ""
   },
   "New": {
-    "label": "New",
     "documentation": ""
   },
   "Next": {
-    "label": "Next",
     "documentation": ""
   },
   "Nothing": {
-    "label": "Nothing",
     "documentation": ""
   },
   "Null": {
-    "label": "Null",
     "documentation": ""
   },
   "Option Explicit": {
-    "documentation": "Used at script level to force explicit declaration of all variables in that script. "
+    "documentation": "Used at script level to force explicit declaration of all variables in that script."
   },
   "On Error Resume Next": {
-    "label": "",
-    "documentation": ""
+    "documentation": "Specifies that when a run-time error occurs, control goes to the statement immediately following the statement where the error occurred and execution continues"
   },
-  "On Error Goto": {
-    "label": "",
-    "documentation": ""
+  "On Error Goto 0": {
+    "documentation": "Disables any enabled error handler in the current procedure."
   },
   "Redim Preserve": {
-    "label": "Redim Preserve",
     "documentation": ""
   },
   "Property Get": {
-    "label": "Property Get",
-    "documentation": ""
+    "documentation": "Property procedure, which gets the value of a property."
   },
   "Property Let": {
-    "label": "Property Let",
-    "documentation": ""
+    "documentation": "Property procedure, which assigns a value to a property."
   },
   "Property Set": {
-    "label": "Property Set",
-    "documentation": ""
+    "documentation": "Property procedure, which sets a reference to an object."
   },
   "Private": {
-    "label": "Private",
     "documentation": ""
   },
   "Public": {
-    "label": "Public",
     "documentation": ""
   },
   "Randomize": {
-    "label": "Randomize",
-    "documentation": ""
+    "documentation": "Initializes the random-number generator."
   },
   "ReDim": {
-    "label": "ReDim",
-    "documentation": ""
+    "documentation": "Used at the procedure level to reallocate storage space for dynamic array variables."
   },
   "Rem": {
-    "label": "Rem",
     "documentation": ""
   },
   "Select Case": {
-    "label": "Select Case",
-    "documentation": ""
-  },
-  "Static": {
-    "label": "Static",
     "documentation": ""
   },
   "Stop": {
-    "label": "Stop",
     "documentation": ""
   },
+  "Step": {
+    "documentation": "Amount counter is changed each time through the loop. If not specified, step defaults to one."
+  },
   "Sub": {
-    "label": "Sub",
     "documentation": ""
   },
   "Then": {
-    "label": "Then",
     "documentation": ""
   },
   "To": {
     "documentation": ""
   },
   "Until": {
-    "label": "Until",
     "documentation": ""
   },
   "Wend": {
-    "label": "Wend",
     "documentation": ""
   },
   "While": {
-    "label": "While",
     "documentation": ""
   },
   "With": {
-    "label": "With",
     "documentation": ""
   }
 }

@@ -1,33 +1,26 @@
 {
     "And": {
-        "label": "And",
         "documentation": "Performs a logical conjunction on two expressions."
     },
     "Eqv": {
-        "label": "Eqv",
         "documentation": ""
     },
     "Imp": {
-        "label": "Imp",
         "documentation": "undocumented Used to perform a logical implication on two expressions."
     },
     "Is": {
         "documentation": "Used to compare two object reference variables."
     },
     "Mod": {
-        "label": "Mod",
         "documentation": "Divides two integers and returns the integer remainder."
     },
     "Not": {
-        "label": "Not",
         "documentation": "Performs logical negation on an expression."
     },
     "Or": {
-        "label": "Or",
         "documentation": "Performs a logical disjunction on two expressions."
     },
     "Xor": {
-        "label": "Xor",
         "documentation": "Performs a logical exclusion on two expressions."
     }
 }
