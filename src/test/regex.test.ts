@@ -12,7 +12,7 @@ describe('Function matching', () => {
   it('parse function type', () => {
     strictEqual(matchresult[3], "function")
   });
-  it('parse function def2', () => {
+  it('parse function sig def', () => {
     strictEqual(matchresult[4], "myFunction(param1)")
   });
   it('parse function name', () => {

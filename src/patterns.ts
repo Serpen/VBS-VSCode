@@ -1,5 +1,5 @@
 /**
- * Matches a Function, 1st = Comment, 2nd = Definition, 3rd = Function/Sub, 4th = ?, 5th = Name, 6th = params
+ * Matches a Function, 1st = Comment, 2nd = Definition, 3rd = Function/Sub, 4th = Signature def, 5th = Name, 6th = params
  */
 export const FUNCTION = /((?:^[\t ]*'+.*$(?:\r\n|\n))*)^[\t ]*((?:(?:Public|Private)[\t ]+)?(Function|Sub)[\t ]+(([a-z]\w*)[\t ]*(?:\((.*)\))?))/img;
 
