@@ -11,8 +11,8 @@ export let GlobalSourceImport: string = '';
 export let GlobalSourceImportFile: string = '';
 export let ObjectSourceImport: string = '';
 export let ObjectSourceImportFile: string = '';
-export let SourceImports : string[] = [];
-export let SourceImportFiles : string[] = [];
+export let SourceImports: string[] = [];
+export let SourceImportFiles: string[] = [];
 
 function reloadImportDocuments() {
   SourceImports = [];
@@ -22,7 +22,7 @@ function reloadImportDocuments() {
       SourceImportFile = workspace.workspaceFolders[0].uri.fsPath + SourceImportFile.substr(1);
       SourceImportFiles[index] = SourceImportFile;
     }
-    if (SourceImportFile != '' && fs.statSync(SourceImportFile)) {
+    if (SourceImportFile !== '' && fs.statSync(SourceImportFile)) {
       const ExtraDocumentText = fs.readFileSync(SourceImportFile).toString();
 
       SourceImports.push(ExtraDocumentText);
@@ -41,7 +41,7 @@ export function activate(context: ExtensionContext) {
 
   GlobalSourceImportFile = context.asAbsolutePath("./GlobalDefs.vbs");
   GlobalSourceImport = fs.readFileSync(GlobalSourceImportFile).toString();
-  
+
   ObjectSourceImportFile = context.asAbsolutePath("./ObjectDefs.vbs");
   ObjectSourceImport = fs.readFileSync(ObjectSourceImportFile).toString();
 

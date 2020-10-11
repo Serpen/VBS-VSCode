@@ -1,5 +1,5 @@
 # VBScript Extension for Visual Studio Code
-This extension implements basic language features of Visual Basic Script/VBScript/VBS for Visual Studio Code.
+This extension implements basic language features of Visual Basic Script/VBScript/VBS for [Visual Studio Code](https://code.visualstudio.com/).
 
 ## Features
 - Outline / Gliederung
@@ -16,6 +16,11 @@ This extension implements basic language features of Visual Basic Script/VBScrip
 ![Hover](assets/docs/Signature.png)
 
 - Add extra VBS Source (libraries) files for extra completion
+```
+{ // settings.json
+    "vbs.includes": ["c:\\mylibrary.vbs"]
+}
+```
 
 ## Configuration
 | Config                 | Description                          

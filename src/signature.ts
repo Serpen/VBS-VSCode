@@ -20,7 +20,7 @@ function getParsableCode(code: string): string {
 function getCurrentFunction(code: string) {
   const parenSplit = code.split('(');
   let index: number;
-  if (parenSplit.length == 1)
+  if (parenSplit.length === 1)
     index = 0;
   else
     index = parenSplit.length - 2;
@@ -34,7 +34,7 @@ function countCommas(code: string) {
   // Find the position of the closest/last open paren
   const openParen = code.lastIndexOf('(');
   // Count non-string commas in text following open paren
-  let commas = code.slice(openParen).match(/(?!\B["'][^"']*),(?![^"']*['"]\B)/g);
+  const commas = code.slice(openParen).match(/(?!\B["'][^"']*),(?![^"']*['"]\B)/g);
   if (commas === null) {
     return 0;
   } else {
@@ -54,7 +54,7 @@ function getCallInfo(doc: TextDocument, pos: Position) {
 }
 
 function getSignatures(text: string, docComment: string): Map<string, SignatureInformation[]> {
-  let map = new Map<string, SignatureInformation[]>();
+  const map = new Map<string, SignatureInformation[]>();
   let matches: RegExpExecArray | null;
   while ((matches = PATTERNS.FUNCTION.exec(text)) !== null) {
     const name = matches[5].toLowerCase();

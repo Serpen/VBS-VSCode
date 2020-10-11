@@ -41,7 +41,7 @@ function getFunctionCompletions(text: string, scope: string, parseParams: boolea
 
     if (!(functionName in foundVals)) {
       let itmKind = CompletionItemKind.Function;
-      if (matches[3].toLowerCase() == "sub")
+      if (matches[3].toLowerCase() === "sub")
         itmKind = CompletionItemKind.Method;
       const ci = new CompletionItem(functionName, itmKind);
 
@@ -59,7 +59,7 @@ function getFunctionCompletions(text: string, scope: string, parseParams: boolea
               paramCI.documentation = paramComment[1];
           }
 
-          CIs.push(paramCI);  //new ParameterInformation(element.trim(), paramInfo));
+          CIs.push(paramCI);
         });
 
       ci.detail = matches[2] + ` [${scope}]`;;
@@ -107,7 +107,7 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
     const name = matches[3];
     if (!(name in foundVals)) {
       foundVals.push(name);
-      let ci = new CompletionItem(name, CompletionItemKind.Class);
+      const ci = new CompletionItem(name, CompletionItemKind.Class);
 
       if (matches[1]) {
         const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
@@ -122,7 +122,7 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
   return CIs;
 }
 
-function getCompletions(text: string, scope: string, parseParams : boolean = false) {
+function getCompletions(text: string, scope: string, parseParams: boolean = false) {
   return [...getVariableCompletions(text, scope), ...getFunctionCompletions(text, scope, parseParams), ...getPropertyCompletions(text, scope), ...getClassCompletions(text, scope)];
 }
 
@@ -146,8 +146,8 @@ function provideCompletionItems(document: TextDocument, position: Position, _tok
 
   let count: number = 0;
   for (let i = 0; i < codeAtPosition.length; i++)
-    if (codeAtPosition[i] == '"') count++;
-  if (count % 2 == 1)
+    if (codeAtPosition[i] === '"') count++;
+  if (count % 2 === 1)
     return [];
 
   if (/.*\.\w*$/.test(codeAtPosition)) {

@@ -8,7 +8,7 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
     const word: string = wordRange ? document.getText(wordRange) : '';
     const line = document.lineAt(position).text;
 
-    if (word.trim() == "")
+    if (word.trim() === "")
       return null;
 
     if (!new RegExp(`^[^']*${word}`).test(line))
@@ -16,15 +16,15 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
 
     let count: number = 0;
     for (let i = 0; i < position.character; i++)
-      if (line[i] == '"') count++;
-    if (count % 2 == 1)
+      if (line[i] === '"') count++;
+    if (count % 2 === 1)
       return null;
 
 
     let matches = PATTERNS.DEF(document.getText(), word);
     if (matches)
       if (matches[1]) {
-        let summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
+        const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
         if (summary[1])
           return new Hover({ language: "vbs", value: matches[2] + " ' [Local]\n' " + summary[1] });
         else
@@ -36,7 +36,7 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
       matches = PATTERNS.DEF(ExtraDocText, word);
       if (matches)
       if (matches[1]) {
-        let summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
+        const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
         if (summary[1])
           return new Hover({ language: "vbs", value: matches[2] + " ' [Import/Global]\n' " + summary[1] });
         else

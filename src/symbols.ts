@@ -9,12 +9,12 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
     const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
     const PROP = RegExp(PATTERNS.PROP.source, 'i');
 
-    const varList: String[] = [];
+    const varList: string[] = [];
 
     const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showVariableSymbols")!;
 
-    let Blocks: DocumentSymbol[] = [];
-    let BlockEnds: String[] = [];
+    const Blocks: DocumentSymbol[] = [];
+    const BlockEnds: string[] = [];
 
     // Get the number of lines in the document to loop through
     const lineCount = Math.min(doc.lineCount, 10000);
@@ -22,7 +22,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
       const line = doc.lineAt(lineNum);
 
 
-      if (line.isEmptyOrWhitespace || line.text.charAt(line.firstNonWhitespaceCharacterIndex) == "'")
+      if (line.isEmptyOrWhitespace || line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
         continue;
 
       const LineTextwithoutComment = (/^([^'\n\r]*).*$/m).exec(line.text);
@@ -44,7 +44,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
             let detail: string = "";
             let symKind = SymbolKind.Function;
             if (matches[3].toLowerCase() === "sub")
-              if (name.toLowerCase() == "class_initialize()" || name.toLowerCase() == "class_terminate()") {
+              if (name.toLowerCase() === "class_initialize()" || name.toLowerCase() === "class_terminate()") {
                 symKind = SymbolKind.Constructor;
                 BlockEnds.push("sub");
               } else {
@@ -56,7 +56,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
               BlockEnds.push(detail.toLowerCase());
             }
             symbol = new DocumentSymbol(name, detail, symKind, line.range, line.range);
-            
+
           } else if ((matches = PROP.exec(lineText)) !== null) {
             name = matches[4];
             symbol = new DocumentSymbol(name, matches[3], SymbolKind.Property, line.range, line.range);
@@ -66,9 +66,9 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
             while ((matches = PATTERNS.VAR.exec(lineText)) !== null) {
               const varNames = matches[2].split(',');
               for (let i = 0; i < varNames.length; i++) {
-                let name = varNames[i].replace(PATTERNS.ARRAYBRACKETS, '').trim();
-                if (varList.indexOf(name) == -1 || !(/\bSet\b/i.test(matches[0]))) { // match multiple same Dim, but not an additional set to a dim
-                  varList.push(name);
+                const vname = varNames[i].replace(PATTERNS.ARRAYBRACKETS, '').trim();
+                if (varList.indexOf(vname) === -1 || !(/\bSet\b/i.test(matches[0]))) { // match multiple same Dim, but not an additional set to a dim
+                  varList.push(vname);
                   let symKind = SymbolKind.Variable;
                   if (/\bconst\b/i.test(matches[1]))
                     symKind = SymbolKind.Constant;
@@ -76,9 +76,9 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
                     symKind = SymbolKind.Struct;
                   else if (/\w+[\t ]*\([\t ]*\d*[\t ]*\)/i.test(varNames[i]))
                     symKind = SymbolKind.Array;
-                  let r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR.lastIndex);
-                  const variableSymbol = new DocumentSymbol(name, '', symKind, r, r);
-                  if (Blocks.length == 0)
+                  const r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR.lastIndex);
+                  const variableSymbol = new DocumentSymbol(vname, '', symKind, r, r);
+                  if (Blocks.length === 0)
                     result.push(variableSymbol);
                   else
                     Blocks[Blocks.length - 1].children.push(variableSymbol);
@@ -88,7 +88,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
           }
 
           if (symbol!) {
-            if (Blocks.length == 0)
+            if (Blocks.length === 0)
               result.push(symbol!);
             else
               Blocks[Blocks.length - 1].children.push(symbol!);
@@ -96,7 +96,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
           }
 
           if ((matches = PATTERNS.ENDLINE.exec(lineText)) !== null)
-            if (BlockEnds[BlockEnds.length - 1] == matches[1].toLowerCase()) {
+            if (BlockEnds[BlockEnds.length - 1] === matches[1].toLowerCase()) {
               Blocks.pop();
               BlockEnds.pop();
             } else {
