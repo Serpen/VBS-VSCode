@@ -14,11 +14,6 @@ export let ObjectSourceImportFile: string = '';
 export let SourceImports : string[] = [];
 export let SourceImportFiles : string[] = [];
 
-export let ImportDocuments = [ //doesn't work
-  GlobalSourceImport,
-  ...SourceImports
-]
-
 function reloadImportDocuments() {
   SourceImports = [];
   SourceImportFiles = workspace.getConfiguration("vbs").get<string[]>("includes")!;

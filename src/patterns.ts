@@ -13,9 +13,11 @@ export function DEF(input: string, word: string) {
     , "im").exec(input);
 }
 
-
 export const COMMENT_SUMMARY = /(?:'''\s*<summary>|'\s*)([^<\n\r]*)(?:<\/summary>)?/i;
-export const PARAM_SUMMARY = (input: string, word: string) => new RegExp(`'''\\s*<param name=["']${word}["']>(.*)<\\/param>`, "i").exec(input);
+
+export function PARAM_SUMMARY(input: string, word: string) {
+  return new RegExp(`'''\\s*<param name=["']${word}["']>(.*)<\\/param>`, "i").exec(input);
+}
 
 export const ENDLINE = (/(?:^|:)[\t ]*End\s+(Sub|Class|Function|Property)/i);
 
