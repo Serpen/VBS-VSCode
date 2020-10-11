@@ -1,8 +1,8 @@
 .vscode/**
-.vscode-test/**
 tests/**
 .gitignore
 src/
+dist/test/
 node_modules
 .eslintrc.json
 .prettierrc.json

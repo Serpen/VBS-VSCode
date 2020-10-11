@@ -8,7 +8,7 @@ const vbsOut = window.createOutputChannel('VBScript');
 
 let runner: ChildProcessWithoutNullStreams;
 
-const scriptInterpreter: string = configuration.get<string>("interpreter")!;
+const scriptInterpreter: string = configuration.get<string>("interpreter");
 
 function procRunner(cmdPath: string, args: string[]) {
   vbsOut.clear();
@@ -38,19 +38,19 @@ function procRunner(cmdPath: string, args: string[]) {
   });
 }
 
-export function runScript() {
+export function runScript() : void {
   if (!window.activeTextEditor)
     return;
   const thisDoc = window.activeTextEditor.document; // Get the object of the text editor
   // Save the file
-  thisDoc.save().then(v => {
+  thisDoc.save().then(() => {
     window.setStatusBarMessage('Running the script...', 1500);
 
     procRunner(scriptInterpreter, [thisDoc.fileName]);
   });
 }
 
-export function killScript() {
+export function killScript() : void {
   // runner.stdin.pause();
   runner?.kill();
 }

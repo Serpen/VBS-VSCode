@@ -14,7 +14,7 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
     if (!new RegExp(`^[^']*${word}`).test(line))
       return null;
 
-    let count: number = 0;
+    let count = 0;
     for (let i = 0; i < position.character; i++)
       if (line[i] === '"') count++;
     if (count % 2 === 1)
@@ -35,14 +35,14 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
     for (const ExtraDocText of [GlobalSourceImport, ObjectSourceImport, ...SourceImports]) {
       matches = PATTERNS.DEF(ExtraDocText, word);
       if (matches)
-      if (matches[1]) {
-        const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
-        if (summary[1])
-          return new Hover({ language: "vbs", value: matches[2] + " ' [Import/Global]\n' " + summary[1] });
-        else
+        if (matches[1]) {
+          const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
+          if (summary[1])
+            return new Hover({ language: "vbs", value: matches[2] + " ' [Import/Global]\n' " + summary[1] });
+          else
+            return new Hover({ language: "vbs", value: matches[2] + " ' [Import/Global]" });
+        } else
           return new Hover({ language: "vbs", value: matches[2] + " ' [Import/Global]" });
-      } else
-        return new Hover({ language: "vbs", value: matches[2] + " ' [Import/Global]" });
     }
   },
 });

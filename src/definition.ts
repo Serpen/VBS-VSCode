@@ -10,17 +10,17 @@ export default languages.registerDefinitionProvider({ scheme: 'file', language: 
 
     let match = PATTERNS.DEF(docText, lookup);
     if (match)
-      return new Location(document.uri, document.positionAt(match.index!));
+      return new Location(document.uri, document.positionAt(match.index));
 
     match = PATTERNS.DEF(GlobalSourceImport, lookup);
     if (match) {
-      const line = GlobalSourceImport.slice(0, match.index).match(/\n/g)!.length;
+      const line = GlobalSourceImport.slice(0, match.index).match(/\n/g).length;
       return new Location(Uri.file(GlobalSourceImportFile), new Position(line, 0));
     }
 
     match = PATTERNS.DEF(ObjectSourceImport, lookup);
     if (match) {
-      const line = ObjectSourceImport.slice(0, match.index).match(/\n/g)!.length;
+      const line = ObjectSourceImport.slice(0, match.index).match(/\n/g).length;
       return new Location(Uri.file(ObjectSourceImportFile), new Position(line, 0));
     }
 
@@ -28,7 +28,7 @@ export default languages.registerDefinitionProvider({ scheme: 'file', language: 
       match = PATTERNS.DEF(SourceImports[index], lookup);
 
       if (match) {
-        const line = SourceImports[index].slice(0, match.index).match(/\n/g)!.length;
+        const line = SourceImports[index].slice(0, match.index).match(/\n/g).length;
         return new Location(Uri.file(SourceImportFiles[index]), new Position(line, 0));
       }
     }

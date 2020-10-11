@@ -3,8 +3,6 @@
     "files.exclude": {
         "**/dist": true,
         "**/node_modules": true,
-        ".eslintrc.json": true,
-        ".prettierrc.json": true,
         ".cache": true
     },
     "search.exclude": {

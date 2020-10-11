@@ -7,16 +7,16 @@ import signatureProvider from './signature';
 import definitionProvider from './definition';
 import fs from 'fs';
 
-export let GlobalSourceImport: string = '';
-export let GlobalSourceImportFile: string = '';
-export let ObjectSourceImport: string = '';
-export let ObjectSourceImportFile: string = '';
+export let GlobalSourceImport = '';
+export let GlobalSourceImportFile = '';
+export let ObjectSourceImport = '';
+export let ObjectSourceImportFile = '';
 export let SourceImports: string[] = [];
 export let SourceImportFiles: string[] = [];
 
 function reloadImportDocuments() {
   SourceImports = [];
-  SourceImportFiles = workspace.getConfiguration("vbs").get<string[]>("includes")!;
+  SourceImportFiles = workspace.getConfiguration("vbs").get<string[]>("includes");
   SourceImportFiles?.forEach((SourceImportFile, index) => {
     if (SourceImportFile.startsWith(".\\") && workspace.workspaceFolders) {
       SourceImportFile = workspace.workspaceFolders[0].uri.fsPath + SourceImportFile.substr(1);
@@ -30,8 +30,8 @@ function reloadImportDocuments() {
   });
 }
 
-export function activate(context: ExtensionContext) {
-  const providers: any = [
+export function activate(context: ExtensionContext) : void {
+  const providers = [
     hoverProvider,
     completionProvider,
     symbolsProvider,
@@ -61,6 +61,4 @@ export function activate(context: ExtensionContext) {
   });
 }
 
-// this method is called when your extension is deactivated
-export function deactivate() { }
 

@@ -11,7 +11,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
 
     const varList: string[] = [];
 
-    const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showVariableSymbols")!;
+    const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showVariableSymbols");
 
     const Blocks: DocumentSymbol[] = [];
     const BlockEnds: string[] = [];
@@ -41,7 +41,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
 
           } else if ((matches = FUNCTION.exec(lineText)) !== null) {
             name = matches[4];
-            let detail: string = "";
+            let detail = "";
             let symKind = SymbolKind.Function;
             if (matches[3].toLowerCase() === "sub")
               if (name.toLowerCase() === "class_initialize()" || name.toLowerCase() === "class_terminate()") {
@@ -65,8 +65,8 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
           } else if (showVariableSymbols) {
             while ((matches = PATTERNS.VAR.exec(lineText)) !== null) {
               const varNames = matches[2].split(',');
-              for (let i = 0; i < varNames.length; i++) {
-                const vname = varNames[i].replace(PATTERNS.ARRAYBRACKETS, '').trim();
+              for (const varname of varNames) {
+                const vname = varname.replace(PATTERNS.ARRAYBRACKETS, '').trim();
                 if (varList.indexOf(vname) === -1 || !(/\bSet\b/i.test(matches[0]))) { // match multiple same Dim, but not an additional set to a dim
                   varList.push(vname);
                   let symKind = SymbolKind.Variable;
@@ -74,7 +74,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
                     symKind = SymbolKind.Constant;
                   else if (/\bSet\b/i.test(matches[0]))
                     symKind = SymbolKind.Struct;
-                  else if (/\w+[\t ]*\([\t ]*\d*[\t ]*\)/i.test(varNames[i]))
+                  else if (/\w+[\t ]*\([\t ]*\d*[\t ]*\)/i.test(varname))
                     symKind = SymbolKind.Array;
                   const r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR.lastIndex);
                   const variableSymbol = new DocumentSymbol(vname, '', symKind, r, r);
@@ -87,12 +87,12 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
             }
           }
 
-          if (symbol!) {
+          if (symbol) {
             if (Blocks.length === 0)
-              result.push(symbol!);
+              result.push(symbol);
             else
-              Blocks[Blocks.length - 1].children.push(symbol!);
-            Blocks.push(symbol!);
+              Blocks[Blocks.length - 1].children.push(symbol);
+            Blocks.push(symbol);
           }
 
           if ((matches = PATTERNS.ENDLINE.exec(lineText)) !== null)

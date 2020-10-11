@@ -1,4 +1,4 @@
-import { languages, CompletionItem, CompletionItemKind, TextDocument, Position, CompletionContext } from 'vscode';
+import { languages, CompletionItem, CompletionItemKind, TextDocument, Position} from 'vscode';
 import definitions from './definitions';
 import { GlobalSourceImport, ObjectSourceImport, SourceImports } from './extension';
 import * as PATTERNS from './patterns';
@@ -31,7 +31,7 @@ function getVariableCompletions(text: string, scope: string): CompletionItem[] {
   return CIs;
 }
 
-function getFunctionCompletions(text: string, scope: string, parseParams: boolean = false): CompletionItem[] {
+function getFunctionCompletions(text: string, scope: string, parseParams = false): CompletionItem[] {
   const CIs: CompletionItem[] = [];
   const foundVals = new Array<string>();
 
@@ -53,8 +53,8 @@ function getFunctionCompletions(text: string, scope: string, parseParams: boolea
       if (parseParams)
         matches[6]?.split(",").forEach(param => {
           const paramCI = new CompletionItem(param.trim(), CompletionItemKind.Variable);
-          if (matches![1]) {
-            const paramComment = PATTERNS.PARAM_SUMMARY(matches![1], param.trim());
+          if (matches[1]) {
+            const paramComment = PATTERNS.PARAM_SUMMARY(matches[1], param.trim());
             if (paramComment)
               paramCI.documentation = paramComment[1];
           }
@@ -62,7 +62,7 @@ function getFunctionCompletions(text: string, scope: string, parseParams: boolea
           CIs.push(paramCI);
         });
 
-      ci.detail = matches[2] + ` [${scope}]`;;
+      ci.detail = matches[2] + ` [${scope}]`;
 
       foundVals.push(functionName);
       CIs.push(ci);
@@ -88,7 +88,7 @@ function getPropertyCompletions(text: string, scope: string): CompletionItem[] {
         ci.documentation = summary?.[1];
       }
 
-      ci.detail = matches[2] + ` [${scope}]`;;
+      ci.detail = matches[2] + ` [${scope}]`;
 
       foundVals.push(name);
       CIs.push(ci);
@@ -100,7 +100,7 @@ function getPropertyCompletions(text: string, scope: string): CompletionItem[] {
 
 function getClassCompletions(text: string, scope: string): CompletionItem[] {
   const CIs: CompletionItem[] = [];
-  const foundVals = new Array<string>();;
+  const foundVals = new Array<string>();
 
   let matches;
   while ((matches = PATTERNS.CLASS.exec(text)) !== null) {
@@ -122,11 +122,11 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
   return CIs;
 }
 
-function getCompletions(text: string, scope: string, parseParams: boolean = false) {
+function getCompletions(text: string, scope: string, parseParams = false) {
   return [...getVariableCompletions(text, scope), ...getFunctionCompletions(text, scope, parseParams), ...getPropertyCompletions(text, scope), ...getClassCompletions(text, scope)];
 }
 
-function provideCompletionItems(document: TextDocument, position: Position, _token, context: CompletionContext): CompletionItem[] {
+function provideCompletionItems(document: TextDocument, position: Position): CompletionItem[] {
   // Gather the functions created by the user
   const text = document.getText();
   const codeAtPosition = document.lineAt(position).text.substring(0, position.character);
@@ -144,9 +144,9 @@ function provideCompletionItems(document: TextDocument, position: Position, _tok
   if (/\s+\.$/.test(codeAtPosition))
     return [];
 
-  let count: number = 0;
-  for (let i = 0; i < codeAtPosition.length; i++)
-    if (codeAtPosition[i] === '"') count++;
+  let count = 0;
+  for (const cp of codeAtPosition)
+    if (cp === '"') count++;
   if (count % 2 === 1)
     return [];
 
