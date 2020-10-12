@@ -1,4 +1,4 @@
-import { languages, CompletionItem, CompletionItemKind, TextDocument, Position} from 'vscode';
+import { languages, CompletionItem, CompletionItemKind, TextDocument, Position } from 'vscode';
 import definitions from './definitions';
 import { GlobalSourceImport, ObjectSourceImport, SourceImports } from './extension';
 import * as PATTERNS from './patterns';
@@ -8,11 +8,13 @@ function getVariableCompletions(text: string, scope: string): CompletionItem[] {
   const foundVals = new Array<string>();
 
   let matches: RegExpExecArray;
-  while ((matches = PATTERNS.VAR.exec(text)) !== null) {
+  while (matches = PATTERNS.VAR.exec(text)) {
     matches[2].split(",").forEach(match => {
       const name = match.replace(PATTERNS.ARRAYBRACKETS, '').trim();
 
-      if (!(name in foundVals)) {
+      if (foundVals.indexOf(name.toLowerCase()) === -1) {
+        foundVals.push(name.toLowerCase());
+
         let itmKind = CompletionItemKind.Variable;
         if (matches[1].toLowerCase().indexOf("const") > 0)
           itmKind = CompletionItemKind.Constant;
@@ -22,7 +24,6 @@ function getVariableCompletions(text: string, scope: string): CompletionItem[] {
 
         ci.detail = matches[0] + ` [${scope}]`;
 
-        foundVals.push(name);
         CIs.push(ci);
       }
     });
@@ -36,14 +37,16 @@ function getFunctionCompletions(text: string, scope: string, parseParams = false
   const foundVals = new Array<string>();
 
   let matches: RegExpExecArray;
-  while ((matches = PATTERNS.FUNCTION.exec(text)) !== null) {
-    const functionName = matches[5];
+  while (matches = PATTERNS.FUNCTION.exec(text)) {
+    const name = matches[5];
 
-    if (!(functionName in foundVals)) {
+    if (foundVals.indexOf(name.toLowerCase()) === -1) {
+      foundVals.push(name.toLowerCase());
+
       let itmKind = CompletionItemKind.Function;
       if (matches[3].toLowerCase() === "sub")
         itmKind = CompletionItemKind.Method;
-      const ci = new CompletionItem(functionName, itmKind);
+      const ci = new CompletionItem(name, itmKind);
 
       if (matches[1]) {
         const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
@@ -64,7 +67,6 @@ function getFunctionCompletions(text: string, scope: string, parseParams = false
 
       ci.detail = matches[2] + ` [${scope}]`;
 
-      foundVals.push(functionName);
       CIs.push(ci);
     }
   }
@@ -77,10 +79,12 @@ function getPropertyCompletions(text: string, scope: string): CompletionItem[] {
   const foundVals = new Array<string>();
 
   let matches: RegExpExecArray;
-  while ((matches = PATTERNS.PROP.exec(text)) !== null) {
+  while (matches = PATTERNS.PROP.exec(text)) {
     const name = matches[4];
 
-    if (!(name in foundVals)) {
+    if ((foundVals.indexOf(name.toLowerCase()) === -1)) {
+      foundVals.push(name.toLowerCase());
+
       const ci = new CompletionItem(name, CompletionItemKind.Property);
 
       if (matches[1]) {
@@ -90,7 +94,6 @@ function getPropertyCompletions(text: string, scope: string): CompletionItem[] {
 
       ci.detail = matches[2] + ` [${scope}]`;
 
-      foundVals.push(name);
       CIs.push(ci);
     }
   }
@@ -102,11 +105,11 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
   const CIs: CompletionItem[] = [];
   const foundVals = new Array<string>();
 
-  let matches;
-  while ((matches = PATTERNS.CLASS.exec(text)) !== null) {
+  let matches: RegExpExecArray;
+  while (matches = PATTERNS.CLASS.exec(text)) {
     const name = matches[3];
-    if (!(name in foundVals)) {
-      foundVals.push(name);
+    if (foundVals.indexOf(name.toLowerCase()) === -1) {
+      foundVals.push(name.toLowerCase());
       const ci = new CompletionItem(name, CompletionItemKind.Class);
 
       if (matches[1]) {
