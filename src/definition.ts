@@ -8,32 +8,40 @@ export default languages.registerDefinitionProvider({ scheme: 'file', language: 
     const lookup = document.getText(lookupRange);
     const docText = document.getText();
 
+    const posLoc: Location[] = [];
+
     let match = PATTERNS.DEF(docText, lookup);
     if (match)
-      return new Location(document.uri, document.positionAt(match.index));
+      posLoc.push(new Location(document.uri, document.positionAt(match.index)));
 
-    match = PATTERNS.DEF(GlobalSourceImport, lookup);
-    if (match) {
-      const line = GlobalSourceImport.slice(0, match.index).match(/\n/g).length;
-      return new Location(Uri.file(GlobalSourceImportFile), new Position(line, 0));
-    }
+    match = PATTERNS.DEFVAR(docText, lookup);
+    if (match)
+      posLoc.push(new Location(document.uri, document.positionAt(match.index)));
 
-    match = PATTERNS.DEF(ObjectSourceImport, lookup);
-    if (match) {
-      const line = ObjectSourceImport.slice(0, match.index).match(/\n/g).length;
-      return new Location(Uri.file(ObjectSourceImportFile), new Position(line, 0));
-    }
+    posLoc.push(...findExtDef(GlobalSourceImport, lookup, Uri.file(GlobalSourceImportFile)))
+    posLoc.push(...findExtDef(ObjectSourceImport, lookup, Uri.file(ObjectSourceImportFile)))
 
-    for (let index = 0; index < SourceImports.length; index++) {
-      match = PATTERNS.DEF(SourceImports[index], lookup);
+    for (let index = 0; index < SourceImports.length; index++)
+      posLoc.push(...findExtDef(SourceImports[index], lookup, Uri.file(SourceImportFiles[index])))
 
-      if (match) {
-        const line = SourceImports[index].slice(0, match.index).match(/\n/g).length;
-        return new Location(Uri.file(SourceImportFiles[index]), new Position(line, 0));
-      }
-    }
+    if (posLoc.length > 0)
+      return posLoc[0];
+  }
+},
+);
+
+function findExtDef(docText: string, lookup: string, docuri: Uri) : Location[] {
+  const posloc : Location[] = [];
+  let match = PATTERNS.DEF(docText, lookup);
+  if (match) {
+    const line = docText.slice(0, match.index).match(/\n/g).length;
+    posloc.push(new Location(docuri, new Position(line, 0)));
   }
 
-},
-
-);
+  match = PATTERNS.DEFVAR(docText, lookup);
+  if (match) {
+    const line = docText.slice(0, match.index).match(/\n/g).length;
+    posloc.push(new Location(docuri, new Position(line, 0)));
+  }
+  return posloc;
+}
