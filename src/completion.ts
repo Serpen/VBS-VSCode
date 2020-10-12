@@ -4,8 +4,8 @@ import { GlobalSourceImport, ObjectSourceImport, SourceImports } from './extensi
 import * as PATTERNS from './patterns';
 
 function getVariableCompletions(text: string, scope: string): CompletionItem[] {
-  const CIs: CompletionItem[] = [];
-  const foundVals = new Array<string>();
+  const CIs: CompletionItem[] = []; // results
+  const foundVals = new Array<string>(); // list to prevent doubles
 
   let matches: RegExpExecArray;
   while (matches = PATTERNS.VAR.exec(text)) {
@@ -16,7 +16,7 @@ function getVariableCompletions(text: string, scope: string): CompletionItem[] {
         foundVals.push(name.toLowerCase());
 
         let itmKind = CompletionItemKind.Variable;
-        if (matches[1].toLowerCase().indexOf("const") > 0)
+        if (/\bconst\b/i.test(matches[1]))
           itmKind = CompletionItemKind.Constant;
 
         const ci = new CompletionItem(name, itmKind);
@@ -53,6 +53,7 @@ function getFunctionCompletions(text: string, scope: string, parseParams = false
         ci.documentation = summary?.[1];
       }
 
+      // currently only parse in local document, but for all functions, since there is no context
       if (parseParams)
         matches[6]?.split(",").forEach(param => {
           const paramCI = new CompletionItem(param.trim(), CompletionItemKind.Variable);
@@ -130,8 +131,6 @@ function getCompletions(text: string, scope: string, parseParams = false) {
 }
 
 function provideCompletionItems(document: TextDocument, position: Position): CompletionItem[] {
-  // Gather the functions created by the user
-  const text = document.getText();
   const codeAtPosition = document.lineAt(position).text.substring(0, position.character);
 
   // Remove completion offerings from commented lines
@@ -139,20 +138,21 @@ function provideCompletionItems(document: TextDocument, position: Position): Com
   if (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
     return [];
 
+  // no Completion during writing a definition
   if (PATTERNS.VAR_COMPLS.test(codeAtPosition))
     return [];
 
+  // no completion within open string
+  let quoteCount = 0;
+  for (const char of codeAtPosition)
+    if (char === '"') quoteCount++;
+  if (quoteCount % 2 === 1)
+    return [];
+
+  const text = document.getText();
   const retCI: CompletionItem[] = [];
 
-  if (/\s+\.$/.test(codeAtPosition))
-    return [];
-
-  let count = 0;
-  for (const cp of codeAtPosition)
-    if (cp === '"') count++;
-  if (count % 2 === 1)
-    return [];
-
+  // if dot is typed than show only members
   if (/.*\.\w*$/.test(codeAtPosition)) {
     if (/.*\bErr\.\w*$/i.test(codeAtPosition)) {
       const Obj = /Class Err.*?End Class/is.exec(ObjectSourceImport);
@@ -172,7 +172,7 @@ function provideCompletionItems(document: TextDocument, position: Position): Com
         retCI.push(...getCompletions(ImportDoc, "Import"));
       });
     }
-  } else {
+  } else { // show global members
     retCI.push(...definitions);
     retCI.push(...getCompletions(text, "Local", true));
 
