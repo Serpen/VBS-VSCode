@@ -22,7 +22,8 @@ function reloadImportDocuments() {
       SourceImportFile = workspace.workspaceFolders[0].uri.fsPath + SourceImportFile.substr(1);
       SourceImportFiles[index] = SourceImportFile;
     }
-    if (SourceImportFile !== '' && fs.statSync(SourceImportFile)) {
+    
+    if (SourceImportFile !== '' && fs.existsSync(SourceImportFile) && fs.statSync(SourceImportFile).isFile()) {
       const ExtraDocumentText = fs.readFileSync(SourceImportFile).toString();
 
       SourceImports.push(ExtraDocumentText);
