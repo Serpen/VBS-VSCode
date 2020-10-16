@@ -1,14 +1,17 @@
 
+
 ' Execute a SELECT query against database 
 Function ExecuteQuery(sql)
     Dim querystring : querystring = Trim(sql)
 
     dim obj
-    set obj = new Data
+    set obj = new DataBase
+    obj.Execute()
 
 End Function
 
-Class DataBaseQuery
+' Class for Database access
+Class DataBase
 
     Private m_query
     Property Get Query
@@ -19,8 +22,9 @@ Class DataBaseQuery
         m_query = val
     End Property
 
-    ' Real work
-    Public Sub Execute()
+    ''' <summary>Executes against a DB</summary>
+    ''' <param name="force">Ignore Errors</param>
+    Public Sub Execute(force)
         ' Todo: Implement!
     End Sub
 End Class
