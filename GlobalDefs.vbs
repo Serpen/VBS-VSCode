@@ -105,60 +105,108 @@ End Function
 Function DateDiff(interval, date1, date2, firstdayofweek, firstweekofyear)
 End Function
 
+''' <summary>Returns the specified part of a given date.</summary>
+''' <param name="interval">String expression that is the interval of time you want to return</param>
+''' <param name="date">Date expression you want to evaluate</param>
 Function DatePart(interval, date)
 End Function
 
+''' <summary>Returns the specified part of a given date.</summary>
+''' <param name="interval">String expression that is the interval of time you want to return</param>
+''' <param name="date">Date expression you want to evaluate</param>
+''' <param name="firstdayofweek">Constant that specifies the day of the week. If not specified, Sunday is assumed</param>
 Function DatePart(interval, date, firstdayofweek)
 End Function
 
+''' <summary>Returns the specified part of a given date.</summary>
+''' <param name="interval">String expression that is the interval of time you want to return</param>
+''' <param name="date">Date expression you want to evaluate</param>
+''' <param name="firstdayofweek">Constant that specifies the day of the week. If not specified, Sunday is assumed</param>
+''' <param name="firstweekofyear">Constant that specifies the first week of the year. If not specified, the first week is assumed to be the week in which January 1 occurs</param>
 Function DatePart(interval, date, firstdayofweek, firstweekofyear)
 End Function
 
+''' <summary>Returns a Variant of subtype Date for a specified year, month, and day.</summary>
+''' <param name="year">Number between 100 and 9999, inclusive, or a numeric expression.</param>
 Function DateSerial(year, month, day)
 End Function
 
+''' <summary>Returns a Variant of subtype Date.</summary>
 Function DateValue(date)
 End Function
 
+''' <summary>Returns a whole number between 1 and 31, inclusive, representing the day of the month.</summary>
 Function Day(date)
 End Function
 
+''' <summary>Returns</summary>
 Function Escape(str)
 End Function
 
+''' <summary>Evaluates an expression and returns the result.</summary>
 Function Eval(expr)
 End Function
 
+''' <summary>Returns e (the base of natural logarithms) raised to a power.</summary>
 Function Exp(number)
 End Function
 
 ''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
+''' <param name="InputStrings">One-dimensional array of strings to be searched.</param>
+''' <param name="Value">String to search for.</param>
 Function Filter(InputStrings, Value)
 End Function
 
 ''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
+''' <param name="InputStrings">One-dimensional array of strings to be searched.</param>
+''' <param name="Value">String to search for.</param>
+''' <param name="Include">Boolean value indicating whether to return substrings that include or exclude Value. If Include is True, Filter returns the subset of the array that contains Value as a substring. If Include is False, Filter returns the subset of the array that does not contain Value as a substring.</param>
 Function Filter(InputStrings, Value, Include)
 End Function
 
 ''' <summary>Returns a zero-based array containing a subset of a string array based on a specified filter criteria.</summary>
+''' <param name="InputStrings">One-dimensional array of strings to be searched.</param>
+''' <param name="Value">String to search for.</param>
+''' <param name="Include">Boolean value indicating whether to return substrings that include or exclude Value. If Include is True, Filter returns the subset of the array that contains Value as a substring. If Include is False, Filter returns the subset of the array that does not contain Value as a substring.</param>
+''' <param name="Compare">Numeric value indicating the kind of string comparison to use</param>
 Function Filter(InputStrings, Value, Include, Compare)
 End Function
 
 Function Fix(number)
 End Function
 
+''' <summary>Returns an expression formatted as a currency value using the currency symbol defined in the system control panel.</summary>
+''' <param name="Expression">Expression to be formatted.</param>
 Function FormatCurrency(Expression)
 End Function
 
+''' <summary>Returns an expression formatted as a currency value using the currency symbol defined in the system control panel.</summary>
+''' <param name="Expression">Expression to be formatted.</param>
+''' <param name="NumDigitsAfterDecimal">Numeric value indicating how many places to the right of the decimal are displayed. Default value is -1, which indicates that the computer's regional settings are used</param>
 Function FormatCurrency(Expression, NumDigitsAfterDecimal)
 End Function
 
+''' <summary>Returns an expression formatted as a currency value using the currency symbol defined in the system control panel.</summary>
+''' <param name="Expression">Expression to be formatted.</param>
+''' <param name="NumDigitsAfterDecimal">Numeric value indicating how many places to the right of the decimal are displayed. Default value is -1, which indicates that the computer's regional settings are used</param>
+''' <param name="IncludeLeadingDigit">Tristate constant that indicates whether or not a leading zero is displayed for fractional values</param>
 Function FormatCurrency(Expression, NumDigitsAfterDecimal, IncludeLeadingDigit)
 End Function
 
+''' <summary>Returns an expression formatted as a currency value using the currency symbol defined in the system control panel.</summary>
+''' <param name="Expression">Expression to be formatted.</param>
+''' <param name="NumDigitsAfterDecimal">Numeric value indicating how many places to the right of the decimal are displayed. Default value is -1, which indicates that the computer's regional settings are used</param>
+''' <param name="IncludeLeadingDigit">Tristate constant that indicates whether or not a leading zero is displayed for fractional values</param>
+''' <param name="UseParensForNegativeNumbers">Tristate constant that indicates whether or not to place negative values within parentheses</param>
 Function FormatCurrency(Expression, NumDigitsAfterDecimal, IncludeLeadingDigit, UseParensForNegativeNumbers)
 End Function
 
+''' <summary>Returns an expression formatted as a currency value using the currency symbol defined in the system control panel.</summary>
+''' <param name="Expression">Expression to be formatted.</param>
+''' <param name="NumDigitsAfterDecimal">Numeric value indicating how many places to the right of the decimal are displayed. Default value is -1, which indicates that the computer's regional settings are used</param>
+''' <param name="IncludeLeadingDigit">Tristate constant that indicates whether or not a leading zero is displayed for fractional values</param>
+''' <param name="UseParensForNegativeNumbers">Tristate constant that indicates whether or not to place negative values within parentheses</param>
+''' <param name="GroupDigits">Tristate constant that indicates whether or not numbers are grouped using the group delimiter specified in the computer's regional settings</param>
 Function FormatCurrency(Expression, NumDigitsAfterDecimal, IncludeLeadingDigit, UseParensForNegativeNumbers, GroupDigits)
 End Function
 
@@ -418,7 +466,7 @@ End Function
 Function MsgBox(prompt, buttons, title, helpfile, context)
 End Function
 
-''' <summary>Returns the current date and time according to the setting of your computer's system date and time.)</summary>
+''' <summary>Returns the current date and time according to the setting of your computer's system date and time.</summary>
 Property Get Now
 End Property
 
@@ -613,9 +661,9 @@ Const vbTab = Chr(9)
 Const vbVerticalTab = Chr(11)
 
 Const vbGeneralDate = 0
-Const vbLongDate = 1
-Const vbShortDate = 2
-Const vbLongTime = 3
+Const vbLongDate = 1 ' Display a date using the long date format specified in your computer's regional settings.
+Const vbShortDate = 2 ' Display a date using the short date format specified in your computer's regional settings.
+Const vbLongTime = 3 ' Display a time using the time format specified in your computer's regional settings.
 Const vbShortTime = 4
 
 Const vbUseSystemDayOfWeek = 0
