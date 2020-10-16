@@ -12,6 +12,7 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
     const varList: string[] = [];
 
     const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showVariableSymbols");
+    const showParameterSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showParamSymbols");
 
     const Blocks: DocumentSymbol[] = [];
     const BlockEnds: string[] = [];
@@ -55,7 +56,19 @@ export default languages.registerDocumentSymbolProvider({ scheme: 'file', langua
               detail = "Function";
               BlockEnds.push(detail.toLowerCase());
             }
+
+            // if params are shown extra, def line shouldn't contain it too
+            if (showParameterSymbols)
+              name = matches[5];
+
             symbol = new DocumentSymbol(name, detail, symKind, line.range, line.range);
+
+            if (showParameterSymbols) {
+              if (matches[6])
+                matches[6].split(",").forEach(param => {
+                  symbol.children.push(new DocumentSymbol(param.trim(), 'Parameter', SymbolKind.Variable, line.range, line.range))
+                });
+            }
 
           } else if ((matches = PROP.exec(lineText)) !== null) {
             name = matches[4];

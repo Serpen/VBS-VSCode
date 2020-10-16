@@ -114,7 +114,12 @@
         "vbs.showVariableSymbols": {
           "type": "boolean",
           "default": "false",
-          "description": "Show variables in Outline"
+          "description": "Show variables in outline"
+        },
+        "vbs.showParamSymbols": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Show parameters in outline"
         }
       }
     }
