@@ -1,6 +1,6 @@
 import { languages, CompletionItem, CompletionItemKind, TextDocument, Position } from 'vscode';
 import definitions from './definitions';
-import { GlobalSourceImport, ObjectSourceImport, SourceImports } from './extension';
+import { Includes } from './extension';
 import * as PATTERNS from './patterns';
 
 function getVariableCompletions(text: string, scope: string): CompletionItem[] {
@@ -152,37 +152,42 @@ function provideCompletionItems(document: TextDocument, position: Position): Com
   const text = document.getText();
   const retCI: CompletionItem[] = [];
 
+  const ObjectSourceImportName = "ObjectDefs";
+  const ObjectSourceImport = Includes.get(ObjectSourceImportName);
+
   // if dot is typed than show only members
   if (/.*\.\w*$/.test(codeAtPosition)) {
     if (/.*\bErr\.\w*$/i.test(codeAtPosition)) {
-      const Obj = /Class Err.*?End Class/is.exec(ObjectSourceImport);
+      const Obj = /Class Err.*?End Class/is.exec(ObjectSourceImport.Content);
       retCI.push(...getFunctionCompletions(Obj[0], "Err"), ...getPropertyCompletions(Obj[0], "Err"));
     } else if (/.*\bWScript\.\w*$/i.test(codeAtPosition)) {
-      const Obj = /Class WScript.*?End Class/is.exec(ObjectSourceImport);
+      const Obj = /Class WScript.*?End Class/is.exec(ObjectSourceImport.Content);
       retCI.push(...getFunctionCompletions(Obj[0], "WScript"), ...getPropertyCompletions(Obj[0], "WScript"));
     } else if (/.*fso\.\w*$/i.test(codeAtPosition)) { // dirty!
-      const Obj = /Class FileSystemObject.*?End Class/is.exec(ObjectSourceImport);
+      const Obj = /Class FileSystemObject.*?End Class/is.exec(ObjectSourceImport.Content);
       retCI.push(...getFunctionCompletions(Obj[0], "FSO"), ...getPropertyCompletions(Obj[0], "FSO"));
     } else {
       retCI.push(...getCompletions(text, "Local"));
 
-      retCI.push(...getFunctionCompletions(ObjectSourceImport, "Object"), ...getPropertyCompletions(ObjectSourceImport, "Object"));
+      retCI.push(...getFunctionCompletions(ObjectSourceImport.Content, ObjectSourceImportName), ...getPropertyCompletions(ObjectSourceImport.Content, ObjectSourceImportName));
 
-      SourceImports.forEach(ImportDoc => {
-        retCI.push(...getCompletions(ImportDoc, "Import"));
-      });
+      for (const imp of Includes)
+        if (imp[0].startsWith("Import"))
+          retCI.push(...getCompletions(imp[1].Content, imp[0]));
+
     }
   } else { // show global members
     retCI.push(...definitions);
     retCI.push(...getCompletions(text, "Local", true));
 
-    retCI.push(...getClassCompletions(ObjectSourceImport, "Global"));
+    retCI.push(...getClassCompletions(ObjectSourceImport.Content, ObjectSourceImportName));
 
-    retCI.push(...getCompletions(GlobalSourceImport, "Global"));
+    retCI.push(...getCompletions(Includes.get("Global").Content, "Global"));
 
-    SourceImports.forEach(ImportDoc => {
-      retCI.push(...getCompletions(ImportDoc, "Import"));
-    });
+    for (const item of Includes)
+      if (item[0].startsWith("Import"))
+        retCI.push(...getCompletions(item[1].Content, item[0]));
+
   }
 
   return retCI;

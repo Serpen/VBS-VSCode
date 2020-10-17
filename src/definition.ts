@@ -1,5 +1,5 @@
 import { languages, Location, TextDocument, Position, Uri, Range } from 'vscode';
-import { GlobalSourceImport, GlobalSourceImportFile, ObjectSourceImport, ObjectSourceImportFile, SourceImportFiles, SourceImports as SourceImports } from './extension';
+import { Includes } from './extension';
 import * as PATTERNS from './patterns';
 
 export default languages.registerDefinitionProvider({ scheme: 'file', language: 'vbs' }, {
@@ -18,11 +18,8 @@ export default languages.registerDefinitionProvider({ scheme: 'file', language: 
     if (match)
       posLoc.push(new Location(document.uri, document.positionAt(match.index)));
 
-    posLoc.push(...findExtDef(GlobalSourceImport, lookup, Uri.file(GlobalSourceImportFile)))
-    posLoc.push(...findExtDef(ObjectSourceImport, lookup, Uri.file(ObjectSourceImportFile)))
-
-    for (let index = 0; index < SourceImports.length; index++)
-      posLoc.push(...findExtDef(SourceImports[index], lookup, Uri.file(SourceImportFiles[index])))
+    for (const item of Includes)
+      posLoc.push(...findExtDef(item[1].Content, lookup, item[1].Uri))
 
     // def for param must be above
     posLoc.push(...GetParamDef(document.getText(new Range(new Position(0, 0), new Position(position.line + 1, 0))), lookup, document.uri));

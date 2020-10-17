@@ -1,6 +1,6 @@
 import { languages, Hover, TextDocument, Position, Range } from 'vscode';
 import * as PATTERNS from './patterns';
-import { GlobalSourceImport, ObjectSourceImport, SourceImports } from './extension';
+import { Includes } from './extension';
 
 export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs' }, {
   provideHover(document: TextDocument, position: Position) {
@@ -21,15 +21,13 @@ export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs'
       if (line[i] === '"') count++;
     if (count % 2 === 1)
       return null;
-    hoverresults.push(...GetHover(document.getText(), word, "[Local]"));
-    hoverresults.push(...GetHover(GlobalSourceImport, word, "[Global]"));
-    hoverresults.push(...GetHover(ObjectSourceImport, word, "[Global]"));
+    hoverresults.push(...GetHover(document.getText(), word, "Local"));
 
-    for (const ExtraDocText of SourceImports)
-      hoverresults.push(...GetHover(ExtraDocText, word, "[Import]"));
+    for (const ExtraDocText of Includes)
+      hoverresults.push(...GetHover(ExtraDocText[1].Content, word, ExtraDocText[0]));
 
     // hoverresult for param must be above
-    hoverresults.push(...GetParamHover(document.getText(new Range(new Position(0, 0), new Position(position.line+1, 0))), word));
+    hoverresults.push(...GetParamHover(document.getText(new Range(new Position(0, 0), new Position(position.line + 1, 0))), word));
 
     if (hoverresults.length > 0)
       return hoverresults[0];
@@ -43,11 +41,11 @@ function GetHover(docText: string, lookup: string, scope: string): Hover[] {
     if (matches[1]) {
       const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
       if (summary[1])
-        results.push(new Hover({ language: "vbs", value: matches[2] + " ' " + scope + "\n' " + summary[1] }));
+        results.push(new Hover({ language: "vbs", value: matches[2] + " ' [" + scope + "]\n' " + summary[1] }));
       else
-        results.push(new Hover({ language: "vbs", value: matches[2] + " ' " + scope }));
+        results.push(new Hover({ language: "vbs", value: matches[2] + " ' [" + scope + "]" }));
     } else
-      results.push(new Hover({ language: "vbs", value: matches[2] + " ' " + scope }));
+      results.push(new Hover({ language: "vbs", value: matches[2] + " ' [" + scope + "]" }));
   }
 
   matches = PATTERNS.DEFVAR(docText, lookup);
@@ -55,11 +53,11 @@ function GetHover(docText: string, lookup: string, scope: string): Hover[] {
     if (matches[1]) {
       const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
       if (summary[1])
-        results.push(new Hover({ language: "vbs", value: matches[2] + " ' " + scope + "\n' " + summary[1] }));
+        results.push(new Hover({ language: "vbs", value: matches[2] + " ' [" + scope + "]\n' " + summary[1] }));
       else
-        results.push(new Hover({ language: "vbs", value: matches[2] + " ' " + scope }));
+        results.push(new Hover({ language: "vbs", value: matches[2] + " ' [" + scope + "]" }));
     } else
-      results.push(new Hover({ language: "vbs", value: matches[2] + " ' " + scope }));
+      results.push(new Hover({ language: "vbs", value: matches[2] + " ' [" + scope + "]" }));
   }
   return results;
 }

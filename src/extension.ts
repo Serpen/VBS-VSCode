@@ -1,4 +1,4 @@
-import { commands, ExtensionContext, workspace } from 'vscode';
+import { commands, ExtensionContext, Uri, workspace } from 'vscode';
 import * as cmds from './commands';
 import hoverProvider from './hover';
 import completionProvider from './completion';
@@ -7,28 +7,32 @@ import signatureProvider from './signature';
 import definitionProvider from './definition';
 import fs from 'fs';
 
-export let GlobalSourceImport = '';
-export let GlobalSourceImportFile = '';
-export let ObjectSourceImport = '';
-export let ObjectSourceImportFile = '';
-export let SourceImports: string[] = [];
-export let SourceImportFiles: string[] = [];
+class IncludeFile {
+  constructor(path : string) {
+    if (path.startsWith(".\\") && workspace.workspaceFolders)
+      path = workspace.workspaceFolders[0].uri.fsPath + path.substr(1);
+
+    this.Uri = Uri.file(path);
+
+    if (fs.existsSync(path) && fs.statSync(path).isFile())
+      this.Content = fs.readFileSync(path).toString();
+  }
+  Content: string;
+  Uri : Uri;
+}
+
+export let Includes = new Map<string, IncludeFile>();
 
 function reloadImportDocuments() {
-  SourceImports = [];
-  SourceImportFiles = workspace.getConfiguration("vbs").get<string[]>("includes");
-  SourceImportFiles?.forEach((SourceImportFile, index) => {
-    if (SourceImportFile.startsWith(".\\") && workspace.workspaceFolders) {
-      SourceImportFile = workspace.workspaceFolders[0].uri.fsPath + SourceImportFile.substr(1);
-      SourceImportFiles[index] = SourceImportFile;
+  const SourceImportFiles = workspace.getConfiguration("vbs").get<string[]>("includes");
+  for (const key of Includes.keys()) {
+    if (key.startsWith("Import"))
+      Includes.delete(key);
+  }
+  SourceImportFiles?.forEach((file, index) => {
+      Includes.set("Import" + index+1, new IncludeFile(file));
     }
-    
-    if (SourceImportFile !== '' && fs.existsSync(SourceImportFile) && fs.statSync(SourceImportFile).isFile()) {
-      const ExtraDocumentText = fs.readFileSync(SourceImportFile).toString();
-
-      SourceImports.push(ExtraDocumentText);
-    }
-  });
+  );
 }
 
 export function activate(context: ExtensionContext) : void {
@@ -40,11 +44,8 @@ export function activate(context: ExtensionContext) : void {
     definitionProvider,
   ];
 
-  GlobalSourceImportFile = context.asAbsolutePath("./GlobalDefs.vbs");
-  GlobalSourceImport = fs.readFileSync(GlobalSourceImportFile).toString();
-
-  ObjectSourceImportFile = context.asAbsolutePath("./ObjectDefs.vbs");
-  ObjectSourceImport = fs.readFileSync(ObjectSourceImportFile).toString();
+  Includes.set("Global", new IncludeFile(context.asAbsolutePath("./GlobalDefs.vbs")));
+  Includes.set("ObjectDefs", new IncludeFile(context.asAbsolutePath("./ObjectDefs.vbs")));
 
   workspace.onDidChangeConfiguration(reloadImportDocuments);
   reloadImportDocuments();

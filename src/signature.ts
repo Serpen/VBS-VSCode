@@ -1,5 +1,5 @@
 import { languages, SignatureHelp, SignatureInformation, ParameterInformation, TextDocument, Position } from 'vscode';
-import { GlobalSourceImport, ObjectSourceImport, SourceImports } from './extension';
+import { Includes } from './extension';
 import * as PATTERNS from './patterns';
 
 /**
@@ -113,17 +113,11 @@ export default languages.registerSignatureHelpProvider({ scheme: 'file', languag
         sigs.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length > caller.commas));
       }
 
-      if ((sig = getSignatures(GlobalSourceImport, "Global").get(caller.func)) !== undefined) {
-        sigs.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length > caller.commas));
-      }
-      if ((sig = getSignatures(ObjectSourceImport, "Object").get(caller.func)) !== undefined) {
-        sigs.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length > caller.commas));
-      }
-      SourceImports.forEach(SourceImport => {
-        if ((sig = getSignatures(SourceImport, "Import").get(caller.func)) !== undefined) {
+      for (const item of Includes) {
+        if ((sig = getSignatures(item[1].Content, item[0]).get(caller.func)) !== undefined) {
           sigs.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length > caller.commas));
         }
-      });
+      };
 
       return sigs;
     },
