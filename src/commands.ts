@@ -1,4 +1,4 @@
-import { window, workspace } from 'vscode';
+import { Diagnostic, DiagnosticSeverity, languages, Range, window, workspace } from 'vscode';
 import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
 import path from 'path';
 import localize from './localize';
@@ -11,9 +11,13 @@ let runner: ChildProcessWithoutNullStreams;
 
 const scriptInterpreter: string = configuration.get<string>("interpreter");
 
+const dc = languages.createDiagnosticCollection("vbs");
+
 function procRunner(cmdPath: string, args: string[]) {
   vbsOut.clear();
   vbsOut.show(true);
+
+  dc.clear();
 
   if (!window.activeTextEditor)
     return;
@@ -31,6 +35,13 @@ function procRunner(cmdPath: string, args: string[]) {
 
   runner.stderr.on('data', data => {
     const output = data.toString();
+    let match = (/.*\((\d+), (\d+)\) (.*)/.exec(output));
+    if (match) {
+      const line = Number.parseInt(match[1]) - 1;
+      const char = Number.parseInt(match[2]) - 1;
+      const diag = new Diagnostic(new Range(line, char, line, char), match[3], DiagnosticSeverity.Error);
+      dc.set(window.activeTextEditor.document.uri, [diag]);
+    }
     vbsOut.append(output);
   });
 
@@ -39,7 +50,7 @@ function procRunner(cmdPath: string, args: string[]) {
   });
 }
 
-export function runScript() : void {
+export function runScript(): void {
   if (!window.activeTextEditor)
     return;
   const thisDoc = window.activeTextEditor.document; // Get the object of the text editor
@@ -51,7 +62,7 @@ export function runScript() : void {
   });
 }
 
-export function killScript() : void {
+export function killScript(): void {
   // runner.stdin.pause();
   runner?.kill();
 }
