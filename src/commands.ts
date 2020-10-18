@@ -1,68 +1,78 @@
-import { Diagnostic, DiagnosticSeverity, languages, Range, window, workspace } from 'vscode';
-import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
+import { Diagnostic, DiagnosticSeverity, Disposable, languages, Range, window, workspace } from 'vscode';
+import * as child_process from 'child_process';
 import path from 'path';
 import localize from './localize';
+import * as fs from 'fs';
 
 const configuration = workspace.getConfiguration('vbs');
 
 const vbsOut = window.createOutputChannel('VBScript');
 
-let runner: ChildProcessWithoutNullStreams;
+let runner: child_process.ChildProcessWithoutNullStreams;
 
 const scriptInterpreter: string = configuration.get<string>("interpreter");
 
-const dc = languages.createDiagnosticCollection("vbs");
+const diagCollection = languages.createDiagnosticCollection("vbs");
 
-function procRunner(cmdPath: string, args: string[]) {
-  vbsOut.clear();
-  vbsOut.show(true);
-
-  dc.clear();
-
-  if (!window.activeTextEditor)
-    return;
-
-  const workDir = path.dirname(window.activeTextEditor.document.fileName);
-
-  runner = spawn(cmdPath, args, {
-    cwd: workDir,
-  });
-
-  runner.stdout.on('data', data => {
-    const output = data.toString();
-    vbsOut.append(output);
-  });
-
-  runner.stderr.on('data', data => {
-    const output = data.toString();
-    let match = (/.*\((\d+), (\d+)\) (.*)/.exec(output));
-    if (match) {
-      const line = Number.parseInt(match[1]) - 1;
-      const char = Number.parseInt(match[2]) - 1;
-      const diag = new Diagnostic(new Range(line, char, line, char), match[3], DiagnosticSeverity.Error);
-      dc.set(window.activeTextEditor.document.uri, [diag]);
-    }
-    vbsOut.append(output);
-  });
-
-  runner.on('exit', code => {
-    vbsOut.appendLine(`Process exited with code ${code}`);
-  });
-}
+let statbar: Disposable;
 
 export function runScript(): void {
   if (!window.activeTextEditor)
     return;
-  const thisDoc = window.activeTextEditor.document; // Get the object of the text editor
-  // Save the file
-  thisDoc.save().then(() => {
-    window.setStatusBarMessage(localize("vbs.runningscript"), 1500);
 
-    procRunner(scriptInterpreter, [thisDoc.fileName]);
+  try {
+    fs.accessSync(scriptInterpreter, fs.constants.X_OK);
+  } catch {
+    window.showErrorMessage(localize("vbs.msg.interpreterRunError") + " " + scriptInterpreter);
+  }
+
+  diagCollection.clear();
+
+  const doc = window.activeTextEditor.document;
+  doc.save().then(() => {
+    vbsOut.clear();
+    vbsOut.show(true);
+
+    const workDir = path.dirname(doc.fileName);
+
+    if (statbar)
+      statbar.dispose();
+
+    statbar = window.setStatusBarMessage(localize("vbs.msg.runningscript"));
+
+    runner = child_process.spawn(scriptInterpreter, [doc.fileName], {
+      cwd: workDir,
+    });
+
+    runner.stdout.on('data', data => {
+      const output = data.toString();
+      vbsOut.append(output);
+    });
+
+    runner.stderr.on('data', data => {
+      const output = data.toString();
+      const match = (/.*\((\d+), (\d+)\) (.*)/.exec(output));
+      if (match) {
+        const line = Number.parseInt(match[1]) - 1;
+        const char = Number.parseInt(match[2]) - 1;
+        const diag = new Diagnostic(new Range(line, char, line, char), match[3], DiagnosticSeverity.Error);
+        diagCollection.set(doc.uri, [diag]);
+      }
+      vbsOut.append(output);
+    });
+
+    runner.on('exit', code => {
+      vbsOut.appendLine(`Process exited with code ${code}`);
+      statbar.dispose();
+    });
+  }, () => {
+    window.showErrorMessage("Document can' be saved");
+    return;
   });
 }
 
 export function killScript(): void {
   // runner.stdin.pause();
   runner?.kill();
+  statbar?.dispose();
 }
