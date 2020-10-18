@@ -1,4 +1,4 @@
-import { languages, SignatureHelp, SignatureInformation, ParameterInformation, TextDocument, Position } from 'vscode';
+import { languages, SignatureHelp, SignatureInformation, ParameterInformation, TextDocument, Position, SignatureHelpContext, CancellationToken } from 'vscode';
 import { Includes } from './extension';
 import * as PATTERNS from './patterns';
 
@@ -89,38 +89,32 @@ function getSignatures(text: string, docComment: string): Map<string, SignatureI
   return map;
 }
 
+function provideSignatureHelp(document: TextDocument, position: Position, _token: CancellationToken, context: SignatureHelpContext) {
+  const caller = getCallInfo(document, position);
+  if (caller == null)
+    return null;
+
+  const sighelp = new SignatureHelp();
+  if (context.activeSignatureHelp)
+    sighelp.activeSignature = context.activeSignatureHelp.activeSignature;
+  else
+    sighelp.activeSignature = 0;
+  sighelp.activeParameter = caller.commas;
+
+  let sig: SignatureInformation[] | undefined;
+  if ((sig = getSignatures(document.getText(), "Local").get(caller.func)) !== undefined) {
+    sighelp.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length >= caller.commas));
+  }
+
+  for (const item of Includes) {
+    if ((sig = getSignatures(item[1].Content, item[0]).get(caller.func)) !== undefined) {
+      sighelp.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length >= caller.commas));
+    }
+  };
+
+  return sighelp;
+}
+
 export default languages.registerSignatureHelpProvider({ scheme: 'file', language: 'vbs' },
-  {
-    provideSignatureHelp(document, position, _cancel, context) {
-      const caller = getCallInfo(document, position);
-      if (caller == null)
-        return null;
-
-      // if (context.activeSignatureHelp) {
-      //   context.activeSignatureHelp.activeParameter = caller.commas;
-      //   return context.activeSignatureHelp;
-      // }
-
-      const sigs = new SignatureHelp();
-      if (context.activeSignatureHelp)
-        sigs.activeSignature = context.activeSignatureHelp.activeSignature;
-      else
-        sigs.activeSignature = 0;
-      sigs.activeParameter = caller.commas;
-
-      let sig: SignatureInformation[] | undefined;
-      if ((sig = getSignatures(document.getText(), "Local").get(caller.func)) !== undefined) {
-        sigs.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length > caller.commas));
-      }
-
-      for (const item of Includes) {
-        if ((sig = getSignatures(item[1].Content, item[0]).get(caller.func)) !== undefined) {
-          sigs.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length > caller.commas));
-        }
-      };
-
-      return sigs;
-    },
-  },
-  '(', ',', ' '
+  { provideSignatureHelp }, '(', ',', ' '
 );
