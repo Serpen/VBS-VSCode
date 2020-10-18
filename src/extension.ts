@@ -8,7 +8,7 @@ import definitionProvider from './definition';
 import fs from 'fs';
 
 class IncludeFile {
-  constructor(path : string) {
+  constructor(path: string) {
     if (path.startsWith(".\\") && workspace.workspaceFolders)
       path = workspace.workspaceFolders[0].uri.fsPath + path.substr(1);
 
@@ -18,7 +18,7 @@ class IncludeFile {
       this.Content = fs.readFileSync(path).toString();
   }
   Content: string;
-  Uri : Uri;
+  Uri: Uri;
 }
 
 export let Includes = new Map<string, IncludeFile>();
@@ -30,12 +30,12 @@ function reloadImportDocuments() {
       Includes.delete(key);
   }
   SourceImportFiles?.forEach((file, index) => {
-      Includes.set("Import" + index+1, new IncludeFile(file));
-    }
+    Includes.set("Import" + (index + 1), new IncludeFile(file));
+  }
   );
 }
 
-export function activate(context: ExtensionContext) : void {
+export function activate(context: ExtensionContext): void {
   const providers = [
     hoverProvider,
     completionProvider,

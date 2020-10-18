@@ -6,16 +6,16 @@ This extension implements basic language features of Visual Basic Script/VBScrip
 
 
 ## Features
-- Outline / Gliederung
-- Completion / Autovervollständigung
+- Outline
+- Completion
 
 ![Outline](assets/docs/Completion-And-Outline.png)
-- Goto Definition / Gehe zu Definition
+- Goto Definition
 - Run (no debugging)
-- Hover / 
+- Hover 
 
 ![Hover](assets/docs/Hover.png)
-- Signatures / Signaturen
+- Signatures
 
 ![Hover](assets/docs/Signature.png)
 
@@ -27,7 +27,7 @@ This extension implements basic language features of Visual Basic Script/VBScrip
 ```
 
 ## References / Thanks
-This project is based on the Visual Basic extension shipped with VS Code and the AutoIt Extension from loganch.
+This extension is based on the Visual Basic extension shipped with VS Code and the design from AutoIt Extension from loganch.
 
 ### Purpose
-This project was founded to help developing with VBS in an buisness application (medico Klinische Dokumentation)
+This extension was founded to help developing with VBS in an buisness application (medico Klinische Dokumentation)

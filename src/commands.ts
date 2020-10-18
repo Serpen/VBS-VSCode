@@ -1,6 +1,7 @@
 import { window, workspace } from 'vscode';
 import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
 import path from 'path';
+import localize from './localize';
 
 const configuration = workspace.getConfiguration('vbs');
 
@@ -44,7 +45,7 @@ export function runScript() : void {
   const thisDoc = window.activeTextEditor.document; // Get the object of the text editor
   // Save the file
   thisDoc.save().then(() => {
-    window.setStatusBarMessage('Running the script...', 1500);
+    window.setStatusBarMessage(localize("vbs.runningscript"), 1500);
 
     procRunner(scriptInterpreter, [thisDoc.fileName]);
   });

@@ -1,0 +1,9 @@
+{
+  "vbs.command.vbs.runScript": "VBS: Skript ausführen",
+  "vbs.command.vbs.killScript": "VBS: Laufendes Skript abbrechen",
+  "vbs.config.interpreter.description": "Pfad zum Skriptinterpreter",
+  "vbs.config.includes.description": "zusätzliche Quelldateien zum Includen für Vervollständigung",
+  "vbs.config.showVariableSymbols.description": "Variablen in Gliederung anzeigen",
+  "vbs.config.showParamSymbols.description": "Parameter in Gleiderung anzeigen",
+  "vbs.runningscript": "Führe Skript aus...'"
+}

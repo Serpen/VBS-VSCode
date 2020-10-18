@@ -5,7 +5,7 @@
 - More support for comment based help and where it is shown #14, #25, #34
 - Parameter values are shown in hover, completion,  goto definition and optional in symbols #12
 - Some more language documentation #21 and snippets
-- Support VSCode > 1.33.0
+- Support VSCode >= 1.33.0
 
 ### Bugfixes
 - lots of small RegExp fixes/regressions, the should be better oberserved with automated tests via mocha and appveyor

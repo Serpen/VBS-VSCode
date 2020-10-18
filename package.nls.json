@@ -1,0 +1,9 @@
+{
+  "vbs.command.vbs.runScript": "VBS: Run Script",
+  "vbs.command.vbs.killScript": "VBS: Kill Running Script",
+  "vbs.config.interpreter.description": "Path to Script Interpreter",
+  "vbs.config.includes.description": "Additional include sourcefiles for completion",
+  "vbs.config.showVariableSymbols.description": "Show variables in outline",
+  "vbs.config.showParamSymbols.description": "Show parameters in outline",
+  "vbs.runningscript": "Running the script...'"
+}
