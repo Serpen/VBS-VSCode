@@ -26,9 +26,6 @@
   "Else": {
     "documentation": ""
   },
-  "Empty": {
-    "documentation": "The Empty keyword is used to indicate an uninitialized variable value. This is not the same thing as Null. You can use the IsEmpty Function to determine whether a variable is initialized."
-  },
   "End": {
     "documentation": ""
   },
@@ -65,12 +62,6 @@
   "Next": {
     "documentation": ""
   },
-  "Nothing": {
-    "documentation": ""
-  },
-  "Null": {
-    "documentation": ""
-  },
   "Option Explicit": {
     "documentation": "Used at script level to force explicit declaration of all variables in that script."
   },
@@ -81,6 +72,9 @@
     "documentation": "Disables any enabled error handler in the current procedure."
   },
   "Redim Preserve": {
+    "documentation": ""
+  },
+  "Property": {
     "documentation": ""
   },
   "Property Get": {

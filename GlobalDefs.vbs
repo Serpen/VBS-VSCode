@@ -640,6 +640,10 @@ Const vbDecimal = 14
 Const vbByte = 17
 Const vbArray = 8192
 
+Const Nothing = Nothing
+Const Empty = Empty 'The Empty keyword is used to indicate an uninitialized variable value. This is not the same thing as Null. You can use the IsEmpty Function to determine whether a variable is initialized.
+Const Null = Null
+
 Const False = False ' Boolean
 Const True = True
 Const vbUseDefault = -2
