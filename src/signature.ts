@@ -79,7 +79,7 @@ function getSignatures(text: string, docComment: string): Map<string, SignatureI
     });
 
 
-    let prevMatches;
+    let prevMatches: SignatureInformation[];
     if ((prevMatches = map.get(name)) !== undefined)
       map.set(name, [...prevMatches, si]);
     else
@@ -89,8 +89,8 @@ function getSignatures(text: string, docComment: string): Map<string, SignatureI
   return map;
 }
 
-function provideSignatureHelp(document: TextDocument, position: Position, _token: CancellationToken, context: SignatureHelpContext) {
-  const caller = getCallInfo(document, position);
+function provideSignatureHelp(doc: TextDocument, position: Position, _token: CancellationToken, context: SignatureHelpContext): SignatureHelp {
+  const caller = getCallInfo(doc, position);
   if (caller == null)
     return null;
 
@@ -102,7 +102,7 @@ function provideSignatureHelp(document: TextDocument, position: Position, _token
   sighelp.activeParameter = caller.commas;
 
   let sig: SignatureInformation[] | undefined;
-  if ((sig = getSignatures(document.getText(), "Local").get(caller.func)) !== undefined) {
+  if ((sig = getSignatures(doc.getText(), "Local").get(caller.func)) !== undefined) {
     sighelp.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length >= caller.commas));
   }
 
@@ -115,6 +115,7 @@ function provideSignatureHelp(document: TextDocument, position: Position, _token
   return sighelp;
 }
 
-export default languages.registerSignatureHelpProvider({ scheme: 'file', language: 'vbs' },
+export default languages.registerSignatureHelpProvider(
+  { scheme: 'file', language: 'vbs' },
   { provideSignatureHelp }, '(', ',', ' '
 );

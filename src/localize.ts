@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "fs-extra";
+import { existsSync, readFileSync } from "fs";
 import { resolve } from "path";
 import { extensions } from "vscode";
 
@@ -29,9 +29,9 @@ export class Localize {
   private format(message: string, args: string[] = []): string {
     return args.length
       ? message.replace(
-          /\{(\d+)\}/g,
-          (match, rest: any[]) => args[rest[0]] || match
-        )
+        /\{(\d+)\}/g,
+        (match, rest: any[]) => args[rest[0]] || match
+      )
       : message;
   }
 

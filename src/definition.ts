@@ -2,34 +2,6 @@ import { languages, Location, TextDocument, Position, Uri, Range } from 'vscode'
 import { Includes } from './extension';
 import * as PATTERNS from './patterns';
 
-export default languages.registerDefinitionProvider({ scheme: 'file', language: 'vbs' }, {
-  provideDefinition(document: TextDocument, position: Position) {
-    const lookupRange = document.getWordRangeAtPosition(position);
-    const lookup = document.getText(lookupRange);
-    const docText = document.getText();
-
-    const posLoc: Location[] = [];
-
-    let match = PATTERNS.DEF(docText, lookup);
-    if (match)
-      posLoc.push(new Location(document.uri, document.positionAt(match.index)));
-
-    match = PATTERNS.DEFVAR(docText, lookup);
-    if (match)
-      posLoc.push(new Location(document.uri, document.positionAt(match.index)));
-
-    for (const item of Includes)
-      posLoc.push(...findExtDef(item[1].Content, lookup, item[1].Uri))
-
-    // def for param must be above
-    posLoc.push(...GetParamDef(document.getText(new Range(new Position(0, 0), new Position(position.line + 1, 0))), lookup, document.uri));
-
-    if (posLoc.length > 0)
-      return posLoc[0];
-  }
-},
-);
-
 function findExtDef(docText: string, lookup: string, docuri: Uri): Location[] {
   const posloc: Location[] = [];
   let match = PATTERNS.DEF(docText, lookup);
@@ -62,3 +34,30 @@ function GetParamDef(docText: string, lookup: string, thisUri: Uri): Location[] 
   else
     return [];
 }
+
+function provideDefinition(doc: TextDocument, position: Position): Location {
+  const lookupRange = doc.getWordRangeAtPosition(position);
+  const lookup = doc.getText(lookupRange);
+  const docText = doc.getText();
+
+  const posLoc: Location[] = [];
+
+  let match = PATTERNS.DEF(docText, lookup);
+  if (match)
+    posLoc.push(new Location(doc.uri, doc.positionAt(match.index)));
+
+  match = PATTERNS.DEFVAR(docText, lookup);
+  if (match)
+    posLoc.push(new Location(doc.uri, doc.positionAt(match.index)));
+
+  for (const item of Includes)
+    posLoc.push(...findExtDef(item[1].Content, lookup, item[1].Uri))
+
+  // def for param must be above
+  posLoc.push(...GetParamDef(doc.getText(new Range(new Position(0, 0), new Position(position.line + 1, 0))), lookup, doc.uri));
+
+  if (posLoc.length > 0)
+    return posLoc[0];
+}
+
+export default languages.registerDefinitionProvider({ scheme: 'file', language: 'vbs' }, { provideDefinition });

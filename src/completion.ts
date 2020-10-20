@@ -2,6 +2,8 @@ import { languages, CompletionItem, CompletionItemKind, TextDocument, Position }
 import definitions from './definitions';
 import { Includes } from './extension';
 import * as PATTERNS from './patterns';
+import * as fs from 'fs';
+import * as pathns from 'path';
 
 function getVariableCompletions(text: string, scope: string): CompletionItem[] {
   const CIs: CompletionItem[] = []; // results
@@ -130,11 +132,11 @@ function getCompletions(text: string, scope: string, parseParams = false) {
   return [...getVariableCompletions(text, scope), ...getFunctionCompletions(text, scope, parseParams), ...getPropertyCompletions(text, scope), ...getClassCompletions(text, scope)];
 }
 
-function provideCompletionItems(document: TextDocument, position: Position): CompletionItem[] {
-  const codeAtPosition = document.lineAt(position).text.substring(0, position.character);
+function provideCompletionItems(doc: TextDocument, position: Position): CompletionItem[] {
+  const codeAtPosition = doc.lineAt(position).text.substring(0, position.character);
 
   // Remove completion offerings from commented lines
-  const line = document.lineAt(position);
+  const line = doc.lineAt(position);
   if (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
     return [];
 
@@ -149,7 +151,7 @@ function provideCompletionItems(document: TextDocument, position: Position): Com
   if (quoteCount % 2 === 1)
     return [];
 
-  const text = document.getText();
+  const text = doc.getText();
   const retCI: CompletionItem[] = [];
 
   const ObjectSourceImportName = "ObjectDefs";
@@ -182,10 +184,8 @@ function provideCompletionItems(document: TextDocument, position: Position): Com
 
     retCI.push(...getClassCompletions(ObjectSourceImport.Content, ObjectSourceImportName));
 
-    retCI.push(...getCompletions(Includes.get("Global").Content, "Global"));
-
     for (const item of Includes)
-      if (item[0].startsWith("Import"))
+      if (item[0].startsWith("Import") || item[0] == "Global")
         retCI.push(...getCompletions(item[1].Content, item[0]));
 
   }

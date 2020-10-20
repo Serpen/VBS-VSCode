@@ -2,38 +2,6 @@ import { languages, Hover, TextDocument, Position, Range } from 'vscode';
 import * as PATTERNS from './patterns';
 import { Includes } from './extension';
 
-export default languages.registerHoverProvider({ scheme: 'file', language: 'vbs' }, {
-  provideHover(document: TextDocument, position: Position) {
-    const wordRange = document.getWordRangeAtPosition(position);
-    const word: string = wordRange ? document.getText(wordRange) : '';
-    const line = document.lineAt(position).text;
-
-    const hoverresults: Hover[] = [];
-
-    if (word.trim() === "")
-      return null;
-
-    if (!new RegExp(`^[^']*${word}`).test(line))
-      return null;
-
-    let count = 0;
-    for (let i = 0; i < position.character; i++)
-      if (line[i] === '"') count++;
-    if (count % 2 === 1)
-      return null;
-    hoverresults.push(...GetHover(document.getText(), word, "Local"));
-
-    for (const ExtraDocText of Includes)
-      hoverresults.push(...GetHover(ExtraDocText[1].Content, word, ExtraDocText[0]));
-
-    // hoverresult for param must be above
-    hoverresults.push(...GetParamHover(document.getText(new Range(new Position(0, 0), new Position(position.line + 1, 0))), word));
-
-    if (hoverresults.length > 0)
-      return hoverresults[0];
-  },
-});
-
 function GetHover(docText: string, lookup: string, scope: string): Hover[] {
   const results: Hover[] = [];
   let matches = PATTERNS.DEF(docText, lookup);
@@ -77,3 +45,38 @@ function GetParamHover(text: string, lookup: string): Hover[] {
   else
     return [];
 }
+
+function provideHover(doc: TextDocument, position: Position): Hover {
+  const wordRange = doc.getWordRangeAtPosition(position);
+  const word: string = wordRange ? doc.getText(wordRange) : '';
+  const line = doc.lineAt(position).text;
+
+  const hoverresults: Hover[] = [];
+
+  if (word.trim() === "")
+    return null;
+
+  if (!new RegExp(`^[^']*${word}`).test(line))
+    return null;
+
+  let count = 0;
+  for (let i = 0; i < position.character; i++)
+    if (line[i] === '"') count++;
+  if (count % 2 === 1)
+    return null;
+  hoverresults.push(...GetHover(doc.getText(), word, "Local"));
+
+  for (const ExtraDocText of Includes)
+    hoverresults.push(...GetHover(ExtraDocText[1].Content, word, ExtraDocText[0]));
+
+  // hoverresult for param must be above
+  hoverresults.push(...GetParamHover(doc.getText(new Range(new Position(0, 0), new Position(position.line + 1, 0))), word));
+
+  if (hoverresults.length > 0)
+    return hoverresults[0];
+}
+
+export default languages.registerHoverProvider(
+  { scheme: 'file', language: 'vbs' },
+  { provideHover }
+);

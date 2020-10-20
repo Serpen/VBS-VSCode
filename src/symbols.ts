@@ -1,127 +1,130 @@
-import { languages, SymbolKind, DocumentSymbol, Range, workspace } from 'vscode';
+import { languages, SymbolKind, DocumentSymbol, Range, workspace, TextDocument } from 'vscode';
 import * as PATTERNS from './patterns';
 
-export default languages.registerDocumentSymbolProvider({ scheme: 'file', language: 'vbs' }, {
-  provideDocumentSymbols(doc) {
-    const result: DocumentSymbol[] = [];
+function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
+  const result: DocumentSymbol[] = [];
 
-    const FUNCTION = RegExp(PATTERNS.FUNCTION.source, 'i');
-    const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
-    const PROP = RegExp(PATTERNS.PROP.source, 'i');
+  const FUNCTION = RegExp(PATTERNS.FUNCTION.source, 'i');
+  const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
+  const PROP = RegExp(PATTERNS.PROP.source, 'i');
 
-    const varList: string[] = [];
+  const varList: string[] = [];
 
-    const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showVariableSymbols");
-    const showParameterSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showParamSymbols");
+  const showVariableSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showVariableSymbols");
+  const showParameterSymbols: boolean = workspace.getConfiguration("vbs").get<boolean>("showParamSymbols");
 
-    const Blocks: DocumentSymbol[] = [];
-    const BlockEnds: string[] = [];
+  const Blocks: DocumentSymbol[] = [];
+  const BlockEnds: string[] = [];
 
-    // Get the number of lines in the document to loop through
-    const lineCount = Math.min(doc.lineCount, 10000);
-    for (let lineNum = 0; lineNum < lineCount; lineNum++) {
-      const line = doc.lineAt(lineNum);
+  // Get the number of lines in the document to loop through
+  const lineCount = Math.min(doc.lineCount, 10000);
+  for (let lineNum = 0; lineNum < lineCount; lineNum++) {
+    const line = doc.lineAt(lineNum);
 
 
-      if (line.isEmptyOrWhitespace || line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
-        continue;
+    if (line.isEmptyOrWhitespace || line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
+      continue;
 
-      const LineTextwithoutComment = (/^([^'\n\r]*).*$/m).exec(line.text);
+    const LineTextwithoutComment = (/^([^'\n\r]*).*$/m).exec(line.text);
 
-      if (LineTextwithoutComment?.[1]) {
-        LineTextwithoutComment[1].split(":").forEach(lineText => {
-          let name: string;
-          let symbol: DocumentSymbol | null;
+    if (LineTextwithoutComment?.[1]) {
+      LineTextwithoutComment[1].split(":").forEach(lineText => {
+        let name: string;
+        let symbol: DocumentSymbol | null;
 
-          let matches: RegExpMatchArray | null = [];
+        let matches: RegExpMatchArray | null = [];
 
-          if ((matches = CLASS.exec(lineText)) !== null) {
-            name = matches[3];
-            symbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
-            BlockEnds.push("class")
+        if ((matches = CLASS.exec(lineText)) !== null) {
+          name = matches[3];
+          symbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
+          BlockEnds.push("class")
 
-          } else if ((matches = FUNCTION.exec(lineText)) !== null) {
-            name = matches[4];
-            let detail = "";
-            let symKind = SymbolKind.Function;
-            if (matches[3].toLowerCase() === "sub")
-              if (name.toLowerCase() === "class_initialize()" || name.toLowerCase() === "class_terminate()") {
-                symKind = SymbolKind.Constructor;
-                BlockEnds.push("sub");
-              } else {
-                detail = "Sub";
-                BlockEnds.push(detail.toLowerCase());
-              }
-            else {
-              detail = "Function";
+        } else if ((matches = FUNCTION.exec(lineText)) !== null) {
+          name = matches[4];
+          let detail = "";
+          let symKind = SymbolKind.Function;
+          if (matches[3].toLowerCase() === "sub")
+            if (name.toLowerCase() === "class_initialize()" || name.toLowerCase() === "class_terminate()") {
+              symKind = SymbolKind.Constructor;
+              BlockEnds.push("sub");
+            } else {
+              detail = "Sub";
               BlockEnds.push(detail.toLowerCase());
             }
+          else {
+            detail = "Function";
+            BlockEnds.push(detail.toLowerCase());
+          }
 
-            // if params are shown extra, def line shouldn't contain it too
-            if (showParameterSymbols)
-              name = matches[5];
+          // if params are shown extra, def line shouldn't contain it too
+          if (showParameterSymbols)
+            name = matches[5];
 
-            symbol = new DocumentSymbol(name, detail, symKind, line.range, line.range);
+          symbol = new DocumentSymbol(name, detail, symKind, line.range, line.range);
 
-            if (showParameterSymbols) {
-              if (matches[6])
-                matches[6].split(",").forEach(param => {
-                  symbol.children.push(new DocumentSymbol(param.trim(), 'Parameter', SymbolKind.Variable, line.range, line.range))
-                });
-            }
+          if (showParameterSymbols) {
+            if (matches[6])
+              matches[6].split(",").forEach(param => {
+                symbol.children.push(new DocumentSymbol(param.trim(), 'Parameter', SymbolKind.Variable, line.range, line.range))
+              });
+          }
 
-          } else if ((matches = PROP.exec(lineText)) !== null) {
-            name = matches[4];
-            symbol = new DocumentSymbol(name, matches[3], SymbolKind.Property, line.range, line.range);
-            BlockEnds.push("property");
+        } else if ((matches = PROP.exec(lineText)) !== null) {
+          name = matches[4];
+          symbol = new DocumentSymbol(name, matches[3], SymbolKind.Property, line.range, line.range);
+          BlockEnds.push("property");
 
-          } else if (showVariableSymbols) {
-            while ((matches = PATTERNS.VAR.exec(lineText)) !== null) {
-              const varNames = matches[2].split(',');
-              for (const varname of varNames) {
-                const vname = varname.replace(PATTERNS.ARRAYBRACKETS, '').trim();
-                if (varList.indexOf(vname) === -1 || !(/\bSet\b/i.test(matches[0]))) { // match multiple same Dim, but not an additional set to a dim
-                  varList.push(vname);
-                  let symKind = SymbolKind.Variable;
-                  if (/\bconst\b/i.test(matches[1]))
-                    symKind = SymbolKind.Constant;
-                  else if (/\bSet\b/i.test(matches[0]))
-                    symKind = SymbolKind.Struct;
-                  else if (/\w+[\t ]*\([\t ]*\d*[\t ]*\)/i.test(varname))
-                    symKind = SymbolKind.Array;
-                  const r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR.lastIndex);
-                  const variableSymbol = new DocumentSymbol(vname, '', symKind, r, r);
-                  if (Blocks.length === 0)
-                    result.push(variableSymbol);
-                  else
-                    Blocks[Blocks.length - 1].children.push(variableSymbol);
-                }
+        } else if (showVariableSymbols) {
+          while ((matches = PATTERNS.VAR.exec(lineText)) !== null) {
+            const varNames = matches[2].split(',');
+            for (const varname of varNames) {
+              const vname = varname.replace(PATTERNS.ARRAYBRACKETS, '').trim();
+              if (varList.indexOf(vname) === -1 || !(/\bSet\b/i.test(matches[0]))) { // match multiple same Dim, but not an additional set to a dim
+                varList.push(vname);
+                let symKind = SymbolKind.Variable;
+                if (/\bconst\b/i.test(matches[1]))
+                  symKind = SymbolKind.Constant;
+                else if (/\bSet\b/i.test(matches[0]))
+                  symKind = SymbolKind.Struct;
+                else if (/\w+[\t ]*\([\t ]*\d*[\t ]*\)/i.test(varname))
+                  symKind = SymbolKind.Array;
+                const r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR.lastIndex);
+                const variableSymbol = new DocumentSymbol(vname, '', symKind, r, r);
+                if (Blocks.length === 0)
+                  result.push(variableSymbol);
+                else
+                  Blocks[Blocks.length - 1].children.push(variableSymbol);
               }
             }
           }
+        }
 
-          if (symbol) {
-            if (Blocks.length === 0)
-              result.push(symbol);
-            else
-              Blocks[Blocks.length - 1].children.push(symbol);
-            Blocks.push(symbol);
+        if (symbol) {
+          if (Blocks.length === 0)
+            result.push(symbol);
+          else
+            Blocks[Blocks.length - 1].children.push(symbol);
+          Blocks.push(symbol);
+        }
+
+        if ((matches = PATTERNS.ENDLINE.exec(lineText)) !== null)
+          if (BlockEnds[BlockEnds.length - 1] === matches[1].toLowerCase()) {
+            Blocks.pop();
+            BlockEnds.pop();
+          } else {
+            Blocks.pop();
+            console.log("symbol wrong ending (awaiting closing for " + BlockEnds.pop()?.toString() + " got " + matches[1].toLowerCase() + ") in " + doc.uri + " " + line.lineNumber)
           }
 
-          if ((matches = PATTERNS.ENDLINE.exec(lineText)) !== null)
-            if (BlockEnds[BlockEnds.length - 1] === matches[1].toLowerCase()) {
-              Blocks.pop();
-              BlockEnds.pop();
-            } else {
-              Blocks.pop();
-              console.log("symbol wrong ending (awaiting closing for " + BlockEnds.pop()?.toString() + " got " + matches[1].toLowerCase() + ") in " + doc.uri + " " + line.lineNumber)
-            }
+      });
+    }
+  } // next linenum
 
-        });
-      }
-    } // next linenum
+  return result;
+}
 
-    return result;
-  },
-});
+export default languages.registerDocumentSymbolProvider(
+  { scheme: 'file', language: 'vbs' },
+  { provideDocumentSymbols }
+);
 
