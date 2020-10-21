@@ -145,12 +145,9 @@
 				},
 				"2": {
 					"name": "variable.other.dim.vbs"
-				},
-				"3": {
-					"name": "meta.separator.comma.vbs"
 				}
-			},
-			"match": "\\b(?i:((?:public|private)\\s+const|public|private|dim|const)\\s+(?:(\\b[a-zA-Z]\\w*\\b)\\s*(,?)))"
+				},
+			"match": "\\b(?i:((?:public|private)\\s+const|public|private|dim|const)\\s+\\b([a-zA-Z]\\w*\\b(?:\\s*,\\s*\\b[a-zA-Z]\\w*\\b)*))"
 		},
 		{
 			"match": "(?i:\\s*\\b(Empty|False|Nothing|Null|True)\\b)",
