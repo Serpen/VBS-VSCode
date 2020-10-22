@@ -1,9 +1,7 @@
-import { languages, CompletionItem, CompletionItemKind, TextDocument, Position } from 'vscode';
-import definitions from './definitions';
-import { Includes } from './extension';
-import * as PATTERNS from './patterns';
-import * as fs from 'fs';
-import * as pathns from 'path';
+import { languages, CompletionItem, CompletionItemKind, TextDocument, Position } from "vscode";
+import definitions from "./definitions";
+import { Includes } from "./extension";
+import * as PATTERNS from "./patterns";
 
 function getVariableCompletions(text: string, scope: string): CompletionItem[] {
   const CIs: CompletionItem[] = []; // results
@@ -12,7 +10,7 @@ function getVariableCompletions(text: string, scope: string): CompletionItem[] {
   let matches: RegExpExecArray;
   while (matches = PATTERNS.VAR.exec(text)) {
     matches[2].split(",").forEach(match => {
-      const name = match.replace(PATTERNS.ARRAYBRACKETS, '').trim();
+      const name = match.replace(PATTERNS.ARRAYBRACKETS, "").trim();
 
       if (foundVals.indexOf(name.toLowerCase()) === -1) {
         foundVals.push(name.toLowerCase());
@@ -129,7 +127,10 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
 }
 
 function getCompletions(text: string, scope: string, parseParams = false) {
-  return [...getVariableCompletions(text, scope), ...getFunctionCompletions(text, scope, parseParams), ...getPropertyCompletions(text, scope), ...getClassCompletions(text, scope)];
+  return [...getVariableCompletions(text, scope),
+    ...getFunctionCompletions(text, scope, parseParams),
+    ...getPropertyCompletions(text, scope),
+    ...getClassCompletions(text, scope)];
 }
 
 function provideCompletionItems(doc: TextDocument, position: Position): CompletionItem[] {
@@ -171,7 +172,8 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
     } else {
       retCI.push(...getCompletions(text, "Local"));
 
-      retCI.push(...getFunctionCompletions(ObjectSourceImport.Content, ObjectSourceImportName), ...getPropertyCompletions(ObjectSourceImport.Content, ObjectSourceImportName));
+      retCI.push(...getFunctionCompletions(ObjectSourceImport.Content, ObjectSourceImportName),
+        ...getPropertyCompletions(ObjectSourceImport.Content, ObjectSourceImportName));
 
       for (const imp of Includes)
         if (imp[0].startsWith("Import"))
@@ -185,7 +187,7 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
     retCI.push(...getClassCompletions(ObjectSourceImport.Content, ObjectSourceImportName));
 
     for (const item of Includes)
-      if (item[0].startsWith("Import") || item[0] == "Global")
+      if (item[0].startsWith("Import") || item[0] === "Global")
         retCI.push(...getCompletions(item[1].Content, item[0]));
 
   }
@@ -194,6 +196,6 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
 }
 
 export default languages.registerCompletionItemProvider(
-  { scheme: 'file', language: 'vbs' },
+  { scheme: "file", language: "vbs" },
   { provideCompletionItems }, "."
 );

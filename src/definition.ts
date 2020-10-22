@@ -1,6 +1,6 @@
-import { languages, Location, TextDocument, Position, Uri, Range } from 'vscode';
-import { Includes } from './extension';
-import * as PATTERNS from './patterns';
+import { languages, Location, TextDocument, Position, Uri, Range } from "vscode";
+import { Includes } from "./extension";
+import * as PATTERNS from "./patterns";
 
 function findExtDef(docText: string, lookup: string, docuri: Uri): Location[] {
   const posloc: Location[] = [];
@@ -23,7 +23,7 @@ function GetParamDef(docText: string, lookup: string, thisUri: Uri): Location[] 
 
   let matches: RegExpExecArray;
   while (matches = PATTERNS.FUNCTION.exec(docText))
-    matches[6]?.split(",").filter(p => p.trim() === lookup).forEach(param => {
+    matches[6]?.split(",").filter(p => p.trim() === lookup).forEach(() => {
       const line = docText.slice(0, matches.index).match(/\n/g).length;
       locs.push(new Location(thisUri, new Position(line, 0)));
     });
@@ -60,4 +60,4 @@ function provideDefinition(doc: TextDocument, position: Position): Location {
     return posLoc[0];
 }
 
-export default languages.registerDefinitionProvider({ scheme: 'file', language: 'vbs' }, { provideDefinition });
+export default languages.registerDefinitionProvider({ scheme: "file", language: "vbs" }, { provideDefinition });

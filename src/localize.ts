@@ -16,21 +16,17 @@ export class Localize {
   }
 
   private init() {
-    try {
-      this.options = {
-        ...this.options,
-        ...JSON.parse(process.env.VSCODE_NLS_CONFIG || "{}")
-      };
-    } catch (err) {
-      throw err;
-    }
+    this.options = {
+      ...this.options,
+      ...JSON.parse(process.env.VSCODE_NLS_CONFIG || "{}")
+    };
   }
 
   private format(message: string, args: string[] = []): string {
     return args.length
       ? message.replace(
         /\{(\d+)\}/g,
-        (match, rest: any[]) => args[rest[0]] || match
+        (match, rest) => args[rest[0]] || match
       )
       : message;
   }
@@ -51,22 +47,17 @@ export class Localize {
     );
 
     const languageFilePath = resolve(rootPath, resolvedLanguage);
+    const defaultLanguageBundle = JSON.parse(
+      resolvedLanguage !== defaultLanguage
+        ? readFileSync(resolve(rootPath, defaultLanguage), "utf-8")
+        : "{}"
+    );
 
-    try {
-      const defaultLanguageBundle = JSON.parse(
-        resolvedLanguage !== defaultLanguage
-          ? readFileSync(resolve(rootPath, defaultLanguage), "utf-8")
-          : "{}"
-      );
+    const resolvedLanguageBundle = JSON.parse(
+      readFileSync(languageFilePath, "utf-8")
+    );
 
-      const resolvedLanguageBundle = JSON.parse(
-        readFileSync(languageFilePath, "utf-8")
-      );
-
-      return { ...defaultLanguageBundle, ...resolvedLanguageBundle };
-    } catch (err) {
-      throw err;
-    }
+    return { ...defaultLanguageBundle, ...resolvedLanguageBundle };
   }
 
   private recurseCandidates(

@@ -10,5 +10,9 @@
         "**/*.js": true,
         "**/*.txt": true,
         "package-lock.json":true
+    },
+    "eslint.format.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
     }
 }

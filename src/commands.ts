@@ -1,14 +1,14 @@
-import { Diagnostic, DiagnosticSeverity, Disposable, languages, Range, window, workspace } from 'vscode';
-import * as child_process from 'child_process';
-import path from 'path';
-import localize from './localize';
-import * as fs from 'fs';
+import { Diagnostic, DiagnosticSeverity, Disposable, languages, Range, window, workspace } from "vscode";
+import * as childProcess from "child_process";
+import path from "path";
+import localize from "./localize";
+import * as fs from "fs";
 
-const configuration = workspace.getConfiguration('vbs');
+const configuration = workspace.getConfiguration("vbs");
 
-const vbsOut = window.createOutputChannel('VBScript');
+const vbsOut = window.createOutputChannel("VBScript");
 
-let runner: child_process.ChildProcessWithoutNullStreams;
+let runner: childProcess.ChildProcessWithoutNullStreams;
 
 const scriptInterpreter: string = configuration.get<string>("interpreter");
 
@@ -26,6 +26,8 @@ export function runScript(): void {
     window.showErrorMessage(localize("vbs.msg.interpreterRunError") + " " + scriptInterpreter);
   }
 
+  0x12
+
   diagCollection.clear();
 
   const doc = window.activeTextEditor.document;
@@ -40,16 +42,16 @@ export function runScript(): void {
 
     statbar = window.setStatusBarMessage(localize("vbs.msg.runningscript"));
 
-    runner = child_process.spawn(scriptInterpreter, [doc.fileName], {
+    runner = childProcess.spawn(scriptInterpreter, [doc.fileName], {
       cwd: workDir,
     });
 
-    runner.stdout.on('data', data => {
+    runner.stdout.on("data", data => {
       const output = data.toString();
       vbsOut.append(output);
     });
 
-    runner.stderr.on('data', data => {
+    runner.stderr.on("data", data => {
       const output = data.toString();
       const match = (/.*\((\d+), (\d+)\) (.*)/.exec(output));
       if (match) {
@@ -61,7 +63,7 @@ export function runScript(): void {
       vbsOut.append(output);
     });
 
-    runner.on('exit', code => {
+    runner.on("exit", code => {
       vbsOut.appendLine(`Process exited with code ${code}`);
       statbar.dispose();
     });

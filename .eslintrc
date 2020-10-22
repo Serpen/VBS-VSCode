@@ -13,15 +13,41 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    "max-len": ["error", { "code": 150 }],
+    "strict": "warn",
+    "max-len": [
+      "warn",
+      {
+        "code": 150
+      }
+    ],
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-use-before-define": "warn",
     "no-caller": "error",
     "no-shadow": "warn",
     "prefer-const": "warn",
-    "quotes": ["warn", "double", {"avoidEscape": true}],
-    "@typescript-eslint/semi": ["error", "always", { "beforeStatementContinuationChars": "always" }],
-    "eqeqeq": ["error", "always"],
-    "no-multi-spaces": ["error", { "ignoreEOLComments": true }]
+    "quotes": [
+      "warn",
+      "double",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "eqeqeq": [
+      "error",
+      "always"
+    ],
+    "no-multi-spaces": [
+      "error",
+      {
+        "ignoreEOLComments": true
+      }
+    ],
+    "no-cond-assign": "off",
+    "camelcase": "warn",
+    "eol-last": "warn",
+    "indent": [
+      "warn",
+      2
+    ]
   }
 }

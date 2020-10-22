@@ -1,6 +1,6 @@
-import { languages, Hover, TextDocument, Position, Range } from 'vscode';
-import * as PATTERNS from './patterns';
-import { Includes } from './extension';
+import { languages, Hover, TextDocument, Position, Range } from "vscode";
+import * as PATTERNS from "./patterns";
+import { Includes } from "./extension";
 
 function GetHover(docText: string, lookup: string, scope: string): Hover[] {
   const results: Hover[] = [];
@@ -35,7 +35,7 @@ function GetParamHover(text: string, lookup: string): Hover[] {
 
   let matches: RegExpExecArray;
   while (matches = PATTERNS.FUNCTION.exec(text))
-    matches[6]?.split(",").filter(p => p.trim() === lookup).forEach(param => {
+    matches[6]?.split(",").filter(p => p.trim() === lookup).forEach(() => {
       hovers.push(new Hover({ language: "vbs", value: lookup + " ' [Parameter]" }));
     });
 
@@ -48,7 +48,7 @@ function GetParamHover(text: string, lookup: string): Hover[] {
 
 function provideHover(doc: TextDocument, position: Position): Hover {
   const wordRange = doc.getWordRangeAtPosition(position);
-  const word: string = wordRange ? doc.getText(wordRange) : '';
+  const word: string = wordRange ? doc.getText(wordRange) : "";
   const line = doc.lineAt(position).text;
 
   const hoverresults: Hover[] = [];
@@ -77,6 +77,6 @@ function provideHover(doc: TextDocument, position: Position): Hover {
 }
 
 export default languages.registerHoverProvider(
-  { scheme: 'file', language: 'vbs' },
+  { scheme: "file", language: "vbs" },
   { provideHover }
 );

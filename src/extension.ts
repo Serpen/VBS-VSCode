@@ -1,12 +1,12 @@
-import { commands, ExtensionContext, Uri, workspace } from 'vscode';
-import * as cmds from './commands';
-import hoverProvider from './hover';
-import completionProvider from './completion';
-import symbolsProvider from './symbols';
-import signatureProvider from './signature';
-import definitionProvider from './definition';
-import * as fs from 'fs';
-import * as pathns from 'path';
+import { commands, ExtensionContext, Uri, workspace } from "vscode";
+import * as cmds from "./commands";
+import hoverProvider from "./hover";
+import completionProvider from "./completion";
+import symbolsProvider from "./symbols";
+import signatureProvider from "./signature";
+import definitionProvider from "./definition";
+import * as fs from "fs";
+import * as pathns from "path";
 
 class IncludeFile {
   constructor(path: string) {
@@ -18,7 +18,7 @@ class IncludeFile {
     if (fs.existsSync(path) && fs.statSync(path).isFile())
       this.Content = fs.readFileSync(path).toString();
   }
-  Content: string = "";
+  Content = "";
   Uri: Uri;
 }
 
@@ -51,12 +51,12 @@ export function activate(context: ExtensionContext): void {
     definitionProvider);
 
   // Run Script Command
-  commands.registerCommand('vbs.runScript', () => {
+  commands.registerCommand("vbs.runScript", () => {
     cmds.runScript();
   });
 
   // Kill running script command
-  commands.registerCommand('vbs.killScript', () => {
+  commands.registerCommand("vbs.killScript", () => {
     cmds.killScript();
   });
 }

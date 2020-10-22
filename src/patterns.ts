@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * Matches a Function, 1st = Comment, 2nd = Definition, 3rd = Function/Sub, 4th = Signature def, 5th = Name, 6th = params
  */

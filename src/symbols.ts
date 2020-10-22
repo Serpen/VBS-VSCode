@@ -1,12 +1,12 @@
-import { languages, SymbolKind, DocumentSymbol, Range, workspace, TextDocument } from 'vscode';
-import * as PATTERNS from './patterns';
+import { languages, SymbolKind, DocumentSymbol, Range, workspace, TextDocument } from "vscode";
+import * as PATTERNS from "./patterns";
 
 function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
   const result: DocumentSymbol[] = [];
 
-  const FUNCTION = RegExp(PATTERNS.FUNCTION.source, 'i');
-  const CLASS = RegExp(PATTERNS.CLASS.source, 'i');
-  const PROP = RegExp(PATTERNS.PROP.source, 'i');
+  const FUNCTION = RegExp(PATTERNS.FUNCTION.source, "i");
+  const CLASS = RegExp(PATTERNS.CLASS.source, "i");
+  const PROP = RegExp(PATTERNS.PROP.source, "i");
 
   const varList: string[] = [];
 
@@ -36,7 +36,7 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
 
         if ((matches = CLASS.exec(lineText)) !== null) {
           name = matches[3];
-          symbol = new DocumentSymbol(name, '', SymbolKind.Class, line.range, line.range);
+          symbol = new DocumentSymbol(name, "", SymbolKind.Class, line.range, line.range);
           BlockEnds.push("class")
 
         } else if ((matches = FUNCTION.exec(lineText)) !== null) {
@@ -65,7 +65,7 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
           if (showParameterSymbols) {
             if (matches[6])
               matches[6].split(",").forEach(param => {
-                symbol.children.push(new DocumentSymbol(param.trim(), 'Parameter', SymbolKind.Variable, line.range, line.range))
+                symbol.children.push(new DocumentSymbol(param.trim(), "Parameter", SymbolKind.Variable, line.range, line.range))
               });
           }
 
@@ -76,9 +76,9 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
 
         } else if (showVariableSymbols) {
           while ((matches = PATTERNS.VAR.exec(lineText)) !== null) {
-            const varNames = matches[2].split(',');
+            const varNames = matches[2].split(",");
             for (const varname of varNames) {
-              const vname = varname.replace(PATTERNS.ARRAYBRACKETS, '').trim();
+              const vname = varname.replace(PATTERNS.ARRAYBRACKETS, "").trim();
               if (varList.indexOf(vname) === -1 || !(/\bSet\b/i.test(matches[0]))) { // match multiple same Dim, but not an additional set to a dim
                 varList.push(vname);
                 let symKind = SymbolKind.Variable;
@@ -89,7 +89,7 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
                 else if (/\w+[\t ]*\([\t ]*\d*[\t ]*\)/i.test(varname))
                   symKind = SymbolKind.Array;
                 const r = new Range(line.lineNumber, 0, line.lineNumber, PATTERNS.VAR.lastIndex);
-                const variableSymbol = new DocumentSymbol(vname, '', symKind, r, r);
+                const variableSymbol = new DocumentSymbol(vname, "", symKind, r, r);
                 if (Blocks.length === 0)
                   result.push(variableSymbol);
                 else
@@ -113,7 +113,9 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
             BlockEnds.pop();
           } else {
             Blocks.pop();
-            console.log("symbol wrong ending (awaiting closing for " + BlockEnds.pop()?.toString() + " got " + matches[1].toLowerCase() + ") in " + doc.uri + " " + line.lineNumber)
+            console.log("symbol wrong ending (awaiting closing for "
+              + BlockEnds.pop()?.toString() + " got " + matches[1].toLowerCase() + ") in "
+              + doc.uri + " " + line.lineNumber)
           }
 
       });
@@ -124,7 +126,7 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
 }
 
 export default languages.registerDocumentSymbolProvider(
-  { scheme: 'file', language: 'vbs' },
+  { scheme: "file", language: "vbs" },
   { provideDocumentSymbols }
 );
 

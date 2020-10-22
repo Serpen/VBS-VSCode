@@ -1,6 +1,7 @@
-import { languages, SignatureHelp, SignatureInformation, ParameterInformation, TextDocument, Position, SignatureHelpContext, CancellationToken } from 'vscode';
-import { Includes } from './extension';
-import * as PATTERNS from './patterns';
+import { languages, SignatureHelp, SignatureInformation, ParameterInformation, 
+  TextDocument, Position, SignatureHelpContext, CancellationToken } from "vscode";
+import { Includes } from "./extension";
+import * as PATTERNS from "./patterns";
 
 /**
  * Reduces a partial line of code to the current Function for parsing
@@ -8,17 +9,17 @@ import * as PATTERNS from './patterns';
  */
 function getParsableCode(code: string): string {
   const reducedCode = code
-    .replace(/\w+\([^()]*\)/g, '')
-    .replace(/"[^"]*"/g, '')
-    .replace(/"[^"]*(?=$)/g, '') // Remove double quote and text at end of line
-    .replace(/\([^()]*\)/g, '') // Remove paren sets
-    .replace(/\({2,}/g, '('); // Reduce multiple open parens
+    .replace(/\w+\([^()]*\)/g, "")
+    .replace(/"[^"]*"/g, "")
+    .replace(/"[^"]*(?=$)/g, "") // Remove double quote and text at end of line
+    .replace(/\([^()]*\)/g, "") // Remove paren sets
+    .replace(/\({2,}/g, "("); // Reduce multiple open parens
 
   return reducedCode;
 }
 
 function getCurrentFunction(code: string) {
-  const parenSplit = code.split('(');
+  const parenSplit = code.split("(");
   let index: number;
   if (parenSplit.length === 1)
     index = 0;
@@ -32,7 +33,7 @@ function getCurrentFunction(code: string) {
 
 function countCommas(code: string) {
   // Find the position of the closest/last open paren
-  const openParen = code.lastIndexOf('(');
+  const openParen = code.lastIndexOf("(");
   // Count non-string commas in text following open paren
   const commas = code.slice(openParen).match(/(?!\B["'][^"']*),(?![^"']*['"]\B)/g);
   if (commas === null) {
@@ -91,7 +92,7 @@ function getSignatures(text: string, docComment: string): Map<string, SignatureI
 
 function provideSignatureHelp(doc: TextDocument, position: Position, _token: CancellationToken, context: SignatureHelpContext): SignatureHelp {
   const caller = getCallInfo(doc, position);
-  if (caller == null)
+  if (caller === null)
     return null;
 
   const sighelp = new SignatureHelp();
@@ -110,12 +111,12 @@ function provideSignatureHelp(doc: TextDocument, position: Position, _token: Can
     if ((sig = getSignatures(item[1].Content, item[0]).get(caller.func)) !== undefined) {
       sighelp.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length >= caller.commas));
     }
-  };
+  }
 
   return sighelp;
 }
 
 export default languages.registerSignatureHelpProvider(
-  { scheme: 'file', language: 'vbs' },
-  { provideSignatureHelp }, '(', ',', ' '
+  { scheme: "file", language: "vbs" },
+  { provideSignatureHelp }, "(", ",", " "
 );
