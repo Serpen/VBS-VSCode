@@ -16,11 +16,18 @@ function getVariableCompletions(text: string, scope: string): CompletionItem[] {
         foundVals.push(name.toLowerCase());
 
         let itmKind = CompletionItemKind.Variable;
+
         if (/\bconst\b/i.test(matches[1]))
           itmKind = CompletionItemKind.Constant;
 
         const ci = new CompletionItem(name, itmKind);
         ci.documentation = matches[3];
+        
+        if (new RegExp(PATTERNS.COLOR, "i").test(name)) {
+          ci.kind = CompletionItemKind.Color;
+          ci.filterText = "Color." + name;
+          ci.insertText = name;
+        }
 
         ci.detail = matches[0] + ` [${scope}]`;
 

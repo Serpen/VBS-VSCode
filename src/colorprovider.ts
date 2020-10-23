@@ -66,14 +66,8 @@ class VBSColorProvider implements vscode.DocumentColorProvider {
     return array;
   }
 
-  public provideColorPresentations(color: vscode.Color, context: { document: vscode.TextDocument, range: vscode.Range }): vscode.ColorPresentation[] {
-    const array = new Array<vscode.ColorPresentation>();
-    const cp = new vscode.ColorPresentation(`RGB(${color.red * 0xff}, ${color.green * 0xff}, ${color.blue * 0xff})`);
-    cp.textEdit = new vscode.TextEdit(context.range, `RGB(${color.red * 0xff}, ${color.green * 0xff}, ${color.blue * 0xff})`);
-
-    array.push(cp);
-
-    return array;
+  public provideColorPresentations(color: vscode.Color): vscode.ColorPresentation[] {
+    return [new vscode.ColorPresentation(`RGB(${color.red * 0xff}, ${color.green * 0xff}, ${color.blue * 0xff})`)];
   }
 }
 
