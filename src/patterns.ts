@@ -43,3 +43,5 @@ export const ENDLINE = (/(?:^|:)[\t ]*End\s+(Sub|Class|Function|Property)/i);
 
 export const ARRAYBRACKETS = /\(\s*\d*\s*\)/;
 
+export const COLOR = /\b(vbBlack|vbBlue|vbCyan|vbGreen|vbMagenta|vbRed|vbWhite|vbYellow)\b|\b(RGB[\t ]*\([\t ]*(&h[0-9a-f]+|\d+)[\t ]*,[\t ]*(&h[0-9a-f]+|\d+)[\t ]*,[\t ]*(&h[0-9a-f]+|\d+)[\t ]*\))/ig;
+

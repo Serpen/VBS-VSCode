@@ -5,6 +5,7 @@ import completionProvider from "./completion";
 import symbolsProvider from "./symbols";
 import signatureProvider from "./signature";
 import definitionProvider from "./definition";
+import colorProvider from "./colorprovider";
 import * as fs from "fs";
 import * as pathns from "path";
 
@@ -48,7 +49,8 @@ export function activate(context: ExtensionContext): void {
     completionProvider,
     symbolsProvider,
     signatureProvider,
-    definitionProvider);
+    definitionProvider,
+    colorProvider);
 
   // Run Script Command
   commands.registerCommand("vbs.runScript", () => {
