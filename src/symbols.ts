@@ -37,7 +37,7 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
         if ((matches = CLASS.exec(lineText)) !== null) {
           name = matches[3];
           symbol = new DocumentSymbol(name, "", SymbolKind.Class, line.range, line.range);
-          BlockEnds.push("class")
+          BlockEnds.push("class");
 
         } else if ((matches = FUNCTION.exec(lineText)) !== null) {
           name = matches[4];
@@ -65,7 +65,7 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
           if (showParameterSymbols) {
             if (matches[6])
               matches[6].split(",").forEach(param => {
-                symbol.children.push(new DocumentSymbol(param.trim(), "Parameter", SymbolKind.Variable, line.range, line.range))
+                symbol.children.push(new DocumentSymbol(param.trim(), "Parameter", SymbolKind.Variable, line.range, line.range));
               });
           }
 
@@ -115,7 +115,7 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
             Blocks.pop();
             console.log("symbol wrong ending (awaiting closing for "
               + BlockEnds.pop()?.toString() + " got " + matches[1].toLowerCase() + ") in "
-              + doc.uri + " " + line.lineNumber)
+              + doc.uri + " " + line.lineNumber);
           }
 
       });

@@ -1,5 +1,5 @@
 import keywords from "./keywords.json";
-import operators from "./operators.json"
+import operators from "./operators.json";
 
 import { CompletionItem, CompletionItemKind } from "vscode";
 
@@ -19,4 +19,4 @@ for (const entry in operators) {
   completions.push(itm);
 }
 
-export default completions
+export default completions;

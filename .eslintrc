@@ -48,6 +48,7 @@
     "indent": [
       "warn",
       2
-    ]
+    ],
+    "semi": "warn"
   }
 }

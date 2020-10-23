@@ -26,8 +26,6 @@ export function runScript(): void {
     window.showErrorMessage(localize("vbs.msg.interpreterRunError") + " " + scriptInterpreter);
   }
 
-  0x12
-
   diagCollection.clear();
 
   const doc = window.activeTextEditor.document;

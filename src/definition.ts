@@ -51,7 +51,7 @@ function provideDefinition(doc: TextDocument, position: Position): Location {
     posLoc.push(new Location(doc.uri, doc.positionAt(match.index)));
 
   for (const item of Includes)
-    posLoc.push(...findExtDef(item[1].Content, lookup, item[1].Uri))
+    posLoc.push(...findExtDef(item[1].Content, lookup, item[1].Uri));
 
   // def for param must be above
   posLoc.push(...GetParamDef(doc.getText(new Range(new Position(0, 0), new Position(position.line + 1, 0))), lookup, doc.uri));
