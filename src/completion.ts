@@ -1,6 +1,7 @@
 import { languages, CompletionItem, CompletionItemKind, TextDocument, Position } from "vscode";
 import definitions from "./definitions";
-import { Includes } from "./extension";
+import { Includes } from "./Includes";
+import { GetLocalImports } from "./Includes";
 import * as PATTERNS from "./patterns";
 
 function getVariableCompletions(text: string, scope: string): CompletionItem[] {
@@ -158,6 +159,8 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
   const ObjectSourceImportName = "ObjectDefs";
   const ObjectSourceImport = Includes.get(ObjectSourceImportName);
 
+  const localIncludes = GetLocalImports(doc);
+
   // if dot is typed than show only members
   if (/.*\.\w*$/.test(codeAtPosition)) {
     if (/.*\bErr\.\w*$/i.test(codeAtPosition)) {
@@ -175,7 +178,7 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
       retCI.push(...getFunctionCompletions(ObjectSourceImport.Content, ObjectSourceImportName),
         ...getPropertyCompletions(ObjectSourceImport.Content, ObjectSourceImportName));
 
-      for (const imp of Includes)
+      for (const imp of localIncludes)
         if (imp[0].startsWith("Import"))
           retCI.push(...getCompletions(imp[1].Content, imp[0]));
 
@@ -186,7 +189,7 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
 
     retCI.push(...getClassCompletions(ObjectSourceImport.Content, ObjectSourceImportName));
 
-    for (const item of Includes)
+    for (const item of localIncludes)
       if (item[0].startsWith("Import") || item[0] === "Global")
         retCI.push(...getCompletions(item[1].Content, item[0]));
 

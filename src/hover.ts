@@ -1,6 +1,6 @@
 import { languages, Hover, TextDocument, Position, Range } from "vscode";
 import * as PATTERNS from "./patterns";
-import { Includes } from "./extension";
+import { GetLocalImports } from "./Includes";
 
 function GetHover(docText: string, lookup: string, scope: string): Hover[] {
   const results: Hover[] = [];
@@ -66,7 +66,7 @@ function provideHover(doc: TextDocument, position: Position): Hover {
     return null;
   hoverresults.push(...GetHover(doc.getText(), word, "Local"));
 
-  for (const ExtraDocText of Includes)
+  for (const ExtraDocText of GetLocalImports(doc))
     hoverresults.push(...GetHover(ExtraDocText[1].Content, word, ExtraDocText[0]));
 
   // hoverresult for param must be above
