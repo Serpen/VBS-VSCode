@@ -1,6 +1,6 @@
 import { languages, SignatureHelp, SignatureInformation, ParameterInformation, 
   TextDocument, Position, SignatureHelpContext, CancellationToken } from "vscode";
-import { Includes } from "./extension";
+import { GetLocalImports } from "./Includes";
 import * as PATTERNS from "./patterns";
 
 /**
@@ -107,7 +107,7 @@ function provideSignatureHelp(doc: TextDocument, position: Position, _token: Can
     sighelp.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length >= caller.commas));
   }
 
-  for (const item of Includes) {
+  for (const item of GetLocalImports(doc)) {
     if ((sig = getSignatures(item[1].Content, item[0]).get(caller.func)) !== undefined) {
       sighelp.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length >= caller.commas));
     }
@@ -117,6 +117,6 @@ function provideSignatureHelp(doc: TextDocument, position: Position, _token: Can
 }
 
 export default languages.registerSignatureHelpProvider(
-  { scheme: "file", language: "vbs" },
+  { language: "vbs" },
   { provideSignatureHelp }, "(", ",", " "
 );

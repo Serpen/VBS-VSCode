@@ -1,5 +1,5 @@
 import { languages, Location, TextDocument, Position, Uri, Range } from "vscode";
-import { Includes } from "./extension";
+import { GetLocalImports } from "./Includes";
 import * as PATTERNS from "./patterns";
 
 function findExtDef(docText: string, lookup: string, docuri: Uri): Location[] {
@@ -50,7 +50,7 @@ function provideDefinition(doc: TextDocument, position: Position): Location {
   if (match)
     posLoc.push(new Location(doc.uri, doc.positionAt(match.index)));
 
-  for (const item of Includes)
+  for (const item of GetLocalImports(doc))
     posLoc.push(...findExtDef(item[1].Content, lookup, item[1].Uri));
 
   // def for param must be above

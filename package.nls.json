@@ -5,6 +5,8 @@
   "vbs.config.includes.description": "Additional include sourcefiles for completion",
   "vbs.config.showVariableSymbols.description": "Show variables in outline",
   "vbs.config.showParamSymbols.description": "Show parameters in outline",
+  "vbs.config.custumIncludePattern.description": "Custom RegExp-Pattern for userdefined include statement",
+  "vbs.config.customIncludeDirs.description": "Custom directories with files for custom include statement",
   "vbs.msg.runningscript": "Running the script...'",
   "vbs.msg.interpreterRunError": "Script Interpreter can't be executed"
 }
