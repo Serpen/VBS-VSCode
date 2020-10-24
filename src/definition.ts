@@ -1,12 +1,13 @@
 import { languages, Location, TextDocument, Position, Uri, Range } from "vscode";
-import { GetLocalImports } from "./Includes";
+import { GetImportsWithLocal } from "./Includes";
 import * as PATTERNS from "./patterns";
 
 function findExtDef(docText: string, lookup: string, docuri: Uri): Location[] {
   const posloc: Location[] = [];
   let match = PATTERNS.DEF(docText, lookup);
   if (match) {
-    const line = docText.slice(0, match.index).match(/\n/g).length;
+    const pos = match.index + match[1].length;
+    const line = docText.slice(0, pos).match(/\n/g).length;
     posloc.push(new Location(docuri, new Position(line, 0)));
   }
 
@@ -35,7 +36,7 @@ function GetParamDef(docText: string, lookup: string, thisUri: Uri): Location[] 
     return [];
 }
 
-function provideDefinition(doc: TextDocument, position: Position): Location {
+function provideDefinition(doc: TextDocument, position: Position): Location[] {
   const lookupRange = doc.getWordRangeAtPosition(position);
   const lookup = doc.getText(lookupRange);
   const docText = doc.getText();
@@ -50,14 +51,13 @@ function provideDefinition(doc: TextDocument, position: Position): Location {
   if (match)
     posLoc.push(new Location(doc.uri, doc.positionAt(match.index)));
 
-  for (const item of GetLocalImports(doc))
+  for (const item of GetImportsWithLocal(doc))
     posLoc.push(...findExtDef(item[1].Content, lookup, item[1].Uri));
 
   // def for param must be above
   posLoc.push(...GetParamDef(doc.getText(new Range(new Position(0, 0), new Position(position.line + 1, 0))), lookup, doc.uri));
 
-  if (posLoc.length > 0)
-    return posLoc[0];
+  return posLoc;
 }
 
 export default languages.registerDefinitionProvider({ scheme: "file", language: "vbs" }, { provideDefinition });

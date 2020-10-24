@@ -1,7 +1,7 @@
 import { languages, CompletionItem, CompletionItemKind, TextDocument, Position } from "vscode";
 import definitions from "./definitions";
 import { Includes } from "./Includes";
-import { GetLocalImports } from "./Includes";
+import { GetImportsWithLocal } from "./Includes";
 import * as PATTERNS from "./patterns";
 
 function getVariableCompletions(text: string, scope: string): CompletionItem[] {
@@ -166,7 +166,7 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
   const ObjectSourceImportName = "ObjectDefs";
   const ObjectSourceImport = Includes.get(ObjectSourceImportName);
 
-  const localIncludes = GetLocalImports(doc);
+  const localIncludes = GetImportsWithLocal(doc);
 
   // if dot is typed than show only members
   if (/.*\.\w*$/.test(codeAtPosition)) {
