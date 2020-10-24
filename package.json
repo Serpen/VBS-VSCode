@@ -34,6 +34,47 @@
   },
   "homepage": "https://github.com/Serpen/VBS-VSCode",
   "contributes": {
+    "debuggers": [
+      {
+        "type": "vbs",
+        "label": "vbs",
+        "runtime": "c:\\windows\\system32\\cscript.exe",
+        "variables": {},
+        "languages": [
+          "vbs"
+        ],
+        "initialConfigurations": [
+          {
+            "name": "vbs",
+            "type": "vbs",
+            "request": "launch",
+            "program": "empty.vbs"
+          }
+        ],
+        "configurationAttributes": {
+          "launch": {
+            "required": [
+              "program"
+            ],
+            "properties": {
+              "program": {
+                "type": "string",
+                "description": "Workspace relative path to a text file.",
+                "default": "${fileBasename}"
+              }
+            }
+          }
+        },
+        "configurationSnippets": [
+          {
+            "name": "vbs",
+            "type": "vbs",
+            "request": "launch",
+            "program": "${fileBasename}"
+          }
+        ]
+      }
+    ],
     "languages": [
       {
         "id": "vbs",
