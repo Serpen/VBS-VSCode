@@ -3,40 +3,40 @@ import * as PATTERNS from "./patterns";
 
 class VBSColorProvider implements vscode.DocumentColorProvider {
 
-  public provideDocumentColors(document: vscode.TextDocument): vscode.ColorInformation[] {
+  public provideDocumentColors(doc: vscode.TextDocument): vscode.ColorInformation[] {
     const array = new Array<vscode.ColorInformation>();
     let matches: RegExpExecArray;
-    while ((matches = PATTERNS.COLOR.exec(document.getText())) !== null) {
-      const pos = document.positionAt(matches.index);
-      const posEnd = document.positionAt(matches.index + matches[0].length);
+    while ((matches = PATTERNS.COLOR.exec(doc.getText())) !== null) {
+      const pos = doc.positionAt(matches.index);
+      const posEnd = doc.positionAt(matches.index + matches[0].length);
       const range = new vscode.Range(pos, posEnd);
 
       let color: vscode.Color;
 
       if (matches[1]) {
-        switch (matches[1]) {
-        case "vbBlack":
+        switch (matches[1].toLowerCase()) {
+        case "vbblack":
           color = new vscode.Color(0, 0, 0, 1);
           break;
-        case "vbBlue":
+        case "vbblue":
           color = new vscode.Color(0, 0, 1, 1);
           break;
-        case "vbCyan":
+        case "vbcyan":
           color = new vscode.Color(0, 1, 1, 1);
           break;
-        case "vbGreen":
+        case "vbgreen":
           color = new vscode.Color(0, 1, 0, 1);
           break;
-        case "vbMagenta":
+        case "vbmagenta":
           color = new vscode.Color(1, 0, 1, 1);
           break;
-        case "vbRed":
+        case "vbred":
           color = new vscode.Color(1, 0, 0, 1);
           break;
-        case "vbWhite":
+        case "vbwhite":
           color = new vscode.Color(1, 1, 1, 1);
           break;
-        case "vbYellow":
+        case "vbyellow":
           color = new vscode.Color(1, 1, 0, 1);
           break;
         }
@@ -58,10 +58,15 @@ class VBSColorProvider implements vscode.DocumentColorProvider {
           b = Number.parseInt(matches[5]) / 0xff;
         
         color = new vscode.Color(r, g, b, 1);
+      } else if (matches[6] && (/color/i).test(doc.lineAt(pos.line).text)) {
+        const r = Number.parseInt(matches[6].substr(2,2), 16) / 0xff;
+        const b = Number.parseInt(matches[6].substr(4,2), 16) / 0xff;
+        const g = Number.parseInt(matches[6].substr(6,2), 16) / 0xff;
+        color = new vscode.Color(r, g, b, 1);
       }
 
-      const co = new vscode.ColorInformation(range, color);
-      array.push(co);
+      if (color)
+        array.push(new vscode.ColorInformation(range, color));
     }
     return array;
   }
