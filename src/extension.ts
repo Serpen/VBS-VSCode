@@ -7,7 +7,7 @@ import definitionProvider from "./definition";
 import colorProvider from "./colorprovider";
 import { IncludeFile, Includes } from "./Includes";
 import { basename } from "path";
-import { activateMockDebug } from "./debugger/activateVBSDebug";
+import launchProvider from "./Launcher";
 
 function reloadImportDocuments() {
   const SourceImportFiles = workspace.getConfiguration("vbs").get<string[]>("includes");
@@ -34,7 +34,7 @@ export function activate(context: ExtensionContext): void {
     symbolsProvider,
     signatureProvider,
     definitionProvider,
-    colorProvider);
-
-  activateMockDebug(context);
+    colorProvider,
+    launchProvider.launchConfigProvider,
+    launchProvider.inlineDebugAdapterFactory);
 }

@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "vbs",
+            "name": "CScript",
             "type": "vbs",
             "request": "launch"
         }
