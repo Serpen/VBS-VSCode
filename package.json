@@ -37,9 +37,10 @@
     "debuggers": [
       {
         "type": "vbs",
-        "label": "CScript launch",
+        "label": "CScript",
         "program": "./dist/debugger/debugAdapter.js",
         "runtime": "node",
+        "languages": ["vbs"],
         "configurationAttributes": {
           "launch": {
             "properties": {
@@ -54,13 +55,13 @@
           {
             "type": "vbs",
             "request": "launch",
-            "name": "VBScript",
+            "name": "CScript",
             "program": "${file}"
           }
         ],
         "configurationSnippets": [
           {
-            "label": "VBS Launch",
+            "label": "CScript",
             "body": {
               "type": "vbs",
               "request": "launch",
@@ -98,7 +99,7 @@
     ],
     "configuration": {
       "type": "object",
-      "title": "VBS",
+      "title": "VBScript",
       "properties": {
         "vbs.interpreter": {
           "type": "string",

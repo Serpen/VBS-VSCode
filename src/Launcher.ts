@@ -72,19 +72,24 @@ export class VbsDebugSession extends LoggingDebugSession {
 
 
 export class debugConfigurationProvider implements vscode.DebugConfigurationProvider {
-  resolveDebugConfiguration(_folder: vscode.WorkspaceFolder | undefined, config: vscode.DebugConfiguration)
+  
+
+  
+  public resolveDebugConfiguration(_folder: vscode.WorkspaceFolder | undefined, config: vscode.DebugConfiguration)
     : vscode.ProviderResult<vscode.DebugConfiguration> {
 
     const editor = vscode.window.activeTextEditor;
-    if (editor && editor.document.languageId === "vbs") {
-      config.type = "vbs";
-      config.name = "Cscript";
-      config.request = "launch";
-      config.program = "${file}";
-      config.stopOnEntry = true;
+    if (!config || !config.request) {
+      if (editor && editor.document.languageId === "vbs") {
+        config.type = "vbs";
+        config.name = "CScript";
+        config.request = "launch";
+        config.program = editor.document.uri.fsPath;
+      } else
+        return;
     }
-    
-    if (!config.program) {
+
+    if (!config.program || !editor || editor.document.languageId !== "vbs") {
       return vscode.window.showInformationMessage("Cannot find a program to debug").then(() => {
         return undefined;	// abort launch
       });
