@@ -37,7 +37,7 @@
     "debuggers": [
       {
         "type": "vbs",
-        "label": "VBS Debug",
+        "label": "CScript launch",
         "program": "./dist/debugger/debugAdapter.js",
         "runtime": "node",
         "configurationAttributes": {
@@ -158,6 +158,8 @@
     "compile": "tsc -p ./",
     "lint": "eslint -c .eslintrc --ext .ts src",
     "watch": "tsc -watch -p ./",
-    "test": "mocha dist/test/*.test.js"
+    "test": "mocha dist/test/*.test.js",
+    "package": "vsce package",
+    "publish": "vsce publish"
   }
 }

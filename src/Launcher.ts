@@ -9,10 +9,11 @@ interface ILaunchRequestArguments extends DebugProtocol.LaunchRequestArguments {
   program: string;
 }
 
+const diagCollection = vscode.languages.createDiagnosticCollection("vbs");
+
 export class VbsDebugSession extends LoggingDebugSession {
 
   private _runner : ChildProcessWithoutNullStreams;
-  private readonly diagCollection = vscode.languages.createDiagnosticCollection("vbs");
 
   public constructor() {
     super();
@@ -29,7 +30,7 @@ export class VbsDebugSession extends LoggingDebugSession {
   }
 
   protected async launchRequest(response: DebugProtocol.LaunchResponse, args: ILaunchRequestArguments) : Promise<void> {
-    this.diagCollection.clear();
+    diagCollection.clear();
 
     const workDir = dirname(args.program);
 
@@ -51,7 +52,7 @@ export class VbsDebugSession extends LoggingDebugSession {
         const line = Number.parseInt(match[1]) - 1;
         const char = Number.parseInt(match[2]) - 1;
         const diag = new vscode.Diagnostic(new vscode.Range(line, char, line, char), match[3], vscode.DiagnosticSeverity.Error);
-        this.diagCollection.set(vscode.Uri.file(args.program), [diag]);
+        diagCollection.set(vscode.Uri.file(args.program), [diag]);
       }
       this.sendEvent(new OutputEvent(`${data}`));
     });
