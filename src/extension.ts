@@ -1,5 +1,4 @@
-import { commands, ExtensionContext, workspace } from "vscode";
-import * as cmds from "./commands";
+import { ExtensionContext, workspace } from "vscode";
 import hoverProvider from "./hover";
 import completionProvider from "./completion";
 import symbolsProvider from "./symbols";
@@ -8,6 +7,7 @@ import definitionProvider from "./definition";
 import colorProvider from "./colorprovider";
 import { IncludeFile, Includes } from "./Includes";
 import { basename } from "path";
+import { activateMockDebug } from "./debugger/activateVBSDebug";
 
 function reloadImportDocuments() {
   const SourceImportFiles = workspace.getConfiguration("vbs").get<string[]>("includes");
@@ -36,13 +36,5 @@ export function activate(context: ExtensionContext): void {
     definitionProvider,
     colorProvider);
 
-  // Run Script Command
-  commands.registerCommand("vbs.runScript", () => {
-    cmds.runScript();
-  });
-
-  // Kill running script command
-  commands.registerCommand("vbs.killScript", () => {
-    cmds.killScript();
-  });
+  activateMockDebug(context);
 }

@@ -10,7 +10,7 @@
     "theme": "light"
   },
   "engines": {
-    "vscode": "^1.34.0"
+    "vscode": "^1.42.0"
   },
   "categories": [
     "Programming Languages",
@@ -37,40 +37,38 @@
     "debuggers": [
       {
         "type": "vbs",
-        "label": "vbs",
-        "runtime": "c:\\windows\\system32\\cscript.exe",
-        "variables": {},
-        "languages": [
-          "vbs"
-        ],
-        "initialConfigurations": [
-          {
-            "name": "vbs",
-            "type": "vbs",
-            "request": "launch",
-            "program": "empty.vbs"
-          }
-        ],
+        "label": "VBS Debug",
+        "program": "./dist/debugger/debugAdapter.js",
+        "runtime": "node",
         "configurationAttributes": {
           "launch": {
-            "required": [
-              "program"
-            ],
             "properties": {
               "program": {
                 "type": "string",
-                "description": "Workspace relative path to a text file.",
-                "default": "${fileBasename}"
+                "description": "path to a script file.",
+                "default": "${file}"
               }
             }
           }
         },
-        "configurationSnippets": [
+        "initialConfigurations": [
           {
-            "name": "vbs",
             "type": "vbs",
             "request": "launch",
-            "program": "${fileBasename}"
+            "name": "path to a script file.",
+            "program": "${file}"
+          }
+        ],
+        "configurationSnippets": [
+          {
+            "label": "VBS Debug: Launch",
+            "description": "A new configuration for 'debugging' a user selected markdown file.",
+            "body": {
+              "type": "vbs",
+              "request": "launch",
+              "name": "path to a script file.",
+              "program": "${file}"
+            }
           }
         ]
       }
@@ -88,28 +86,6 @@
         "configuration": "./syntaxes/language-configuration.json"
       }
     ],
-    "menus": {
-      "commandPalette": [
-        {
-          "when": "editorLangId == vbs",
-          "command": "vbs.runScript"
-        },
-        {
-          "command": "vbs.killScript",
-          "when": "editorLangId == vbs"
-        }
-      ]
-    },
-    "commands": [
-      {
-        "command": "vbs.runScript",
-        "title": "%vbs.command.vbs.runScript%"
-      },
-      {
-        "command": "vbs.killScript",
-        "title": "%vbs.command.vbs.killScript%"
-      }
-    ],
     "grammars": [
       {
         "language": "vbs",
@@ -121,17 +97,6 @@
       {
         "language": "vbs",
         "path": "./snippets/vbs.json"
-      }
-    ],
-    "keybindings": [
-      {
-        "command": "vbs.runScript",
-        "key": "f5",
-        "when": "editorTextFocus && editorLangId == vbs"
-      },
-      {
-        "command": "vbs.killScript",
-        "key": "ctrl+pausebreak"
       }
     ],
     "configuration": {
@@ -168,7 +133,9 @@
           "items": {
             "type": "string"
           },
-          "default": ["."],
+          "default": [
+            "."
+          ],
           "description": "%vbs.config.customIncludeDirs.description%"
         }
       }
@@ -178,13 +145,16 @@
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.0.3",
     "@types/node": "^14.11.10",
-    "@types/vscode": "~1.34.0",
+    "@types/vscode": "~1.42.0",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
     "eslint": "^7.11.0",
     "mocha": "^8.2.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "vscode-debugadapter": "~1.42.0"
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
