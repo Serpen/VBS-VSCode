@@ -23,6 +23,10 @@ Diese Erweiterung bietet Sprachunterstützung für Visual Basic Script/VBScript/
 
 ![Hover](assets/docs/Signature.png)
 
+- Farbinformationen anzeigen
+
+![Hover](assets/docs/ColorProvider.png)
+
 - Zusätzliche VBS Funktions Bibliotheken als VBS Dateien einbinden
 ```
 { // settings.json

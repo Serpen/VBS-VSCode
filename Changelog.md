@@ -1,5 +1,24 @@
 # VBS-VSCode Changelog
 
+## 1.2.0
+### Features
+- Use VSCodes launch config, instead of command for running scripts, see #48 for more info
+- Generate Diagnostics from a failed Script run
+- Show color Information inline
+- Config for user definied include function, to provider completion
+- Provide Localization for English and German
+- Extension needs VSCode >= 1.42
+
+### Bugfixes
+- Code tidy with more eslint
+- Show octal and hex numbers, date in syntax
+- Multi Variable Syntax coloring
+
+### Known Issues
+- Most parts of the extension aren't context sensitiv #18
+  A definition/hover etc. only matches the correct name, the scope is ignored
+
+
 ## 1.1.0
 ### Features
 - More support for comment based help and where it is shown #14, #25, #34

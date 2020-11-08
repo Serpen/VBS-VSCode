@@ -19,9 +19,13 @@ This extension implements basic language features of Visual Basic Script/VBScrip
 - Hover 
 
 ![Hover](assets/docs/Hover.png)
-- Signatures
 
+- Signatures
 ![Hover](assets/docs/Signature.png)
+
+- Color Information
+
+![Hover](assets/docs/ColorProvider.png)
 
 - Add extra VBS Source (libraries) files for extra completion
 ```
