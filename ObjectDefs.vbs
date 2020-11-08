@@ -1,3 +1,5 @@
+Option Explicit
+
 ''' <summary>An intrinsic global object that can send output to a script debugger, such as the Microsoft Script Debugger.</summary>
 Class Debug
 
@@ -9,40 +11,47 @@ Class Debug
 	End Sub
 End Class
 
+
 ''' <summary>Object that stores data key, item pairs.</summary>
 Class Dictionary
 	
 	Sub Add(key, value)
 	End Sub
 	
-	Property Let CompareMode
+	Property Get CompareMode ' As Long
+	End Property
+	Property Let CompareMode(Mode)
 	End Property
 	
-	Property Get Count
+	Property Get Count ' As Long
 	End Property
 	
-	Function Exists(key)
+	Function Exists(key) ' as Boolean
 	End Function
 	
-	Default Property Get Item(key)
+	Property Get HashVal(key) ' As Long
 	End Property
 	
-	Function Items(key)
+	Public Default Property Get Item(key)
+	End Property
+	
+	Function Items(key) ' As Variant
 	End Function
 	
 	Property Get Key(key)
 	End Property
 	
-	Function Keys()
+	Function Keys() ' As Variant
 	End Function
 	
 	Sub Remove(key)
 	End Sub
-	
+
 	Sub RemoveAll()
 	End Sub
 	
 End Class
+
 
 ''' <summary>Contains information about run-time errors. Accepts the Raise and Clear methods for generating and clearing run-time errors.</summary>
 Class Err
@@ -73,69 +82,141 @@ Class Err
 	
 End Class
 
+
 Class File
 
-	Property Get Attributes
+	Property Get Attributes ' as Long
 	End Property
 
-	Function Copy(Destination)
-	End Function
-	Function Copy(Destination, OverWriteFiles)
-	End Function
+	Sub Copy(Destination)
+	End Sub
+	Sub Copy(Destination, OverWriteFiles)
+	End Sub
 
-	Property Get DateCreated
+	Property Get DateCreated ' as Date
 	End Property
 
-	Property Get DateLastAccessed
+	Property Get DateLastAccessed ' as Date
 	End Property
 	
-	Property Get DateLastModified
+	Property Get DateLastModified ' as Date
 	End Property
 
-	Function Delete()
+	Sub Delete()
+	End Sub
+	Sub Delete(Force)
+	End Sub
+
+	Property Get Drive ' as Drive
+	End Property
+
+	Sub Move(Destination)
+	End Sub
+
+	Property Get Name ' As String
+	End Property
+
+	Function OpenAsTextStream() ' As TextStream
 	End Function
-	Function Delete(Force)
+	Function OpenAsTextStream(IOMode) ' As TextStream
+	End Function
+	Function OpenAsTextStream(IOMode, Format) ' As TextStream
 	End Function
 
-	Property Get Drive
+	Property Get ParentFolder ' As Folder
 	End Property
 
-	Function Move(Destination)
-	End Function
-
-	Property Get Name
+	Property Get Path ' As String
 	End Property
 
-	Function OpenAsTextStream()
-	End Function
-	Function OpenAsTextStream(IOMode)
-	End Function
-	Function OpenAsTextStream(IOMode, Format)
-	End Function
-
-	Property Get ParentFolder
+	Property Get ShortName ' As String
 	End Property
 
-	Property Get Path
+	Property Get ShortPath ' As String
 	End Property
 
-	Property Get ShortName
+	Property Get Size ' as Long
 	End Property
 
-	Property Get ShortPath
-	End Property
-
-	Property Get Size
-	End Property
-
-	Property Get Type
+	Property Get Type ' As String
 	End Property
 
 End Class
 
+
+Class Folder
+
+	Property Get Attributes ' as Long
+	End Property
+
+	Sub Copy(Destination)
+	End Sub
+	Sub Copy(Destination, OverWriteFiles)
+	End Sub
+
+	Property Get DateCreated ' as Date
+	End Property
+
+	Property Get DateLastAccessed ' as Date
+	End Property
+	
+	Property Get DateLastModified ' as Date
+	End Property
+
+	Sub Delete()
+	End Sub
+	Sub Delete(Force)
+	End Sub
+
+	Property Get Drive ' as Drive
+	End Property
+
+	Property Get Files ' as FileCollection
+	End Property
+
+	Property Get IsRootFolder ' as Boolean
+	End Property
+
+	Sub Move(Destination)
+	End Sub
+
+	Property Get Name ' As String
+	End Property
+
+	Function CreateTextFile(FileName) ' As TextStream
+	End Function
+	Function CreateTextFile(FileName, Overwrite) ' As TextStream
+	End Function
+	Function CreateTextFile(FileName, Overwrite, Unicode) ' As TextStream
+	End Function
+
+	Property Get ParentFolder ' As Folder
+	End Property
+
+	Property Get Path ' As String
+	End Property
+
+	Property Get ShortName ' As String
+	End Property
+
+	Property Get ShortPath ' As String
+	End Property
+
+	Property Get Size ' as Long
+	End Property
+
+	Property Get SubFolders ' as FolderCollection
+	End Property
+
+	Property Get Type ' As String
+	End Property
+
+End Class
+
+
 Class FileSystemObject
 
-	Function BuildPath(path, name)
+	Function BuildPath(path, name) ' As String
 	End Function
 
 	Sub CopyFile(source, destination)
@@ -148,14 +229,14 @@ Class FileSystemObject
 	Sub CopyFolder(source, destination, overwrite)
 	End Sub
 
-	Function CreateFolder(foldername)
+	Function CreateFolder(foldername) ' As Folder
 	End Function
 
-	Function CreateTextFile(filename)
+	Function CreateTextFile(filename) ' As TextStream
 	End Function
-	Function CreateTextFile(filename, overwrite)
+	Function CreateTextFile(filename, overwrite) ' As TextStream
 	End Function
-	Function CreateTextFile(filename, overwrite, unicode)
+	Function CreateTextFile(filename, overwrite, unicode) ' As TextStream
 	End Function
 
 	Sub DeleteFile(filename)
@@ -168,54 +249,57 @@ Class FileSystemObject
 	Sub DeleteFolder(filename, force)
 	End Sub
 
-	Function DriveExists(drive)
+	Property Get Drives ' As DriveCollection
+	End Property
+
+	Function DriveExists(drive) ' As Boolean
 	End Function
 
-	Function FileExists(filename)
+	Function FileExists(filename) ' As Boolean
 	End Function
 
-	Function FolderExists(foldername)
+	Function FolderExists(foldername) ' As Boolean
 	End Function
 
-	Function GetAbsolutePathName(path)
+	Function GetAbsolutePathName(path) ' As String
 	End Function
 
-	Function GetBaseName(path)
+	Function GetBaseName(path) ' As String
 	End Function
 
-	Function GetDrive(drive)
+	Function GetDrive(drive) ' As Drive
 	End Function
 
-	Function GetDriveName(drive)
+	Function GetDriveName(drive) ' As String
 	End Function
 
-	Function GetExtensionName(path)
+	Function GetExtensionName(path) ' As String
 	End Function
 
-	Function GetFile(filename)
+	Function GetFile(filename) ' As File
 	End Function
 
-	Function GetFileName(filename)
+	Function GetFileName(filename) ' As String
 	End Function
 
-	Function GetFileVersion(filename)
+	Function GetFileVersion(filename) ' As String
 	End Function
 
-	Function GetFolder(foldername)
+	Function GetFolder(foldername) ' As Folder
 	End Function
 
-	Function GetParentFolderName(foldername)
+	Function GetParentFolderName(foldername) ' As String
 	End Function
 
-	Function GetSpecialFolder(folderspec)
+	Function GetSpecialFolder(folderspec) ' As Folder
 	End Function
 	
-	Function GetStandardStream(StandardStreamType)
+	Function GetStandardStream(StandardStreamType) ' As TextStream
 	End Function
-	Function GetStandardStream(StandardStreamType, Unicode)
+	Function GetStandardStream(StandardStreamType, Unicode) ' As TextStream
 	End Function
 
-	Function GetTempName()
+	Function GetTempName() ' As String
 	End Function
 
 	Sub MoveFile(source, destination)
@@ -224,92 +308,141 @@ Class FileSystemObject
 	Sub MoveFolder(source, destination)
 	End Sub
 
-	Function OpenTextFile(filename)
+	Function OpenTextFile(filename) ' As TextStream
 	End Function
-	Function OpenTextFile(filename, iomode)
+	Function OpenTextFile(filename, iomode) ' As TextStream
 	End Function
-	Function OpenTextFile(filename, iomode, create)
+	Function OpenTextFile(filename, iomode, create) ' As TextStream
 	End Function
-	Function OpenTextFile(filename, iomode, create, format)
+	Function OpenTextFile(filename, iomode, create, format) ' As TextStream
 	End Function
+	
+End Class
+
+
+Class Drive
+	Property Get AvailableSpace ' As Double
+	End Property
+
+	Property Get DriveLetter ' As String
+	End Property
+
+	Property Get DriveType ' As Long
+	End Property
+
+	Property Get FileSystem ' As String
+	End Property
+
+	Property Get FreeSpace ' As Double
+	End Property
+
+	Property Get IsReady ' As Boolean
+	End Property
+
+	Property Get Path ' As String
+	End Property
+
+	Property Get RootFolder ' As Folder
+	End Property
+
+	Property Get SerialNumber ' As Long
+	End Property
+
+	Property Get ShareName ' As String
+	End Property
+
+	Property Get TotalSize ' As Double
+	End Property
+
+	Property Get VolumeName ' As String
+	End Property
 
 End Class
+
 
 ''' <summary>Provides access to the read-only properties of a regular expression match.</summary>
 Class Match
 
-	Property Get FirstIndex
+	Property Get FirstIndex ' As Long
 	End Property
 
-	Property Get Length
+	Property Get Length ' As Long
 	End Property
 
-	Property Get Value
+	Property Get SubMatches ' As String()
 	End Property
+
+	Property Get Value ' As String
+	End Property
+
 End Class
+
 
 Class RegExp
 
-	Function Execute(str)
+	Function Execute(str) ' as Object
 	End Function
 
-	Property Get Global
+	Property Get Global ' As Boolean
+	End Property
+	Property Let Global(b)
 	End Property
 
-	Property Get IgnoreCase
+	Property Get IgnoreCase ' As Boolean
+	End Property
+	Property Let IgnoreCase(b)
 	End Property
 
-	Property Get Pattern
+	Property Get Pattern ' As String
+	End Property
+	Property Let Pattern(s)
 	End Property
 	
-
-	Function Replace(string1, string2)
+	Function Replace(string1, string2) ' As String
 	End Function
 
-	Function Test(str)
+	Function Test(str) ' As Boolean
 	End Function
 
 End Class
 
+
 Class TextStream
 
-	Property Get AtEndOfLine
+	Property Get AtEndOfLine ' As Boolean
 	End Property
 
-	Property Get AtEndOfStream
+	Property Get AtEndOfStream ' As Boolean
 	End Property
 
 	Sub Close()
 	End Sub
 
-	Property Get Column
+	Property Get Column ' As Long
 	End Property
 
-	Property Get Line
+	Property Get Line ' As Long
 	End Property
 
-	Function Close()
+	Function Read(Characters) ' As String
 	End Function
 
-	Function Read(chars)
+	Function ReadAll() ' As String
 	End Function
 
-	Function ReadAll()
+	Function ReadLine() ' As String
 	End Function
 
-	Function ReadLine()
-	End Function
-
-	Sub Skip(chars)
+	Sub Skip(Characters)
 	End Sub
 
-	Sub SkipLine(chars)
+	Sub SkipLine()
 	End Sub
 
-	Sub Write(text)
+	Sub Write(Text)
 	End Sub
 
-	Sub WriteBlankLines(lines)
+	Sub WriteBlankLines(Lines)
 	End Sub
 
 	Sub WriteLine()
@@ -319,6 +452,7 @@ Class TextStream
 
 End Class
 
+
 Class WScript
 
 	Property Get Application
@@ -327,95 +461,96 @@ Class WScript
 	Property Get Arguments
 	End Property
 
-	Property Get BuildVersion
+	Property Get BuildVersion ' As String
 	End Property
 	
-	Function ConnectObject(objEventSource, strPrefix)
+	Sub ConnectObject(objEventSource, strPrefix)
+	End Sub
+
+	Function CreateObject(strProgID) ' As Object
 	End Function
 
-	Function CreateObject(strProgID)
+	Function CreateObject(strProgID, strPrefix) ' As Object
 	End Function
 
-	Function CreateObject(strProgID,strPrefix)
-	End Function
+	Sub DisconnectObject(obj)
+	End Sub
 
-	Function DisconnectObject(obj)
-	End Function
+	Sub Echo(args)
+	End Sub
 
-	Function Echo(args)
-	End Function
-
-	Property Get FullName
+	Property Get FullName ' As String
 	End Property
 
-	Function GetObject(strPathname)
+	Function GetObject(strPathname) ' As Object
 	End Function
 
-	Function GetObject(strPathname, strProgID)
+	Function GetObject(strPathname, strProgID) ' As Object
 	End Function
 
-	Function GetObject(strPathname, strProgID, strPrefix)
+	Function GetObject(strPathname, strProgID, strPrefix) ' As Object
 	End Function
 
-	Property Get Interactive
+	Property Get Interactive ' As Boolean
 	End Property
 
-	Property Get Name
+	Property Get Name ' As String
 	End Property
 
-	Property Get Path
+	Property Get Path ' As String
 	End Property
 
-	Function Quit()
-	End Function
+	Sub Quit()
+	End Sub
 
-	Function Quit(ErrorCode)
-	End Function
+	Sub Quit(ErrorCode)
+	End Sub
 
-	Property Get ScriptFullName
+	Property Get ScriptFullName ' As String
 	End Property
 
-	Property Get ScriptName
+	Property Get ScriptName ' As String
 	End Property
 
-	Function Sleep(ms)
-	End Function
+	Sub Sleep(ms)
+	End Sub
 
-	Property Get StdErr
+	Property Get StdErr ' As TextStream
 	End Property
 
-	Property Get StdIn
+	Property Get StdIn ' As TextStream
 	End Property
 
-	Property Get StdOut
+	Property Get StdOut ' As TextStream
 	End Property
 
-	Property Get TimeOut
+	Property Get TimeOut ' As Integer
 	End Property
 
-	Property Get Version
+	Property Get Version ' As String
 	End Property
 
 End Class
 
+
 Private Class Picture
 
-	Property Get Handle
+	Property Get Handle ' As Long
 	End Property
 
 	Sub Render(hdc, x, y, cx, cy, xSrc, ySrc, cxSrc, cySrc, prcWBounds)
 	End Sub
 
-	Property Get Height
+	Property Get Height ' As Long
 	End Property
 
-	Property Get hPal
+	Property Get hPal ' As Long
 	End Property
 
-	Property Get Type
+	Property Get Type ' As Integer
 	End Property
 
-	Property Get Width
+	Property Get Width ' As Long
 	End Property
 
 End Class
