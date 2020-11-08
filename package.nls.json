@@ -1,5 +1,5 @@
 {
-  "vbs.command.vbs.runScript": "VBS: Run Script",
+  "vbs.command.vbs.runScript": "VBS: Run Script (obsolete, see issue #48)",
   "vbs.command.vbs.killScript": "VBS: Kill Running Script",
   "vbs.config.interpreter.description": "Path to Script Interpreter",
   "vbs.config.includes.description": "Additional include sourcefiles for completion",

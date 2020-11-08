@@ -86,6 +86,16 @@
         "configuration": "./syntaxes/language-configuration.json"
       }
     ],
+    "commands": [
+      {
+        "command": "vbs.runScript",
+        "title": "%vbs.command.vbs.runScript%"
+      },
+      {
+        "command": "vbs.killScript",
+        "title": "%vbs.command.vbs.killScript%"
+      }
+    ],
     "grammars": [
       {
         "language": "vbs",
