@@ -1,6 +1,6 @@
 import { languages, Hover, TextDocument, Position, Range } from "vscode";
 import * as PATTERNS from "./patterns";
-import { GetImportsWithLocal } from "./Includes";
+import { getImportsWithLocal } from "./Includes";
 
 function GetHover(docText: string, lookup: string, scope: string): Hover[] {
   const results: Hover[] = [];
@@ -9,11 +9,11 @@ function GetHover(docText: string, lookup: string, scope: string): Hover[] {
     if (matches[1]) {
       const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
       if (summary[1])
-        results.push(new Hover({ language: "vbs", value: matches[2] + " ' [" + scope + "]\n' " + summary[1] }));
+        results.push(new Hover({ language: "vbs", value: `${matches[2]} ' [${scope}]\n' ${summary[1]}` }));
       else
-        results.push(new Hover({ language: "vbs", value: matches[2] + " ' [" + scope + "]" }));
+        results.push(new Hover({ language: "vbs", value: `${matches[2]} ' [${scope}]` }));
     } else
-      results.push(new Hover({ language: "vbs", value: matches[2] + " ' [" + scope + "]" }));
+      results.push(new Hover({ language: "vbs", value: `${matches[2]} ' [${scope}]` }));
   }
 
   matches = PATTERNS.DEFVAR(docText, lookup);
@@ -21,12 +21,13 @@ function GetHover(docText: string, lookup: string, scope: string): Hover[] {
     if (matches[1]) {
       const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
       if (summary[1])
-        results.push(new Hover({ language: "vbs", value: matches[2] + " ' [" + scope + "]\n' " + summary[1] }));
+        results.push(new Hover({ language: "vbs", value: `${matches[2]} ' [${scope}]\n' ${summary[1]}` }));
       else
-        results.push(new Hover({ language: "vbs", value: matches[2] + " ' [" + scope + "]" }));
+        results.push(new Hover({ language: "vbs", value: `${matches[2]} ' [${scope}]` }));
     } else
-      results.push(new Hover({ language: "vbs", value: matches[2] + " ' [" + scope + "]" }));
+      results.push(new Hover({ language: "vbs", value: `${matches[2]} ' [${scope}]` }));
   }
+
   return results;
 }
 
@@ -36,7 +37,7 @@ function GetParamHover(text: string, lookup: string): Hover[] {
   let matches: RegExpExecArray;
   while (matches = PATTERNS.FUNCTION.exec(text))
     matches[6]?.split(",").filter(p => p.trim() === lookup).forEach(() => {
-      hovers.push(new Hover({ language: "vbs", value: lookup + " ' [Parameter]" }));
+      hovers.push(new Hover({ language: "vbs", value: `${lookup} ' [Parameter]` }));
     });
 
   // last result should be nearest hit
@@ -66,7 +67,7 @@ function provideHover(doc: TextDocument, position: Position): Hover {
     return null;
   hoverresults.push(...GetHover(doc.getText(), word, "Local"));
 
-  for (const ExtraDocText of GetImportsWithLocal(doc))
+  for (const ExtraDocText of getImportsWithLocal(doc))
     hoverresults.push(...GetHover(ExtraDocText[1].Content, word, ExtraDocText[0]));
 
   // hoverresult for param must be above

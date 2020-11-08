@@ -1,6 +1,6 @@
-import { languages, SignatureHelp, SignatureInformation, ParameterInformation, 
+import { languages, SignatureHelp, SignatureInformation, ParameterInformation,
   TextDocument, Position, SignatureHelpContext, CancellationToken } from "vscode";
-import { GetImportsWithLocal } from "./Includes";
+import { getImportsWithLocal } from "./Includes";
 import * as PATTERNS from "./patterns";
 
 /**
@@ -50,7 +50,7 @@ function getCallInfo(doc: TextDocument, pos: Position) {
 
   return {
     func: getCurrentFunction(cleanCode),
-    commas: countCommas(cleanCode),
+    commas: countCommas(cleanCode)
   };
 }
 
@@ -82,7 +82,10 @@ function getSignatures(text: string, docComment: string): Map<string, SignatureI
 
     let prevMatches: SignatureInformation[];
     if ((prevMatches = map.get(name)) !== undefined)
-      map.set(name, [...prevMatches, si]);
+      map.set(name, [
+        ...prevMatches,
+        si
+      ]);
     else
       map.set(name, [si]);
   }
@@ -107,7 +110,7 @@ function provideSignatureHelp(doc: TextDocument, position: Position, _token: Can
     sighelp.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length >= caller.commas));
   }
 
-  for (const item of GetImportsWithLocal(doc)) {
+  for (const item of getImportsWithLocal(doc)) {
     if ((sig = getSignatures(item[1].Content, item[0]).get(caller.func)) !== undefined) {
       sighelp.signatures.push(...sig.filter((sig2: SignatureInformation) => sig2.parameters.length >= caller.commas));
     }

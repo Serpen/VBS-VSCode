@@ -8,10 +8,12 @@ interface ILanguagePack {
 
 export class Localize {
   private bundle = this.resolveLanguagePack();
+
   private options: { locale: string };
 
   public localize(key: string, ...args: string[]): string {
     const message = this.bundle[key] || key;
+
     return this.format(message, args);
   }
 
@@ -47,15 +49,11 @@ export class Localize {
     );
 
     const languageFilePath = resolve(rootPath, resolvedLanguage);
-    const defaultLanguageBundle = JSON.parse(
-      resolvedLanguage !== defaultLanguage
-        ? readFileSync(resolve(rootPath, defaultLanguage), "utf-8")
-        : "{}"
-    );
+    const defaultLanguageBundle = JSON.parse(resolvedLanguage !== defaultLanguage
+      ? readFileSync(resolve(rootPath, defaultLanguage), "utf-8")
+      : "{}");
 
-    const resolvedLanguageBundle = JSON.parse(
-      readFileSync(languageFilePath, "utf-8")
-    );
+    const resolvedLanguageBundle = JSON.parse(readFileSync(languageFilePath, "utf-8"));
 
     return { ...defaultLanguageBundle, ...resolvedLanguageBundle };
   }
@@ -73,6 +71,7 @@ export class Localize {
     if (candidate.split("-")[0] !== candidate) {
       return this.recurseCandidates(rootPath, format, candidate.split("-")[0]);
     }
+
     return format.replace("{0}", "");
   }
 }

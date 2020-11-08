@@ -1,8 +1,9 @@
 import { languages, CompletionItem, CompletionItemKind, TextDocument, Position } from "vscode";
 import definitions from "./definitions";
-import { Includes } from "./Includes";
-import { GetImportsWithLocal } from "./Includes";
+import { Includes, getImportsWithLocal } from "./Includes";
 import * as PATTERNS from "./patterns";
+
+const ObjectSourceImportName = "ObjectDefs";
 
 function getVariableCompletions(text: string, scope: string): CompletionItem[] {
   const CIs: CompletionItem[] = []; // results
@@ -10,31 +11,30 @@ function getVariableCompletions(text: string, scope: string): CompletionItem[] {
 
   let matches: RegExpExecArray;
   while (matches = PATTERNS.VAR.exec(text)) {
-    matches[2].split(",").forEach(match => {
+    for (const match of matches[2].split(",")) {
       const name = match.replace(PATTERNS.ARRAYBRACKETS, "").trim();
-
       if (foundVals.indexOf(name.toLowerCase()) === -1) {
         foundVals.push(name.toLowerCase());
 
         let itmKind = CompletionItemKind.Variable;
 
-        if (/\bconst\b/i.test(matches[1]))
+        if ((/\bconst\b/i).test(matches[1]))
           itmKind = CompletionItemKind.Constant;
 
         const ci = new CompletionItem(name, itmKind);
         ci.documentation = matches[3];
-        
+
         if (new RegExp(PATTERNS.COLOR, "i").test(name)) {
           ci.kind = CompletionItemKind.Color;
-          ci.filterText = "Color." + name;
+          ci.filterText = `Color.${name}`;
           ci.insertText = name;
         }
 
-        ci.detail = matches[0] + ` [${scope}]`;
+        ci.detail = `${matches[0]} [${scope}]`;
 
         CIs.push(ci);
       }
-    });
+    }
   }
 
   return CIs;
@@ -51,10 +51,7 @@ function getFunctionCompletions(text: string, scope: string, parseParams = false
     if (foundVals.indexOf(name.toLowerCase()) === -1) {
       foundVals.push(name.toLowerCase());
 
-      let itmKind = CompletionItemKind.Function;
-      if (matches[3].toLowerCase() === "sub")
-        itmKind = CompletionItemKind.Method;
-      const ci = new CompletionItem(name, itmKind);
+      const ci = new CompletionItem(name, CompletionItemKind.Function);
 
       if (matches[1]) {
         const summary = PATTERNS.COMMENT_SUMMARY.exec(matches[1]);
@@ -63,7 +60,7 @@ function getFunctionCompletions(text: string, scope: string, parseParams = false
 
       // currently only parse in local document, but for all functions, since there is no context
       if (parseParams)
-        matches[6]?.split(",").forEach(param => {
+        for (const param of matches[6].split(",")) {
           const paramCI = new CompletionItem(param.trim(), CompletionItemKind.Variable);
           if (matches[1]) {
             const paramComment = PATTERNS.PARAM_SUMMARY(matches[1], param.trim());
@@ -72,9 +69,9 @@ function getFunctionCompletions(text: string, scope: string, parseParams = false
           }
 
           CIs.push(paramCI);
-        });
+        }
 
-      ci.detail = matches[2] + ` [${scope}]`;
+      ci.detail = `${matches[2]} [${scope}]`;
 
       CIs.push(ci);
     }
@@ -91,7 +88,7 @@ function getPropertyCompletions(text: string, scope: string): CompletionItem[] {
   while (matches = PATTERNS.PROP.exec(text)) {
     const name = matches[4];
 
-    if ((foundVals.indexOf(name.toLowerCase()) === -1)) {
+    if (foundVals.indexOf(name.toLowerCase()) === -1) {
       foundVals.push(name.toLowerCase());
 
       const ci = new CompletionItem(name, CompletionItemKind.Property);
@@ -101,7 +98,7 @@ function getPropertyCompletions(text: string, scope: string): CompletionItem[] {
         ci.documentation = summary?.[1];
       }
 
-      ci.detail = matches[2] + ` [${scope}]`;
+      ci.detail = `${matches[2]} [${scope}]`;
 
       CIs.push(ci);
     }
@@ -126,7 +123,7 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
         ci.documentation = summary?.[1];
       }
 
-      ci.detail = name + ` [${scope}]`;
+      ci.detail = `${name} [${scope}]`;
       CIs.push(ci);
     }
   }
@@ -135,10 +132,12 @@ function getClassCompletions(text: string, scope: string): CompletionItem[] {
 }
 
 function getCompletions(text: string, scope: string, parseParams = false) {
-  return [...getVariableCompletions(text, scope),
+  return [
+    ...getVariableCompletions(text, scope),
     ...getFunctionCompletions(text, scope, parseParams),
     ...getPropertyCompletions(text, scope),
-    ...getClassCompletions(text, scope)];
+    ...getClassCompletions(text, scope)
+  ];
 }
 
 function provideCompletionItems(doc: TextDocument, position: Position): CompletionItem[] {
@@ -163,27 +162,28 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
   const text = doc.getText();
   const retCI: CompletionItem[] = [];
 
-  const ObjectSourceImportName = "ObjectDefs";
   const ObjectSourceImport = Includes.get(ObjectSourceImportName);
 
-  const localIncludes = GetImportsWithLocal(doc);
+  const localIncludes = getImportsWithLocal(doc);
 
   // if dot is typed than show only members
-  if (/.*\.\w*$/.test(codeAtPosition)) {
-    if (/.*\bErr\.\w*$/i.test(codeAtPosition)) {
-      const Obj = /Class Err.*?End Class/is.exec(ObjectSourceImport.Content);
+  if ((/.*\.\w*$/).test(codeAtPosition)) {
+    if ((/.*\bErr\.\w*$/i).test(codeAtPosition)) {
+      const Obj = (/Class[\t ]+Err.+?End[\t ]+Class/is).exec(ObjectSourceImport.Content);
       retCI.push(...getFunctionCompletions(Obj[0], "Err"), ...getPropertyCompletions(Obj[0], "Err"));
-    } else if (/.*\bWScript\.\w*$/i.test(codeAtPosition)) {
-      const Obj = /Class WScript.*?End Class/is.exec(ObjectSourceImport.Content);
+    } else if ((/.*\bWScript\.\w*$/i).test(codeAtPosition)) {
+      const Obj = (/Class[\t ]+WScript.+?End[\t ]+Class/is).exec(ObjectSourceImport.Content);
       retCI.push(...getFunctionCompletions(Obj[0], "WScript"), ...getPropertyCompletions(Obj[0], "WScript"));
-    } else if (/.*fso\.\w*$/i.test(codeAtPosition)) { // dirty!
-      const Obj = /Class FileSystemObject.*?End Class/is.exec(ObjectSourceImport.Content);
+    } else if ((/\b\w*fso\.\w*$/i).test(codeAtPosition)) { // dirty!
+      const Obj = (/Class[\t ]+FileSystemObject.+?End[\t ]+Class/is).exec(ObjectSourceImport.Content);
       retCI.push(...getFunctionCompletions(Obj[0], "FSO"), ...getPropertyCompletions(Obj[0], "FSO"));
     } else {
       retCI.push(...getCompletions(text, "Local"));
 
-      retCI.push(...getFunctionCompletions(ObjectSourceImport.Content, ObjectSourceImportName),
-        ...getPropertyCompletions(ObjectSourceImport.Content, ObjectSourceImportName));
+      retCI.push(
+        ...getFunctionCompletions(ObjectSourceImport.Content, ObjectSourceImportName),
+        ...getPropertyCompletions(ObjectSourceImport.Content, ObjectSourceImportName)
+      );
 
       for (const imp of localIncludes)
         if (imp[0].startsWith("Import"))
@@ -203,6 +203,19 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
   }
 
   return retCI;
+}
+
+function getObjectMembersCode(line: string, code: string) {
+  for (const cls of ["Err", "WScript", "Debug", "FileSystemObject"]) {
+    const lineClsReg = new RegExp(`.*\\b${cls}\\.\\w*`, "i");
+    const codeClsReg = new RegExp(`Class[\t ]+${cls}.+?End[\t ]+Class`, "is");
+
+    if (lineClsReg.test(line)) {
+      const classDef = codeClsReg.exec(code);
+
+      return [...getFunctionCompletions(classDef[0], cls), ...getPropertyCompletions(classDef[0], cls)];
+    }
+  }
 }
 
 export default languages.registerCompletionItemProvider(

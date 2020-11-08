@@ -58,7 +58,7 @@ export class VbsDebugSession extends LoggingDebugSession {
     });
 
     this._runner.on("exit", code => {
-      this.sendEvent(new OutputEvent(`Process [${this._runner.pid}] exited with code ${code} (&h${code.toString(16)})`));
+      this.sendEvent(new OutputEvent(`Process [${this._runner.pid}] exited with code ${code} (&H${code.toString(16).toUpperCase()})`));
       this.sendEvent(new TerminatedEvent());
     });
   }

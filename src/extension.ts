@@ -16,9 +16,8 @@ function reloadImportDocuments() {
       Includes.delete(key);
   }
   SourceImportFiles?.forEach((file) => {
-    Includes.set("Import " + basename(file), new IncludeFile(file));
-  }
-  );
+    Includes.set(`Import ${basename(file)}`, new IncludeFile(file));
+  });
 }
 
 export function activate(context: ExtensionContext): void {
@@ -36,5 +35,6 @@ export function activate(context: ExtensionContext): void {
     definitionProvider,
     colorProvider,
     launchProvider.launchConfigProvider,
-    launchProvider.inlineDebugAdapterFactory);
+    launchProvider.inlineDebugAdapterFactory
+  );
 }

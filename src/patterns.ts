@@ -27,13 +27,15 @@ export const VAR_COMPLS = /^[\t ]*(Dim|Const|((Private|Public)[\t ]+)?(Function|
 export function DEF(input: string, word: string): RegExpExecArray {
   return new RegExp(
     `((?:^[\\t ]*'.*$(?:\\r\\n|\\n))*)^[^'\\n\\r]*^[\\t ]*((?:(?:(?:(?:Private[\\t ]+|Public[\\t ]+)?(?:Class|Function|Sub|Property[\\t ][GLS]et)))[\\t ]+)(\\b${word}\\b).*)$`
-    , "im").exec(input);
+    , "im"
+  ).exec(input);
 }
 
 export function DEFVAR(input: string, word: string): RegExpExecArray {
   return new RegExp(
     `((?:^[\\t ]*'.*$(?:\\r\\n|\\n))*)^[^'\\n\\r]*^[\\t ]*((?:(?:Const|Dim|(?:Private|Private)(?![\\t ]+(?:Sub|Function)))[\\t ]+)[\\w\\t ,]*(\\b${word}\\b).*)$`
-    , "im").exec(input);
+    , "im"
+  ).exec(input);
 }
 
 export const COMMENT_SUMMARY = /(?:'''\s*<summary>|'\s*)([^<\n\r]*)(?:<\/summary>)?/i;
