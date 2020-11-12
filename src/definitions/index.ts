@@ -16,6 +16,7 @@ for (const entry in operators) {
   const itm = new CompletionItem(entry, CompletionItemKind.Operator);
   itm.detail = entry;
   itm.documentation = operators[entry]?.documentation;
+  itm.filterText = `Operator ${entry}`;
   completions.push(itm);
 }
 

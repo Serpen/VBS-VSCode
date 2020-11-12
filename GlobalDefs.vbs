@@ -619,6 +619,7 @@ End Function
 Function Year(date)
 End Function
 
+''' Enum VbVarType
 Const vbEmpty = 0
 Const vbNull = 1
 Const vbInteger = 2
@@ -636,6 +637,7 @@ Const vbDataObject = 13
 Const vbDecimal = 14
 Const vbByte = 17
 Const vbArray = 8192
+''' End Enum ' VbVarType
 
 Const Nothing = Nothing
 Const Empty = Empty ' The Empty keyword is used to indicate an uninitialized variable value. This is not the same thing as Null. You can use the IsEmpty Function to determine whether a variable is initialized.
@@ -643,13 +645,18 @@ Const Null = Null
 
 Const False = False ' Boolean
 Const True = True
+
+''' Enum VbTriState
 Const vbUseDefault = -2
 Const vbTrue = -1
 Const vbFalse = 0
+''' End Enum
 
+''' Enum VbCompareMethod
 Const vbBinaryCompare = 0 ' Perform a binary comparison
 Const vbTextCompare = 1 ' Perform a textual comparison
 Const vbDatabaseCompare = 2 ' Only in Access
+''' End Enum
 
 Const vbCr = Chr(13)
 Const vbCrLf = Chr(13) & Chr(10)
@@ -661,19 +668,24 @@ Const vbNullString = Empty
 Const vbTab = Chr(9)
 Const vbVerticalTab = Chr(11)
 
+''' Enum VbDateTimeFormat
 Const vbGeneralDate = 0
 Const vbLongDate = 1 ' Display a date using the long date format specified in your computer's regional settings.
 Const vbShortDate = 2 ' Display a date using the short date format specified in your computer's regional settings.
 Const vbLongTime = 3 ' Display a time using the time format specified in your computer's regional settings.
 Const vbShortTime = 4
+''' End Enum
 
+''' Enum VbFirstWeekOfYear
 Const vbUseSystemDayOfWeek = 0
 Const vbFirstJan1 = 1
 Const vbFirstFourDays = 2
 Const vbFirstFullWeek = 3
+''' End Enum
 
-Const vbObjectError = &h80040000
+Const vbObjectError = &h80040000 ' User-defined error numbers should be greater than this value.
 
+''' Enum VbDayOfWeek
 Const vbMonday = 2
 Const vbTuesday = 3
 Const vbWednesday = 4
@@ -682,7 +694,9 @@ Const vbFriday = 6
 Const vbSaturday = 7
 Const vbSunday = 1
 Const vbUseSystem = 0
+''' End Enum
 
+''' Enum VbMsgBoxStyle
 Const vbOKOnly = 0 ' Display OK button only.
 Const vbOKCancel = 1 ' Display OK and Cancel buttons
 Const vbAbortRetryIgnore = 2
@@ -703,7 +717,9 @@ Const vbMsgBoxHelpButton    = &h04000
 Const VbMsgBoxSetForeground = &h010000
 Const vbMsgBoxRight         = &h080000
 Const vbMsgBoxRtlReading    = &h100000
+''' End Enum
 
+''' Enum VbMsgBoxResult
 Const vbOK = 1
 Const vbCancel = 2
 Const vbAbort = 3
@@ -711,8 +727,9 @@ Const vbRetry = 4 ' Retry button was clicked
 Const vbIgnore = 5
 Const vbYes = 6
 Const vbNo = 7
+''' End Enum
 
-''' Enum Color
+''' Enum ColorConstants
 Const vbBlack   = &h000000
 Const vbBlue    = &hFF0000
 Const vbCyan    = &hFFFF00
@@ -721,7 +738,7 @@ Const vbMagenta = &hFF00FF
 Const vbRed     = &h0000FF
 Const vbWhite   = &hFFFFFF
 Const vbYellow  = &h00FFFF
-''' End Enum ' Color
+''' End Enum ' ColorConstants
 
 
 ' Const SystemFolder = 1

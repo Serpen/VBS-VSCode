@@ -153,7 +153,7 @@
 		"prefix": "Do",
 		"body": [
 			"Do",
-				"$0",
+				"\t$0",
 			"Loop Until ${1:Statement}"
 		],
 		"description": "Do Loop Until"
@@ -162,7 +162,7 @@
 		"prefix": "Do",
 		"body": [
 			"Do",
-				"$0",
+				"\t$0",
 			"Loop While ${1:Statement}"
 		],
 		"description": "Do Loop While"
@@ -171,7 +171,7 @@
 		"prefix": "Do",
 		"body": [
 			"Do Until ${1:Statement}",
-				"$0",
+				"\t$0",
 			"Loop"
 		],
 		"description": "Do Until Loop"
@@ -180,7 +180,7 @@
 		"prefix": "Do",
 		"body": [
 			"Do While ${1:Statement}",
-				"$0",
+				"\t$0",
 			"Loop"
 		],
 		"description": "Do While Loop"
@@ -189,18 +189,26 @@
 		"prefix": "With",
 		"body": [
 			"With ${1:Object}",
-				"$0",
+				"\t$0",
 			"End With ' ${1:Object}"
 		],
 		"description": "With Block"
 	},
-	"error ": {
+	"errorhandler": {
 		"prefix": "Error Handler",
 		"body": [
 			"On Error Resume Next",
-				"$0",
+				"\t$0",
 			"On Error Goto 0"
 		],
 		"description": "Error Handler"
+	},
+	"Comment-Based-Help": {
+		"prefix": "'''",
+		"body": [
+			"''' <summary>$1</summary>",
+			"''' <param name=\"$2\">$3</param>"
+		],
+		"description": "Comment-Based-Help"
 	}
 }

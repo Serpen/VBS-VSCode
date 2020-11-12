@@ -26,7 +26,7 @@ function getVariableCompletions(text: string, scope: string): CompletionItem[] {
 
         if (new RegExp(PATTERNS.COLOR, "i").test(name)) {
           ci.kind = CompletionItemKind.Color;
-          ci.filterText = `Color.${name}`;
+          ci.filterText = `ColorConstants.${name}`;
           ci.insertText = name;
         }
 
@@ -59,7 +59,7 @@ function getFunctionCompletions(text: string, scope: string, parseParams = false
       }
 
       // currently only parse in local document, but for all functions, since there is no context
-      if (parseParams)
+      if (parseParams && matches[6])
         for (const param of matches[6].split(",")) {
           const paramCI = new CompletionItem(param.trim(), CompletionItemKind.Variable);
           if (matches[1]) {
