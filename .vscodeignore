@@ -3,7 +3,6 @@ tests/**
 .gitignore
 src/
 dist/test/
-node_modules
 .eslintrc.json
 .prettierrc.json
 .cache

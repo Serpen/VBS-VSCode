@@ -7,7 +7,7 @@
 - Show color Information inline
 - Config for user definied include function, to provider completion
 - Provide Localization for English and German
-- Extension needs VSCode >= 1.42
+- Extension needs VSCode ^1.43.0
 
 ### Bugfixes
 - Code tidy with more eslint
