@@ -532,6 +532,54 @@ Class WScript
 
 End Class
 
+Class Shell
+
+	Function AppActivate(App, Wait) ' As Boolean
+	End Function
+
+	Function CreateShortcut(PathLink)
+	End Function
+	
+	Function Exec(Command)
+	End Function
+	
+	Function ExpandEnvironmentStrings(Src) ' As String
+	End Function
+	
+	Function LogEvent(Type, Message, Target) ' As Boolean
+	End Function
+	
+	Function Popup(Text, SecondsToWait, Title, Type) ' As Integer
+	End Function
+	
+	Sub RegDelete(Name)
+	End Sub
+	
+	Function RegRead(Name)
+	End Function
+	
+	Sub RegWrite(Name, Value, Type)
+	End Sub
+	
+	Function Run(Command, WindowStyle, WaitOnReturn) ' As Integer
+	End Function
+	
+	Sub SendKeys(Keys, Wait)
+	End Sub
+
+	Public Default Property Get Environment(Type)
+	End Property
+
+	Property Get CurrentDirectory
+	End Property
+	
+	Property Let CurrentDirectory
+	End Property
+
+	Property Get SpecialFolders
+	End Property
+
+End Class
 
 Private Class Picture
 

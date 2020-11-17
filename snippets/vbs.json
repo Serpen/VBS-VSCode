@@ -42,6 +42,13 @@
 		"description": "Execute WMI Query"
 	},
 
+	"Wscript.Echo": {
+		"prefix": "Echo",
+		"body": [
+			"WScript.Echo $0"
+		]
+	},
+
 	"new function": {
 		"prefix": "Function",
 		"body": [
@@ -182,6 +189,15 @@
 			"Do While ${1:Statement}",
 				"\t$0",
 			"Loop"
+		],
+		"description": "Do While Loop"
+	},
+	"while": {
+		"prefix": "While",
+		"body": [
+			"While ${1:Statement}",
+				"\t$0",
+			"Wend"
 		],
 		"description": "Do While Loop"
 	},
