@@ -140,6 +140,23 @@ function getCompletions(text: string, scope: string, parseParams = false) {
   ];
 }
 
+function getObjectMembersCode(line: string, code: string, toAddObj : CompletionItem[]): boolean {
+  const matches = { "Err": "Err", "WScript": "WScript", "Debug": "Debug", "fso": "FileSystemObject" };
+  for (const cls of ["Err", "WScript", "Debug", "fso"]) {
+    const lineClsReg = new RegExp(`.*\\b${cls}\\.\\w*`, "i");
+    const codeClsReg = new RegExp(`Class[\t ]+${matches[cls]}.+?End[\t ]+Class`, "is");
+
+    if (lineClsReg.test(line)) {
+      const classDef = codeClsReg.exec(code);
+      toAddObj.push(...getFunctionCompletions(classDef[0], cls), ...getPropertyCompletions(classDef[0], cls));
+
+      return true;
+    }
+  }
+
+  return false;
+}
+
 function provideCompletionItems(doc: TextDocument, position: Position): CompletionItem[] {
   const codeAtPosition = doc.lineAt(position).text.substring(0, position.character);
 
@@ -148,7 +165,7 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
   if (line.text.charAt(line.firstNonWhitespaceCharacterIndex) === "'")
     return [];
 
-  // no Completion during writing a definition
+  // no Completion during writing a definition, still buggy
   if (PATTERNS.VAR_COMPLS.test(codeAtPosition))
     return [];
 
@@ -168,16 +185,8 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
 
   // if dot is typed than show only members
   if ((/.*\.\w*$/).test(codeAtPosition)) {
-    if ((/.*\bErr\.\w*$/i).test(codeAtPosition)) {
-      const Obj = (/Class[\t ]+Err.+?End[\t ]+Class/is).exec(ObjectSourceImport.Content);
-      retCI.push(...getFunctionCompletions(Obj[0], "Err"), ...getPropertyCompletions(Obj[0], "Err"));
-    } else if ((/.*\bWScript\.\w*$/i).test(codeAtPosition)) {
-      const Obj = (/Class[\t ]+WScript.+?End[\t ]+Class/is).exec(ObjectSourceImport.Content);
-      retCI.push(...getFunctionCompletions(Obj[0], "WScript"), ...getPropertyCompletions(Obj[0], "WScript"));
-    } else if ((/\b\w*fso\.\w*$/i).test(codeAtPosition)) { // dirty!
-      const Obj = (/Class[\t ]+FileSystemObject.+?End[\t ]+Class/is).exec(ObjectSourceImport.Content);
-      retCI.push(...getFunctionCompletions(Obj[0], "FSO"), ...getPropertyCompletions(Obj[0], "FSO"));
-    } else {
+    // eslint-disable-next-line no-empty
+    if (getObjectMembersCode(codeAtPosition, ObjectSourceImport.Content, retCI)) {} else {
       retCI.push(...getCompletions(text, "Local"));
 
       retCI.push(
@@ -199,23 +208,9 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
     for (const item of localIncludes)
       if (item[0].startsWith("Import") || item[0] === "Global")
         retCI.push(...getCompletions(item[1].Content, item[0]));
-
   }
 
   return retCI;
-}
-
-function getObjectMembersCode(line: string, code: string) {
-  for (const cls of ["Err", "WScript", "Debug", "FileSystemObject"]) {
-    const lineClsReg = new RegExp(`.*\\b${cls}\\.\\w*`, "i");
-    const codeClsReg = new RegExp(`Class[\t ]+${cls}.+?End[\t ]+Class`, "is");
-
-    if (lineClsReg.test(line)) {
-      const classDef = codeClsReg.exec(code);
-
-      return [...getFunctionCompletions(classDef[0], cls), ...getPropertyCompletions(classDef[0], cls)];
-    }
-  }
 }
 
 export default languages.registerCompletionItemProvider(
