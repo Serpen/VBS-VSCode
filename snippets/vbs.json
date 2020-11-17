@@ -35,7 +35,7 @@
 	},
 
 	"wmiquery": {
-		"prefix": "wmi query",
+		"prefix": "wmiquery",
 		"body": [
 			"Set ${1:WmiQuery} = GetObject(\"winmgmts:\").ExecQuery(\"SELECT * FROM ${2:Win32_Class}\")"
 		],
@@ -62,7 +62,7 @@
 	},
 
 	"public property": {
-		"prefix": "Property",
+		"prefix": "PropertyPublic",
 		"body": [
 			"Public Property Get ${1:PropertyName}",
 				"\tSet ${1:PropertyName} = m_${1:PropertyName}",
@@ -74,7 +74,7 @@
 		"description": "Public Property..."
 	},
 	"private property": {
-		"prefix": "Property",
+		"prefix": "PropertyPrivate",
 		"body": [
 			"Private Property Get ${1:PropertyName}",
 				"\tSet ${1:PropertyName} = m_${1:PropertyName}",
@@ -97,7 +97,7 @@
 	},
 
 	"if Else statement": {
-		"prefix": "If Else",
+		"prefix": "IfElse",
 		"body": [
 			"If ${1:True} Then",
 				"\t$0",
@@ -118,7 +118,7 @@
 	},
 
 	"select case": {
-		"prefix": "Select Case",
+		"prefix": "SelectCase",
 		"body": [
 			"Select Case ${1:Statement}",
 				"\tCase ${0}",
@@ -140,7 +140,7 @@
 		"description": "For... Next"
 	},
 	"for each": {
-		"prefix": "For Each",
+		"prefix": "ForEach",
 		"body": [
 			"For Each ${1:Element} In ${2:ElementList}",
 				"\t$0",
@@ -150,7 +150,7 @@
 	},
 
 	"do loop until": {
-		"prefix": "Do",
+		"prefix": "DoLoopUntil",
 		"body": [
 			"Do",
 				"\t$0",
@@ -159,7 +159,7 @@
 		"description": "Do Loop Until"
 	},
 	"do loop while": {
-		"prefix": "Do",
+		"prefix": "DoLoopWhile",
 		"body": [
 			"Do",
 				"\t$0",
@@ -168,7 +168,7 @@
 		"description": "Do Loop While"
 	},
 	"do until loop": {
-		"prefix": "Do",
+		"prefix": "DoUntil",
 		"body": [
 			"Do Until ${1:Statement}",
 				"\t$0",
@@ -177,7 +177,7 @@
 		"description": "Do Until Loop"
 	},
 	"do while loop": {
-		"prefix": "Do",
+		"prefix": "DoWhile",
 		"body": [
 			"Do While ${1:Statement}",
 				"\t$0",
@@ -195,7 +195,7 @@
 		"description": "With Block"
 	},
 	"errorhandler": {
-		"prefix": "Error Handler",
+		"prefix": "ErrorHandler",
 		"body": [
 			"On Error Resume Next",
 				"\t$0",
