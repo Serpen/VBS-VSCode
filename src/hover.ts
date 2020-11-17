@@ -75,6 +75,8 @@ function provideHover(doc: TextDocument, position: Position): Hover {
 
   if (hoverresults.length > 0)
     return hoverresults[0];
+  else
+    return null;
 }
 
 export default languages.registerHoverProvider(

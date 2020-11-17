@@ -3,6 +3,7 @@ import * as PATTERNS from "./patterns";
 
 class VBSColorProvider implements vscode.DocumentColorProvider {
 
+  // eslint-disable-next-line no-magic-numbers
   private readonly MAX_COLOR = 0xff;
 
   public provideDocumentColors(doc: vscode.TextDocument): vscode.ColorInformation[] {

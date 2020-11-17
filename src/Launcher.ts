@@ -39,7 +39,7 @@ export class VbsDebugSession extends LoggingDebugSession {
     const configuration = vscode.workspace.getConfiguration("vbs");
     const scriptInterpreter: string = configuration.get<string>("interpreter");
 
-    this._runner = spawn(scriptInterpreter, [args.program], {"cwd": workDir});
+    this._runner = spawn(scriptInterpreter, [args.program], { "cwd": workDir });
 
     this._runner.stdout.on("data", data => {
       this.sendEvent(new OutputEvent(`${data.toString()}`));
@@ -47,7 +47,7 @@ export class VbsDebugSession extends LoggingDebugSession {
 
     this._runner.stderr.on("data", data => {
       const output = data.toString();
-      const match = (/.*\((\d+), (\d+)\) (.*)/.exec(output));
+      const match = (/.*\((\d+), (\d+)\) (.*)/).exec(output);
       if (match) {
         const line = Number.parseInt(match[1]) - 1;
         const char = Number.parseInt(match[2]) - 1;
@@ -63,7 +63,7 @@ export class VbsDebugSession extends LoggingDebugSession {
     });
   }
 
-  protected terminateRequest(response: DebugProtocol.TerminateResponse, args: DebugProtocol.TerminateArguments, req?: DebugProtocol.Request): void {
+  protected terminateRequest(response: DebugProtocol.TerminateResponse, _args: DebugProtocol.TerminateArguments, _req?: DebugProtocol.Request): void {
     this._runner?.kill();
     this.sendEvent(new TerminatedEvent());
     this.sendResponse(response);
@@ -71,12 +71,12 @@ export class VbsDebugSession extends LoggingDebugSession {
 }
 
 
-export class debugConfigurationProvider implements vscode.DebugConfigurationProvider {
-  
+export class DebugConfigurationProvider implements vscode.DebugConfigurationProvider {
 
-  
+
+
   public resolveDebugConfiguration(_folder: vscode.WorkspaceFolder | undefined, config: vscode.DebugConfiguration)
-    : vscode.ProviderResult<vscode.DebugConfiguration> {
+  : vscode.ProviderResult<vscode.DebugConfiguration> {
 
     const editor = vscode.window.activeTextEditor;
     if (!config || !config.request) {
@@ -105,8 +105,8 @@ export class InlineDebugAdapterFactory implements vscode.DebugAdapterDescriptorF
   }
 }
 
-const launchConfigProvider = vscode.debug.registerDebugConfigurationProvider("vbs", new debugConfigurationProvider());
+const launchConfigProvider = vscode.debug.registerDebugConfigurationProvider("vbs", new DebugConfigurationProvider());
 const inlineDebugAdapterFactory = vscode.debug.registerDebugAdapterDescriptorFactory("vbs", new InlineDebugAdapterFactory());
 
-export default {launchConfigProvider, inlineDebugAdapterFactory};
+export default { launchConfigProvider, inlineDebugAdapterFactory };
 

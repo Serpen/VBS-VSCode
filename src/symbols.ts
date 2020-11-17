@@ -1,3 +1,5 @@
+/* eslint-disable complexity */
+/* eslint-disable max-statements */
 import { languages, SymbolKind, DocumentSymbol, Range, workspace, TextDocument } from "vscode";
 import * as PATTERNS from "./patterns";
 
@@ -14,7 +16,6 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
   const varList: string[] = [];
 
   const Blocks: DocumentSymbol[] = [];
-  const BlockEnds: string[] = [];
 
   for (let lineNum = 0; lineNum < doc.lineCount; lineNum++) {
     const line = doc.lineAt(lineNum);
@@ -33,7 +34,6 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
       if ((matches = CLASS.exec(lineText)) !== null) {
         name = matches[3];
         symbol = new DocumentSymbol(name, "", SymbolKind.Class, line.range, line.range);
-        BlockEnds.push("class");
 
       } else if ((matches = FUNCTION.exec(lineText)) !== null) {
         name = matches[4];
@@ -42,14 +42,11 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
         if (matches[3].toLowerCase() === "sub")
           if ((/class_(initialize|terminate)/i).test(name)) {
             symKind = SymbolKind.Constructor;
-            BlockEnds.push("sub");
           } else {
             detail = "Sub";
-            BlockEnds.push(detail.toLowerCase());
           }
         else {
           detail = "Function";
-          BlockEnds.push(detail.toLowerCase());
         }
 
         // if params are shown extra, def line shouldn't contain it too
@@ -70,7 +67,6 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
         symbol = new DocumentSymbol(name, matches[3], SymbolKind.Property, line.range, line.range);
         if ((/Default[\t ]*Property[\t ]*Get/i).test(matches[2]))
           symbol.detail = "Default Get";
-        BlockEnds.push("property");
 
       } else if (showVariableSymbols) {
         while ((matches = PATTERNS.VAR.exec(lineText)) !== null) {
@@ -106,15 +102,7 @@ function provideDocumentSymbols(doc: TextDocument): DocumentSymbol[] {
       }
 
       if ((matches = PATTERNS.ENDLINE.exec(lineText)) !== null)
-        if (BlockEnds[BlockEnds.length - 1] === matches[1].toLowerCase()) {
-          Blocks.pop();
-          BlockEnds.pop();
-        } else {
-          Blocks.pop();
-          console.log(`symbol wrong ending (awaiting closing for ${
-            BlockEnds.pop()?.toString() } got ${ matches[1].toLowerCase() }) in ${
-            doc.uri } ${ line.lineNumber}`);
-        }
+        Blocks.pop();
     }
   } // next linenum
 
