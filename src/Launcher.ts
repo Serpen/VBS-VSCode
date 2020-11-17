@@ -42,7 +42,7 @@ export class VbsDebugSession extends LoggingDebugSession {
     this._runner = spawn(scriptInterpreter, [args.program], { "cwd": workDir });
 
     this._runner.stdout.on("data", data => {
-      this.sendEvent(new OutputEvent(`${data.toString()}`));
+      this.sendEvent(new OutputEvent(data.toString(), "stdout"));
     });
 
     this._runner.stderr.on("data", data => {
@@ -54,7 +54,7 @@ export class VbsDebugSession extends LoggingDebugSession {
         const diag = new vscode.Diagnostic(new vscode.Range(line, char, line, char), match[3], vscode.DiagnosticSeverity.Error);
         diagCollection.set(vscode.Uri.file(args.program), [diag]);
       }
-      this.sendEvent(new OutputEvent(`${data}`));
+      this.sendEvent(new OutputEvent(output, "stderr"));
     });
 
     this._runner.on("exit", code => {
