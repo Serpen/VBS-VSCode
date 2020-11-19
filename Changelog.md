@@ -13,6 +13,7 @@
 - Code tidy with more eslint
 - Show octal and hex numbers, date in syntax
 - Multi Variable Syntax coloring
+- Better If Snippet Completion
 
 ### Known Issues
 - Most parts of the extension aren't context sensitiv #18

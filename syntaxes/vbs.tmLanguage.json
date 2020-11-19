@@ -86,7 +86,7 @@
 			"name": "storage.type.end.vbs"
 		},
 		{
-			"match": "(?i:\\s*\\b(Redim|Redim Preserve|With|End With|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo)\\b\\s*)",
+			"match": "(?i:\\s*\\b(Redim|Redim Preserve|With|End With|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo|Stop)\\b\\s*)",
 			"name": "keyword.control.vbs"
 		},
 		{
