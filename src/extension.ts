@@ -6,7 +6,6 @@ import signatureProvider from "./signature";
 import definitionProvider from "./definition";
 import colorProvider from "./colorprovider";
 import launchProvider from "./Launcher";
-import formatter from "./formatter";
 import * as cmds from "./commands";
 import { IncludeFile, Includes } from "./Includes";
 import { basename } from "path";
@@ -36,7 +35,6 @@ export function activate(context: ExtensionContext): void {
     signatureProvider,
     definitionProvider,
     colorProvider,
-    formatter,
     launchProvider.launchConfigProvider,
     launchProvider.inlineDebugAdapterFactory
   );
