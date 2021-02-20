@@ -79,7 +79,7 @@
 					"name": "punctuation.definition.parameters.end.vbs"
 				}
 			},
-			"match": "(?i:(Private|Public)[\\t ]+)?(?i:(Class|Function|Sub|(?:Default\\s+)?Property [GLS]et))[\\t ]+([a-zA-Z]\\w*)[\\t ]*(?:(\\()([^)]*)(\\)))?"
+			"match": "(?i:(Private|Public)[\\t ]+)?(?i:(Class|Function|Sub|(?:Default\\s+)?Property [GLS]et))[\\t ]+(\\[?[a-zA-Z]\\w*\\]?)[\\t ]*(?:(\\()([^)]*)(\\)))?"
 		},
 		{
 			"match": "(?i:End[\\t ]+(Sub|Function|Class|Property))",
@@ -111,7 +111,7 @@
 					"name": "variable.other.dim.vbs"
 				}
 			},
-			"match": "\\b(?i:((?:public|private)\\s+const|public|private|dim|const)\\s+\\b([a-zA-Z]\\w*\\b(?:\\s*,\\s*\\b[a-zA-Z]\\w*\\b)*))"
+			"match": "\\b(?i:((?:public|private)\\s+const|public|private|dim|const)\\s+\\b(\\[?[a-zA-Z]\\w*\\]?\\b(?:\\s*,\\s*\\b\\[?[a-zA-Z]\\w*\\]?\\b)*))"
 		},
 		{
 			"match": "(?i:\\s*\\b(Empty|False|Nothing|Null|True)\\b)",
@@ -147,7 +147,7 @@
 			"name": "support.type.vbs"
 		},
 		{
-			"match": "\\b[a-zA-Z]\\w+\\s*\\(",
+			"match": "\\b\\[?[a-zA-Z]\\w*\\]?\\s*\\(",
 			"name": "entity.name.function.vbs"
 		},
 		{
@@ -167,11 +167,11 @@
 			"name": "constant.numeric.oct.vbs"
 		},
 		{
-			"match": "\\b[a-zA-Z]\\w*(?=\\.)",
+			"match": "\\b\\[?[a-zA-Z]\\w*\\]?(?=\\.)",
 			"name": "variable.other.object.vbs"
 		},
 		{
-			"match": "(?<=\\.)[a-zA-Z]\\w*\\b",
+			"match": "(?<=\\.)\\[?[a-zA-Z]\\w*\\]?\\b",
 			"name": "variable.other.member.vbs"
 		}
 	]
