@@ -2,7 +2,7 @@
   "name": "vbsvscode",
   "displayName": "VBS",
   "description": "VBScript Language Support",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "publisher": "Serpen",
   "icon": "assets/logo.png",
   "galleryBanner": {
@@ -10,7 +10,7 @@
     "theme": "light"
   },
   "engines": {
-    "vscode": "^1.43.0"
+    "vscode": "^1.47.0"
   },
   "categories": [
     "Programming Languages",
@@ -134,8 +134,13 @@
         },
         "vbs.custumIncludePattern": {
           "type": "string",
+          "description": "%vbs.config.customIncludePattern.description%",
+          "deprecationMessage": "use customIncludePattern"
+        },
+        "vbs.customIncludePattern": {
+          "type": "string",
           "default": "\\binclude\\b[\\t ]*\\(?[\\t ]*\"([^\"]+)\"[\\t ]*\\)?",
-          "description": "%vbs.config.custumIncludePattern.description%"
+          "description": "%vbs.config.customIncludePattern.description%"
         },
         "vbs.customIncludeDirs": {
           "type": "array",
@@ -144,7 +149,7 @@
             "type": "string"
           },
           "default": [
-            "."
+            ".", "${workspaceFolder}"
           ],
           "description": "%vbs.config.customIncludeDirs.description%"
         }
@@ -152,17 +157,17 @@
     }
   },
   "devDependencies": {
-    "@types/chai": "^4.2.14",
-    "@types/mocha": "^8.2.0",
-    "@types/node": "^14.14.25",
+    "@types/chai": "^4.2.17",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^14.14.43",
     "@types/vscode": "~1.43.0",
-    "@typescript-eslint/eslint-plugin": "^4.14.2",
-    "@typescript-eslint/parser": "^4.14.2",
-    "eslint": "^7.19.0",
-    "mocha": "^8.2.1",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.25.0",
+    "mocha": "^8.3.2",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.3",
-    "vscode-test": "^1.5.0"
+    "typescript": "^4.2.4",
+    "vscode-test": "^1.5.2"
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -174,6 +179,6 @@
     "publish": "vsce publish"
   },
   "dependencies": {
-    "vscode-debugadapter": "^1.44.0"
+    "vscode-debugadapter": "^1.47.0"
   }
 }

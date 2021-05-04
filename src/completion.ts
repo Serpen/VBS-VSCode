@@ -195,7 +195,7 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
       );
 
       for (const imp of localIncludes)
-        if (imp[0].startsWith("Import"))
+        if (imp[0].startsWith("Include"))
           retCI.push(...getCompletions(imp[1].Content, imp[0]));
 
     }
@@ -206,7 +206,7 @@ function provideCompletionItems(doc: TextDocument, position: Position): Completi
     retCI.push(...getClassCompletions(ObjectSourceImport.Content, ObjectSourceImportName));
 
     for (const item of localIncludes)
-      if (item[0].startsWith("Import") || item[0] === "Global")
+      if (item[0].startsWith("Include") || item[0] === "Global")
         retCI.push(...getCompletions(item[1].Content, item[0]));
   }
 

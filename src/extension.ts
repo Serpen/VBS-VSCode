@@ -7,19 +7,7 @@ import definitionProvider from "./definition";
 import colorProvider from "./colorprovider";
 import launchProvider from "./Launcher";
 import * as cmds from "./commands";
-import { IncludeFile, Includes } from "./Includes";
-import { basename } from "path";
-
-function reloadImportDocuments() {
-  const SourceImportFiles = workspace.getConfiguration("vbs").get<string[]>("includes");
-  for (const key of Includes.keys()) {
-    if (key.startsWith("Import"))
-      Includes.delete(key);
-  }
-  SourceImportFiles?.forEach((file) => {
-    Includes.set(`Import ${basename(file)}`, new IncludeFile(file));
-  });
-}
+import { IncludeFile, Includes, reloadImportDocuments } from "./Includes";
 
 export function activate(context: ExtensionContext): void {
   Includes.set("Global", new IncludeFile(context.asAbsolutePath("./GlobalDefs.vbs")));

@@ -1,5 +1,18 @@
 # VBS-VSCode Changelog
 
+## 1.2.1
+
+### Bugfixes
+- customIncludeDirs now support ., .. and ${workspaceFolder} correctly #52
+- Support VSCode >= 1.47.0
+- patched (irrelevant) Depandapot security warning for y18n
+
+
+### Known Issues
+- Most parts of the extension aren't context sensitiv #18
+  A definition/hover etc. only matches the correct name, the scope is ignored
+
+
 ## 1.2.0
 ### Features
 - Use VSCodes launch config, instead of command for running scripts, see #48 for more info
