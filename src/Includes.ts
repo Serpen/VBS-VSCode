@@ -51,7 +51,7 @@ export function getImportsWithLocal(doc : TextDocument) : [string, IncludeFile][
 
   let match : RegExpExecArray;
   while ((match = customIncludePattern.exec(doc.getText())) !== null) {
-    if (processedMatches.indexOf(match[1].toLowerCase())) {
+    if (processedMatches.indexOf(match[1].toLowerCase()) === -1) {
       for (const incDir of customIncludeDirs) {
         let incDirResolved = incDir;
         if (incDirResolved === ".")
