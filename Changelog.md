@@ -7,6 +7,7 @@
 - default customIncludeDirs is now . and ${workspaceFolder}
 - custumIncludePattern config (wrong spelling) deprecated, use customIncludePattern
 - multiple same include statements, won't show included completion multiple times
+- show parameters in outline config
 - Support VSCode >= 1.47.0
 - patched (irrelevant) Depandapot security warning for y18n
 

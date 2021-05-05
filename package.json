@@ -132,6 +132,11 @@
           "default": true,
           "description": "%vbs.config.showVariableSymbols.description%"
         },
+        "vbs.showParamSymbols": {
+          "type": "boolean",
+          "default": false,
+          "description": "%vbs.config.showParamSymbols.description%"
+        },
         "vbs.custumIncludePattern": {
           "type": "string",
           "description": "%vbs.config.customIncludePattern.description%",

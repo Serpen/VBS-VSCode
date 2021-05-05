@@ -4,7 +4,7 @@
   "vbs.config.interpreter.description": "Pfad zum Skriptinterpreter",
   "vbs.config.includes.description": "zusätzliche Quelldateien zum Includen für Vervollständigung",
   "vbs.config.showVariableSymbols.description": "Variablen in Gliederung anzeigen",
-  "vbs.config.showParamSymbols.description": "Parameter in Gleiderung anzeigen",
+  "vbs.config.showParamSymbols.description": "Parameter in Gliederung anzeigen",
   "vbs.config.customIncludePattern.description": "Benutzerdefinierter Regulärer Ausdruck für eigene Include Funktion",
   "vbs.config.customIncludeDirs.description": "Suchpfade für die benutzerdefinierte Include Function",
   "vbs.msg.runningscript": "Führe Skript aus...'",
